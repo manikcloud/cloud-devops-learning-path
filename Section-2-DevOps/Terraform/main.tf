@@ -1,8 +1,7 @@
-# Terraform Configuration for EC2 + Nginx Website Deployment
-# This recreates the same infrastructure from Section 1 using Infrastructure as Code
+# Simple EC2 Website Deployment with Terraform
+# This creates an EC2 instance with Nginx and a custom website
 
 terraform {
-  required_version = ">= 1.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -11,21 +10,12 @@ terraform {
   }
 }
 
-# Configure the AWS Provider
+# Configure AWS Provider
 provider "aws" {
-  region = var.aws_region
-
-  default_tags {
-    tags = {
-      Project     = "CloudDevOpsTraining"
-      Environment = var.environment
-      ManagedBy   = "Terraform"
-      Owner       = "VarunKumar"
-    }
-  }
+  region = "us-east-1"
 }
 
-# Data source to get the latest Amazon Linux 2 AMI
+# Get the latest Amazon Linux 2 AMI
 data "aws_ami" "amazon_linux" {
   most_recent = true
   owners      = ["amazon"]
@@ -34,107 +24,37 @@ data "aws_ami" "amazon_linux" {
     name   = "name"
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
 }
 
-# Data source to get available availability zones
-data "aws_availability_zones" "available" {
-  state = "available"
+# Get default VPC
+data "aws_vpc" "default" {
+  default = true
 }
 
-# Create a VPC (Virtual Private Cloud)
-resource "aws_vpc" "main" {
-  cidr_block           = var.vpc_cidr
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+# Create Security Group for web access
+resource "aws_security_group" "web_sg" {
+  name        = "terraform-web-sg"
+  description = "Security group for web server"
+  vpc_id      = data.aws_vpc.default.id
 
-  tags = {
-    Name = "${var.project_name}-vpc"
-  }
-}
-
-# Create an Internet Gateway
-resource "aws_internet_gateway" "main" {
-  vpc_id = aws_vpc.main.id
-
-  tags = {
-    Name = "${var.project_name}-igw"
-  }
-}
-
-# Create a public subnet
-resource "aws_subnet" "public" {
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidr
-  availability_zone       = data.aws_availability_zones.available.names[0]
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "${var.project_name}-public-subnet"
-    Type = "Public"
-  }
-}
-
-# Create a route table for public subnet
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.main.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.main.id
-  }
-
-  tags = {
-    Name = "${var.project_name}-public-rt"
-  }
-}
-
-# Associate the route table with public subnet
-resource "aws_route_table_association" "public" {
-  subnet_id      = aws_subnet.public.id
-  route_table_id = aws_route_table.public.id
-}
-
-# Create Security Group for Web Server
-resource "aws_security_group" "web_server" {
-  name_prefix = "${var.project_name}-web-sg"
-  vpc_id      = aws_vpc.main.id
-  description = "Security group for web server allowing HTTP, HTTPS, and SSH"
-
-  # SSH access
+  # Allow SSH
   ingress {
-    description = "SSH"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.allowed_ssh_cidr
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # HTTP access
+  # Allow HTTP
   ingress {
-    description = "HTTP"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # HTTPS access
-  ingress {
-    description = "HTTPS"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # All outbound traffic
+  # Allow all outbound traffic
   egress {
-    description = "All outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -142,81 +62,152 @@ resource "aws_security_group" "web_server" {
   }
 
   tags = {
-    Name = "${var.project_name}-web-sg"
-  }
-}
-
-# Create Key Pair (if key name is provided)
-resource "aws_key_pair" "web_server" {
-  count      = var.create_key_pair ? 1 : 0
-  key_name   = "${var.project_name}-keypair"
-  public_key = var.public_key
-
-  tags = {
-    Name = "${var.project_name}-keypair"
+    Name = "terraform-web-sg"
   }
 }
 
 # Create EC2 Instance
 resource "aws_instance" "web_server" {
   ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = var.instance_type
-  key_name               = var.create_key_pair ? aws_key_pair.web_server[0].key_name : var.existing_key_name
-  vpc_security_group_ids = [aws_security_group.web_server.id]
-  subnet_id              = aws_subnet.public.id
-  user_data              = file("${path.module}/user-data.sh")
-
-  # Root volume configuration
-  root_block_device {
-    volume_type           = "gp3"
-    volume_size           = var.root_volume_size
-    delete_on_termination = true
-    encrypted             = true
-
-    tags = {
-      Name = "${var.project_name}-root-volume"
-    }
-  }
-
-  # Instance metadata options (security best practice)
-  metadata_options {
-    http_endpoint = "enabled"
-    http_tokens   = "required"
-    http_put_response_hop_limit = 1
-  }
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.web_sg.id]
+  
+  user_data = <<-EOF
+    #!/bin/bash
+    yum update -y
+    amazon-linux-extras install nginx1 -y
+    systemctl start nginx
+    systemctl enable nginx
+    
+    # Create custom website
+    cat > /var/www/html/index.html << 'HTML'
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Terraform Website - Varun Kumar</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                min-height: 100vh;
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 50px 20px;
+                text-align: center;
+            }
+            .header {
+                margin-bottom: 50px;
+            }
+            .header h1 {
+                font-size: 3em;
+                margin-bottom: 10px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            }
+            .header p {
+                font-size: 1.2em;
+                opacity: 0.9;
+            }
+            .content {
+                background: rgba(255,255,255,0.1);
+                padding: 30px;
+                border-radius: 15px;
+                backdrop-filter: blur(10px);
+                margin-bottom: 30px;
+            }
+            .skills {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                margin-top: 30px;
+            }
+            .skill-card {
+                background: rgba(255,255,255,0.2);
+                padding: 20px;
+                border-radius: 10px;
+                transition: transform 0.3s ease;
+            }
+            .skill-card:hover {
+                transform: translateY(-5px);
+            }
+            .footer {
+                margin-top: 50px;
+                opacity: 0.8;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>🚀 My Terraform Website</h1>
+                <p>Deployed with Infrastructure as Code</p>
+            </div>
+            
+            <div class="content">
+                <h2>About This Deployment</h2>
+                <p>This website is running on Amazon EC2 instance deployed using Terraform. This demonstrates Infrastructure as Code principles and automated cloud deployments.</p>
+                
+                <div class="skills">
+                    <div class="skill-card">
+                        <h3>🏗️ Terraform</h3>
+                        <p>Infrastructure as Code tool</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>☁️ AWS EC2</h3>
+                        <p>Elastic Compute Cloud</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>🌐 Nginx</h3>
+                        <p>High-performance web server</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>🔧 User Data</h3>
+                        <p>Automated configuration</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <h2>Technical Details</h2>
+                <p><strong>Instance Type:</strong> t2.micro (Free Tier)</p>
+                <p><strong>OS:</strong> Amazon Linux 2</p>
+                <p><strong>Web Server:</strong> Nginx</p>
+                <p><strong>Deployment:</strong> Terraform + User Data</p>
+            </div>
+            
+            <div class="footer">
+                <p>🎓 DevOps Training Project</p>
+                <p>Created by <strong>Varun Kumar</strong></p>
+                <p>Powered by Terraform & AWS</p>
+            </div>
+        </div>
+    </body>
+    </html>
+HTML
+    
+    # Set permissions and restart nginx
+    chown nginx:nginx /var/www/html/index.html
+    systemctl restart nginx
+  EOF
 
   tags = {
-    Name = "${var.project_name}-web-server"
-    Type = "WebServer"
+    Name = "terraform-web-server"
   }
-
-  # Wait for instance to be ready before considering it created
-  depends_on = [
-    aws_internet_gateway.main,
-    aws_route_table_association.public
-  ]
 }
 
-# Create Elastic IP for the instance (optional)
-resource "aws_eip" "web_server" {
-  count    = var.create_elastic_ip ? 1 : 0
-  instance = aws_instance.web_server.id
-  domain   = "vpc"
-
-  tags = {
-    Name = "${var.project_name}-eip"
-  }
-
-  depends_on = [aws_internet_gateway.main]
+# Output the public IP and website URL
+output "public_ip" {
+  description = "Public IP address of the web server"
+  value       = aws_instance.web_server.public_ip
 }
 
-# CloudWatch Log Group for monitoring (optional)
-resource "aws_cloudwatch_log_group" "web_server" {
-  count             = var.enable_monitoring ? 1 : 0
-  name              = "/aws/ec2/${var.project_name}"
-  retention_in_days = 7
-
-  tags = {
-    Name = "${var.project_name}-logs"
-  }
+output "website_url" {
+  description = "URL to access the website"
+  value       = "http://${aws_instance.web_server.public_ip}"
 }

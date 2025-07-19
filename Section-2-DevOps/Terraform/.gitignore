@@ -5,26 +5,47 @@
 !terraform.tfvars.example
 .terraform/
 .terraform.lock.hcl
+terraform.tfplan
+terraform.tfplan.*
 crash.log
 crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 
 # AWS specific
 .aws/
 aws-exports.js
+*.pem
+*.key
 
 # IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Backup files
 *.backup
 *.bak
+*.orig
 
 # Log files
 *.log
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
