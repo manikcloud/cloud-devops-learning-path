@@ -1,0 +1,19 @@
+# Example Terraform Variables File
+# Copy this file to terraform.tfvars and customize the values
+
+# AWS Configuration
+aws_region = "us-east-1"
+
+# Project Settings
+project_name = "my-terraform-project"
+environment  = "dev"
+
+# Instance Configuration
+instance_type = "t2.micro"  # Free tier eligible
+
+# Website Customization
+website_title  = "My Terraform Website"
+website_author = "Your Name Here"
+
+# Security (Optional - for advanced users)
+# allowed_ssh_cidr = ["YOUR_IP/32"]  # Replace with your IP for better security

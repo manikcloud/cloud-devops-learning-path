@@ -8,22 +8,34 @@ This training program is designed to take you from cloud fundamentals to advance
 
 ## 📚 Course Structure
 
-### Session 1: Introduction to Cloud & AWS Infrastructure
-- Cloud computing fundamentals
-- AWS Global Infrastructure
-- Core AWS services overview
-- Cloud architecture principles
+### Section 1: Cloud Computing Fundamentals
+**Focus:** Cloud concepts, AWS services, and console-based deployments
+
+#### Session 1: Introduction to Cloud & AWS Infrastructure
+- Cloud computing fundamentals and service models
+- AWS Global Infrastructure deep dive
+- On-premises vs cloud comparison
+- Cloud architect role and career paths
+- **Hands-On:** Deploy live website on EC2 with Nginx (Console)
+
+### Section 2: DevOps & Infrastructure as Code
+**Focus:** Automation, IaC, and DevOps practices
+
+#### Terraform Module: Infrastructure as Code
+- Infrastructure as Code principles
+- Terraform fundamentals and syntax
+- AWS CLI configuration and setup
+- **Hands-On:** Deploy same website using Terraform
+- Version control for infrastructure
 
 ### Upcoming Sessions
-- Session 2: AWS Core Services (EC2, S3, VPC)
-- Session 3: Infrastructure as Code (CloudFormation, Terraform)
-- Session 4: CI/CD Pipelines
-- Session 5: Monitoring & Logging
-- Session 6: Security Best Practices
-- Session 7: Container Technologies (Docker, ECS, EKS)
-- Session 8: Serverless Computing
-- Session 9: Advanced DevOps Tools
-- Session 10: Capstone Project
+- CI/CD Pipelines with GitHub Actions
+- Container Technologies (Docker, ECS)
+- Monitoring and Logging (CloudWatch)
+- Security Best Practices and Automation
+- Advanced Terraform Patterns
+- Serverless Computing
+- Capstone Project
 
 ## 🛠️ Prerequisites
 
@@ -43,13 +55,20 @@ This training program is designed to take you from cloud fundamentals to advance
 ## 🎓 Learning Outcomes
 
 By the end of this course, you will be able to:
+
+### Cloud Fundamentals (Section 1):
 - Design and implement cloud architectures on AWS
-- Automate infrastructure deployment using IaC tools
-- Build and manage CI/CD pipelines
-- Implement monitoring and logging solutions
-- Apply security best practices in cloud environments
+- Navigate AWS Console and manage core services
+- Apply cloud security and cost optimization best practices
+- Understand cloud service models and deployment strategies
+
+### DevOps & Automation (Section 2):
+- Write and manage Infrastructure as Code with Terraform
+- Implement automated deployment pipelines
+- Apply version control to infrastructure configurations
+- Build and manage CI/CD workflows
 - Work with containerized applications
-- Understand serverless computing concepts
+- Implement monitoring and logging solutions
 
 ## 📞 Support & Contact
 
