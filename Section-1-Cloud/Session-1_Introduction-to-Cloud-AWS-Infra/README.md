@@ -141,23 +141,29 @@ AWS operates in multiple geographic regions worldwide, each containing multiple 
 
 ## 🛠️ Hands-On Activities
 
-### Lab 1: AWS Account Setup
-1. Create AWS Free Tier account
-2. Set up billing alerts
-3. Configure MFA for root account
-4. Create IAM user with appropriate permissions
+### Project 1: Live Website Deployment on EC2 with Nginx
+**Location:** [`Project-1/`](./Project-1/)
 
-### Lab 2: AWS Console Exploration
-1. Navigate through AWS Management Console
-2. Explore different service categories
-3. Check service availability by region
-4. Review AWS pricing calculator
+**Overview:** Deploy a professional website on AWS EC2 using Nginx web server with automated User Data script.
 
-### Lab 3: Basic Resource Creation
-1. Launch a simple EC2 instance
-2. Create an S3 bucket
-3. Set up basic monitoring with CloudWatch
-4. Clean up resources to avoid charges
+**What you'll build:**
+- EC2 instance with custom security group
+- Nginx web server with professional website
+- Automated deployment using User Data
+- Status monitoring page
+
+**Key Files:**
+- [`Project-1/README.md`](./Project-1/README.md) - Complete project guide
+- [`Project-1/user-data.sh`](./Project-1/user-data.sh) - Automation script
+- [`Project-1/website-template.html`](./Project-1/website-template.html) - Website template
+- [`Project-1/Quick-Reference/`](./Project-1/Quick-Reference/) - Quick reference guide
+
+**Skills Learned:**
+- AWS Console navigation
+- EC2 instance management
+- Security group configuration
+- User Data automation
+- Basic web server administration
 
 ## 📖 Learning Resources
 
