@@ -1,0 +1,8 @@
+sudo -i
+systemctl start httpd
+systemctl status httpd
+cd /var/www/html/
+pwd
+vim index.html
+: wq
+
