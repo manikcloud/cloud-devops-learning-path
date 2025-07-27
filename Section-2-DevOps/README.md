@@ -19,7 +19,7 @@
 This section focuses on **DevOps practices, Infrastructure as Code (IaC), and automation tools** that bridge the gap between development and operations. You'll master the complete DevOps toolchain through hands-on projects and real-world implementations.
 
 ### Key Focus Areas:
-- **Continuous Integration & Continuous Deployment (CI/CD)**
+- **Continuous Integration & Continuous Delivery/Deployment (CI/CD)**
 - **End-to-end Product Automation**
 - **Configuration Management**
 - **Infrastructure-as-a-Service (IaaS)**
@@ -157,7 +157,7 @@ graph LR
 <details>
 <summary><strong>⚙️ Session 4: Jenkins - CI/CD Fundamentals</strong></summary>
 
-**Duration:** 2 weeks | **Focus:** Continuous Integration & Continuous Deployment automation
+**Duration:** 2 weeks | **Focus:** Continuous Integration & Continuous Delivery/Deployment automation
 
 ### Topics Covered:
 

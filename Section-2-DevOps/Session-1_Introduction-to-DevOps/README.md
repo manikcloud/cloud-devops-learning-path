@@ -305,17 +305,29 @@ Junior DevOps → DevOps Engineer → Senior DevOps → DevOps Architect → VP 
 <td width="50%">
 
 ### 🚀 **Continuous Delivery (CD)**
-**Automated Deployment**
-- 🏗️ Automated deployment pipelines
-- 🌍 Environment consistency
-- ⚡ Rapid feedback loops
-- 🛡️ Reduced deployment risks
+**Ready-to-Deploy Automation**
+- 🏗️ Automated deployment pipelines to staging
+- 🌍 Code always in deployable state
+- ⚡ Manual approval for production release
+- 🛡️ Reduced deployment risks through automation
 
 **Tools:** Spinnaker, ArgoCD, AWS CodeDeploy
 
 </td>
 </tr>
 <tr>
+<td width="50%">
+
+### 🚚 **Continuous Deployment (CD)**
+**Fully Automated Production Release**
+- 🤖 Automated deployment to production
+- 🔄 No manual intervention required
+- ⚡ Every passing change goes live automatically
+- 🛡️ Requires comprehensive automated testing
+
+**Tools:** GitLab CI/CD, GitHub Actions, Jenkins X
+
+</td>
 <td width="50%">
 
 ### 🏗️ **Infrastructure as Code (IaC)**
@@ -347,6 +359,45 @@ Junior DevOps → DevOps Engineer → Senior DevOps → DevOps Architect → VP 
 ```
 Code → Build → Test → Deploy → Monitor → Feedback → Improve
 ```
+
+### 🔄 **Key Distinction: Continuous Delivery vs Continuous Deployment**
+
+<table>
+<tr>
+<th width="50%" align="center">🚀 Continuous Delivery</th>
+<th width="50%" align="center">🚚 Continuous Deployment</th>
+</tr>
+<tr>
+<td>
+
+### **Manual Production Release**
+- ✅ Code is **always ready** to deploy
+- 🎯 **Human approval** required for production
+- 🛡️ **Business decision** when to release
+- 📊 **Lower risk** - controlled releases
+- 🏢 **Enterprise preferred** - compliance needs
+
+**Example:** Netflix, Amazon (for critical services)
+
+</td>
+<td>
+
+### **Automated Production Release**
+- 🤖 Code **automatically deployed** to production
+- ⚡ **No human intervention** in deployment
+- 🔄 **Every passing test** triggers release
+- 🚀 **Higher velocity** - instant releases
+- 💻 **Startup preferred** - rapid iteration
+
+**Example:** Facebook, Google (for web services)
+
+</td>
+</tr>
+</table>
+
+### 💡 **Choosing the Right Approach**
+- **Continuous Delivery:** Regulated industries, critical systems, enterprise environments
+- **Continuous Deployment:** Web applications, SaaS products, rapid iteration needs
 
 ---
 
