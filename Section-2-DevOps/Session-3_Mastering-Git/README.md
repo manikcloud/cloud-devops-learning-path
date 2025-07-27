@@ -49,7 +49,8 @@
 
 ---
 
-## 🎯 Slide 1: Session Overview
+<details>
+<summary><h2>🎯 Slide 1: Session Overview</h2></summary>
 
 <div align="center">
 
@@ -79,7 +80,10 @@
 
 ---
 
-## 📚 Slide 2: Learning Objectives
+</details>
+
+<details>
+<summary><h2>📚 Slide 2: Learning Objectives</h2></summary>
 
 <div align="center">
 
@@ -117,7 +121,10 @@ Git Commands: 30+ mastered | Branching: Advanced strategies | Collaboration: Tea
 
 ---
 
-## 🔄 Slide 3: Version Control Fundamentals
+</details>
+
+<details>
+<summary><h2>🔄 Slide 3: Version Control Fundamentals</h2></summary>
 
 <div align="center">
 
@@ -171,7 +178,10 @@ Local VCS (1970s) → Centralized VCS (1990s) → Distributed VCS (2000s) → Gi
 
 ---
 
-## 🔀 Slide 4: Git Fundamentals
+</details>
+
+<details>
+<summary><h2>🔀 Slide 4: Git Fundamentals</h2></summary>
 
 <div align="center">
 
@@ -229,7 +239,10 @@ Edit files → `git add` → `git commit` → `git push`
 
 ---
 
-## 🌿 Slide 5: Git Branching Mastery
+</details>
+
+<details>
+<summary><h2>🌿 Slide 5: Git Branching Mastery</h2></summary>
 
 <div align="center">
 
@@ -297,7 +310,10 @@ release/v1.2.0
 
 ---
 
-## 🔗 Slide 6: Merging & Conflict Resolution
+</details>
+
+<details>
+<summary><h2>🔗 Slide 6: Merging & Conflict Resolution</h2></summary>
 
 <div align="center">
 
@@ -368,7 +384,10 @@ git merge --abort
 
 ---
 
-## 🔄 Slide 7: Rebase & History Management
+</details>
+
+<details>
+<summary><h2>🔄 Slide 7: Rebase & History Management</h2></summary>
 
 <div align="center">
 
@@ -439,7 +458,10 @@ git cherry-pick abc123
 
 ---
 
-## 🌐 Slide 8: Remote Repositories
+</details>
+
+<details>
+<summary><h2>🌐 Slide 8: Remote Repositories</h2></summary>
 
 <div align="center">
 
@@ -511,7 +533,10 @@ git branch -u origin/main
 
 ---
 
-## 🤝 Slide 9: Collaboration Workflows
+</details>
+
+<details>
+<summary><h2>🤝 Slide 9: Collaboration Workflows</h2></summary>
 
 <div align="center">
 
@@ -574,7 +599,10 @@ git push origin feature/user-login
 
 ---
 
-## 🚀 Slide 10: GitLab & GitHub Mastery
+</details>
+
+<details>
+<summary><h2>🚀 Slide 10: GitLab & GitHub Mastery</h2></summary>
 
 <div align="center">
 
@@ -643,7 +671,10 @@ jobs:
 
 ---
 
-## ⚙️ Slide 11: CI/CD Integration
+</details>
+
+<details>
+<summary><h2>⚙️ Slide 11: CI/CD Integration</h2></summary>
 
 <div align="center">
 
@@ -713,7 +744,10 @@ deploy:
 
 ---
 
-## 🎓 Slide 12: Next Steps & Mastery
+</details>
+
+<details>
+<summary><h2>🎓 Slide 12: Next Steps & Mastery</h2></summary>
 
 <div align="center">
 
@@ -960,5 +994,7 @@ Implement professional team collaboration workflows
 
 **Session 3: Mastering Git** | **Section 2: DevOps & Infrastructure as Code**  
 *Last Updated: July 2025*
+
+</details>
 
 </div>
