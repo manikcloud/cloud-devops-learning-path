@@ -290,7 +290,7 @@ Junior DevOps → DevOps Engineer → Senior DevOps → DevOps Architect → VP 
 
 <table>
 <tr>
-<td width="50%">
+<td width="33%">
 
 ### 🔄 **Continuous Integration (CI)**
 **Frequent Code Integration**
@@ -302,7 +302,7 @@ Junior DevOps → DevOps Engineer → Senior DevOps → DevOps Architect → VP 
 **Tools:** Jenkins, GitHub Actions, GitLab CI
 
 </td>
-<td width="50%">
+<td width="33%">
 
 ### 🚀 **Continuous Delivery (CD)**
 **Ready-to-Deploy Automation**
@@ -314,9 +314,7 @@ Junior DevOps → DevOps Engineer → Senior DevOps → DevOps Architect → VP 
 **Tools:** Spinnaker, ArgoCD, AWS CodeDeploy
 
 </td>
-</tr>
-<tr>
-<td width="50%">
+<td width="33%">
 
 ### 🚚 **Continuous Deployment (CD)**
 **Fully Automated Production Release**
@@ -328,7 +326,9 @@ Junior DevOps → DevOps Engineer → Senior DevOps → DevOps Architect → VP 
 **Tools:** GitLab CI/CD, GitHub Actions, Jenkins X
 
 </td>
-<td width="50%">
+</tr>
+<tr>
+<td width="33%">
 
 ### 🏗️ **Infrastructure as Code (IaC)**
 **Programmable Infrastructure**
@@ -340,7 +340,7 @@ Junior DevOps → DevOps Engineer → Senior DevOps → DevOps Architect → VP 
 **Tools:** Terraform, Ansible, CloudFormation
 
 </td>
-<td width="50%">
+<td width="33%">
 
 ### 📊 **Monitoring & Observability**
 **System Visibility**
@@ -350,6 +350,18 @@ Junior DevOps → DevOps Engineer → Senior DevOps → DevOps Architect → VP 
 - 🔍 Distributed tracing
 
 **Tools:** Prometheus, Grafana, ELK Stack
+
+</td>
+<td width="33%">
+
+### 🔒 **Security & Compliance**
+**DevSecOps Integration**
+- 🛡️ Automated security scanning
+- 🔐 Policy as Code enforcement
+- 📋 Compliance automation
+- 🚨 Vulnerability management
+
+**Tools:** SonarQube, Aqua Security, Twistlock
 
 </td>
 </tr>
