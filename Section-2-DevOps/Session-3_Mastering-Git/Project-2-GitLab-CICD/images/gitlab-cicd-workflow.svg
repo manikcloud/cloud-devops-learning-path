@@ -1,0 +1,117 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sourceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FEF3C7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="buildGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DBEAFE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="testGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E0E7FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="deployGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D1FAE5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gitlabGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDF2F8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FC6D26;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">GitLab CI/CD Pipeline Project</text>
+  
+  <!-- GitLab Logo Area -->
+  <rect x="50" y="50" width="700" height="60" fill="url(#gitlabGradient)" stroke="#FC6D26" stroke-width="2" rx="10"/>
+  <text x="400" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">GitLab DevOps Platform Integration</text>
+  <text x="400" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FFFFFF">Complete CI/CD Pipeline Implementation with Automated Testing & Deployment</text>
+  
+  <!-- Pipeline Stages -->
+  
+  <!-- Stage 1: Source Control -->
+  <rect x="50" y="130" width="150" height="100" fill="url(#sourceGradient)" stroke="#F59E0B" stroke-width="2" rx="8"/>
+  <text x="125" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#92400E">Source Control</text>
+  <circle cx="125" cy="175" r="15" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2"/>
+  <text x="125" y="182" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#92400E">1</text>
+  <text x="125" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">Git Repository</text>
+  <text x="125" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">Push Triggers</text>
+  
+  <!-- Arrow 1 -->
+  <path d="M 200 180 L 220 180" stroke="#059669" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Stage 2: Build -->
+  <rect x="240" y="130" width="150" height="100" fill="url(#buildGradient)" stroke="#3B82F6" stroke-width="2" rx="8"/>
+  <text x="315" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E40AF">Build Stage</text>
+  <circle cx="315" cy="175" r="15" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+  <text x="315" y="182" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">2</text>
+  <text x="315" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E40AF">Compile Code</text>
+  <text x="315" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E40AF">Dependencies</text>
+  
+  <!-- Arrow 2 -->
+  <path d="M 390 180 L 410 180" stroke="#059669" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Stage 3: Test -->
+  <rect x="430" y="130" width="150" height="100" fill="url(#testGradient)" stroke="#6366F1" stroke-width="2" rx="8"/>
+  <text x="505" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#4338CA">Test Stage</text>
+  <circle cx="505" cy="175" r="15" fill="#FFFFFF" stroke="#6366F1" stroke-width="2"/>
+  <text x="505" y="182" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4338CA">3</text>
+  <text x="505" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4338CA">Unit Tests</text>
+  <text x="505" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4338CA">Security Scans</text>
+  
+  <!-- Arrow 3 -->
+  <path d="M 580 180 L 600 180" stroke="#059669" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Stage 4: Deploy -->
+  <rect x="620" y="130" width="130" height="100" fill="url(#deployGradient)" stroke="#10B981" stroke-width="2" rx="8"/>
+  <text x="685" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#047857">Deploy</text>
+  <circle cx="685" cy="175" r="15" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+  <text x="685" y="182" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#047857">4</text>
+  <text x="685" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#047857">Staging</text>
+  <text x="685" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#047857">Production</text>
+  
+  <!-- Project Tasks Section -->
+  <rect x="50" y="260" width="700" height="280" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" rx="10"/>
+  <text x="400" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1E293B">Project Implementation Tasks</text>
+  
+  <!-- Task 1 -->
+  <rect x="80" y="300" width="300" height="80" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1" rx="5"/>
+  <text x="90" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#92400E">Task 1: GitLab Repository Setup</text>
+  <text x="90" y="340" font-family="Arial, sans-serif" font-size="10" fill="#92400E">• Create GitLab project repository</text>
+  <text x="90" y="355" font-family="Arial, sans-serif" font-size="10" fill="#92400E">• Configure repository settings & permissions</text>
+  <text x="90" y="370" font-family="Arial, sans-serif" font-size="10" fill="#92400E">• Set up branch protection rules</text>
+  
+  <!-- Task 2 -->
+  <rect x="420" y="300" width="300" height="80" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1" rx="5"/>
+  <text x="430" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">Task 2: CI/CD Pipeline Configuration</text>
+  <text x="430" y="340" font-family="Arial, sans-serif" font-size="10" fill="#1E40AF">• Create .gitlab-ci.yml configuration</text>
+  <text x="430" y="355" font-family="Arial, sans-serif" font-size="10" fill="#1E40AF">• Define pipeline stages and jobs</text>
+  <text x="430" y="370" font-family="Arial, sans-serif" font-size="10" fill="#1E40AF">• Configure GitLab Runners</text>
+  
+  <!-- Task 3 -->
+  <rect x="80" y="400" width="300" height="80" fill="#E0E7FF" stroke="#6366F1" stroke-width="1" rx="5"/>
+  <text x="90" y="420" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4338CA">Task 3: Automated Testing Integration</text>
+  <text x="90" y="440" font-family="Arial, sans-serif" font-size="10" fill="#4338CA">• Unit test automation setup</text>
+  <text x="90" y="455" font-family="Arial, sans-serif" font-size="10" fill="#4338CA">• Code quality checks & linting</text>
+  <text x="90" y="470" font-family="Arial, sans-serif" font-size="10" fill="#4338CA">• Security vulnerability scanning</text>
+  
+  <!-- Task 4 -->
+  <rect x="420" y="400" width="300" height="80" fill="#D1FAE5" stroke="#10B981" stroke-width="1" rx="5"/>
+  <text x="430" y="420" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#047857">Task 4: Deployment Automation</text>
+  <text x="430" y="440" font-family="Arial, sans-serif" font-size="10" fill="#047857">• Staging environment deployment</text>
+  <text x="430" y="455" font-family="Arial, sans-serif" font-size="10" fill="#047857">• Production deployment strategies</text>
+  <text x="430" y="470" font-family="Arial, sans-serif" font-size="10" fill="#047857">• Rollback mechanisms</text>
+  
+  <!-- Benefits Section -->
+  <rect x="50" y="560" width="700" height="30" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1" rx="5"/>
+  <text x="400" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E293B">🚀 Benefits: Automated Quality Assurance • Faster Deployment • Reduced Manual Errors • Continuous Integration</text>
+</svg>
