@@ -3,16 +3,16 @@
 > Comprehensive DevOps training program designed to advance your career as a Cloud & DevOps Engineer
 
 ## 📋 Table of Contents
-- [Section Overview](#section-overview)
-- [Learning Path](#learning-path)
-- [Session Structure](#session-structure)
-- [Technologies Covered](#technologies-covered)
-- [Hands-On Projects](#hands-on-projects)
-- [Prerequisites](#prerequisites)
-- [Learning Outcomes](#learning-outcomes)
-- [Assessment Methods](#assessment-methods)
-- [Career Impact](#career-impact)
-- [Getting Started](#getting-started)
+- [Section Overview](#-section-overview)
+- [Learning Path](#️-learning-path)
+- [Session Structure](#-session-structure)
+- [Technologies Covered](#-technologies-covered)
+- [Hands-On Projects](#-hands-on-projects)
+- [Prerequisites](#-prerequisites)
+- [Learning Outcomes](#-learning-outcomes)
+- [Assessment Methods](#-assessment-methods)
+- [Career Impact](#-career-impact)
+- [Getting Started](#-getting-started)
 
 ## 🎯 Section Overview
 
@@ -29,7 +29,7 @@ This section focuses on **DevOps practices, Infrastructure as Code (IaC), and au
 ### Program Features:
 - ✅ **Full hands-on approach** with real-world scenarios
 - ✅ **Progressive skill building** from basics to advanced
-- ✅ **Multi-cloud deployment** experience (AWS, GCP)
+- ✅ **Multi-cloud deployment** experience (AWS, GCP, Azure)
 - ✅ **Industry best practices** and modern toolchain
 - ✅ **Project-based learning** with portfolio development
 
@@ -169,7 +169,7 @@ graph LR
    - State management and backends
 
 4. **Resource Provisioning & Deployments**
-   - Multi-cloud resource management
+   - Multi-cloud resource management (AWS, GCP, Azure)
    - Modules and reusable components
    - Environment management and promotion
 
@@ -208,39 +208,39 @@ graph LR
 **Objective:** Create a simple CI/CD pipeline with Jenkins
 - Set up Git repository with sample Java application
 - Configure Jenkins for automated builds and testing
-- Implement basic deployment to AWS EC2
+- Implement basic deployment to AWS EC2 and GCP Compute Engine
 - Monitor application performance and logs
 
-**Skills Developed:** Jenkins configuration, Git integration, AWS deployment
+**Skills Developed:** Jenkins configuration, Git integration, AWS & GCP deployment
 
 ---
 
 ### Project 2: Java Application CI/CD
 **Objective:** Setup comprehensive Java application CI/CD pipeline
 - Implement multi-stage pipeline with testing phases
-- Deploy application on AWS cloud platform
+- Deploy application on AWS and GCP cloud platforms
 - Configure automated rollback mechanisms
 - Integrate code quality and security scanning
 
-**Skills Developed:** Advanced Jenkins pipelines, AWS services, quality gates
+**Skills Developed:** Advanced Jenkins pipelines, AWS & GCP services, quality gates
 
 ---
 
-### Project 3: Web Application CI/CD on GCP
+### Project 3: Web Application CI/CD Multi-Cloud
 **Objective:** Setup Web application CI/CD pipeline with Jenkins
-- Deploy application on Google Cloud Platform (GCP)
+- Deploy application on both AWS and Google Cloud Platform (GCP)
 - Implement blue-green deployment strategy
-- Configure monitoring and alerting
+- Configure monitoring and alerting across clouds
 - Optimize for performance and cost
 
-**Skills Developed:** GCP services, deployment strategies, monitoring
+**Skills Developed:** Multi-cloud services, deployment strategies, monitoring
 
 ---
 
 ### Project 4: Infrastructure as Code with Terraform
 **Objective:** Automate infrastructure provisioning
 - Deploy cloud resources using Terraform
-- Implement multi-cloud deployment (AWS & GCP)
+- Implement multi-cloud deployment (AWS, GCP & Azure)
 - Create reusable modules and environments
 - Integrate with CI/CD pipelines
 
@@ -251,7 +251,7 @@ graph LR
 ### Capstone Project: Production-Ready Microservices
 **Objective:** Deploy enterprise-grade microservice application
 - Implement complete DevOps workflow
-- Deploy on Kubernetes cluster with monitoring
+- Deploy on Kubernetes clusters (AWS EKS, GCP GKE, Azure AKS)
 - Apply security best practices (DevSecOps)
 - Real client project implementation
 
@@ -269,7 +269,7 @@ graph LR
 - **Computer specifications:** Minimum 8GB RAM, 50GB free disk space
 - **Operating System:** Linux, macOS, or Windows with WSL2
 - **Internet connection:** Stable broadband for cloud platform access
-- **Accounts:** AWS and GCP accounts (free tier eligible)
+- **Accounts:** AWS, GCP, and Azure accounts (free tier eligible)
 
 ### Development Environment Setup
 
@@ -286,6 +286,14 @@ sh get-docker.sh
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip && sudo ./aws/install
 
+# Google Cloud CLI
+curl https://sdk.cloud.google.com | bash
+exec -l $SHELL
+gcloud init
+
+# Azure CLI
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
 # Terraform
 wget https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip
 unzip terraform_1.5.0_linux_amd64.zip && sudo mv terraform /usr/local/bin/
@@ -295,7 +303,7 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 
 # Verify installations
-git --version && docker --version && aws --version && terraform --version && kubectl version --client
+git --version && docker --version && aws --version && gcloud --version && az --version && terraform --version && kubectl version --client
 ```
 
 ## 🎓 Learning Outcomes
@@ -304,25 +312,25 @@ Upon completion of Section 2, you will be able to:
 
 ### Technical Mastery
 - ✅ **Design and implement** end-to-end CI/CD pipelines
-- ✅ **Automate infrastructure** provisioning with Terraform
+- ✅ **Automate infrastructure** provisioning with Terraform across AWS, GCP, and Azure
 - ✅ **Manage containerized applications** with Docker and Kubernetes
 - ✅ **Configure and maintain** Jenkins automation servers
 - ✅ **Implement DevOps best practices** in enterprise environments
 - ✅ **Troubleshoot and optimize** DevOps workflows
-- ✅ **Deploy applications** on multiple cloud platforms
+- ✅ **Deploy applications** on multiple cloud platforms (AWS, GCP, Azure)
 
 ### Professional Skills
 - ✅ **Collaborate effectively** in cross-functional DevOps teams
 - ✅ **Apply DevOps culture** and principles in organizations
 - ✅ **Communicate technical concepts** to stakeholders
 - ✅ **Lead DevOps transformation** initiatives
-- ✅ **Optimize costs** and performance in cloud environments
+- ✅ **Optimize costs** and performance in multi-cloud environments
 
 ### Career Readiness
 - ✅ **DevOps Engineer** - Pipeline automation and infrastructure management
 - ✅ **Site Reliability Engineer (SRE)** - System reliability and performance
 - ✅ **Platform Engineer** - Internal developer platform creation
-- ✅ **Cloud Engineer** - Cloud infrastructure and services
+- ✅ **Cloud Engineer** - Multi-cloud infrastructure and services
 - ✅ **Automation Engineer** - Process automation and optimization
 
 ## 📊 Assessment Methods
@@ -357,13 +365,14 @@ Upon completion of Section 2, you will be able to:
 - **Container Orchestration:** Kubernetes expertise (82% usage in production)
 - **Infrastructure as Code:** Terraform and CloudFormation (71% adoption)
 - **CI/CD Automation:** Jenkins, GitHub Actions, GitLab CI (49% market share)
-- **Cloud Platforms:** AWS, Azure, GCP certifications
+- **Multi-Cloud Platforms:** AWS, GCP, Azure certifications
 - **Security Integration:** DevSecOps practices (73% vulnerability reduction)
 
 ### Certification Preparation
 This program prepares you for:
 - **AWS Certified DevOps Engineer** - Professional level
 - **Google Cloud Professional DevOps Engineer** - Professional level
+- **Microsoft Azure DevOps Engineer Expert** - Expert level
 - **Certified Kubernetes Administrator (CKA)** - CNCF certification
 - **HashiCorp Certified: Terraform Associate** - Infrastructure automation
 - **Jenkins Engineer Certification** - CI/CD expertise
@@ -384,9 +393,13 @@ This program prepares you for:
    # AWS Configuration
    aws configure
    
-   # GCP Configuration (after installing gcloud CLI)
+   # GCP Configuration
    gcloud auth login
    gcloud config set project YOUR_PROJECT_ID
+   
+   # Azure Configuration
+   az login
+   az account set --subscription YOUR_SUBSCRIPTION_ID
    ```
 
 ### Step 2: Begin Learning Journey
@@ -408,8 +421,9 @@ This program prepares you for:
 - [Terraform Documentation](https://www.terraform.io/docs/) - Infrastructure as Code
 - [Docker Documentation](https://docs.docker.com/) - Containerization guides
 - [Kubernetes Documentation](https://kubernetes.io/docs/) - Container orchestration
-- [AWS Documentation](https://docs.aws.amazon.com/) - Cloud services reference
+- [AWS Documentation](https://docs.aws.amazon.com/) - AWS services reference
 - [GCP Documentation](https://cloud.google.com/docs) - Google Cloud guides
+- [Azure Documentation](https://docs.microsoft.com/azure/) - Microsoft Azure guides
 
 ### Community Support
 - **Course discussion forums** - Peer learning and Q&A
