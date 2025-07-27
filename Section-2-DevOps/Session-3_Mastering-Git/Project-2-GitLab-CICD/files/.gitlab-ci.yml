@@ -1,0 +1,38 @@
+# Simple GitLab CI/CD Pipeline for Git Learning
+
+stages:
+  - test
+  - deploy
+
+variables:
+  PYTHON_VERSION: "3.9"
+
+# Test stage
+test-app:
+  stage: test
+  image: python:$PYTHON_VERSION
+  script:
+    - pip install -r requirements.txt
+    - pytest test_app.py -v
+  only:
+    - main
+    - develop
+
+# Deploy to staging
+deploy-staging:
+  stage: deploy
+  script:
+    - echo "Deploying to staging environment..."
+    - echo "Application deployed successfully!"
+  only:
+    - develop
+
+# Deploy to production
+deploy-production:
+  stage: deploy
+  script:
+    - echo "Deploying to production environment..."
+    - echo "Production deployment complete!"
+  only:
+    - main
+  when: manual

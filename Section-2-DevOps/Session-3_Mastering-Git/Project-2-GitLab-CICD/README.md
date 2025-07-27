@@ -385,8 +385,26 @@ git push origin main
 - [ ] Sample Flask application implemented
 - [ ] Test suite created and verified
 - [ ] GitLab Runner installed and registered
-- [ ] Docker configuration completed
 - [ ] Project settings optimized for CI/CD
+
+### 📁 **Project Files**
+- **[🌐 app.py](./files/app.py)** - Simple Flask web application
+- **[🧪 test_app.py](./files/test_app.py)** - Basic test suite for the application
+- **[📦 requirements.txt](./files/requirements.txt)** - Python dependencies
+- **[⚙️ .gitlab-ci.yml](./files/.gitlab-ci.yml)** - GitLab CI/CD pipeline configuration
+
+### 🚀 **Quick Start**
+```bash
+# Download the files and set up locally
+mkdir gitlab-cicd-demo && cd gitlab-cicd-demo
+
+# Copy the files from the links above, then:
+pip install -r requirements.txt
+python app.py
+
+# Test the application
+pytest test_app.py -v
+```
 
 ---
 
@@ -402,7 +420,7 @@ git push origin main
 </div>
 
 ### 📋 **Task Overview**
-Design and implement a multi-stage CI/CD pipeline that handles building, testing, security scanning, and deployment with proper stage dependencies and error handling.
+Design and implement a multi-stage CI/CD pipeline that handles building, testing, and deployment with proper stage dependencies.
 
 ### 🛠️ **Implementation Steps**
 
@@ -411,197 +429,103 @@ Design and implement a multi-stage CI/CD pipeline that handles building, testing
 <details>
 <summary><strong>🏗️ Pipeline Foundation</strong></summary>
 
-```yaml
-# Create .gitlab-ci.yml
-cat > .gitlab-ci.yml << 'EOF'
-# GitLab CI/CD Pipeline Configuration
-# DevOps CI/CD Pipeline Project
+**Use the provided [.gitlab-ci.yml](./files/.gitlab-ci.yml) file as your starting point.**
 
+```yaml
+# Basic pipeline structure
 stages:
-  - validate
-  - build
   - test
-  - security
-  - deploy-staging
-  - deploy-production
+  - deploy
 
 variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: "/certs"
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   PYTHON_VERSION: "3.9"
 
-# Cache configuration for faster builds
-cache:
-  paths:
-    - .cache/pip
-    - venv/
-
-# Global before_script
-before_script:
-  - echo "Starting CI/CD pipeline for commit $CI_COMMIT_SHA"
-  - echo "Branch: $CI_COMMIT_REF_NAME"
-  - echo "Pipeline ID: $CI_PIPELINE_ID"
-
-# Validate stage
-validate-code:
-  stage: validate
+# Test stage
+test-app:
+  stage: test
   image: python:$PYTHON_VERSION
   script:
-    - echo "Validating code structure and syntax..."
-    - python -m py_compile src/app.py
-    - python -m py_compile tests/test_app.py
-    - echo "✅ Code validation successful"
-  only:
-    - merge_requests
-    - main
-    - develop
-
-# Build stage
-build-application:
-  stage: build
-  image: python:$PYTHON_VERSION
-  script:
-    - echo "Building application..."
-    - python -m venv venv
-    - source venv/bin/activate
-    - pip install --upgrade pip
     - pip install -r requirements.txt
-    - echo "✅ Application build successful"
-  artifacts:
-    paths:
-      - venv/
-    expire_in: 1 hour
-  only:
-    - merge_requests
-    - main
-    - develop
-
-build-docker:
-  stage: build
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
-  script:
-    - echo "Building Docker image..."
-    - docker build -f docker/Dockerfile -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
-    - docker build -f docker/Dockerfile -t $CI_REGISTRY_IMAGE:latest .
-    - echo "✅ Docker build successful"
+    - pytest test_app.py -v
   only:
     - main
     - develop
-EOF
-
-git add .gitlab-ci.yml
-git commit -m "ci: Add initial CI/CD pipeline configuration
-
-- Define multi-stage pipeline structure
-- Add validation and build stages
-- Configure caching for faster builds
-- Set up Docker image building
-- Add proper branch restrictions"
-
-git push origin main
 ```
+
+**Key Pipeline Features:**
+- ✅ Multi-stage pipeline (test → deploy)
+- ✅ Python environment setup
+- ✅ Automated testing
+- ✅ Branch-specific deployments
+- ✅ Manual production deployment
 
 </details>
 
-#### 2.2 Testing and Quality Gates
+#### 2.2 Testing Integration
 
 <details>
-<summary><strong>🧪 Test Automation</strong></summary>
+<summary><strong>🧪 Automated Testing Setup</strong></summary>
+
+**The pipeline automatically:**
+
+1. **Installs Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Runs Tests**
+   ```bash
+   pytest test_app.py -v
+   ```
+
+3. **Validates Application**
+   - Tests all endpoints
+   - Verifies response formats
+   - Checks application health
+
+**Test Coverage:**
+- ✅ Home endpoint functionality
+- ✅ Health check endpoint
+- ✅ API information endpoint
+- ✅ Response format validation
+
+</details>
+
+#### 2.3 Deployment Automation
+
+<details>
+<summary><strong>🚀 Deployment Configuration</strong></summary>
+
+**Staging Deployment (Automatic):**
+- Triggers on `develop` branch
+- Simulates staging environment deployment
+- Provides deployment feedback
+
+**Production Deployment (Manual):**
+- Triggers on `main` branch
+- Requires manual approval
+- Ensures production safety
 
 ```yaml
-# Append to .gitlab-ci.yml
-cat >> .gitlab-ci.yml << 'EOF'
-
-# Test stage
-unit-tests:
-  stage: test
-  image: python:$PYTHON_VERSION
-  dependencies:
-    - build-application
+deploy-production:
+  stage: deploy
   script:
-    - echo "Running unit tests..."
-    - source venv/bin/activate
-    - pytest tests/ -v --cov=src --cov-report=xml --cov-report=html
-    - echo "✅ Unit tests completed"
-  artifacts:
-    reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: coverage.xml
-    paths:
-      - htmlcov/
-    expire_in: 1 week
-  coverage: '/TOTAL.*\s+(\d+%)$/'
+    - echo "Deploying to production environment..."
+    - echo "Production deployment complete!"
   only:
-    - merge_requests
     - main
-    - develop
-
-integration-tests:
-  stage: test
-  image: python:$PYTHON_VERSION
-  services:
-    - name: python:$PYTHON_VERSION
-      alias: app-service
-  dependencies:
-    - build-application
-  script:
-    - echo "Running integration tests..."
-    - source venv/bin/activate
-    - python src/app.py &
-    - sleep 5
-    - curl -f http://localhost:5000/health || exit 1
-    - curl -f http://localhost:5000/ || exit 1
-    - echo "✅ Integration tests completed"
-  only:
-    - merge_requests
-    - main
-    - develop
-
-code-quality:
-  stage: test
-  image: python:$PYTHON_VERSION
-  dependencies:
-    - build-application
-  script:
-    - echo "Running code quality checks..."
-    - source venv/bin/activate
-    - pip install flake8 black isort
-    - flake8 src/ tests/ --max-line-length=88 --extend-ignore=E203,W503
-    - black --check src/ tests/
-    - isort --check-only src/ tests/
-    - echo "✅ Code quality checks passed"
-  allow_failure: true
-  only:
-    - merge_requests
-    - main
-    - develop
-EOF
-
-git add .gitlab-ci.yml
-git commit -m "ci: Add comprehensive testing and quality gates
-
-- Implement unit tests with coverage reporting
-- Add integration tests with service dependencies
-- Include code quality checks (flake8, black, isort)
-- Configure test artifacts and coverage visualization
-- Set up proper test dependencies"
-
-git push origin main
+  when: manual  # Requires manual trigger
 ```
 
 </details>
 
 ### ✅ **Completion Checklist**
-- [ ] Multi-stage pipeline configured
-- [ ] Build stages implemented with caching
-- [ ] Unit tests with coverage reporting
-- [ ] Integration tests with service dependencies
-- [ ] Code quality checks integrated
-- [ ] Artifacts and reports configured
+- [ ] Pipeline configuration created
+- [ ] Test automation implemented
+- [ ] Staging deployment configured
+- [ ] Production deployment set up
+- [ ] Manual approval process established
+- [ ] Pipeline tested successfully
 
 ---
 

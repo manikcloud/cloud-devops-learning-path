@@ -1,0 +1,199 @@
+# Git Fundamentals Project Dependencies
+# This file demonstrates dependency management in Git workflows
+
+# Core application dependencies
+click==8.1.7
+colorama==0.4.6
+python-dateutil==2.8.2
+
+# Development dependencies
+black==23.7.0
+flake8==6.0.0
+isort==5.12.0
+mypy==1.5.1
+
+# Testing dependencies
+pytest==7.4.0
+pytest-cov==4.1.0
+pytest-mock==3.11.1
+coverage==7.3.0
+
+# Documentation dependencies
+sphinx==7.1.2
+sphinx-rtd-theme==1.3.0
+
+# Git workflow utilities
+pre-commit==3.3.3
+gitpython==3.1.32
+
+# Code quality tools
+pylint==2.17.5
+bandit==1.7.5
+
+# Type checking
+types-python-dateutil==2.8.19.14
+
+# Utility libraries
+pyyaml==6.0.1
+requests==2.31.0
+jinja2==3.1.2
+
+# Development server (if needed)
+flask==2.3.2
+gunicorn==21.2.0
+
+# Environment management
+python-dotenv==1.0.0
+
+# Logging and monitoring
+structlog==23.1.0
+
+# Configuration management
+pydantic==2.1.1
+pydantic-settings==2.0.2
+
+# CLI enhancements
+rich==13.5.2
+typer==0.9.0
+
+# Git hooks and automation
+gitlint==0.19.1
+commitizen==3.6.0
+
+# Security scanning
+safety==2.3.4
+
+# Performance monitoring
+psutil==5.9.5
+
+# Data validation
+cerberus==1.3.5
+
+# Async support (if needed)
+asyncio==3.4.3
+
+# Database (for advanced examples)
+sqlalchemy==2.0.19
+
+# Serialization
+marshmallow==3.20.1
+
+# HTTP client
+httpx==0.24.1
+
+# Time utilities
+arrow==1.2.3
+
+# File system utilities
+pathlib2==2.3.7
+
+# Progress bars
+tqdm==4.66.1
+
+# Configuration file parsing
+toml==0.10.2
+configparser==5.3.0
+
+# Environment detection
+platform==1.0.8
+
+# String utilities
+inflection==0.5.1
+
+# Validation utilities
+validators==0.22.0
+
+# Development workflow tools
+invoke==2.2.0
+fabric==3.2.2
+
+# Git integration
+dulwich==0.21.5
+
+# Code formatting
+autopep8==2.0.4
+
+# Import sorting
+reorder-python-imports==3.10.0
+
+# Documentation generation
+pdoc==14.1.0
+
+# API documentation
+flasgger==0.9.7.1
+
+# Environment variables
+environs==9.5.0
+
+# Caching
+cachetools==5.3.1
+
+# Retry mechanisms
+tenacity==8.2.3
+
+# Functional programming utilities
+toolz==0.12.0
+
+# Data structures
+attrs==23.1.0
+
+# Serialization formats
+orjson==3.9.4
+
+# Command line argument parsing
+argparse==1.4.0
+
+# File watching (for development)
+watchdog==3.0.0
+
+# Process management
+supervisor==4.2.5
+
+# Memory profiling
+memory-profiler==0.61.0
+
+# Code complexity analysis
+radon==6.0.1
+
+# Dependency analysis
+pipdeptree==2.13.0
+
+# Virtual environment management
+virtualenv==20.24.3
+
+# Package building
+build==0.10.0
+wheel==0.41.2
+
+# Distribution
+twine==4.0.2
+
+# Version management
+bump2version==1.0.1
+
+# Changelog generation
+gitchangelog==3.0.4
+
+# License checking
+licensecheck==2023.1.1
+
+# Code metrics
+vulture==2.9.1
+
+# Dead code detection
+unimport==0.15.1
+
+# Import optimization
+autoflake==2.2.0
+
+# Code refactoring
+rope==1.9.0
+
+# AST manipulation
+astor==0.8.1
+
+# Code generation
+jinja2-cli==0.8.2
+
+# Template rendering
+cookiecutter==2.3.0
