@@ -1,0 +1,252 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="masterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2E86AB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A23B72;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="slaveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F18F01;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C73E1D;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pluginGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2E7D32;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2c3e50">
+    Jenkins Architecture Overview
+  </text>
+  
+  <!-- Jenkins Master -->
+  <g filter="url(#shadow)">
+    <rect x="450" y="100" width="300" height="200" rx="15" fill="url(#masterGradient)"/>
+    <text x="600" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white">
+      Jenkins Master
+    </text>
+    <text x="600" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Job Scheduling
+    </text>
+    <text x="600" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Build Coordination
+    </text>
+    <text x="600" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Web Interface
+    </text>
+    <text x="600" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Plugin Management
+    </text>
+    <text x="600" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • User Authentication
+    </text>
+    <text x="600" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Build History
+    </text>
+  </g>
+  
+  <!-- Slave Nodes -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="400" width="200" height="150" rx="10" fill="url(#slaveGradient)"/>
+    <text x="200" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+      Linux Agent
+    </text>
+    <text x="200" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Docker Support
+    </text>
+    <text x="200" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Maven/Gradle
+    </text>
+    <text x="200" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Node.js/Python
+    </text>
+    <text x="200" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Git Integration
+    </text>
+    <text x="200" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • AWS CLI
+    </text>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <rect x="350" y="400" width="200" height="150" rx="10" fill="url(#slaveGradient)"/>
+    <text x="450" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+      Windows Agent
+    </text>
+    <text x="450" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • .NET Framework
+    </text>
+    <text x="450" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • MSBuild
+    </text>
+    <text x="450" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • PowerShell
+    </text>
+    <text x="450" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Visual Studio
+    </text>
+    <text x="450" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Azure CLI
+    </text>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <rect x="650" y="400" width="200" height="150" rx="10" fill="url(#slaveGradient)"/>
+    <text x="750" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+      macOS Agent
+    </text>
+    <text x="750" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Xcode
+    </text>
+    <text x="750" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • iOS/macOS Build
+    </text>
+    <text x="750" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Swift/Objective-C
+    </text>
+    <text x="750" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Fastlane
+    </text>
+    <text x="750" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • App Store Deploy
+    </text>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <rect x="900" y="400" width="200" height="150" rx="10" fill="url(#slaveGradient)"/>
+    <text x="1000" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+      Docker Agent
+    </text>
+    <text x="1000" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Dynamic Scaling
+    </text>
+    <text x="1000" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Isolated Builds
+    </text>
+    <text x="1000" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Custom Images
+    </text>
+    <text x="1000" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Kubernetes
+    </text>
+    <text x="1000" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      • Auto Cleanup
+    </text>
+  </g>
+  
+  <!-- Plugin Ecosystem -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="600" width="150" height="80" rx="8" fill="url(#pluginGradient)"/>
+    <text x="125" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      SCM Plugins
+    </text>
+    <text x="125" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      Git, SVN, Mercurial
+    </text>
+    <text x="125" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      GitHub, GitLab
+    </text>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <rect x="220" y="600" width="150" height="80" rx="8" fill="url(#pluginGradient)"/>
+    <text x="295" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Build Tools
+    </text>
+    <text x="295" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      Maven, Gradle
+    </text>
+    <text x="295" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      npm, yarn, pip
+    </text>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <rect x="390" y="600" width="150" height="80" rx="8" fill="url(#pluginGradient)"/>
+    <text x="465" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Testing
+    </text>
+    <text x="465" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      JUnit, TestNG
+    </text>
+    <text x="465" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      Selenium, Jest
+    </text>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <rect x="560" y="600" width="150" height="80" rx="8" fill="url(#pluginGradient)"/>
+    <text x="635" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Cloud Deploy
+    </text>
+    <text x="635" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      AWS, GCP, Azure
+    </text>
+    <text x="635" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      Kubernetes, Docker
+    </text>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <rect x="730" y="600" width="150" height="80" rx="8" fill="url(#pluginGradient)"/>
+    <text x="805" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Notifications
+    </text>
+    <text x="805" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      Slack, Email
+    </text>
+    <text x="805" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      Teams, Discord
+    </text>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <rect x="900" y="600" width="150" height="80" rx="8" fill="url(#pluginGradient)"/>
+    <text x="975" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Security
+    </text>
+    <text x="975" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      LDAP, SAML
+    </text>
+    <text x="975" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      Role-based Access
+    </text>
+  </g>
+  
+  <!-- Connection Lines -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34495e"/>
+    </marker>
+  </defs>
+  
+  <line x1="600" y1="300" x2="200" y2="400" stroke="#34495e" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <line x1="600" y1="300" x2="450" y2="400" stroke="#34495e" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <line x1="600" y1="300" x2="750" y2="400" stroke="#34495e" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <line x1="600" y1="300" x2="1000" y2="400" stroke="#34495e" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Labels -->
+  <text x="300" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">
+    Job Distribution
+  </text>
+  <text x="525" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">
+    Build Execution
+  </text>
+  <text x="675" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">
+    Result Collection
+  </text>
+  <text x="800" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">
+    Status Updates
+  </text>
+  
+  <!-- Plugin Ecosystem Label -->
+  <text x="600" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2c3e50">
+    Plugin Ecosystem (1800+ Plugins)
+  </text>
+</svg>

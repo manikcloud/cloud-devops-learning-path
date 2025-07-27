@@ -1,0 +1,340 @@
+<svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sourceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EE5A24;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="buildGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ECDC4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#44A08D;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="testGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#45B7D1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980B9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="deployGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F39C12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E67E22;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="monitorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9B59B6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8E44AD;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1400" height="900" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="700" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#2c3e50">
+    Jenkins CI/CD Pipeline Flow
+  </text>
+  
+  <!-- Source Control Stage -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="100" width="200" height="120" rx="15" fill="url(#sourceGradient)"/>
+    <text x="150" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+      Source Control
+    </text>
+    <text x="150" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Git Repository
+    </text>
+    <text x="150" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Code Commit
+    </text>
+    <text x="150" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Webhook Trigger
+    </text>
+  </g>
+  
+  <!-- Build Stage -->
+  <g filter="url(#shadow)">
+    <rect x="300" y="100" width="200" height="120" rx="15" fill="url(#buildGradient)"/>
+    <text x="400" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+      Build
+    </text>
+    <text x="400" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Compile Code
+    </text>
+    <text x="400" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Package Artifacts
+    </text>
+    <text x="400" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Docker Image
+    </text>
+  </g>
+  
+  <!-- Test Stage -->
+  <g filter="url(#shadow)">
+    <rect x="550" y="100" width="200" height="120" rx="15" fill="url(#testGradient)"/>
+    <text x="650" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+      Test
+    </text>
+    <text x="650" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Unit Tests
+    </text>
+    <text x="650" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Integration Tests
+    </text>
+    <text x="650" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Code Quality
+    </text>
+  </g>
+  
+  <!-- Deploy Stage -->
+  <g filter="url(#shadow)">
+    <rect x="800" y="100" width="200" height="120" rx="15" fill="url(#deployGradient)"/>
+    <text x="900" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+      Deploy
+    </text>
+    <text x="900" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Staging Deploy
+    </text>
+    <text x="900" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Production Deploy
+    </text>
+    <text x="900" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Blue-Green Deploy
+    </text>
+  </g>
+  
+  <!-- Monitor Stage -->
+  <g filter="url(#shadow)">
+    <rect x="1050" y="100" width="200" height="120" rx="15" fill="url(#monitorGradient)"/>
+    <text x="1150" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+      Monitor
+    </text>
+    <text x="1150" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Health Checks
+    </text>
+    <text x="1150" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Performance
+    </text>
+    <text x="1150" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white">
+      • Alerts
+    </text>
+  </g>
+  
+  <!-- Pipeline Flow Arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34495e"/>
+    </marker>
+  </defs>
+  
+  <line x1="250" y1="160" x2="300" y2="160" stroke="#34495e" stroke-width="4" marker-end="url(#arrowhead)"/>
+  <line x1="500" y1="160" x2="550" y2="160" stroke="#34495e" stroke-width="4" marker-end="url(#arrowhead)"/>
+  <line x1="750" y1="160" x2="800" y2="160" stroke="#34495e" stroke-width="4" marker-end="url(#arrowhead)"/>
+  <line x1="1000" y1="160" x2="1050" y2="160" stroke="#34495e" stroke-width="4" marker-end="url(#arrowhead)"/>
+  
+  <!-- Detailed Pipeline Steps -->
+  <text x="700" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50">
+    Detailed Pipeline Steps
+  </text>
+  
+  <!-- Source Control Details -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="320" width="250" height="200" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+    <text x="175" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      Source Control Triggers
+    </text>
+    <text x="60" y="370" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      1. Developer pushes code to Git
+    </text>
+    <text x="60" y="390" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      2. Webhook triggers Jenkins
+    </text>
+    <text x="60" y="410" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      3. Jenkins polls for changes
+    </text>
+    <text x="60" y="430" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      4. Branch-specific triggers
+    </text>
+    <text x="60" y="450" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      5. Pull request validation
+    </text>
+    <text x="60" y="470" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      6. Scheduled builds (cron)
+    </text>
+    <text x="60" y="490" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      7. Manual trigger support
+    </text>
+  </g>
+  
+  <!-- Build Details -->
+  <g filter="url(#shadow)">
+    <rect x="320" y="320" width="250" height="200" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+    <text x="445" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      Build Process
+    </text>
+    <text x="330" y="370" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      1. Checkout source code
+    </text>
+    <text x="330" y="390" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      2. Install dependencies
+    </text>
+    <text x="330" y="410" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      3. Compile application
+    </text>
+    <text x="330" y="430" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      4. Run static analysis
+    </text>
+    <text x="330" y="450" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      5. Package artifacts
+    </text>
+    <text x="330" y="470" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      6. Build Docker image
+    </text>
+    <text x="330" y="490" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      7. Push to registry
+    </text>
+  </g>
+  
+  <!-- Test Details -->
+  <g filter="url(#shadow)">
+    <rect x="590" y="320" width="250" height="200" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+    <text x="715" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      Testing Phases
+    </text>
+    <text x="600" y="370" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      1. Unit tests execution
+    </text>
+    <text x="600" y="390" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      2. Integration tests
+    </text>
+    <text x="600" y="410" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      3. End-to-end tests
+    </text>
+    <text x="600" y="430" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      4. Security scanning
+    </text>
+    <text x="600" y="450" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      5. Performance tests
+    </text>
+    <text x="600" y="470" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      6. Code coverage report
+    </text>
+    <text x="600" y="490" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      7. Quality gate validation
+    </text>
+  </g>
+  
+  <!-- Deploy Details -->
+  <g filter="url(#shadow)">
+    <rect x="860" y="320" width="250" height="200" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+    <text x="985" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+      Deployment Strategies
+    </text>
+    <text x="870" y="370" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      1. Deploy to staging
+    </text>
+    <text x="870" y="390" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      2. Smoke tests
+    </text>
+    <text x="870" y="410" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      3. Manual approval gate
+    </text>
+    <text x="870" y="430" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      4. Blue-green deployment
+    </text>
+    <text x="870" y="450" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      5. Canary releases
+    </text>
+    <text x="870" y="470" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      6. Rolling updates
+    </text>
+    <text x="870" y="490" font-family="Arial, sans-serif" font-size="12" fill="#34495e">
+      7. Rollback capability
+    </text>
+  </g>
+  
+  <!-- Feedback Loop -->
+  <path d="M 1150 220 Q 1300 300 1300 450 Q 1300 600 150 600 Q 50 600 50 450 Q 50 300 150 250" 
+        stroke="#e74c3c" stroke-width="3" fill="none" stroke-dasharray="10,5" marker-end="url(#feedbackArrow)"/>
+  
+  <defs>
+    <marker id="feedbackArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+    </marker>
+  </defs>
+  
+  <text x="700" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e74c3c">
+    Continuous Feedback Loop
+  </text>
+  
+  <!-- Pipeline Benefits -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="700" width="1200" height="150" rx="15" fill="#2c3e50"/>
+    <text x="650" y="730" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white">
+      Jenkins Pipeline Benefits
+    </text>
+    
+    <text x="200" y="760" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#3498db">
+      Automation
+    </text>
+    <text x="200" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Reduces manual errors
+    </text>
+    <text x="200" y="795" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Consistent deployments
+    </text>
+    <text x="200" y="810" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      24/7 availability
+    </text>
+    
+    <text x="450" y="760" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2ecc71">
+      Speed
+    </text>
+    <text x="450" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Faster time to market
+    </text>
+    <text x="450" y="795" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Parallel execution
+    </text>
+    <text x="450" y="810" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Quick feedback
+    </text>
+    
+    <text x="700" y="760" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#f39c12">
+      Quality
+    </text>
+    <text x="700" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Early bug detection
+    </text>
+    <text x="700" y="795" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Automated testing
+    </text>
+    <text x="700" y="810" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Code quality gates
+    </text>
+    
+    <text x="950" y="760" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#9b59b6">
+      Reliability
+    </text>
+    <text x="950" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Repeatable process
+    </text>
+    <text x="950" y="795" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Environment parity
+    </text>
+    <text x="950" y="810" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Rollback capability
+    </text>
+    
+    <text x="1200" y="760" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e67e22">
+      Visibility
+    </text>
+    <text x="1200" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Build history
+    </text>
+    <text x="1200" y="795" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Real-time status
+    </text>
+    <text x="1200" y="810" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+      Audit trails
+    </text>
+  </g>
+</svg>
