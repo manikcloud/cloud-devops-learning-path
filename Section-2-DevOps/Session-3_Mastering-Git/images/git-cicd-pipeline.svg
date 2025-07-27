@@ -1,0 +1,134 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sourceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FEF3C7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="buildGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DBEAFE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="testGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E0E7FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="deployGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D1FAE5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">Git CI/CD Pipeline Integration</text>
+  
+  <!-- Pipeline Flow -->
+  <text x="50" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">Automated Pipeline Stages</text>
+  
+  <!-- Source Control -->
+  <rect x="50" y="90" width="150" height="80" fill="url(#sourceGradient)" stroke="#F59E0B" stroke-width="2" rx="10"/>
+  <text x="125" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#92400E">Source Control</text>
+  <text x="125" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#92400E">Git Repository</text>
+  <text x="125" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#92400E">Push/PR Trigger</text>
+  <text x="125" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#92400E">Webhook Events</text>
+  
+  <!-- Build Stage -->
+  <rect x="220" y="90" width="150" height="80" fill="url(#buildGradient)" stroke="#3B82F6" stroke-width="2" rx="10"/>
+  <text x="295" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E40AF">Build</text>
+  <text x="295" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#1E40AF">Compile Code</text>
+  <text x="295" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#1E40AF">Install Dependencies</text>
+  <text x="295" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#1E40AF">Create Artifacts</text>
+  
+  <!-- Test Stage -->
+  <rect x="390" y="90" width="150" height="80" fill="url(#testGradient)" stroke="#6366F1" stroke-width="2" rx="10"/>
+  <text x="465" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#4338CA">Test</text>
+  <text x="465" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4338CA">Unit Tests</text>
+  <text x="465" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4338CA">Integration Tests</text>
+  <text x="465" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4338CA">Security Scans</text>
+  
+  <!-- Deploy Stage -->
+  <rect x="560" y="90" width="150" height="80" fill="url(#deployGradient)" stroke="#10B981" stroke-width="2" rx="10"/>
+  <text x="635" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#047857">Deploy</text>
+  <text x="635" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#047857">Staging</text>
+  <text x="635" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#047857">Production</text>
+  <text x="635" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#047857">Rollback Ready</text>
+  
+  <!-- Pipeline Arrows -->
+  <path d="M 200 130 L 210 130" stroke="#059669" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 370 130 L 380 130" stroke="#059669" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 540 130 L 550 130" stroke="#059669" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Git Triggers Section -->
+  <rect x="50" y="200" width="700" height="120" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" rx="10"/>
+  <text x="400" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1E293B">Git Event Triggers</text>
+  
+  <!-- Trigger Types -->
+  <rect x="80" y="240" width="140" height="60" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1" rx="5"/>
+  <text x="150" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#92400E">Push Events</text>
+  <text x="150" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">git push origin main</text>
+  <text x="150" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">Automatic trigger</text>
+  
+  <rect x="240" y="240" width="140" height="60" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1" rx="5"/>
+  <text x="310" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">Pull Requests</text>
+  <text x="310" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E40AF">PR opened/updated</text>
+  <text x="310" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E40AF">Code review trigger</text>
+  
+  <rect x="400" y="240" width="140" height="60" fill="#E0E7FF" stroke="#6366F1" stroke-width="1" rx="5"/>
+  <text x="470" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4338CA">Tag Creation</text>
+  <text x="470" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4338CA">git tag v1.0.0</text>
+  <text x="470" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#4338CA">Release trigger</text>
+  
+  <rect x="560" y="240" width="140" height="60" fill="#D1FAE5" stroke="#10B981" stroke-width="1" rx="5"/>
+  <text x="630" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#047857">Scheduled</text>
+  <text x="630" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#047857">Cron jobs</text>
+  <text x="630" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#047857">Nightly builds</text>
+  
+  <!-- Platform Examples -->
+  <rect x="50" y="340" width="700" height="180" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1" rx="10"/>
+  <text x="400" y="365" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1E293B">Platform-Specific CI/CD</text>
+  
+  <!-- GitHub Actions -->
+  <rect x="80" y="380" width="200" height="120" fill="#24292E" stroke="#586069" stroke-width="2" rx="8"/>
+  <text x="180" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">GitHub Actions</text>
+  
+  <text x="90" y="425" font-family="monospace" font-size="9" fill="#FFFFFF">name: CI/CD Pipeline</text>
+  <text x="90" y="440" font-family="monospace" font-size="9" fill="#FFFFFF">on: [push, pull_request]</text>
+  <text x="90" y="455" font-family="monospace" font-size="9" fill="#FFFFFF">jobs:</text>
+  <text x="90" y="470" font-family="monospace" font-size="9" fill="#FFFFFF">  build:</text>
+  <text x="90" y="485" font-family="monospace" font-size="9" fill="#FFFFFF">    runs-on: ubuntu-latest</text>
+  
+  <!-- GitLab CI -->
+  <rect x="300" y="380" width="200" height="120" fill="#FC6D26" stroke="#E24329" stroke-width="2" rx="8"/>
+  <text x="400" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">GitLab CI/CD</text>
+  
+  <text x="310" y="425" font-family="monospace" font-size="9" fill="#FFFFFF">stages:</text>
+  <text x="310" y="440" font-family="monospace" font-size="9" fill="#FFFFFF">  - build</text>
+  <text x="310" y="455" font-family="monospace" font-size="9" fill="#FFFFFF">  - test</text>
+  <text x="310" y="470" font-family="monospace" font-size="9" fill="#FFFFFF">  - deploy</text>
+  <text x="310" y="485" font-family="monospace" font-size="9" fill="#FFFFFF">build_job:</text>
+  
+  <!-- Jenkins -->
+  <rect x="520" y="380" width="200" height="120" fill="#D33833" stroke="#B71C1C" stroke-width="2" rx="8"/>
+  <text x="620" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">Jenkins Pipeline</text>
+  
+  <text x="530" y="425" font-family="monospace" font-size="9" fill="#FFFFFF">pipeline {</text>
+  <text x="530" y="440" font-family="monospace" font-size="9" fill="#FFFFFF">  agent any</text>
+  <text x="530" y="455" font-family="monospace" font-size="9" fill="#FFFFFF">  stages {</text>
+  <text x="530" y="470" font-family="monospace" font-size="9" fill="#FFFFFF">    stage('Build') {</text>
+  <text x="530" y="485" font-family="monospace" font-size="9" fill="#FFFFFF">      steps { ... }</text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+  </defs>
+  
+  <!-- Best Practices -->
+  <rect x="50" y="540" width="700" height="50" fill="#EFF6FF" stroke="#DBEAFE" stroke-width="1" rx="8"/>
+  <text x="400" y="565" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E40AF">CI/CD Best Practices with Git</text>
+  
+  <text x="80" y="580" font-family="Arial, sans-serif" font-size="11" fill="#1E40AF">• Use feature branches for development • Automate testing on every commit • Deploy from main branch only</text>
+</svg>

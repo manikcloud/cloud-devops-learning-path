@@ -1,0 +1,117 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="localGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D1FAE5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="remoteGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DBEAFE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="originGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E0E7FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">Git Remote Operations</text>
+  
+  <!-- Local Repository -->
+  <rect x="50" y="80" width="200" height="150" fill="url(#localGradient)" stroke="#10B981" stroke-width="3" rx="15"/>
+  <text x="150" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#047857">Local Repository</text>
+  <text x="150" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#047857">Your Computer</text>
+  <text x="150" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#047857">Working Directory</text>
+  <text x="150" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#047857">Staging Area</text>
+  <text x="150" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#047857">Local Commits</text>
+  <text x="150" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#047857">Branches: main, feature</text>
+  
+  <!-- Remote Repository -->
+  <rect x="550" y="80" width="200" height="150" fill="url(#remoteGradient)" stroke="#3B82F6" stroke-width="3" rx="15"/>
+  <text x="650" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E40AF">Remote Repository</text>
+  <text x="650" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1E40AF">GitHub/GitLab</text>
+  <text x="650" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1E40AF">Shared Repository</text>
+  <text x="650" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1E40AF">Team Access</text>
+  <text x="650" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1E40AF">Remote Commits</text>
+  <text x="650" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1E40AF">origin/main, origin/feature</text>
+  
+  <!-- Operations -->
+  <!-- Clone -->
+  <path d="M 550 120 Q 400 100 250 120" stroke="#059669" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="400" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#059669">git clone</text>
+  <text x="400" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">Initial copy</text>
+  
+  <!-- Push -->
+  <path d="M 250 140 Q 400 120 550 140" stroke="#DC2626" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="400" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#DC2626">git push</text>
+  <text x="400" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#DC2626">Upload changes</text>
+  
+  <!-- Pull -->
+  <path d="M 550 180 Q 400 200 250 180" stroke="#7C3AED" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="400" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7C3AED">git pull</text>
+  <text x="400" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7C3AED">Download + merge</text>
+  
+  <!-- Fetch -->
+  <path d="M 550 200 Q 400 240 250 200" stroke="#F59E0B" stroke-width="3" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  <text x="400" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#F59E0B">git fetch</text>
+  <text x="400" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#F59E0B">Download only</text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+  </defs>
+  
+  <!-- Remote Commands Section -->
+  <rect x="50" y="280" width="700" height="200" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" rx="10"/>
+  <text x="400" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1E293B">Essential Remote Commands</text>
+  
+  <!-- Command boxes -->
+  <rect x="80" y="320" width="150" height="80" fill="#EFF6FF" stroke="#DBEAFE" stroke-width="1" rx="5"/>
+  <text x="155" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">Remote Setup</text>
+  <text x="155" y="360" text-anchor="middle" font-family="monospace" font-size="10" fill="#1E40AF">git remote add origin</text>
+  <text x="155" y="375" text-anchor="middle" font-family="monospace" font-size="10" fill="#1E40AF">git remote -v</text>
+  <text x="155" y="390" text-anchor="middle" font-family="monospace" font-size="10" fill="#1E40AF">git remote show origin</text>
+  
+  <rect x="250" y="320" width="150" height="80" fill="#ECFDF5" stroke="#BBF7D0" stroke-width="1" rx="5"/>
+  <text x="325" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#047857">Push Operations</text>
+  <text x="325" y="360" text-anchor="middle" font-family="monospace" font-size="10" fill="#047857">git push origin main</text>
+  <text x="325" y="375" text-anchor="middle" font-family="monospace" font-size="10" fill="#047857">git push -u origin feature</text>
+  <text x="325" y="390" text-anchor="middle" font-family="monospace" font-size="10" fill="#047857">git push --force-with-lease</text>
+  
+  <rect x="420" y="320" width="150" height="80" fill="#F3E8FF" stroke="#E9D5FF" stroke-width="1" rx="5"/>
+  <text x="495" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7C3AED">Pull Operations</text>
+  <text x="495" y="360" text-anchor="middle" font-family="monospace" font-size="10" fill="#7C3AED">git pull origin main</text>
+  <text x="495" y="375" text-anchor="middle" font-family="monospace" font-size="10" fill="#7C3AED">git pull --rebase</text>
+  <text x="495" y="390" text-anchor="middle" font-family="monospace" font-size="10" fill="#7C3AED">git pull --no-ff</text>
+  
+  <rect x="590" y="320" width="150" height="80" fill="#FFFBEB" stroke="#FED7AA" stroke-width="1" rx="5"/>
+  <text x="665" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#92400E">Fetch Operations</text>
+  <text x="665" y="360" text-anchor="middle" font-family="monospace" font-size="10" fill="#92400E">git fetch origin</text>
+  <text x="665" y="375" text-anchor="middle" font-family="monospace" font-size="10" fill="#92400E">git fetch --all</text>
+  <text x="665" y="390" text-anchor="middle" font-family="monospace" font-size="10" fill="#92400E">git fetch --prune</text>
+  
+  <!-- Branch Tracking -->
+  <rect x="80" y="420" width="300" height="50" fill="#FEF3C7" stroke="#FED7AA" stroke-width="1" rx="5"/>
+  <text x="230" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#92400E">Branch Tracking</text>
+  <text x="230" y="455" text-anchor="middle" font-family="monospace" font-size="10" fill="#92400E">git branch --set-upstream-to=origin/main main</text>
+  
+  <!-- Remote Branch Management -->
+  <rect x="400" y="420" width="340" height="50" fill="#FEE2E2" stroke="#FECACA" stroke-width="1" rx="5"/>
+  <text x="570" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#DC2626">Remote Branch Management</text>
+  <text x="570" y="455" text-anchor="middle" font-family="monospace" font-size="10" fill="#DC2626">git push origin --delete feature-branch</text>
+  
+  <!-- Best Practices -->
+  <rect x="50" y="500" width="700" height="80" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="400" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">Remote Operations Best Practices</text>
+  
+  <text x="100" y="545" font-family="Arial, sans-serif" font-size="12" fill="#475569">• Always fetch before pushing to avoid conflicts</text>
+  <text x="100" y="560" font-family="Arial, sans-serif" font-size="12" fill="#475569">• Use descriptive commit messages for remote history</text>
+  
+  <text x="450" y="545" font-family="Arial, sans-serif" font-size="12" fill="#475569">• Set up upstream branches for easier push/pull</text>
+  <text x="450" y="560" font-family="Arial, sans-serif" font-size="12" fill="#475569">• Use --force-with-lease instead of --force</text>
+</svg>

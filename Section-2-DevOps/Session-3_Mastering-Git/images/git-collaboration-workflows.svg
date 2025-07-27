@@ -1,0 +1,133 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="centralizedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FEF3C7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="featureGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DBEAFE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="forkingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D1FAE5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">Git Collaboration Workflows</text>
+  
+  <!-- Centralized Workflow -->
+  <text x="50" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">1. Centralized Workflow</text>
+  
+  <rect x="50" y="80" width="700" height="80" fill="url(#centralizedGradient)" stroke="#F59E0B" stroke-width="2" rx="10"/>
+  
+  <!-- Central Repository -->
+  <rect x="350" y="100" width="100" height="40" fill="#FFFFFF" stroke="#F59E0B" stroke-width="2" rx="5"/>
+  <text x="400" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#92400E">Central Repo</text>
+  
+  <!-- Developers -->
+  <rect x="100" y="100" width="80" height="40" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1" rx="5"/>
+  <text x="140" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">Dev A</text>
+  
+  <rect x="220" y="100" width="80" height="40" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1" rx="5"/>
+  <text x="260" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">Dev B</text>
+  
+  <rect x="520" y="100" width="80" height="40" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1" rx="5"/>
+  <text x="560" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">Dev C</text>
+  
+  <rect x="640" y="100" width="80" height="40" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1" rx="5"/>
+  <text x="680" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">Dev D</text>
+  
+  <!-- Arrows -->
+  <path d="M 180 120 L 340 120" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 300 120 L 340 120" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 450 120 L 510 120" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 450 120 L 630 120" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Feature Branch Workflow -->
+  <text x="50" y="200" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">2. Feature Branch Workflow</text>
+  
+  <rect x="50" y="210" width="700" height="120" fill="url(#featureGradient)" stroke="#3B82F6" stroke-width="2" rx="10"/>
+  
+  <!-- Main branch -->
+  <line x1="100" y1="240" x2="700" y2="240" stroke="#1E3A8A" stroke-width="4"/>
+  <text x="110" y="230" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E3A8A">main</text>
+  
+  <!-- Feature branches -->
+  <line x1="200" y1="240" x2="200" y2="270" stroke="#059669" stroke-width="3"/>
+  <line x1="200" y1="270" x2="350" y2="270" stroke="#059669" stroke-width="3"/>
+  <line x1="350" y1="270" x2="350" y2="240" stroke="#059669" stroke-width="3"/>
+  <text x="275" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">feature/login</text>
+  
+  <line x1="450" y1="240" x2="450" y2="300" stroke="#DC2626" stroke-width="3"/>
+  <line x1="450" y1="300" x2="600" y2="300" stroke="#DC2626" stroke-width="3"/>
+  <line x1="600" y1="300" x2="600" y2="240" stroke="#DC2626" stroke-width="3"/>
+  <text x="525" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#DC2626">feature/payment</text>
+  
+  <!-- Commits -->
+  <circle cx="150" cy="240" r="5" fill="#1E3A8A"/>
+  <circle cx="250" cy="270" r="4" fill="#059669"/>
+  <circle cx="300" cy="270" r="4" fill="#059669"/>
+  <circle cx="400" cy="240" r="5" fill="#1E3A8A"/>
+  <circle cx="500" cy="300" r="4" fill="#DC2626"/>
+  <circle cx="550" cy="300" r="4" fill="#DC2626"/>
+  <circle cx="650" cy="240" r="5" fill="#1E3A8A"/>
+  
+  <!-- Forking Workflow -->
+  <text x="50" y="370" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">3. Forking Workflow (Open Source)</text>
+  
+  <rect x="50" y="380" width="700" height="120" fill="url(#forkingGradient)" stroke="#10B981" stroke-width="2" rx="10"/>
+  
+  <!-- Original Repository -->
+  <rect x="350" y="400" width="100" height="30" fill="#FFFFFF" stroke="#10B981" stroke-width="2" rx="5"/>
+  <text x="400" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#047857">Original Repo</text>
+  
+  <!-- Forked Repositories -->
+  <rect x="100" y="450" width="80" height="30" fill="#FFFFFF" stroke="#10B981" stroke-width="1" rx="5"/>
+  <text x="140" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#047857">Fork A</text>
+  
+  <rect x="220" y="450" width="80" height="30" fill="#FFFFFF" stroke="#10B981" stroke-width="1" rx="5"/>
+  <text x="260" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#047857">Fork B</text>
+  
+  <rect x="520" y="450" width="80" height="30" fill="#FFFFFF" stroke="#10B981" stroke-width="1" rx="5"/>
+  <text x="560" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#047857">Fork C</text>
+  
+  <rect x="640" y="450" width="80" height="30" fill="#FFFFFF" stroke="#10B981" stroke-width="1" rx="5"/>
+  <text x="680" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#047857">Fork D</text>
+  
+  <!-- Fork arrows -->
+  <path d="M 380 430 L 160 450" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="3,3"/>
+  <path d="M 390 430 L 280 450" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="3,3"/>
+  <path d="M 410 430 L 540 450" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="3,3"/>
+  <path d="M 420 430 L 660 450" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="3,3"/>
+  
+  <!-- Pull Request arrows -->
+  <path d="M 160 450 L 380 430" stroke="#DC2626" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 280 450 L 390 430" stroke="#DC2626" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <text x="270" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#DC2626">Pull Requests</text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+  </defs>
+  
+  <!-- Comparison Table -->
+  <rect x="50" y="520" width="700" height="70" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" rx="8"/>
+  <text x="400" y="545" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">Workflow Comparison</text>
+  
+  <text x="80" y="565" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#92400E">Centralized:</text>
+  <text x="80" y="580" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Simple, direct commits to main</text>
+  
+  <text x="280" y="565" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1E40AF">Feature Branch:</text>
+  <text x="280" y="580" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Isolated development, code review</text>
+  
+  <text x="520" y="565" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#047857">Forking:</text>
+  <text x="520" y="580" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Open source, external contributions</text>
+</svg>

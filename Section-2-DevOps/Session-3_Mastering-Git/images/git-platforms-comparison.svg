@@ -1,0 +1,163 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="githubGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F6F8FA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#24292E;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gitlabGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDF2F8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FC6D26;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bitbucketGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EFF6FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0052CC;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">Git Platform Comparison</text>
+  
+  <!-- GitHub Section -->
+  <rect x="50" y="60" width="220" height="180" fill="url(#githubGradient)" stroke="#24292E" stroke-width="2" rx="10"/>
+  <text x="160" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">GitHub</text>
+  <text x="160" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FFFFFF">Microsoft-owned</text>
+  
+  <!-- GitHub Features -->
+  <text x="70" y="130" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF">Key Features:</text>
+  <text x="70" y="145" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Largest developer community</text>
+  <text x="70" y="160" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• GitHub Actions (CI/CD)</text>
+  <text x="70" y="175" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• GitHub Pages</text>
+  <text x="70" y="190" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Advanced security features</text>
+  <text x="70" y="205" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Copilot AI integration</text>
+  <text x="70" y="220" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Extensive marketplace</text>
+  
+  <!-- GitLab Section -->
+  <rect x="290" y="60" width="220" height="180" fill="url(#gitlabGradient)" stroke="#FC6D26" stroke-width="2" rx="10"/>
+  <text x="400" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">GitLab</text>
+  <text x="400" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FFFFFF">Open Source</text>
+  
+  <!-- GitLab Features -->
+  <text x="310" y="130" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF">Key Features:</text>
+  <text x="310" y="145" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Complete DevOps platform</text>
+  <text x="310" y="160" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Built-in CI/CD pipelines</text>
+  <text x="310" y="175" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Self-hosted options</text>
+  <text x="310" y="190" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Integrated issue tracking</text>
+  <text x="310" y="205" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Container registry</text>
+  <text x="310" y="220" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Security scanning</text>
+  
+  <!-- Bitbucket Section -->
+  <rect x="530" y="60" width="220" height="180" fill="url(#bitbucketGradient)" stroke="#0052CC" stroke-width="2" rx="10"/>
+  <text x="640" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">Bitbucket</text>
+  <text x="640" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FFFFFF">Atlassian</text>
+  
+  <!-- Bitbucket Features -->
+  <text x="550" y="130" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF">Key Features:</text>
+  <text x="550" y="145" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Atlassian ecosystem</text>
+  <text x="550" y="160" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Jira integration</text>
+  <text x="550" y="175" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Bitbucket Pipelines</text>
+  <text x="550" y="190" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Smart mirroring</text>
+  <text x="550" y="205" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• Branch permissions</text>
+  <text x="550" y="220" font-family="Arial, sans-serif" font-size="10" fill="#FFFFFF">• IP whitelisting</text>
+  
+  <!-- Comparison Table -->
+  <rect x="50" y="260" width="700" height="280" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" rx="10"/>
+  <text x="400" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1E293B">Feature Comparison</text>
+  
+  <!-- Table Headers -->
+  <rect x="70" y="300" width="120" height="25" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="130" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E293B">Feature</text>
+  
+  <rect x="190" y="300" width="150" height="25" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
+  <text x="265" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#24292E">GitHub</text>
+  
+  <rect x="340" y="300" width="150" height="25" fill="#FDF2F8" stroke="#FBCFE8" stroke-width="1"/>
+  <text x="415" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#FC6D26">GitLab</text>
+  
+  <rect x="490" y="300" width="150" height="25" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="565" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0052CC">Bitbucket</text>
+  
+  <!-- Pricing Row -->
+  <rect x="70" y="325" width="120" height="25" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="130" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">Pricing</text>
+  
+  <rect x="190" y="325" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="265" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#24292E">Free + Paid plans</text>
+  
+  <rect x="340" y="325" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="415" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FC6D26">Free + Self-hosted</text>
+  
+  <rect x="490" y="325" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="565" y="343" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0052CC">Free + Paid plans</text>
+  
+  <!-- CI/CD Row -->
+  <rect x="70" y="350" width="120" height="25" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="130" y="368" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">CI/CD</text>
+  
+  <rect x="190" y="350" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="265" y="368" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#24292E">GitHub Actions</text>
+  
+  <rect x="340" y="350" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="415" y="368" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FC6D26">Built-in Pipelines</text>
+  
+  <rect x="490" y="350" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="565" y="368" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0052CC">Bitbucket Pipelines</text>
+  
+  <!-- Community Row -->
+  <rect x="70" y="375" width="120" height="25" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="130" y="393" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">Community</text>
+  
+  <rect x="190" y="375" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="265" y="393" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#24292E">Largest (100M+)</text>
+  
+  <rect x="340" y="375" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="415" y="393" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FC6D26">Growing (30M+)</text>
+  
+  <rect x="490" y="375" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="565" y="393" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0052CC">Smaller (10M+)</text>
+  
+  <!-- Self-hosting Row -->
+  <rect x="70" y="400" width="120" height="25" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="130" y="418" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">Self-hosting</text>
+  
+  <rect x="190" y="400" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="265" y="418" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#24292E">Enterprise only</text>
+  
+  <rect x="340" y="400" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="415" y="418" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FC6D26">Yes (Free CE)</text>
+  
+  <rect x="490" y="400" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="565" y="418" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0052CC">Server/Data Center</text>
+  
+  <!-- Integration Row -->
+  <rect x="70" y="425" width="120" height="25" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="130" y="443" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">Integrations</text>
+  
+  <rect x="190" y="425" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="265" y="443" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#24292E">Extensive</text>
+  
+  <rect x="340" y="425" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="415" y="443" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FC6D26">All-in-one</text>
+  
+  <rect x="490" y="425" width="150" height="25" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="565" y="443" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0052CC">Atlassian suite</text>
+  
+  <!-- Best Use Cases -->
+  <rect x="50" y="460" width="700" height="70" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="400" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">Best Use Cases</text>
+  
+  <text x="80" y="505" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#24292E">GitHub:</text>
+  <text x="80" y="520" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Open source, large community projects</text>
+  
+  <text x="300" y="505" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#FC6D26">GitLab:</text>
+  <text x="300" y="520" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Enterprise DevOps, self-hosted</text>
+  
+  <text x="520" y="505" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#0052CC">Bitbucket:</text>
+  <text x="520" y="520" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Atlassian ecosystem integration</text>
+  
+  <!-- Market Share -->
+  <rect x="50" y="550" width="700" height="40" fill="#EFF6FF" stroke="#DBEAFE" stroke-width="1" rx="5"/>
+  <text x="400" y="575" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E40AF">Market Share (2025): GitHub 73% • GitLab 17% • Bitbucket 10%</text>
+</svg>
