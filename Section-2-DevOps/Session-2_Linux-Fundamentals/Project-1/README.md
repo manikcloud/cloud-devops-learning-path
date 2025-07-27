@@ -19,7 +19,7 @@
 
 | [🎯 Overview](#-project-overview) | [🛠️ Setup Tools](#️-essential-tools--setup) | [☁️ AWS Deployment](#️-task-1-aws-linux-deployment) | [📁 File Operations](#-task-2-file-system-mastery) |
 |:---:|:---:|:---:|:---:|
-| [⚡ Commands](#-task-3-command-line-mastery) | [🔐 SSH Security](#-task-4-ssh--security-setup) | [🎉 Completion](#-project-completion--next-steps) | |
+| [⚡ Commands](#-task-3-command-line-mastery) | [🎉 Completion](#-project-completion--next-steps) | | |
 
 </div>
 
@@ -838,335 +838,9 @@ echo "🎉 Advanced Command Line Lab completed!"
 ### 🎯 **Success Criteria**
 - ✅ Monitor system resources effectively
 - ✅ Manage processes and services
-- ✅ Perform network diagnostics
+- ✅ Perform basic network operations
 - ✅ Install and manage packages
 - ✅ Generate comprehensive system reports
-
----
-
-## 🔐 Task 4: SSH & Security Setup
-
-<div align="center">
-
-### 🛡️ **Secure Shell Mastery & File Transfer**
-
-</div>
-
-### 🎯 **Objective**
-Configure advanced SSH security, implement key-based authentication, master secure file transfer, and set up SSH tunneling.
-
-### 🔑 **SSH Key Management**
-
-#### **Generate SSH Key Pairs**
-```bash
-# Generate RSA key pair (traditional)
-ssh-keygen -t rsa -b 4096 -C "your-email@example.com"
-# Files created: ~/.ssh/id_rsa (private) and ~/.ssh/id_rsa.pub (public)
-
-# Generate ED25519 key pair (modern, recommended)
-ssh-keygen -t ed25519 -C "your-email@example.com"
-# Files created: ~/.ssh/id_ed25519 (private) and ~/.ssh/id_ed25519.pub (public)
-
-# Generate key with custom name and location
-ssh-keygen -t ed25519 -f ~/.ssh/my-server-key -C "server-access-key"
-
-# Set proper permissions
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/id_ed25519
-chmod 644 ~/.ssh/id_ed25519.pub
-```
-
-#### **SSH Key Deployment**
-```bash
-# Copy public key to server (automatic method)
-ssh-copy-id -i ~/.ssh/id_ed25519.pub user@hostname
-
-# Manual method
-cat ~/.ssh/id_ed25519.pub | ssh user@hostname "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
-
-# Set proper permissions on server
-ssh user@hostname "chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
-
-# Test key-based authentication
-ssh -i ~/.ssh/id_ed25519 user@hostname
-```
-
-### ⚙️ **SSH Configuration**
-
-#### **Client Configuration (~/.ssh/config)**
-```bash
-# Create SSH config file
-cat > ~/.ssh/config << 'EOF'
-# Default settings
-Host *
-    ServerAliveInterval 60
-    ServerAliveCountMax 3
-    Compression yes
-    ControlMaster auto
-    ControlPath ~/.ssh/sockets/%r@%h-%p
-    ControlPersist 600
-
-# Production server
-Host prod-server
-    HostName 54.123.45.67
-    User ec2-user
-    IdentityFile ~/.ssh/prod-server-key
-    Port 22
-    ForwardAgent yes
-
-# Development server
-Host dev-server
-    HostName dev.example.com
-    User developer
-    IdentityFile ~/.ssh/dev-key
-    Port 2222
-    LocalForward 8080 localhost:80
-
-# Jump host configuration
-Host internal-server
-    HostName 10.0.1.100
-    User admin
-    ProxyJump bastion-host
-    IdentityFile ~/.ssh/internal-key
-EOF
-
-# Set proper permissions
-chmod 600 ~/.ssh/config
-
-# Create sockets directory for connection multiplexing
-mkdir -p ~/.ssh/sockets
-```
-
-#### **Server SSH Hardening**
-```bash
-# Backup original SSH config
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
-
-# Create hardened SSH configuration
-sudo tee /etc/ssh/sshd_config.d/hardening.conf << 'EOF'
-# SSH Hardening Configuration
-
-# Disable root login
-PermitRootLogin no
-
-# Disable password authentication (use keys only)
-PasswordAuthentication no
-ChallengeResponseAuthentication no
-UsePAM no
-
-# Limit users and groups
-AllowUsers ec2-user developer
-# AllowGroups ssh-users
-
-# Change default port (optional)
-# Port 2222
-
-# Protocol and encryption
-Protocol 2
-Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
-MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512
-KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512
-
-# Connection settings
-ClientAliveInterval 300
-ClientAliveCountMax 2
-MaxAuthTries 3
-MaxSessions 2
-LoginGraceTime 60
-
-# Disable unused features
-AllowAgentForwarding no
-AllowTcpForwarding no
-X11Forwarding no
-PermitTunnel no
-EOF
-
-# Test configuration
-sudo sshd -t
-
-# Restart SSH service
-sudo systemctl restart sshd
-```
-
-### 📁 **Secure File Transfer**
-
-#### **SCP (Secure Copy)**
-```bash
-# Upload file to server
-scp local-file.txt user@hostname:/remote/path/
-
-# Download file from server
-scp user@hostname:/remote/file.txt /local/path/
-
-# Upload directory recursively
-scp -r local-directory/ user@hostname:/remote/path/
-
-# Download directory recursively
-scp -r user@hostname:/remote/directory/ /local/path/
-
-# Copy with specific key
-scp -i ~/.ssh/my-key file.txt user@hostname:/path/
-
-# Copy with compression and progress
-scp -C -v file.txt user@hostname:/path/
-
-# Copy between two remote servers (through local machine)
-scp user1@host1:/path/file.txt user2@host2:/path/
-```
-
-#### **SFTP (SSH File Transfer Protocol)**
-```bash
-# Connect to SFTP server
-sftp user@hostname
-sftp -i ~/.ssh/my-key user@hostname
-
-# SFTP commands (interactive session)
-sftp> ls                    # List remote directory
-sftp> lls                   # List local directory
-sftp> pwd                   # Show remote directory
-sftp> lpwd                  # Show local directory
-sftp> cd /remote/path       # Change remote directory
-sftp> lcd /local/path       # Change local directory
-
-# File transfer commands
-sftp> get remote-file.txt           # Download file
-sftp> put local-file.txt            # Upload file
-sftp> get -r remote-directory/      # Download directory
-sftp> put -r local-directory/       # Upload directory
-sftp> mget *.txt                    # Download multiple files
-sftp> mput *.log                    # Upload multiple files
-
-# File operations
-sftp> mkdir remote-directory        # Create remote directory
-sftp> rmdir remote-directory        # Remove remote directory
-sftp> rm remote-file.txt           # Delete remote file
-sftp> rename old.txt new.txt       # Rename remote file
-sftp> chmod 755 script.sh          # Change permissions
-
-sftp> quit                         # Exit SFTP
-```
-
-#### **Automated File Transfer Script**
-```bash
-#!/bin/bash
-# Automated backup script using SFTP
-
-BACKUP_DIR="/home/ec2-user/backups"
-REMOTE_HOST="backup-server"
-REMOTE_PATH="/backups/$(hostname)"
-DATE=$(date +%Y%m%d_%H%M%S)
-
-# Create backup archive
-echo "📦 Creating backup archive..."
-tar -czf "${BACKUP_DIR}/backup_${DATE}.tar.gz" \
-    /home/ec2-user/projects \
-    /etc/nginx \
-    /var/log/application.log
-
-# Upload via SFTP
-echo "📤 Uploading backup to remote server..."
-sftp ${REMOTE_HOST} << EOF
-cd ${REMOTE_PATH}
-put ${BACKUP_DIR}/backup_${DATE}.tar.gz
-ls -la
-quit
-EOF
-
-# Cleanup old local backups (keep last 5)
-echo "🧹 Cleaning up old backups..."
-cd ${BACKUP_DIR}
-ls -t backup_*.tar.gz | tail -n +6 | xargs rm -f
-
-echo "✅ Backup completed successfully!"
-```
-
-### 🌐 **SSH Tunneling & Port Forwarding**
-
-#### **Local Port Forwarding**
-```bash
-# Forward local port to remote service
-ssh -L 8080:localhost:80 user@hostname
-# Access remote web server at http://localhost:8080
-
-# Forward to different remote host through SSH server
-ssh -L 3306:database-server:3306 user@jump-host
-# Access database server through jump host
-
-# Background tunnel
-ssh -f -N -L 8080:localhost:80 user@hostname
-# -f: background, -N: no command execution
-```
-
-#### **Remote Port Forwarding**
-```bash
-# Make local service accessible from remote server
-ssh -R 9000:localhost:3000 user@hostname
-# Remote server can access local service on port 9000
-
-# Expose local web server to internet through remote server
-ssh -R 80:localhost:8000 user@public-server
-```
-
-#### **Dynamic Port Forwarding (SOCKS Proxy)**
-```bash
-# Create SOCKS proxy
-ssh -D 1080 user@hostname
-# Configure browser to use localhost:1080 as SOCKS proxy
-
-# Background SOCKS proxy
-ssh -f -N -D 1080 user@hostname
-```
-
-### 🎯 **SSH Security Lab**
-```bash
-#!/bin/bash
-# SSH Security Configuration Lab
-
-echo "🔐 Starting SSH Security Lab..."
-
-# Create SSH directory structure
-mkdir -p ~/.ssh/lab-keys
-cd ~/.ssh/lab-keys
-
-# Generate different types of keys
-echo "🔑 Generating SSH key pairs..."
-ssh-keygen -t ed25519 -f lab-ed25519 -C "lab-ed25519-key" -N ""
-ssh-keygen -t rsa -b 4096 -f lab-rsa -C "lab-rsa-key" -N ""
-
-# Set proper permissions
-chmod 600 lab-*
-chmod 644 lab-*.pub
-
-# Display key information
-echo "📋 Generated keys:"
-ls -la lab-*
-
-echo "🔍 Key fingerprints:"
-ssh-keygen -lf lab-ed25519.pub
-ssh-keygen -lf lab-rsa.pub
-
-# Create SSH config entry
-echo "⚙️ Creating SSH config entry..."
-cat >> ~/.ssh/config << EOF
-
-# Lab server configuration
-Host lab-server
-    HostName YOUR_SERVER_IP
-    User ec2-user
-    IdentityFile ~/.ssh/lab-keys/lab-ed25519
-    ServerAliveInterval 60
-    Compression yes
-EOF
-
-echo "✅ SSH Security Lab completed!"
-echo "📝 Next steps:"
-echo "1. Copy public key to server: ssh-copy-id -i lab-ed25519.pub user@server"
-### 🎯 **Success Criteria**
-- ✅ Generate and manage SSH key pairs
-- ✅ Configure SSH client and server security
-- ✅ Master SCP and SFTP file transfer
-- ✅ Implement SSH tunneling and port forwarding
-- ✅ Create automated backup scripts
 
 ---
 
@@ -1174,41 +848,40 @@ echo "1. Copy public key to server: ssh-copy-id -i lab-ed25519.pub user@server"
 
 <div align="center">
 
-### 🏆 **Congratulations! You've Mastered Linux Fundamentals**
+### 🏆 **Congratulations! You've Mastered Core Linux Fundamentals**
 
 </div>
 
 ### 📊 **Project Summary**
-You have successfully completed all four core tasks:
+You have successfully completed all three essential Linux tasks:
 
 <table>
 <tr>
 <td width="50%">
 
 ### ✅ **Skills Acquired**
-- **☁️ AWS EC2 Deployment** - Cloud Linux server setup
-- **📁 File System Mastery** - Navigation and operations
-- **⚡ Command Line Proficiency** - 50+ essential commands
-- **🔐 SSH Security** - Key-based authentication and file transfer
+- **☁️ AWS EC2 Deployment** - Cloud Linux server setup and management
+- **📁 File System Mastery** - Navigation, operations, and permissions
+- **⚡ Command Line Proficiency** - Essential commands and system administration
 
 </td>
 <td width="50%">
 
 ### 📈 **Professional Readiness**
-- **System Administration** - User and service management
-- **Security Best Practices** - SSH hardening and access control
-- **Automation Skills** - Basic scripting and task automation
-- **Cloud Operations** - AWS infrastructure management
+- **Cloud Operations** - AWS infrastructure deployment
+- **System Administration** - Process and service management
+- **File Management** - Comprehensive file operations
+- **Network Basics** - Service management and connectivity
 
 </td>
 </tr>
 </table>
 
 ### 🎯 **Portfolio Deliverables**
-- ✅ **Running AWS EC2 Instance** with proper security configuration
-- ✅ **SSH Key-Based Authentication** setup and documentation
-- ✅ **File System Operations** demonstration and scripts
-- ✅ **System Administration** tasks completed successfully
+- ✅ **Running AWS EC2 Instance** with proper configuration
+- ✅ **File System Operations** demonstration and documentation
+- ✅ **System Monitoring Scripts** and command proficiency
+- ✅ **Linux Administration** tasks completed successfully
 
 ### 🛤️ **Next Learning Path**
 Ready to advance your DevOps journey? Continue with:
@@ -1216,6 +889,13 @@ Ready to advance your DevOps journey? Continue with:
 1. **[Session 3: Mastering Git](../Session-3_Mastering-Git/)** - Version control and collaboration
 2. **[Session 4: Jenkins CI/CD](../Session-4_Jenkins/)** - Continuous integration and deployment
 3. **[Terraform Module](../Terraform/)** - Infrastructure as Code automation
+
+### 🔐 **SSH Security Note**
+SSH security and advanced file transfer will be covered in detail in **Session 3: Mastering Git** where you'll learn:
+- SSH key generation and management
+- Secure Git repository access
+- Advanced authentication methods
+- Security best practices for DevOps workflows
 
 ### 🎓 **Certification Preparation**
 This project prepares you for:
@@ -1228,16 +908,16 @@ This project prepares you for:
 The skills you've developed are directly applicable to:
 - **DevOps Engineer** positions requiring Linux administration
 - **System Administrator** roles in cloud environments
-- **Site Reliability Engineer** positions with infrastructure focus
 - **Cloud Engineer** roles requiring server management
+- **Site Reliability Engineer** positions with infrastructure focus
 
 ---
 
 <div align="center">
 
-## 🚀 **Ready for Advanced DevOps Challenges?**
+## 🚀 **Ready for Version Control Mastery?**
 
-### *"You've built the foundation - now let's automate everything!"*
+### *"You've mastered the foundation - now let's learn collaboration!"*
 
 **Next Challenge:** [Master Git Version Control →](../Session-3_Mastering-Git/)
 
@@ -1247,6 +927,6 @@ The skills you've developed are directly applicable to:
 *AWS Ambassador | Kubernetes Expert | DevOps Specialist*
 
 **Project 1: Linux System Administration & Cloud Deployment**  
-*Completed Successfully! 🎉*
+*Core Fundamentals Completed Successfully! 🎉*
 
 </div>
