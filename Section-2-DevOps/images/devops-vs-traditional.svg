@@ -1,0 +1,135 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#374151">Traditional IT vs DevOps Approach</text>
+  
+  <!-- Traditional Side -->
+  <text x="200" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#DC2626">🏢 Traditional Approach</text>
+  
+  <!-- Traditional Team Structure -->
+  <rect x="50" y="90" width="300" height="200" rx="10" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+  
+  <!-- Dev Team -->
+  <rect x="70" y="110" width="120" height="80" rx="5" fill="#FECACA" stroke="#B91C1C" stroke-width="1"/>
+  <text x="130" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7F1D1D">👨‍💻 Dev Team</text>
+  <text x="130" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Write code</text>
+  <text x="130" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Unit testing</text>
+  <text x="130" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Feature delivery</text>
+  
+  <!-- Wall -->
+  <rect x="200" y="110" width="10" height="80" fill="#7F1D1D"/>
+  <text x="205" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" transform="rotate(90 205 155)">WALL</text>
+  
+  <!-- Ops Team -->
+  <rect x="220" y="110" width="120" height="80" rx="5" fill="#FECACA" stroke="#B91C1C" stroke-width="1"/>
+  <text x="280" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7F1D1D">⚙️ Ops Team</text>
+  <text x="280" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Deploy code</text>
+  <text x="280" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Monitor systems</text>
+  <text x="280" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Maintain uptime</text>
+  
+  <!-- Traditional Challenges -->
+  <text x="200" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7F1D1D">Challenges:</text>
+  <text x="200" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Siloed teams</text>
+  <text x="200" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Manual processes</text>
+  <text x="200" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">• Slow releases (months)</text>
+  
+  <!-- DevOps Side -->
+  <text x="600" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#059669">🚀 DevOps Approach</text>
+  
+  <!-- DevOps Team Structure -->
+  <rect x="450" y="90" width="300" height="200" rx="10" fill="#DCFCE7" stroke="#059669" stroke-width="2"/>
+  
+  <!-- Unified Team -->
+  <ellipse cx="600" cy="150" rx="130" ry="60" fill="#BBF7D0" stroke="#16A34A" stroke-width="2"/>
+  <text x="600" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#14532D">🤝 Cross-functional Team</text>
+  <text x="600" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">• Shared responsibility</text>
+  <text x="600" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">• End-to-end ownership</text>
+  <text x="600" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">• Collaborative culture</text>
+  
+  <!-- DevOps Benefits -->
+  <text x="600" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#14532D">Benefits:</text>
+  <text x="600" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">• Collaborative teams</text>
+  <text x="600" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">• Automated workflows</text>
+  <text x="600" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">• Continuous delivery</text>
+  
+  <!-- Process Comparison -->
+  <text x="400" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#374151">Process Comparison</text>
+  
+  <!-- Traditional Process -->
+  <text x="200" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#DC2626">Traditional Process</text>
+  
+  <!-- Traditional Steps -->
+  <rect x="50" y="380" width="80" height="40" rx="5" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+  <text x="90" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">Plan</text>
+  <text x="90" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7F1D1D">(Weeks)</text>
+  
+  <path d="M 135 400 L 165 400" stroke="#DC2626" stroke-width="2" fill="none" marker-end="url(#redArrow)"/>
+  
+  <rect x="170" y="380" width="80" height="40" rx="5" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+  <text x="210" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">Develop</text>
+  <text x="210" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7F1D1D">(Months)</text>
+  
+  <path d="M 255 400 L 285 400" stroke="#DC2626" stroke-width="2" fill="none" marker-end="url(#redArrow)"/>
+  
+  <rect x="290" y="380" width="80" height="40" rx="5" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+  <text x="330" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7F1D1D">Deploy</text>
+  <text x="330" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#7F1D1D">(Days)</text>
+  
+  <!-- DevOps Process -->
+  <text x="600" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#059669">DevOps Process</text>
+  
+  <!-- DevOps Cycle -->
+  <circle cx="600" cy="450" r="80" fill="none" stroke="#059669" stroke-width="3"/>
+  
+  <!-- DevOps Steps around circle -->
+  <circle cx="600" cy="370" r="15" fill="#059669"/>
+  <text x="600" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white">Plan</text>
+  
+  <circle cx="670" cy="400" r="15" fill="#059669"/>
+  <text x="670" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white">Code</text>
+  
+  <circle cx="680" cy="480" r="15" fill="#059669"/>
+  <text x="680" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white">Build</text>
+  
+  <circle cx="640" cy="540" r="15" fill="#059669"/>
+  <text x="640" y="545" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white">Test</text>
+  
+  <circle cx="560" cy="540" r="15" fill="#059669"/>
+  <text x="560" y="545" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white">Deploy</text>
+  
+  <circle cx="520" cy="480" r="15" fill="#059669"/>
+  <text x="520" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white">Monitor</text>
+  
+  <circle cx="530" cy="400" r="15" fill="#059669"/>
+  <text x="530" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white">Operate</text>
+  
+  <!-- Continuous text in center -->
+  <text x="600" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#059669">Continuous</text>
+  <text x="600" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#059669">Integration</text>
+  
+  <!-- Statistics -->
+  <text x="400" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#374151">Performance Comparison</text>
+  
+  <text x="200" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#DC2626">Traditional: 6-12 month releases</text>
+  <text x="600" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#059669">DevOps: Multiple releases per day</text>
+  
+  <!-- Arrow marker definitions -->
+  <defs>
+    <marker id="redArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#DC2626"/>
+    </marker>
+  </defs>
+</svg>

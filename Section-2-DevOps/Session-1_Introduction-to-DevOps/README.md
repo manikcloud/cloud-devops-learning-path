@@ -162,6 +162,8 @@ Knowledge Assessment: 85%+ | Practical Labs: Complete All | Case Study: Present 
 
 ### 🔄 **The Great Transformation**
 
+![Traditional vs DevOps](../images/devops-vs-traditional.svg)
+
 </div>
 
 <table>
@@ -207,6 +209,8 @@ Traditional: Days to recover | DevOps: Minutes to hours recovery
 <div align="center">
 
 ### 🎭 **Meet the DevOps Team**
+
+![DevOps Roles](../images/devops-roles.svg)
 
 </div>
 
@@ -643,6 +647,8 @@ Expected ROI: 285% within 18 months
 <div align="center">
 
 ### 🎭 **The Great Mindset Transformation**
+
+![DevOps Philosophy](../images/devops-philosophy.svg)
 
 > *"DevOps is not a tool you buy, it's a culture you build"*
 

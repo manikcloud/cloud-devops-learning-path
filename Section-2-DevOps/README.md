@@ -35,6 +35,12 @@ This section focuses on **DevOps practices, Infrastructure as Code (IaC), and au
 
 ## 🛤️ Learning Path
 
+<div align="center">
+
+![DevOps Learning Path](./images/devops-learning-path.svg)
+
+</div>
+
 ```mermaid
 graph LR
     A[DevOps Fundamentals] --> B[Linux & Git Mastery]

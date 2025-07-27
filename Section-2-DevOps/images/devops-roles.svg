@@ -1,0 +1,127 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#D97706;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A855F7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E3A8A">DevOps Roles & Career Paths</text>
+  
+  <!-- DevOps Engineer -->
+  <rect x="50" y="70" width="300" height="120" rx="15" fill="url(#blueGradient)" stroke="#1E3A8A" stroke-width="2"/>
+  <text x="200" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">👨‍💻 DevOps Engineer</text>
+  <text x="200" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#E5E7EB">The Bridge Builder</text>
+  
+  <text x="70" y="140" font-family="Arial, sans-serif" font-size="11" fill="white">• Implements CI/CD pipelines</text>
+  <text x="70" y="155" font-family="Arial, sans-serif" font-size="11" fill="white">• Manages infrastructure automation</text>
+  <text x="70" y="170" font-family="Arial, sans-serif" font-size="11" fill="white">• Facilitates team collaboration</text>
+  <text x="270" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FEF3C7">$95K - $140K</text>
+  
+  <!-- Site Reliability Engineer -->
+  <rect x="450" y="70" width="300" height="120" rx="15" fill="url(#greenGradient)" stroke="#059669" stroke-width="2"/>
+  <text x="600" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">🛡️ Site Reliability Engineer</text>
+  <text x="600" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#E5E7EB">The Guardian</text>
+  
+  <text x="470" y="140" font-family="Arial, sans-serif" font-size="11" fill="white">• Ensures 99.9%+ system uptime</text>
+  <text x="470" y="155" font-family="Arial, sans-serif" font-size="11" fill="white">• Implements monitoring & alerting</text>
+  <text x="470" y="170" font-family="Arial, sans-serif" font-size="11" fill="white">• Manages incident response</text>
+  <text x="670" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FEF3C7">$110K - $165K</text>
+  
+  <!-- Cloud Architect -->
+  <rect x="50" y="220" width="300" height="120" rx="15" fill="url(#orangeGradient)" stroke="#D97706" stroke-width="2"/>
+  <text x="200" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">☁️ Cloud Architect</text>
+  <text x="200" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#FEF3C7">The Visionary</text>
+  
+  <text x="70" y="290" font-family="Arial, sans-serif" font-size="11" fill="white">• Designs cloud infrastructure</text>
+  <text x="70" y="305" font-family="Arial, sans-serif" font-size="11" fill="white">• Implements security best practices</text>
+  <text x="70" y="320" font-family="Arial, sans-serif" font-size="11" fill="white">• Optimizes cost and performance</text>
+  <text x="270" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FEF3C7">$120K - $180K</text>
+  
+  <!-- Platform Engineer -->
+  <rect x="450" y="220" width="300" height="120" rx="15" fill="url(#purpleGradient)" stroke="#7C3AED" stroke-width="2"/>
+  <text x="600" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">🏗️ Platform Engineer</text>
+  <text x="600" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#E5E7EB">The Foundation Builder</text>
+  
+  <text x="470" y="290" font-family="Arial, sans-serif" font-size="11" fill="white">• Builds internal developer platforms</text>
+  <text x="470" y="305" font-family="Arial, sans-serif" font-size="11" fill="white">• Creates self-service capabilities</text>
+  <text x="470" y="320" font-family="Arial, sans-serif" font-size="11" fill="white">• Improves developer experience</text>
+  <text x="670" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FEF3C7">$105K - $155K</text>
+  
+  <!-- Career Growth Path -->
+  <text x="400" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#374151">Career Growth Path</text>
+  
+  <!-- Career Progression -->
+  <rect x="50" y="400" width="120" height="50" rx="10" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  <text x="110" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E3A8A">Junior DevOps</text>
+  <text x="110" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">0-2 years</text>
+  <text x="110" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">$65K-$85K</text>
+  
+  <path d="M 180 425 L 220 425" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="230" y="400" width="120" height="50" rx="10" fill="#F0FDF4" stroke="#10B981" stroke-width="2"/>
+  <text x="290" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#059669">DevOps Engineer</text>
+  <text x="290" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">2-5 years</text>
+  <text x="290" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">$95K-$140K</text>
+  
+  <path d="M 360 425 L 400 425" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="410" y="400" width="120" height="50" rx="10" fill="#FFF7ED" stroke="#F59E0B" stroke-width="2"/>
+  <text x="470" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#D97706">Senior DevOps</text>
+  <text x="470" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">5-8 years</text>
+  <text x="470" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">$130K-$180K</text>
+  
+  <path d="M 540 425 L 580 425" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <rect x="590" y="400" width="120" height="50" rx="10" fill="#F3E8FF" stroke="#A855F7" stroke-width="2"/>
+  <text x="650" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7C3AED">DevOps Architect</text>
+  <text x="650" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">8+ years</text>
+  <text x="650" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">$160K-$220K</text>
+  
+  <!-- Skills Required -->
+  <text x="400" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#374151">Essential Skills</text>
+  
+  <!-- Technical Skills -->
+  <rect x="50" y="510" width="200" height="80" rx="10" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
+  <text x="150" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E3A8A">🔧 Technical Skills</text>
+  <text x="150" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Linux, Python, Docker</text>
+  <text x="150" y="565" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Kubernetes, Jenkins, Git</text>
+  <text x="150" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">AWS/Azure/GCP, Terraform</text>
+  
+  <!-- Soft Skills -->
+  <rect x="300" y="510" width="200" height="80" rx="10" fill="#F0FDF4" stroke="#10B981" stroke-width="1"/>
+  <text x="400" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#059669">🤝 Soft Skills</text>
+  <text x="400" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Communication</text>
+  <text x="400" y="565" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Problem-solving</text>
+  <text x="400" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Collaboration, Leadership</text>
+  
+  <!-- Certifications -->
+  <rect x="550" y="510" width="200" height="80" rx="10" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
+  <text x="650" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#D97706">🏆 Certifications</text>
+  <text x="650" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">AWS DevOps Engineer</text>
+  <text x="650" y="565" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">CKA, Terraform Associate</text>
+  <text x="650" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Azure DevOps Expert</text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+  </defs>
+</svg>

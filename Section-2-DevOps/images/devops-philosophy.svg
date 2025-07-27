@@ -1,0 +1,131 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E3A8A">DevOps Philosophy: Culture Over Tools</text>
+  
+  <!-- Legacy Mindset Side -->
+  <text x="200" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#DC2626">❌ Legacy Mindset</text>
+  
+  <!-- Tool-Centric Box -->
+  <rect x="50" y="90" width="300" height="80" rx="10" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+  <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#DC2626">🛠️ Tool-Centric Thinking</text>
+  <text x="200" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">"Buy Jenkins = DevOps Success"</text>
+  <text x="200" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">Focus on technology over culture</text>
+  <text x="200" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">Quick fixes and silver bullets</text>
+  
+  <!-- Manual Operations Box -->
+  <rect x="50" y="190" width="300" height="80" rx="10" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+  <text x="200" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#DC2626">📋 Manual Operations</text>
+  <text x="200" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">"We've always done it this way"</text>
+  <text x="200" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">Fear of automation and change</text>
+  <text x="200" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">Reactive problem-solving</text>
+  
+  <!-- Siloed Ownership Box -->
+  <rect x="50" y="290" width="300" height="80" rx="10" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+  <text x="200" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#DC2626">🏢 Siloed Ownership</text>
+  <text x="200" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">"That's not my job"</text>
+  <text x="200" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">Departmental boundaries</text>
+  <text x="200" y="365" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#7F1D1D">Knowledge hoarding</text>
+  
+  <!-- Transformation Arrow -->
+  <path d="M 370 250 L 430 250" stroke="#374151" stroke-width="5" fill="none" marker-end="url(#bigArrowhead)"/>
+  <text x="400" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Transform</text>
+  
+  <!-- DevOps Philosophy Side -->
+  <text x="600" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#059669">✅ DevOps Philosophy</text>
+  
+  <!-- Culture-First Box -->
+  <rect x="450" y="90" width="300" height="80" rx="10" fill="#DCFCE7" stroke="#059669" stroke-width="2"/>
+  <text x="600" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#059669">🧠 Culture-First Approach</text>
+  <text x="600" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">People and processes before tools</text>
+  <text x="600" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">Collaborative problem-solving</text>
+  <text x="600" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">Continuous learning mindset</text>
+  
+  <!-- Everything as Code Box -->
+  <rect x="450" y="190" width="300" height="80" rx="10" fill="#DCFCE7" stroke="#059669" stroke-width="2"/>
+  <text x="600" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#059669">🤖 Everything as Code</text>
+  <text x="600" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">Infrastructure as Code (IaC)</text>
+  <text x="600" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">Configuration as Code</text>
+  <text x="600" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">Policy as Code</text>
+  
+  <!-- Shared Responsibility Box -->
+  <rect x="450" y="290" width="300" height="80" rx="10" fill="#DCFCE7" stroke="#059669" stroke-width="2"/>
+  <text x="600" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#059669">🤝 Shared Responsibility</text>
+  <text x="600" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">"We build it, we run it"</text>
+  <text x="600" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">End-to-end ownership</text>
+  <text x="600" y="365" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#14532D">Collective accountability</text>
+  
+  <!-- Transformation Process -->
+  <text x="400" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">Transformation Process</text>
+  
+  <!-- Process Steps -->
+  <circle cx="100" cy="440" r="20" fill="#1E3A8A"/>
+  <text x="100" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">1</text>
+  <text x="100" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Mindset</text>
+  <text x="100" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Change</text>
+  
+  <path d="M 125 440 L 175 440" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrowhead)"/>
+  
+  <circle cx="200" cy="440" r="20" fill="#059669"/>
+  <text x="200" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">2</text>
+  <text x="200" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Code</text>
+  <text x="200" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Everything</text>
+  
+  <path d="M 225 440 L 275 440" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrowhead)"/>
+  
+  <circle cx="300" cy="440" r="20" fill="#D97706"/>
+  <text x="300" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">3</text>
+  <text x="300" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Version</text>
+  <text x="300" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Control</text>
+  
+  <path d="M 325 440 L 375 440" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrowhead)"/>
+  
+  <circle cx="400" cy="440" r="20" fill="#7C3AED"/>
+  <text x="400" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">4</text>
+  <text x="400" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Automate</text>
+  
+  <path d="M 425 440 L 475 440" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrowhead)"/>
+  
+  <circle cx="500" cy="440" r="20" fill="#DC2626"/>
+  <text x="500" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">5</text>
+  <text x="500" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Measure</text>
+  
+  <path d="M 525 440 L 575 440" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrowhead)"/>
+  
+  <circle cx="600" cy="440" r="20" fill="#059669"/>
+  <text x="600" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">6</text>
+  <text x="600" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Improve</text>
+  
+  <path d="M 625 440 L 675 440" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrowhead)"/>
+  
+  <circle cx="700" cy="440" r="20" fill="#1E3A8A"/>
+  <text x="700" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">🔄</text>
+  <text x="700" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Repeat</text>
+  
+  <!-- Arrow marker definitions -->
+  <defs>
+    <marker id="bigArrowhead" markerWidth="15" markerHeight="10" refX="14" refY="5" orient="auto">
+      <polygon points="0 0, 15 5, 0 10" fill="#374151"/>
+    </marker>
+    <marker id="smallArrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#374151"/>
+    </marker>
+  </defs>
+</svg>
