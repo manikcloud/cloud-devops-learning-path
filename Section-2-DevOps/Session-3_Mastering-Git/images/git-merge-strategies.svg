@@ -1,271 +1,148 @@
-<svg width="800" height="700" xmlns="http://www.w3.org/2000/svg">
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="mainBranch" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="featureGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient id="mergeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <linearGradient id="featureBranch" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#D97706;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
     </linearGradient>
   </defs>
   
   <!-- Background -->
-  <rect width="800" height="700" fill="#F8FAFC"/>
+  <rect width="800" height="600" fill="#F8FAFC"/>
   
   <!-- Title -->
-  <text x="400" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#F05032">🔗 Git Merge Strategies</text>
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">Git Merge Strategies</text>
   
   <!-- Fast-Forward Merge -->
-  <text x="200" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">⚡ Fast-Forward Merge</text>
+  <text x="50" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">1. Fast-Forward Merge</text>
   
-  <!-- Before Fast-Forward -->
-  <text x="100" y="85" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6B7280">Before:</text>
+  <!-- Before -->
+  <text x="70" y="95" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">Before:</text>
+  <line x1="100" y1="110" x2="300" y2="110" stroke="url(#mainBranch)" stroke-width="4"/>
+  <circle cx="120" cy="110" r="6" fill="#1E3A8A"/>
+  <circle cx="160" cy="110" r="6" fill="#1E3A8A"/>
+  <text x="120" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
   
-  <!-- Main branch before -->
-  <line x1="50" y1="100" x2="200" y2="100" stroke="#1E3A8A" stroke-width="4"/>
-  <circle cx="80" cy="100" r="6" fill="#3B82F6"/>
-  <circle cx="120" cy="100" r="6" fill="#3B82F6"/>
-  <text x="30" y="105" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
+  <line x1="160" y1="110" x2="160" y2="140" stroke="url(#featureBranch)" stroke-width="3"/>
+  <line x1="160" y1="140" x2="240" y2="140" stroke="url(#featureBranch)" stroke-width="4"/>
+  <circle cx="200" cy="140" r="5" fill="#D97706"/>
+  <circle cx="240" cy="140" r="5" fill="#D97706"/>
+  <text x="200" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">feature</text>
   
-  <!-- Feature branch before -->
-  <path d="M 120 100 L 140 80 L 180 80 L 200 100" stroke="#059669" stroke-width="4" fill="none"/>
-  <circle cx="140" cy="80" r="6" fill="#10B981"/>
-  <circle cx="180" cy="80" r="6" fill="#10B981"/>
-  <text x="160" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">feature</text>
-  
-  <!-- Arrow -->
-  <path d="M 220 90 L 260 90" stroke="#F05032" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-  <text x="240" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#F05032">merge</text>
-  
-  <!-- After Fast-Forward -->
-  <text x="300" y="85" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6B7280">After:</text>
-  
-  <!-- Main branch after -->
-  <line x1="280" y1="100" x2="430" y2="100" stroke="#1E3A8A" stroke-width="4"/>
-  <circle cx="310" cy="100" r="6" fill="#3B82F6"/>
-  <circle cx="350" cy="100" r="6" fill="#3B82F6"/>
-  <circle cx="390" cy="100" r="6" fill="#10B981"/>
-  <circle cx="430" cy="100" r="6" fill="#10B981"/>
-  <text x="260" y="105" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
+  <!-- After -->
+  <text x="350" y="95" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">After:</text>
+  <line x1="380" y1="110" x2="580" y2="110" stroke="url(#mainBranch)" stroke-width="4"/>
+  <circle cx="400" cy="110" r="6" fill="#1E3A8A"/>
+  <circle cx="440" cy="110" r="6" fill="#1E3A8A"/>
+  <circle cx="480" cy="110" r="6" fill="#D97706"/>
+  <circle cx="520" cy="110" r="6" fill="#D97706"/>
+  <text x="460" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main (moved forward)</text>
   
   <!-- Three-Way Merge -->
-  <text x="600" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">🔀 Three-Way Merge</text>
+  <text x="50" y="200" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">2. Three-Way Merge</text>
   
-  <!-- Before Three-Way -->
-  <text x="500" y="85" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6B7280">Before:</text>
+  <!-- Before -->
+  <text x="70" y="225" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">Before:</text>
+  <line x1="100" y1="240" x2="300" y2="240" stroke="url(#mainBranch)" stroke-width="4"/>
+  <circle cx="120" cy="240" r="6" fill="#1E3A8A"/>
+  <circle cx="160" cy="240" r="6" fill="#1E3A8A"/>
+  <circle cx="240" cy="240" r="6" fill="#1E3A8A"/>
+  <text x="160" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
   
-  <!-- Main branch before -->
-  <line x1="450" y1="100" x2="650" y2="100" stroke="#1E3A8A" stroke-width="4"/>
-  <circle cx="480" cy="100" r="6" fill="#3B82F6"/>
-  <circle cx="520" cy="100" r="6" fill="#3B82F6"/>
-  <circle cx="600" cy="100" r="6" fill="#3B82F6"/>
-  <text x="430" y="105" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
+  <line x1="160" y1="240" x2="160" y2="270" stroke="url(#featureBranch)" stroke-width="3"/>
+  <line x1="160" y1="270" x2="220" y2="270" stroke="url(#featureBranch)" stroke-width="4"/>
+  <circle cx="200" cy="270" r="5" fill="#D97706"/>
+  <text x="200" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">feature</text>
   
-  <!-- Feature branch before -->
-  <path d="M 520 100 L 540 80 L 580 80" stroke="#059669" stroke-width="4" fill="none"/>
-  <circle cx="540" cy="80" r="6" fill="#10B981"/>
-  <circle cx="580" cy="80" r="6" fill="#10B981"/>
-  <text x="560" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">feature</text>
+  <!-- After -->
+  <text x="350" y="225" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">After:</text>
+  <line x1="380" y1="240" x2="580" y2="240" stroke="url(#mainBranch)" stroke-width="4"/>
+  <circle cx="400" cy="240" r="6" fill="#1E3A8A"/>
+  <circle cx="440" cy="240" r="6" fill="#1E3A8A"/>
+  <circle cx="520" cy="240" r="6" fill="#1E3A8A"/>
+  <circle cx="560" cy="240" r="6" fill="#10B981"/>
   
-  <!-- After Three-Way -->
-  <text x="500" y="135" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6B7280">After:</text>
+  <line x1="440" y1="240" x2="440" y2="270" stroke="url(#featureBranch)" stroke-width="3"/>
+  <line x1="440" y1="270" x2="500" y2="270" stroke="url(#featureBranch)" stroke-width="4"/>
+  <line x1="500" y1="270" x2="560" y2="240" stroke="url(#featureBranch)" stroke-width="3"/>
+  <circle cx="480" cy="270" r="5" fill="#D97706"/>
   
-  <!-- Main branch after with merge commit -->
-  <line x1="450" y1="150" x2="700" y2="150" stroke="#1E3A8A" stroke-width="4"/>
-  <circle cx="480" cy="150" r="6" fill="#3B82F6"/>
-  <circle cx="520" cy="150" r="6" fill="#3B82F6"/>
-  <circle cx="600" cy="150" r="6" fill="#3B82F6"/>
-  <circle cx="650" cy="150" r="8" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
-  <text x="430" y="155" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
-  <text x="650" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#D97706">merge</text>
-  
-  <!-- Feature branch after -->
-  <path d="M 520 150 L 540 130 L 580 130 L 650 150" stroke="#059669" stroke-width="4" fill="none"/>
-  <circle cx="540" cy="130" r="6" fill="#10B981"/>
-  <circle cx="580" cy="130" r="6" fill="#10B981"/>
+  <text x="500" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#10B981">merge commit</text>
   
   <!-- Squash Merge -->
-  <text x="200" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">📦 Squash Merge</text>
+  <text x="50" y="330" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">3. Squash Merge</text>
   
-  <!-- Before Squash -->
-  <text x="100" y="225" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6B7280">Before:</text>
+  <!-- Before -->
+  <text x="70" y="355" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">Before:</text>
+  <line x1="100" y1="370" x2="300" y2="370" stroke="url(#mainBranch)" stroke-width="4"/>
+  <circle cx="120" cy="370" r="6" fill="#1E3A8A"/>
+  <circle cx="160" cy="370" r="6" fill="#1E3A8A"/>
+  <text x="140" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
   
-  <!-- Main branch -->
-  <line x1="50" y1="240" x2="200" y2="240" stroke="#1E3A8A" stroke-width="4"/>
-  <circle cx="80" cy="240" r="6" fill="#3B82F6"/>
-  <circle cx="120" cy="240" r="6" fill="#3B82F6"/>
-  <text x="30" y="245" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
+  <line x1="160" y1="370" x2="160" y2="400" stroke="url(#featureBranch)" stroke-width="3"/>
+  <line x1="160" y1="400" x2="280" y2="400" stroke="url(#featureBranch)" stroke-width="4"/>
+  <circle cx="200" cy="400" r="5" fill="#D97706"/>
+  <circle cx="240" cy="400" r="5" fill="#D97706"/>
+  <circle cx="280" cy="400" r="5" fill="#D97706"/>
+  <text x="220" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">feature (3 commits)</text>
   
-  <!-- Feature branch with multiple commits -->
-  <path d="M 120 240 L 140 220 L 160 220 L 180 220 L 200 240" stroke="#059669" stroke-width="4" fill="none"/>
-  <circle cx="140" cy="220" r="5" fill="#10B981"/>
-  <circle cx="160" cy="220" r="5" fill="#10B981"/>
-  <circle cx="180" cy="220" r="5" fill="#10B981"/>
-  <text x="160" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">feature (3 commits)</text>
-  
-  <!-- Arrow -->
-  <path d="M 220 230 L 260 230" stroke="#F05032" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-  <text x="240" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#F05032">squash</text>
-  
-  <!-- After Squash -->
-  <text x="300" y="225" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6B7280">After:</text>
-  
-  <!-- Main branch after squash -->
-  <line x1="280" y1="240" x2="430" y2="240" stroke="#1E3A8A" stroke-width="4"/>
-  <circle cx="310" cy="240" r="6" fill="#3B82F6"/>
-  <circle cx="350" cy="240" r="6" fill="#3B82F6"/>
-  <circle cx="390" cy="240" r="8" fill="#7C3AED" stroke="#6D28D9" stroke-width="2"/>
-  <text x="260" y="245" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
-  <text x="390" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7C3AED">squashed</text>
+  <!-- After -->
+  <text x="350" y="355" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">After:</text>
+  <line x1="380" y1="370" x2="540" y2="370" stroke="url(#mainBranch)" stroke-width="4"/>
+  <circle cx="400" cy="370" r="6" fill="#1E3A8A"/>
+  <circle cx="440" cy="370" r="6" fill="#1E3A8A"/>
+  <circle cx="500" cy="370" r="6" fill="#7C3AED"/>
+  <text x="470" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7C3AED">single squashed commit</text>
   
   <!-- Rebase -->
-  <text x="600" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">🔄 Rebase</text>
+  <text x="50" y="460" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1E293B">4. Rebase</text>
   
-  <!-- Before Rebase -->
-  <text x="500" y="225" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6B7280">Before:</text>
+  <!-- Before -->
+  <text x="70" y="485" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">Before:</text>
+  <line x1="100" y1="500" x2="300" y2="500" stroke="url(#mainBranch)" stroke-width="4"/>
+  <circle cx="120" cy="500" r="6" fill="#1E3A8A"/>
+  <circle cx="160" cy="500" r="6" fill="#1E3A8A"/>
+  <circle cx="240" cy="500" r="6" fill="#1E3A8A"/>
+  <text x="160" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
   
-  <!-- Main branch -->
-  <line x1="450" y1="240" x2="650" y2="240" stroke="#1E3A8A" stroke-width="4"/>
-  <circle cx="480" cy="240" r="6" fill="#3B82F6"/>
-  <circle cx="520" cy="240" r="6" fill="#3B82F6"/>
-  <circle cx="600" cy="240" r="6" fill="#3B82F6"/>
-  <text x="430" y="245" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
+  <line x1="160" y1="500" x2="160" y2="530" stroke="url(#featureBranch)" stroke-width="3"/>
+  <line x1="160" y1="530" x2="220" y2="530" stroke="url(#featureBranch)" stroke-width="4"/>
+  <circle cx="200" cy="530" r="5" fill="#D97706"/>
+  <text x="200" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">feature</text>
   
-  <!-- Feature branch -->
-  <path d="M 520 240 L 540 220 L 580 220" stroke="#059669" stroke-width="4" fill="none"/>
-  <circle cx="540" cy="220" r="6" fill="#10B981"/>
-  <circle cx="580" cy="220" r="6" fill="#10B981"/>
-  <text x="560" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">feature</text>
+  <!-- After -->
+  <text x="350" y="485" font-family="Arial, sans-serif" font-size="12" fill="#6B7280">After:</text>
+  <line x1="380" y1="500" x2="580" y2="500" stroke="url(#mainBranch)" stroke-width="4"/>
+  <circle cx="400" cy="500" r="6" fill="#1E3A8A"/>
+  <circle cx="440" cy="500" r="6" fill="#1E3A8A"/>
+  <circle cx="520" cy="500" r="6" fill="#1E3A8A"/>
+  <circle cx="560" cy="500" r="6" fill="#D97706"/>
+  <text x="500" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">rebased commits</text>
   
-  <!-- After Rebase -->
-  <text x="500" y="275" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#6B7280">After:</text>
+  <!-- Comparison Table -->
+  <rect x="650" y="80" width="140" height="300" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" rx="8"/>
+  <text x="720" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E293B">Comparison</text>
   
-  <!-- Main branch after rebase -->
-  <line x1="450" y1="290" x2="700" y2="290" stroke="#1E3A8A" stroke-width="4"/>
-  <circle cx="480" cy="290" r="6" fill="#3B82F6"/>
-  <circle cx="520" cy="290" r="6" fill="#3B82F6"/>
-  <circle cx="600" cy="290" r="6" fill="#3B82F6"/>
-  <circle cx="640" cy="290" r="6" fill="#10B981"/>
-  <circle cx="680" cy="290" r="6" fill="#10B981"/>
-  <text x="430" y="295" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">main</text>
-  <text x="660" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#059669">rebased commits</text>
+  <text x="660" y="130" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1E3A8A">Fast-Forward:</text>
+  <text x="660" y="145" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Linear history</text>
+  <text x="660" y="160" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• No merge commit</text>
+  <text x="660" y="175" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Simple and clean</text>
   
-  <!-- Conflict Resolution -->
-  <rect x="50" y="330" width="700" height="150" rx="15" fill="#FEE2E2" stroke="#EF4444" stroke-width="2"/>
-  <text x="400" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#DC2626">⚔️ Merge Conflict Resolution</text>
+  <text x="660" y="200" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#10B981">Three-Way:</text>
+  <text x="660" y="215" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Preserves context</text>
+  <text x="660" y="230" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Shows merge point</text>
+  <text x="660" y="245" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• True history</text>
   
-  <!-- Conflict example -->
-  <rect x="80" y="370" width="300" height="100" rx="10" fill="#1F2937" stroke="#374151" stroke-width="1"/>
-  <text x="230" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#EF4444">Conflict in file.txt</text>
+  <text x="660" y="270" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#7C3AED">Squash:</text>
+  <text x="660" y="285" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Clean history</text>
+  <text x="660" y="300" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Loses commit detail</text>
+  <text x="660" y="315" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Good for features</text>
   
-  <text x="90" y="410" font-family="monospace" font-size="10" fill="#10B981"><<<<<<< HEAD</text>
-  <text x="90" y="425" font-family="monospace" font-size="10" fill="#9CA3AF">console.log("Hello from main");</text>
-  <text x="90" y="440" font-family="monospace" font-size="10" fill="#F59E0B">=======</text>
-  <text x="90" y="455" font-family="monospace" font-size="10" fill="#9CA3AF">console.log("Hello from feature");</text>
-  <text x="90" y="470" font-family="monospace" font-size="10" fill="#EF4444">>>>>>>> feature/branch</text>
-  
-  <!-- Resolution steps -->
-  <rect x="420" y="370" width="300" height="100" rx="10" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="1"/>
-  <text x="570" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Resolution Steps</text>
-  
-  <text x="430" y="410" font-family="Arial, sans-serif" font-size="10" fill="#374151">1. Edit conflicted files manually</text>
-  <text x="430" y="425" font-family="Arial, sans-serif" font-size="10" fill="#374151">2. Remove conflict markers</text>
-  <text x="430" y="440" font-family="Arial, sans-serif" font-size="10" fill="#374151">3. git add resolved-file.txt</text>
-  <text x="430" y="455" font-family="Arial, sans-serif" font-size="10" fill="#374151">4. git commit (or git rebase --continue)</text>
-  
-  <!-- Merge Strategy Comparison -->
-  <rect x="50" y="500" width="700" height="180" rx="15" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="2"/>
-  <text x="400" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#374151">📊 Strategy Comparison</text>
-  
-  <!-- Comparison table -->
-  <rect x="80" y="540" width="120" height="30" fill="#374151"/>
-  <text x="140" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Strategy</text>
-  
-  <rect x="200" y="540" width="120" height="30" fill="#374151"/>
-  <text x="260" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">History</text>
-  
-  <rect x="320" y="540" width="120" height="30" fill="#374151"/>
-  <text x="380" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Use Case</text>
-  
-  <rect x="440" y="540" width="120" height="30" fill="#374151"/>
-  <text x="500" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Command</text>
-  
-  <rect x="560" y="540" width="120" height="30" fill="#374151"/>
-  <text x="620" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">Pros/Cons</text>
-  
-  <!-- Fast-forward row -->
-  <rect x="80" y="570" width="120" height="25" fill="#EFF6FF"/>
-  <text x="140" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">Fast-forward</text>
-  
-  <rect x="200" y="570" width="120" height="25" fill="#F0FDF4"/>
-  <text x="260" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">Linear</text>
-  
-  <rect x="320" y="570" width="120" height="25" fill="#FFF7ED"/>
-  <text x="380" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">Simple features</text>
-  
-  <rect x="440" y="570" width="120" height="25" fill="#F3F4F6"/>
-  <text x="500" y="585" text-anchor="middle" font-family="monospace" font-size="9" fill="#374151">git merge</text>
-  
-  <rect x="560" y="570" width="120" height="25" fill="#FEF3C7"/>
-  <text x="620" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#92400E">Clean / No context</text>
-  
-  <!-- Three-way row -->
-  <rect x="80" y="595" width="120" height="25" fill="#EFF6FF"/>
-  <text x="140" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">Three-way</text>
-  
-  <rect x="200" y="595" width="120" height="25" fill="#FEF3C7"/>
-  <text x="260" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">Branched</text>
-  
-  <rect x="320" y="595" width="120" height="25" fill="#FFF7ED"/>
-  <text x="380" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">Complex features</text>
-  
-  <rect x="440" y="595" width="120" height="25" fill="#F3F4F6"/>
-  <text x="500" y="610" text-anchor="middle" font-family="monospace" font-size="9" fill="#374151">git merge --no-ff</text>
-  
-  <rect x="560" y="595" width="120" height="25" fill="#FEF3C7"/>
-  <text x="620" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#92400E">Context / Cluttered</text>
-  
-  <!-- Squash row -->
-  <rect x="80" y="620" width="120" height="25" fill="#EFF6FF"/>
-  <text x="140" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">Squash</text>
-  
-  <rect x="200" y="620" width="120" height="25" fill="#F0FDF4"/>
-  <text x="260" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">Linear</text>
-  
-  <rect x="320" y="620" width="120" height="25" fill="#FFF7ED"/>
-  <text x="380" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">Messy commits</text>
-  
-  <rect x="440" y="620" width="120" height="25" fill="#F3F4F6"/>
-  <text x="500" y="635" text-anchor="middle" font-family="monospace" font-size="9" fill="#374151">git merge --squash</text>
-  
-  <rect x="560" y="620" width="120" height="25" fill="#FEF3C7"/>
-  <text x="620" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#92400E">Clean / Lose detail</text>
-  
-  <!-- Rebase row -->
-  <rect x="80" y="645" width="120" height="25" fill="#EFF6FF"/>
-  <text x="140" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">Rebase</text>
-  
-  <rect x="200" y="645" width="120" height="25" fill="#F0FDF4"/>
-  <text x="260" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">Linear</text>
-  
-  <rect x="320" y="645" width="120" height="25" fill="#FFF7ED"/>
-  <text x="380" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">Feature branches</text>
-  
-  <rect x="440" y="645" width="120" height="25" fill="#F3F4F6"/>
-  <text x="500" y="660" text-anchor="middle" font-family="monospace" font-size="9" fill="#374151">git rebase</text>
-  
-  <rect x="560" y="645" width="120" height="25" fill="#FEF3C7"/>
-  <text x="620" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#92400E">Clean / Rewrites history</text>
-  
-  <!-- Arrow marker definition -->
-  <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#F05032"/>
-    </marker>
-  </defs>
+  <text x="660" y="340" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#D97706">Rebase:</text>
+  <text x="660" y="355" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Linear history</text>
+  <text x="660" y="370" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Rewrites history</text>
+  <text x="660" y="385" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">• Use with caution</text>
 </svg>

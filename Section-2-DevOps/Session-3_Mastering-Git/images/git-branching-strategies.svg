@@ -16,163 +16,105 @@
       <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
     </linearGradient>
+    <linearGradient id="releaseBranch" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A855F7;stop-opacity:1" />
+    </linearGradient>
   </defs>
   
   <!-- Background -->
   <rect width="800" height="600" fill="#F8FAFC"/>
   
   <!-- Title -->
-  <text x="400" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#F05032">🌳 Git Branching Strategies</text>
-  
-  <!-- GitFlow Diagram -->
-  <text x="400" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">GitFlow Workflow</text>
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">Git Branching Strategies - GitFlow</text>
   
   <!-- Main Branch -->
-  <line x1="100" y1="100" x2="700" y2="100" stroke="#1E3A8A" stroke-width="6"/>
-  <text x="50" y="105" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E3A8A">main</text>
+  <line x1="50" y1="100" x2="750" y2="100" stroke="url(#mainBranch)" stroke-width="6"/>
+  <text x="60" y="90" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1E3A8A">main</text>
   
   <!-- Main branch commits -->
-  <circle cx="150" cy="100" r="8" fill="#3B82F6" stroke="#1E3A8A" stroke-width="2"/>
-  <text x="150" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1E3A8A">v1.0</text>
-  
-  <circle cx="400" cy="100" r="8" fill="#3B82F6" stroke="#1E3A8A" stroke-width="2"/>
-  <text x="400" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1E3A8A">v1.1</text>
-  
-  <circle cx="650" cy="100" r="8" fill="#3B82F6" stroke="#1E3A8A" stroke-width="2"/>
-  <text x="650" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#1E3A8A">v1.2</text>
+  <circle cx="100" cy="100" r="8" fill="#1E3A8A"/>
+  <circle cx="300" cy="100" r="8" fill="#1E3A8A"/>
+  <circle cx="500" cy="100" r="8" fill="#1E3A8A"/>
+  <circle cx="700" cy="100" r="8" fill="#1E3A8A"/>
   
   <!-- Develop Branch -->
-  <line x1="100" y1="150" x2="700" y2="150" stroke="#059669" stroke-width="6"/>
-  <text x="50" y="155" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#059669">develop</text>
+  <line x1="100" y1="100" x2="100" y2="150" stroke="url(#developBranch)" stroke-width="4"/>
+  <line x1="100" y1="150" x2="650" y2="150" stroke="url(#developBranch)" stroke-width="6"/>
+  <line x1="650" y1="150" x2="700" y2="100" stroke="url(#developBranch)" stroke-width="4"/>
+  <text x="110" y="145" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#059669">develop</text>
   
   <!-- Develop branch commits -->
-  <circle cx="120" cy="150" r="6" fill="#10B981"/>
-  <circle cx="180" cy="150" r="6" fill="#10B981"/>
-  <circle cx="240" cy="150" r="6" fill="#10B981"/>
-  <circle cx="300" cy="150" r="6" fill="#10B981"/>
-  <circle cx="360" cy="150" r="6" fill="#10B981"/>
-  <circle cx="480" cy="150" r="6" fill="#10B981"/>
-  <circle cx="540" cy="150" r="6" fill="#10B981"/>
-  <circle cx="600" cy="150" r="6" fill="#10B981"/>
-  <circle cx="680" cy="150" r="6" fill="#10B981"/>
+  <circle cx="150" cy="150" r="6" fill="#059669"/>
+  <circle cx="200" cy="150" r="6" fill="#059669"/>
+  <circle cx="350" cy="150" r="6" fill="#059669"/>
+  <circle cx="450" cy="150" r="6" fill="#059669"/>
+  <circle cx="550" cy="150" r="6" fill="#059669"/>
+  <circle cx="650" cy="150" r="6" fill="#059669"/>
   
   <!-- Feature Branch 1 -->
-  <path d="M 180 150 Q 200 130 220 130 L 280 130 Q 300 130 300 150" stroke="#D97706" stroke-width="4" fill="none"/>
-  <text x="240" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#D97706">feature/login</text>
+  <line x1="200" y1="150" x2="200" y2="200" stroke="url(#featureBranch)" stroke-width="3"/>
+  <line x1="200" y1="200" x2="350" y2="200" stroke="url(#featureBranch)" stroke-width="4"/>
+  <line x1="350" y1="200" x2="350" y2="150" stroke="url(#featureBranch)" stroke-width="3"/>
+  <text x="210" y="195" font-family="Arial, sans-serif" font-size="12" fill="#D97706">feature/user-auth</text>
   
   <!-- Feature branch commits -->
-  <circle cx="220" cy="130" r="5" fill="#F59E0B"/>
-  <circle cx="250" cy="130" r="5" fill="#F59E0B"/>
-  <circle cx="280" cy="130" r="5" fill="#F59E0B"/>
+  <circle cx="250" cy="200" r="5" fill="#D97706"/>
+  <circle cx="300" cy="200" r="5" fill="#D97706"/>
   
   <!-- Feature Branch 2 -->
-  <path d="M 360 150 Q 380 170 400 170 L 460 170 Q 480 170 480 150" stroke="#D97706" stroke-width="4" fill="none"/>
-  <text x="420" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#D97706">feature/dashboard</text>
+  <line x1="450" y1="150" x2="450" y2="250" stroke="url(#featureBranch)" stroke-width="3"/>
+  <line x1="450" y1="250" x2="550" y2="250" stroke="url(#featureBranch)" stroke-width="4"/>
+  <line x1="550" y1="250" x2="550" y2="150" stroke="url(#featureBranch)" stroke-width="3"/>
+  <text x="460" y="245" font-family="Arial, sans-serif" font-size="12" fill="#D97706">feature/payment</text>
   
   <!-- Feature branch 2 commits -->
-  <circle cx="400" cy="170" r="5" fill="#F59E0B"/>
-  <circle cx="430" cy="170" r="5" fill="#F59E0B"/>
-  <circle cx="460" cy="170" r="5" fill="#F59E0B"/>
+  <circle cx="480" cy="250" r="5" fill="#D97706"/>
+  <circle cx="520" cy="250" r="5" fill="#D97706"/>
   
   <!-- Release Branch -->
-  <path d="M 540 150 Q 560 120 580 120 L 620 120 Q 640 120 650 100" stroke="#7C3AED" stroke-width="4" fill="none"/>
-  <text x="590" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#7C3AED">release/1.2</text>
+  <line x1="550" y1="150" x2="550" y2="300" stroke="url(#releaseBranch)" stroke-width="3"/>
+  <line x1="550" y1="300" x2="650" y2="300" stroke="url(#releaseBranch)" stroke-width="4"/>
+  <line x1="650" y1="300" x2="650" y2="150" stroke="url(#releaseBranch)" stroke-width="3"/>
+  <line x1="650" y1="300" x2="700" y2="100" stroke="url(#releaseBranch)" stroke-width="3"/>
+  <text x="560" y="295" font-family="Arial, sans-serif" font-size="12" fill="#7C3AED">release/v1.2.0</text>
   
   <!-- Release branch commits -->
-  <circle cx="580" cy="120" r="5" fill="#A855F7"/>
-  <circle cx="610" cy="120" r="5" fill="#A855F7"/>
+  <circle cx="600" cy="300" r="5" fill="#7C3AED"/>
   
   <!-- Hotfix Branch -->
-  <path d="M 400 100 Q 420 80 440 80 L 480 80 Q 500 80 500 100" stroke="#DC2626" stroke-width="4" fill="none"/>
-  <text x="450" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#DC2626">hotfix/security</text>
+  <line x1="500" y1="100" x2="500" y2="350" stroke="url(#hotfixBranch)" stroke-width="3"/>
+  <line x1="500" y1="350" x2="600" y2="350" stroke="url(#hotfixBranch)" stroke-width="4"/>
+  <line x1="600" y1="350" x2="700" y2="100" stroke="url(#hotfixBranch)" stroke-width="3"/>
+  <line x1="600" y1="350" x2="650" y2="150" stroke="url(#hotfixBranch)" stroke-width="3"/>
+  <text x="510" y="345" font-family="Arial, sans-serif" font-size="12" fill="#DC2626">hotfix/critical-bug</text>
   
   <!-- Hotfix branch commits -->
-  <circle cx="440" cy="80" r="5" fill="#EF4444"/>
-  <circle cx="470" cy="80" r="5" fill="#EF4444"/>
+  <circle cx="550" cy="350" r="5" fill="#DC2626"/>
   
-  <!-- Merge arrows -->
-  <!-- Feature to develop merges -->
-  <path d="M 300 140 L 300 150" stroke="#D97706" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-  <path d="M 480 160 L 480 150" stroke="#D97706" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-  
-  <!-- Release to main merge -->
-  <path d="M 640 110 L 650 100" stroke="#7C3AED" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-  
-  <!-- Hotfix to main merge -->
-  <path d="M 490 90 L 500 100" stroke="#DC2626" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-  
-  <!-- Branch Types Legend -->
-  <rect x="50" y="220" width="700" height="120" rx="10" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="2"/>
-  <text x="400" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">🏷️ Branch Types & Purposes</text>
+  <!-- Legend -->
+  <rect x="50" y="400" width="700" height="120" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1" rx="8"/>
+  <text x="400" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1E293B">GitFlow Branch Types</text>
   
   <!-- Legend items -->
-  <rect x="70" y="260" width="150" height="70" rx="5" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
-  <text x="145" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E3A8A">main/master</text>
-  <text x="145" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">Production releases</text>
-  <text x="145" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Stable, tested code</text>
-  <text x="145" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Tagged versions</text>
+  <line x1="80" y1="445" x2="120" y2="445" stroke="url(#mainBranch)" stroke-width="4"/>
+  <text x="130" y="450" font-family="Arial, sans-serif" font-size="12" fill="#1E3A8A">main - Production ready code</text>
   
-  <rect x="240" y="260" width="150" height="70" rx="5" fill="#F0FDF4" stroke="#10B981" stroke-width="1"/>
-  <text x="315" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#059669">develop</text>
-  <text x="315" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">Integration branch</text>
-  <text x="315" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Latest development</text>
-  <text x="315" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Feature integration</text>
+  <line x1="320" y1="445" x2="360" y2="445" stroke="url(#developBranch)" stroke-width="4"/>
+  <text x="370" y="450" font-family="Arial, sans-serif" font-size="12" fill="#059669">develop - Integration branch</text>
   
-  <rect x="410" y="260" width="150" height="70" rx="5" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
-  <text x="485" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#D97706">feature/*</text>
-  <text x="485" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">New features</text>
-  <text x="485" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Branch from develop</text>
-  <text x="485" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Merge back to develop</text>
+  <line x1="580" y1="445" x2="620" y2="445" stroke="url(#featureBranch)" stroke-width="4"/>
+  <text x="630" y="450" font-family="Arial, sans-serif" font-size="12" fill="#D97706">feature - New features</text>
   
-  <rect x="580" y="260" width="150" height="70" rx="5" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/>
-  <text x="655" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#DC2626">hotfix/*</text>
-  <text x="655" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#DC2626">Critical fixes</text>
-  <text x="655" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Branch from main</text>
-  <text x="655" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Merge to main & develop</text>
+  <line x1="80" y1="470" x2="120" y2="470" stroke="url(#releaseBranch)" stroke-width="4"/>
+  <text x="130" y="475" font-family="Arial, sans-serif" font-size="12" fill="#7C3AED">release - Prepare releases</text>
   
-  <!-- Branch Commands -->
-  <rect x="50" y="360" width="700" height="120" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="2"/>
-  <text x="400" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">🔧 Essential Branch Commands</text>
-  
-  <!-- Command examples -->
-  <rect x="70" y="400" width="150" height="70" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
-  <text x="145" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#10B981">Create & Switch</text>
-  <text x="145" y="430" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git checkout -b</text>
-  <text x="145" y="442" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">feature/new-login</text>
-  <text x="145" y="454" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git switch -c</text>
-  <text x="145" y="466" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">feature/dashboard</text>
-  
-  <rect x="240" y="400" width="150" height="70" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
-  <text x="315" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#10B981">List & Switch</text>
-  <text x="315" y="430" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git branch -a</text>
-  <text x="315" y="442" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git checkout main</text>
-  <text x="315" y="454" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git switch develop</text>
-  
-  <rect x="410" y="400" width="150" height="70" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
-  <text x="485" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#10B981">Merge & Delete</text>
-  <text x="485" y="430" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git merge</text>
-  <text x="485" y="442" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">feature/login</text>
-  <text x="485" y="454" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git branch -d</text>
-  <text x="485" y="466" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">feature/login</text>
-  
-  <rect x="580" y="400" width="150" height="70" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
-  <text x="655" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#10B981">Remote Tracking</text>
-  <text x="655" y="430" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git push -u origin</text>
-  <text x="655" y="442" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">feature/new-feature</text>
-  <text x="655" y="454" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">git pull origin</text>
-  <text x="655" y="466" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">develop</text>
+  <line x1="320" y1="470" x2="360" y2="470" stroke="url(#hotfixBranch)" stroke-width="4"/>
+  <text x="370" y="475" font-family="Arial, sans-serif" font-size="12" fill="#DC2626">hotfix - Critical fixes</text>
   
   <!-- Best Practices -->
-  <rect x="50" y="500" width="700" height="80" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
-  <text x="400" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#92400E">💡 Branching Best Practices</text>
+  <text x="400" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#92400E">Branching Best Practices</text>
   
-  <text x="400" y="545" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#92400E">✅ Use descriptive branch names  •  ✅ Keep branches short-lived  •  ✅ Regular integration with main</text>
-  <text x="400" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#92400E">✅ Delete merged branches  •  ✅ Use consistent naming conventions  •  ✅ Test before merging</text>
-  
-  <!-- Arrow marker definition -->
-  <defs>
-    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-      <polygon points="0 0, 8 3, 0 6" fill="#374151"/>
-    </marker>
-  </defs>
+  <text x="400" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#92400E">Use descriptive branch names • Keep branches short-lived • Regular integration with main</text>
+  <text x="400" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#92400E">Delete merged branches • Use consistent naming conventions • Test before merging</text>
 </svg>
