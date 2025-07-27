@@ -1,606 +1,650 @@
-# Session 2: Linux Fundamentals
+# 🐧 Session 2: Linux Fundamentals
+## *Essential Linux Skills for DevOps Professionals*
 
-## 🎯 Module Overview
+<div align="center">
 
-This module covers the fundamentals of Linux and cloud computing. You will develop essential skills to run jobs on Linux and access Linux machines on AWS cloud. This foundation is crucial for DevOps professionals working in cloud environments.
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Shell](https://img.shields.io/badge/Shell-Scripting-green?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-EC2-orange?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
-## 📚 Learning Objectives
+**Duration:** 2 Weeks | **Level:** Beginner to Intermediate | **Type:** Hands-on + Theory
 
-By the end of this session, you will be able to:
-- ✅ **Understand operating system concepts** and Linux architecture
-- ✅ **Navigate Linux file systems** and directory structures
-- ✅ **Execute basic and advanced commands** for system administration
-- ✅ **Use text editors** (vi, vim, emacs) effectively
-- ✅ **Launch and manage Linux instances** on AWS cloud
-- ✅ **Implement secure access** using SSH with keys
-- ✅ **Write shell scripts** for automation
-- ✅ **Manage packages and users** on Linux systems
+</div>
 
-## 📖 Module Content
+---
 
-### 1. Introduction to Operating Systems
+## 📋 Presentation Navigation
+<div align="center">
 
-#### What is an Operating System?
-An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs.
+| [🎯 Overview](#-slide-1-session-overview) | [📚 Learning Goals](#-slide-2-learning-objectives) | [💻 Operating Systems](#-slide-3-operating-systems-fundamentals) | [🐧 Linux Overview](#-slide-4-linux-operating-system) |
+|:---:|:---:|:---:|:---:|
+| [📁 File System](#-slide-5-linux-file-system--navigation) | [⚡ Basic Commands](#-slide-6-essential-linux-commands) | [🔧 Advanced Commands](#-slide-7-advanced-linux-commands) | [📝 Text Editors](#-slide-8-text-editors--file-management) |
+| [☁️ Cloud Deployment](#-slide-9-linux-on-aws-cloud) | [🔐 SSH & Security](#-slide-10-ssh--secure-access) | [📜 Shell Scripting](#-slide-11-shell-scripting-mastery) | [👥 User Management](#-slide-12-user--system-administration) |
+| [🎓 Next Steps](#-slide-13-next-steps--takeaways) | | | |
 
-**Key Functions:**
-- **Process Management**: Running and scheduling programs
-- **Memory Management**: Allocating and managing RAM
-- **File System Management**: Organizing and storing data
-- **Device Management**: Controlling hardware components
-- **Security**: User authentication and access control
-- **Networking**: Communication between systems
+</div>
 
-#### Types of Operating Systems
+---
 
-**Desktop Operating Systems:**
-- Windows (Microsoft)
-- macOS (Apple)
-- Linux Distributions (Ubuntu, CentOS, etc.)
+## 🎯 Slide 1: Session Overview
 
-**Server Operating Systems:**
-- Windows Server
-- Linux Server Distributions
-- Unix variants
+<div align="center">
 
-**Mobile Operating Systems:**
-- Android (Google)
-- iOS (Apple)
+### 🌟 **Master Linux for DevOps Excellence**
 
-**Cloud Operating Systems:**
-- Container-optimized OS
-- Serverless computing platforms
+</div>
 
-### 2. Overview of Linux Operating System
+> **Mission:** Build essential Linux skills for cloud computing and DevOps automation
 
-#### What is Linux?
-Linux is a free and open-source operating system kernel created by Linus Torvalds in 1991. It forms the foundation of many operating system distributions.
-
-#### Linux Architecture
-
+### 🎪 **Why Linux Matters for DevOps**
 ```
-┌─────────────────────────────────────┐
-│           Applications              │
-├─────────────────────────────────────┤
-│           System Libraries          │
-├─────────────────────────────────────┤
-│           System Calls              │
-├─────────────────────────────────────┤
-│           Linux Kernel              │
-├─────────────────────────────────────┤
-│           Hardware                  │
-└─────────────────────────────────────┘
+🌐 90% of Cloud Infrastructure    📊 95% of Container Platforms    🔧 100% of DevOps Tools
+💰 Lower TCO than Windows        🔒 Superior Security Model       🚀 Automation-Friendly
 ```
 
-**Components:**
-- **Kernel**: Core of the operating system
-- **Shell**: Command-line interface
-- **File System**: Data organization structure
-- **Utilities**: System and user programs
-- **Libraries**: Shared code components
+### 📅 **Session Structure**
+- **Week 1:** Linux Fundamentals & Command Line Mastery
+- **Week 2:** Shell Scripting & System Administration
 
-#### Popular Linux Distributions
+### 🎯 **Target Audience**
+- DevOps engineers transitioning to Linux
+- System administrators exploring cloud
+- Developers needing server-side skills
+- IT professionals building automation
 
-**Enterprise Distributions:**
-- **Red Hat Enterprise Linux (RHEL)**: Commercial enterprise solution
-- **CentOS**: Community version of RHEL
-- **Amazon Linux**: AWS-optimized distribution
-- **SUSE Linux Enterprise**: Enterprise-focused distribution
+---
 
-**Community Distributions:**
-- **Ubuntu**: User-friendly, Debian-based
-- **Debian**: Stable, community-driven
-- **Fedora**: Cutting-edge features
-- **Arch Linux**: Minimalist, rolling release
+## 📚 Slide 2: Learning Objectives
 
-#### Why Linux for DevOps?
+<div align="center">
 
-**Advantages:**
-- **Open Source**: Free to use and modify
-- **Stability**: Reliable for server environments
-- **Security**: Strong permission system
-- **Flexibility**: Highly customizable
-- **Performance**: Efficient resource usage
-- **Community**: Large support community
-- **Cloud Native**: Preferred for cloud deployments
+### 🎓 **By the End of This Session, You Will:**
 
-### 3. Basic Components & Commands
+</div>
 
-#### Linux File System Hierarchy
+<table>
+<tr>
+<td width="50%">
 
+### 🧠 **Core Linux Skills**
+- ✅ **Navigate** Linux file systems confidently
+- ✅ **Execute** basic and advanced commands
+- ✅ **Manage** files, directories, and permissions
+- ✅ **Use** text editors (vi/vim) effectively
+
+</td>
+<td width="50%">
+
+### 🛠️ **DevOps Applications**
+- ✅ **Deploy** Linux instances on AWS cloud
+- ✅ **Implement** secure SSH access with keys
+- ✅ **Write** shell scripts for automation
+- ✅ **Administer** users and system resources
+
+</td>
+</tr>
+</table>
+
+### 🎯 **Success Metrics**
 ```
-/                    (Root directory)
-├── bin/            (Essential user binaries)
-├── boot/           (Boot loader files)
-├── dev/            (Device files)
-├── etc/            (Configuration files)
-├── home/           (User home directories)
-├── lib/            (Essential shared libraries)
-├── media/          (Removable media mount points)
-├── mnt/            (Temporary mount points)
-├── opt/            (Optional software packages)
-├── proc/           (Process information)
-├── root/           (Root user home directory)
-├── run/            (Runtime data)
-├── sbin/           (System binaries)
-├── srv/            (Service data)
-├── sys/            (System information)
-├── tmp/            (Temporary files)
-├── usr/            (User programs and data)
-└── var/            (Variable data)
+Command Proficiency: 50+ commands | Shell Scripting: 5+ scripts | AWS Deployment: Live instance
 ```
 
-#### Essential Basic Commands
+---
 
-**Navigation Commands:**
+## 💻 Slide 3: Operating Systems Fundamentals
+
+<div align="center">
+
+### 🖥️ **Understanding Operating Systems**
+
+![OS Architecture](../images/os-architecture.svg)
+
+</div>
+
+### 🏗️ **Operating System Functions**
+
+<table>
+<tr>
+<td width="33%">
+
+### ⚙️ **Process Management**
+*Running Programs*
+- 🔄 Process scheduling
+- 🧵 Thread management
+- 💾 Memory allocation
+- 🔒 Resource protection
+
+</td>
+<td width="33%">
+
+### 📁 **File System**
+*Data Organization*
+- 🗂️ File storage
+- 📂 Directory structure
+- 🔐 Access permissions
+- 💿 Device management
+
+</td>
+<td width="33%">
+
+### 🌐 **Networking**
+*System Communication*
+- 🔗 Network protocols
+- 🛡️ Security layers
+- 📡 Remote access
+- 🔄 Data transfer
+
+</td>
+</tr>
+</table>
+
+### 📊 **OS Market Share (Server Environment)**
+```
+Linux: 96.3% | Windows Server: 1.9% | Unix: 1.8%
+```
+
+---
+
+## 🐧 Slide 4: Linux Operating System
+
+<div align="center">
+
+### 🌟 **Linux: The DevOps Foundation**
+
+![Linux Architecture](../images/linux-architecture.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🏗️ **Linux Architecture Layers**
+- **🖥️ Hardware** - Physical components
+- **🔧 Kernel** - Core operating system
+- **📚 System Libraries** - Shared functions
+- **🐚 Shell** - Command interface
+- **📱 Applications** - User programs
+
+### 🎯 **Why Linux for DevOps?**
+- 🆓 **Open Source** - Free and customizable
+- 🛡️ **Security** - Strong permission model
+- ⚡ **Performance** - Efficient resource usage
+- 🤖 **Automation** - Script-friendly environment
+
+</td>
+<td width="50%">
+
+### 📦 **Popular Linux Distributions**
+
+**🏢 Enterprise:**
+- **Red Hat Enterprise Linux** - Commercial support
+- **Amazon Linux** - AWS-optimized
+- **CentOS** - Community enterprise
+- **SUSE Linux** - Enterprise-focused
+
+**👥 Community:**
+- **Ubuntu** - User-friendly, popular
+- **Debian** - Stable, reliable
+- **Fedora** - Cutting-edge features
+- **Arch Linux** - Minimalist approach
+
+</td>
+</tr>
+</table>
+
+### 📈 **Linux Adoption Statistics**
+```
+Cloud Servers: 90% | Containers: 99% | Supercomputers: 100% | Mobile (Android): 71%
+```
+
+---
+
+## 📁 Slide 5: Linux File System & Navigation
+
+<div align="center">
+
+### 🗂️ **Linux File System Hierarchy**
+
+![Linux File System](../images/linux-filesystem.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 📂 **Key Directories**
+- **`/`** - Root directory (everything starts here)
+- **`/home`** - User home directories
+- **`/etc`** - Configuration files
+- **`/var`** - Variable data (logs, databases)
+- **`/usr`** - User programs and libraries
+- **`/bin`** - Essential user binaries
+- **`/sbin`** - System administration binaries
+- **`/tmp`** - Temporary files
+
+</td>
+<td width="50%">
+
+### 🧭 **Navigation Commands**
 ```bash
-# List directory contents
-ls                  # Basic listing
-ls -l              # Long format (detailed)
-ls -la             # Include hidden files
-ls -lh             # Human-readable file sizes
-
-# Change directory
-cd /path/to/dir    # Change to specific directory
-cd ~               # Change to home directory
-cd ..              # Go up one directory
+# Directory Navigation
+pwd                 # Print working directory
+ls -la             # List files (detailed)
+cd /path/to/dir    # Change directory
+cd ~               # Go to home directory
+cd ..              # Go up one level
 cd -               # Go to previous directory
 
-# Print working directory
-pwd                # Show current directory path
-
-# Create directories
-mkdir dirname      # Create single directory
-mkdir -p path/to/dir  # Create nested directories
+# Path Types
+/absolute/path     # Absolute path
+relative/path      # Relative path
+~/user/path        # Home directory path
 ```
 
-**File Operations:**
+</td>
+</tr>
+</table>
+
+### 💡 **File System Best Practices**
+- Use absolute paths in scripts
+- Understand permission inheritance
+- Regular cleanup of `/tmp` directory
+- Monitor `/var/log` for system health
+
+---
+
+## ⚡ Slide 6: Essential Linux Commands
+
+<div align="center">
+
+### 🔧 **Command Line Mastery**
+
+</div>
+
+<table>
+<tr>
+<td width="33%">
+
+### 📁 **File Operations**
 ```bash
-# Create files
-touch filename     # Create empty file
-echo "content" > file  # Create file with content
+# Create & Manage Files
+touch filename
+mkdir dirname
+cp source dest
+mv old new
+rm filename
+rm -rf dirname
 
-# Copy files and directories
-cp source dest     # Copy file
-cp -r source dest  # Copy directory recursively
-
-# Move/rename files
-mv oldname newname # Rename file
-mv file /path/     # Move file to directory
-
-# Remove files and directories
-rm filename        # Remove file
-rm -r dirname      # Remove directory recursively
-rm -rf dirname     # Force remove (be careful!)
+# File Content
+cat filename
+less filename
+head -n 10 file
+tail -f logfile
+grep "pattern" file
 ```
 
-**File Content Commands:**
-```bash
-# View file contents
-cat filename       # Display entire file
-less filename      # View file page by page
-head filename      # Show first 10 lines
-tail filename      # Show last 10 lines
-tail -f filename   # Follow file changes (logs)
+</td>
+<td width="33%">
 
-# Search in files
-grep "pattern" file    # Search for pattern in file
-grep -r "pattern" dir  # Recursive search in directory
-grep -i "pattern" file # Case-insensitive search
-grep -n "pattern" file # Show line numbers
+### 🔍 **Search & Find**
+```bash
+# Find Files
+find /path -name "*.txt"
+find /path -type f -size +100M
+locate filename
+which command
+
+# Search Content
+grep -r "pattern" /path
+grep -i "text" file
+grep -n "line" file
+awk '{print $1}' file
+sed 's/old/new/g' file
 ```
 
-### 4. Advanced Commands
+</td>
+<td width="33%">
 
-#### File Search and Management
+### 📊 **System Information**
 ```bash
-# Find files and directories
-find /path -name "filename"     # Find by name
-find /path -type f -name "*.txt" # Find text files
-find /path -size +100M          # Find files larger than 100MB
-find /path -mtime -7            # Files modified in last 7 days
+# System Status
+ps aux
+top
+htop
+df -h
+du -sh /path
+free -h
+uptime
+uname -a
 
-# Locate files (faster than find)
-locate filename    # Find file using database
-updatedb          # Update locate database
-
-# File permissions and ownership
-chmod 755 filename    # Change file permissions
-chmod +x script.sh    # Make file executable
-chown user:group file # Change ownership
-chgrp group file      # Change group ownership
-
-# Archive and compression
-tar -czf archive.tar.gz directory/  # Create compressed archive
-tar -xzf archive.tar.gz            # Extract compressed archive
-zip -r archive.zip directory/      # Create zip archive
-unzip archive.zip                  # Extract zip archive
+# Network
+netstat -tulpn
+ss -tulpn
+ping hostname
+curl -I url
 ```
 
-#### System Information Commands
-```bash
-# System information
-uname -a          # System information
-hostname          # System hostname
-whoami            # Current username
-id                # User and group IDs
-uptime            # System uptime and load
+</td>
+</tr>
+</table>
 
-# Process management
-ps aux            # List all processes
-top               # Real-time process viewer
-htop              # Enhanced process viewer
-kill PID          # Terminate process by ID
-killall name      # Terminate processes by name
-
-# Disk usage
-df -h             # Disk space usage
-du -sh directory/ # Directory size
-free -h           # Memory usage
-lsblk             # List block devices
+### 🎯 **Command Efficiency Tips**
+```
+Use Tab completion | History with ↑↓ arrows | Aliases for frequent commands | Pipe commands with |
 ```
 
-#### Package Management Commands
+---
 
-**For Red Hat/CentOS/Amazon Linux (YUM/DNF):**
+## 🔧 Slide 7: Advanced Linux Commands
+
+<div align="center">
+
+### 🚀 **Power User Commands**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 📦 **Package Management**
+
+**🔴 Red Hat/CentOS/Amazon Linux:**
 ```bash
-# Package installation and management
-yum update                    # Update all packages
-yum install package-name      # Install package
-yum remove package-name       # Remove package
-yum search keyword           # Search for packages
-yum list installed          # List installed packages
-yum info package-name       # Package information
+# YUM/DNF Package Manager
+yum update
+yum install package-name
+yum remove package-name
+yum search keyword
+yum list installed
 
-# DNF (newer package manager)
-dnf update                   # Update all packages
-dnf install package-name     # Install package
-dnf remove package-name      # Remove package
+# DNF (newer)
+dnf update
+dnf install package-name
+dnf info package-name
 ```
 
-**For Debian/Ubuntu (APT):**
+**🟠 Ubuntu/Debian:**
 ```bash
-# Package management
-apt update                   # Update package list
-apt upgrade                  # Upgrade packages
-apt install package-name     # Install package
-apt remove package-name      # Remove package
-apt search keyword          # Search packages
-apt list --installed       # List installed packages
-
-# DPKG (low-level package manager)
-dpkg -i package.deb         # Install .deb package
-dpkg -r package-name        # Remove package
-dpkg -l                     # List installed packages
-dpkg --configure -a         # Configure packages
+# APT Package Manager
+apt update
+apt upgrade
+apt install package-name
+apt remove package-name
+apt search keyword
+apt list --installed
 ```
 
-#### System Control Commands
+</td>
+<td width="50%">
+
+### ⚙️ **System Control**
 ```bash
-# Service management (systemctl)
-systemctl start service-name    # Start service
-systemctl stop service-name     # Stop service
-systemctl restart service-name  # Restart service
-systemctl enable service-name   # Enable service at boot
-systemctl disable service-name  # Disable service at boot
-systemctl status service-name   # Check service status
+# Service Management
+systemctl start service
+systemctl stop service
+systemctl restart service
+systemctl enable service
+systemctl status service
+systemctl list-units
 
-# System control
-sysctl -a                      # Show all kernel parameters
-sysctl kernel.hostname         # Show specific parameter
-sysctl -w parameter=value      # Set parameter value
-
-# Boot management
-systemctl get-default          # Show default boot target
-systemctl set-default target   # Set default boot target
-systemctl list-units --type=target  # List available targets
+# Process Management
+kill PID
+killall process-name
+nohup command &
+jobs
+bg %1
+fg %1
 ```
 
-### 5. Text Editors and File Systems
+</td>
+</tr>
+</table>
 
-#### Vi/Vim Editor
-
-**Vim Modes:**
-- **Normal Mode**: Navigation and commands (default)
-- **Insert Mode**: Text editing
-- **Visual Mode**: Text selection
-- **Command Mode**: Execute commands
-
-**Basic Vim Commands:**
+### 🗜️ **Archive & Compression**
 ```bash
-# Starting vim
-vim filename       # Open file in vim
-vim +n filename    # Open file at line n
+tar -czf archive.tar.gz directory/    # Create compressed archive
+tar -xzf archive.tar.gz              # Extract archive
+zip -r archive.zip directory/        # Create zip file
+unzip archive.zip                    # Extract zip file
+```
 
-# Mode switching
-i                  # Enter insert mode
-Esc               # Return to normal mode
-:                 # Enter command mode
-v                 # Enter visual mode
+---
+
+## 📝 Slide 8: Text Editors & File Management
+
+<div align="center">
+
+### ✏️ **Mastering Vi/Vim Editor**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎮 **Vim Modes & Navigation**
+```bash
+# Vim Modes
+i          # Insert mode
+Esc        # Normal mode
+:          # Command mode
+v          # Visual mode
 
 # Navigation (Normal mode)
-h, j, k, l        # Left, down, up, right
-w                 # Next word
-b                 # Previous word
-0                 # Beginning of line
-$                 # End of line
-gg                # Beginning of file
-G                 # End of file
+h j k l    # Left, Down, Up, Right
+w b        # Word forward/backward
+0 $        # Line start/end
+gg G       # File start/end
+/pattern   # Search forward
+n N        # Next/previous search
+```
 
+</td>
+<td width="50%">
+
+### ⚡ **Vim Editing Commands**
+```bash
 # Editing (Normal mode)
-x                 # Delete character
-dd                # Delete line
-yy                # Copy line
-p                 # Paste
-u                 # Undo
-Ctrl+r            # Redo
+x          # Delete character
+dd         # Delete line
+yy         # Copy line
+p P        # Paste after/before
+u          # Undo
+Ctrl+r     # Redo
+:%s/old/new/g  # Replace all
 
-# Search and replace
-/pattern          # Search forward
-?pattern          # Search backward
-n                 # Next search result
-N                 # Previous search result
-:%s/old/new/g     # Replace all occurrences
-
-# Save and quit (Command mode)
-:w                # Save file
-:q                # Quit
-:wq               # Save and quit
-:q!               # Quit without saving
+# Save & Exit (Command mode)
+:w         # Save
+:q         # Quit
+:wq        # Save and quit
+:q!        # Quit without saving
 ```
 
-#### Emacs Editor
+</td>
+</tr>
+</table>
 
-**Basic Emacs Commands:**
+### 📋 **File Permissions**
 ```bash
-# Starting emacs
-emacs filename    # Open file in emacs
-
-# Basic operations
-Ctrl+x Ctrl+f     # Open file
-Ctrl+x Ctrl+s     # Save file
-Ctrl+x Ctrl+c     # Exit emacs
-
-# Navigation
-Ctrl+f            # Forward character
-Ctrl+b            # Backward character
-Ctrl+n            # Next line
-Ctrl+p            # Previous line
-Ctrl+a            # Beginning of line
-Ctrl+e            # End of line
-
-# Editing
-Ctrl+d            # Delete character
-Ctrl+k            # Delete to end of line
-Ctrl+y            # Paste (yank)
-Ctrl+_            # Undo
+chmod 755 file    # rwxr-xr-x (owner: all, group/others: read+execute)
+chmod 644 file    # rw-r--r-- (owner: read+write, others: read only)
+chown user:group file    # Change ownership
+chgrp group file         # Change group
 ```
 
-#### File Systems
+---
 
-**Common Linux File Systems:**
-- **ext4**: Default for many Linux distributions
-- **xfs**: High-performance file system
-- **btrfs**: Advanced file system with snapshots
-- **zfs**: Enterprise-grade file system
+## ☁️ Slide 9: Linux on AWS Cloud
 
-**File System Operations:**
-```bash
-# Mount and unmount
-mount /dev/sdb1 /mnt/disk     # Mount device
-umount /mnt/disk              # Unmount
-mount -a                      # Mount all in /etc/fstab
+<div align="center">
 
-# File system check
-fsck /dev/sdb1               # Check file system
-fsck -y /dev/sdb1            # Auto-fix errors
+### 🌐 **Deploying Linux in the Cloud**
 
-# Create file system
-mkfs.ext4 /dev/sdb1          # Create ext4 file system
-mkfs.xfs /dev/sdb1           # Create xfs file system
-```
+![AWS EC2 Linux](../images/aws-ec2-linux.svg)
 
-### 6. Spinning a Linux System on Cloud
+</div>
 
-#### AWS EC2 Instance Launch
+<table>
+<tr>
+<td width="50%">
 
-**Step-by-Step Process:**
-
-1. **Access AWS Console**
+### 🚀 **EC2 Instance Launch Process**
+1. **🔐 Access AWS Console**
    - Login to AWS Management Console
    - Navigate to EC2 service
 
-2. **Launch Instance**
-   - Click "Launch Instance"
-   - Choose Amazon Machine Image (AMI)
-   - Select instance type (t2.micro for free tier)
+2. **📱 Choose AMI**
+   - Amazon Linux 2
+   - Ubuntu Server 20.04 LTS
+   - Red Hat Enterprise Linux
+   - CentOS
 
-3. **Configure Instance**
-   - Configure instance details
-   - Add storage (default 8GB)
-   - Configure security group
+3. **⚙️ Configure Instance**
+   - Instance type (t2.micro for free tier)
+   - VPC and subnet selection
+   - Security group configuration
 
-4. **Security Group Setup**
-   ```
-   Type: SSH
-   Protocol: TCP
-   Port: 22
-   Source: Your IP or 0.0.0.0/0
-   ```
+</td>
+<td width="50%">
 
-5. **Key Pair**
-   - Create new key pair or use existing
-   - Download .pem file securely
-
-6. **Launch and Connect**
-   - Review and launch instance
-   - Wait for instance to be running
-   - Connect using SSH
-
-#### Instance Types and Sizing
-
-**Common Instance Types:**
-- **t2.micro**: 1 vCPU, 1GB RAM (Free Tier)
-- **t2.small**: 1 vCPU, 2GB RAM
-- **t3.medium**: 2 vCPU, 4GB RAM
-- **m5.large**: 2 vCPU, 8GB RAM
-
-**Choosing Instance Type:**
-- **Development**: t2.micro, t2.small
-- **Testing**: t3.medium, t3.large
-- **Production**: m5.large, c5.large, r5.large
-
-### 7. SSH & SFTP in Action
-
-#### SSH (Secure Shell)
-
-**SSH with Username/Password:**
+### 🔒 **Security Configuration**
 ```bash
-# Basic SSH connection
-ssh username@hostname
-ssh username@ip-address
+# Security Group Rules
+Type: SSH
+Protocol: TCP
+Port: 22
+Source: Your IP (recommended)
 
-# SSH with specific port
-ssh -p 2222 username@hostname
-
-# SSH with verbose output
-ssh -v username@hostname
+# Key Pair Management
+# Download .pem file securely
+# Set proper permissions
+chmod 400 my-key.pem
 ```
 
-**SSH with Private/Public Keys:**
+### 💰 **Instance Types**
+- **t2.micro** - 1 vCPU, 1GB RAM (Free Tier)
+- **t3.small** - 2 vCPU, 2GB RAM
+- **m5.large** - 2 vCPU, 8GB RAM
+- **c5.large** - 2 vCPU, 4GB RAM
 
-1. **Generate Key Pair:**
-   ```bash
-   # Generate RSA key pair
-   ssh-keygen -t rsa -b 4096 -C "your-email@example.com"
-   
-   # Generate ED25519 key pair (recommended)
-   ssh-keygen -t ed25519 -C "your-email@example.com"
-   
-   # Specify key file location
-   ssh-keygen -t rsa -f ~/.ssh/my-key
-   ```
+</td>
+</tr>
+</table>
 
-2. **Copy Public Key to Server:**
-   ```bash
-   # Copy public key to server
-   ssh-copy-id username@hostname
-   
-   # Manual copy
-   cat ~/.ssh/id_rsa.pub | ssh username@hostname "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
-   ```
+### 🎯 **Best Practices**
+- Use IAM roles instead of access keys
+- Regular security updates
+- Monitor with CloudWatch
+- Backup with snapshots
 
-3. **Connect with Private Key:**
-   ```bash
-   # Connect using private key
-   ssh -i ~/.ssh/private-key username@hostname
-   
-   # AWS EC2 connection
-   ssh -i ~/Downloads/my-key.pem ec2-user@ec2-ip-address
-   ```
+---
 
-**SSH Configuration:**
+## 🔐 Slide 10: SSH & Secure Access
+
+<div align="center">
+
+### 🛡️ **Secure Shell (SSH) Mastery**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🔑 **SSH Key Authentication**
 ```bash
-# SSH config file (~/.ssh/config)
+# Generate SSH Key Pair
+ssh-keygen -t rsa -b 4096 -C "email@example.com"
+ssh-keygen -t ed25519 -C "email@example.com"
+
+# Copy Public Key to Server
+ssh-copy-id user@hostname
+cat ~/.ssh/id_rsa.pub | ssh user@host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+
+# Connect with Private Key
+ssh -i ~/.ssh/private-key user@hostname
+ssh -i ~/Downloads/my-key.pem ec2-user@ec2-ip
+```
+
+</td>
+<td width="50%">
+
+### 📁 **SFTP & SCP File Transfer**
+```bash
+# SFTP Commands
+sftp user@hostname
+get remote-file        # Download
+put local-file         # Upload
+get -r remote-dir      # Download directory
+put -r local-dir       # Upload directory
+
+# SCP Commands
+scp file user@host:/path/      # Upload file
+scp user@host:/file /local/    # Download file
+scp -r dir user@host:/path/    # Upload directory
+scp -i key file user@host:/    # With private key
+```
+
+</td>
+</tr>
+</table>
+
+### ⚙️ **SSH Configuration**
+```bash
+# ~/.ssh/config
 Host myserver
     HostName server.example.com
     User myusername
     IdentityFile ~/.ssh/my-private-key
     Port 22
 
-# Connect using alias
-ssh myserver
+# Connect using alias: ssh myserver
 ```
 
-#### SFTP (SSH File Transfer Protocol)
+---
 
-**Basic SFTP Commands:**
-```bash
-# Connect to SFTP server
-sftp username@hostname
-sftp -i private-key username@hostname
+## 📜 Slide 11: Shell Scripting Mastery
 
-# SFTP commands (once connected)
-ls                    # List remote directory
-lls                   # List local directory
-pwd                   # Show remote directory
-lpwd                  # Show local directory
-cd remote-directory   # Change remote directory
-lcd local-directory   # Change local directory
+<div align="center">
 
-# File transfer
-get remote-file       # Download file
-put local-file        # Upload file
-get -r remote-dir     # Download directory
-put -r local-dir      # Upload directory
+### 🤖 **Automation with Shell Scripts**
 
-# Exit SFTP
-quit
-exit
-```
+</div>
 
-**SCP (Secure Copy):**
-```bash
-# Copy file to remote server
-scp local-file username@hostname:/remote/path/
+<table>
+<tr>
+<td width="50%">
 
-# Copy file from remote server
-scp username@hostname:/remote/file /local/path/
-
-# Copy directory recursively
-scp -r local-directory username@hostname:/remote/path/
-
-# Copy with private key
-scp -i private-key file username@hostname:/path/
-```
-
-### 8. Shell Scripting
-
-#### Basic Shell Scripting
-
-**Script Structure:**
+### 📝 **Basic Script Structure**
 ```bash
 #!/bin/bash
-# This is a comment
 # Script description
 
 # Variables
-NAME="World"
+NAME="DevOps"
 COUNT=10
+FRUITS=("apple" "banana" "orange")
 
 # Output
 echo "Hello, $NAME!"
-echo "Count is: $COUNT"
-```
-
-**Variables and Data Types:**
-```bash
-#!/bin/bash
-
-# String variables
-NAME="John Doe"
-MESSAGE='Hello World'
-
-# Numeric variables
-AGE=25
-SCORE=95.5
-
-# Arrays
-FRUITS=("apple" "banana" "orange")
-echo ${FRUITS[0]}    # First element
-echo ${FRUITS[@]}    # All elements
-echo ${#FRUITS[@]}   # Array length
+echo "Count: $COUNT"
+echo "First fruit: ${FRUITS[0]}"
 
 # Environment variables
-echo $HOME           # Home directory
-echo $USER           # Current user
-echo $PATH           # System PATH
+echo "Home: $HOME"
+echo "User: $USER"
+echo "Path: $PATH"
 ```
 
-**Control Structures:**
-```bash
-#!/bin/bash
+</td>
+<td width="50%">
 
+### 🔄 **Control Structures**
+```bash
 # If-else statements
 if [ $AGE -gt 18 ]; then
     echo "Adult"
@@ -615,301 +659,378 @@ for i in {1..5}; do
     echo "Number: $i"
 done
 
-for file in *.txt; do
-    echo "Processing: $file"
-done
-
 # While loops
 counter=1
 while [ $counter -le 5 ]; do
     echo "Counter: $counter"
     ((counter++))
 done
-
-# Case statements
-case $1 in
-    start)
-        echo "Starting service..."
-        ;;
-    stop)
-        echo "Stopping service..."
-        ;;
-    restart)
-        echo "Restarting service..."
-        ;;
-    *)
-        echo "Usage: $0 {start|stop|restart}"
-        ;;
-esac
 ```
 
-#### Advanced Shell Scripting
+</td>
+</tr>
+</table>
 
-**Functions:**
+### 🔧 **Advanced Scripting**
 ```bash
-#!/bin/bash
-
-# Function definition
+# Functions
 greet() {
     local name=$1
     echo "Hello, $name!"
 }
 
-# Function with return value
-add_numbers() {
-    local num1=$1
-    local num2=$2
-    local result=$((num1 + num2))
-    echo $result
-}
+# Error handling
+set -e  # Exit on error
+command || { echo "Command failed"; exit 1; }
 
-# Function calls
-greet "Alice"
-sum=$(add_numbers 5 3)
-echo "Sum: $sum"
-```
-
-**Error Handling:**
-```bash
-#!/bin/bash
-
-# Exit on error
-set -e
-
-# Function to handle errors
-error_exit() {
-    echo "Error: $1" >&2
-    exit 1
-}
-
-# Check if file exists
-if [ ! -f "important-file.txt" ]; then
-    error_exit "important-file.txt not found"
-fi
-
-# Check command success
-if ! command -v git &> /dev/null; then
-    error_exit "Git is not installed"
-fi
-```
-
-**File Operations in Scripts:**
-```bash
-#!/bin/bash
-
-# Read file line by line
+# File operations
 while IFS= read -r line; do
-    echo "Line: $line"
+    echo "Processing: $line"
 done < "input.txt"
-
-# Write to file
-echo "Log entry: $(date)" >> logfile.txt
-
-# Check file permissions
-if [ -r "file.txt" ]; then
-    echo "File is readable"
-fi
-
-if [ -w "file.txt" ]; then
-    echo "File is writable"
-fi
-
-if [ -x "script.sh" ]; then
-    echo "Script is executable"
-fi
 ```
-
-### 9. User Administration
-
-#### User Management
-
-**Creating Users:**
-```bash
-# Add new user
-sudo useradd username
-sudo useradd -m username        # Create home directory
-sudo useradd -m -s /bin/bash username  # Specify shell
-
-# Set user password
-sudo passwd username
-
-# Add user with specific UID and GID
-sudo useradd -u 1001 -g 1001 username
-
-# Create system user (no home directory)
-sudo useradd -r -s /bin/false service-user
-```
-
-**Modifying Users:**
-```bash
-# Modify user account
-sudo usermod -c "Full Name" username     # Change comment
-sudo usermod -d /new/home username       # Change home directory
-sudo usermod -s /bin/zsh username        # Change shell
-sudo usermod -l newname oldname          # Change username
-
-# Lock/unlock user account
-sudo usermod -L username                 # Lock account
-sudo usermod -U username                 # Unlock account
-
-# Add user to group
-sudo usermod -a -G groupname username
-sudo usermod -a -G sudo username         # Add to sudo group
-```
-
-**Deleting Users:**
-```bash
-# Delete user (keep home directory)
-sudo userdel username
-
-# Delete user and home directory
-sudo userdel -r username
-
-# Force delete (even if logged in)
-sudo userdel -f username
-```
-
-#### Group Management
-
-**Group Operations:**
-```bash
-# Create group
-sudo groupadd groupname
-sudo groupadd -g 1001 groupname          # Specify GID
-
-# Modify group
-sudo groupmod -n newname oldname         # Rename group
-
-# Delete group
-sudo groupdel groupname
-
-# Add user to group
-sudo gpasswd -a username groupname
-
-# Remove user from group
-sudo gpasswd -d username groupname
-
-# List groups
-groups                                   # Current user's groups
-groups username                          # Specific user's groups
-```
-
-#### Permission Management
-
-**File Permissions:**
-```bash
-# Permission notation
-# rwx rwx rwx (owner group others)
-# 421 421 421 (read=4, write=2, execute=1)
-
-# Common permission combinations
-chmod 755 file    # rwxr-xr-x (owner: all, group/others: read+execute)
-chmod 644 file    # rw-r--r-- (owner: read+write, others: read)
-chmod 600 file    # rw------- (owner: read+write, others: none)
-chmod 777 file    # rwxrwxrwx (all permissions for everyone)
-
-# Symbolic notation
-chmod u+x file    # Add execute for owner
-chmod g-w file    # Remove write for group
-chmod o=r file    # Set others to read only
-chmod a+r file    # Add read for all (owner, group, others)
-```
-
-**Special Permissions:**
-```bash
-# Setuid (SUID) - run as file owner
-chmod u+s file
-chmod 4755 file
-
-# Setgid (SGID) - run as file group
-chmod g+s file
-chmod 2755 file
-
-# Sticky bit - only owner can delete
-chmod +t directory
-chmod 1755 directory
-```
-
-## 🛠️ Hands-On Labs
-
-### Lab 1: Linux System Exploration
-- Launch EC2 instance on AWS
-- Explore file system hierarchy
-- Practice basic navigation commands
-- Create and manage files and directories
-
-### Lab 2: Advanced Command Practice
-- Use find and grep for file searching
-- Practice file permissions and ownership
-- Implement package management tasks
-- Monitor system resources
-
-### Lab 3: SSH and Remote Access
-- Set up SSH key-based authentication
-- Configure SSH client settings
-- Practice SFTP file transfers
-- Implement secure remote access
-
-### Lab 4: Shell Scripting Project
-- Create system monitoring script
-- Implement user management script
-- Build automated backup solution
-- Practice error handling and logging
-
-## 📊 Assessment Methods
-
-### Practical Assessments
-- Command-line proficiency test
-- Shell scripting assignments
-- System administration tasks
-- Remote access configuration
-
-### Knowledge Verification
-- Linux concepts quiz
-- File system understanding
-- Security best practices
-- Troubleshooting scenarios
-
-## 📚 Additional Resources
-
-### Documentation
-- [Linux Documentation Project](https://tldp.org/)
-- [GNU/Linux Command-Line Tools Summary](https://tldp.org/LDP/GNU-Linux-Tools-Summary/html/)
-- [Bash Guide for Beginners](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
-- [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/)
-
-### Online Learning
-- [Linux Journey](https://linuxjourney.com/)
-- [OverTheWire Wargames](https://overthewire.org/wargames/)
-- [Linux Academy](https://linuxacademy.com/)
-- [Red Hat Learning](https://www.redhat.com/en/services/training)
-
-### Books
-- "The Linux Command Line" by William Shotts
-- "Linux Administration: A Beginner's Guide" by Wale Soyinka
-- "UNIX and Linux System Administration Handbook" by Evi Nemeth
-
-## 🎯 Next Steps
-
-After mastering Linux fundamentals, you'll be prepared for:
-- **Session 3**: Mastering Git - Version control for collaboration
-- **Advanced Linux**: System administration and security
-- **Container Technologies**: Docker and Kubernetes
-- **Infrastructure Automation**: Ansible and configuration management
-
-## 💡 Key Takeaways
-
-1. **Linux is essential** for DevOps and cloud computing
-2. **Command-line proficiency** increases productivity
-3. **Shell scripting** enables automation and efficiency
-4. **SSH security** is crucial for remote access
-5. **User management** ensures system security
-6. **Package management** keeps systems updated
-7. **File permissions** control access and security
-8. **Practice regularly** to build muscle memory
 
 ---
 
-**Created by Varun Kumar**
+## 👥 Slide 12: User & System Administration
 
-*Session 2: Linux Fundamentals - Section 2: DevOps & Infrastructure as Code*
+<div align="center">
+
+### 🔧 **System Administration Essentials**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 👤 **User Management**
+```bash
+# Create Users
+sudo useradd -m username
+sudo useradd -m -s /bin/bash username
+sudo passwd username
+
+# Modify Users
+sudo usermod -c "Full Name" username
+sudo usermod -d /new/home username
+sudo usermod -a -G sudo username
+
+# Delete Users
+sudo userdel username
+sudo userdel -r username  # Remove home dir
+```
+
+</td>
+<td width="50%">
+
+### 👥 **Group Management**
+```bash
+# Group Operations
+sudo groupadd groupname
+sudo groupmod -n newname oldname
+sudo groupdel groupname
+
+# User-Group Relations
+sudo gpasswd -a user group    # Add user to group
+sudo gpasswd -d user group    # Remove user from group
+groups username               # List user's groups
+id username                   # User and group IDs
+```
+
+</td>
+</tr>
+</table>
+
+### 🔐 **Permission Management**
+```bash
+# Numeric permissions (rwx = 421)
+chmod 755 file    # rwxr-xr-x
+chmod 644 file    # rw-r--r--
+chmod 600 file    # rw-------
+
+# Symbolic permissions
+chmod u+x file    # Add execute for owner
+chmod g-w file    # Remove write for group
+chmod o=r file    # Set others to read only
+chmod a+r file    # Add read for all
+```
+
+---
+
+## 🎓 Slide 13: Next Steps & Takeaways
+
+<div align="center">
+
+### 🌟 **Your Linux Journey Continues**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎯 **Key Takeaways**
+1. 🐧 **Linux is Essential** - Foundation for DevOps
+2. 📝 **Command Line Power** - Efficiency and automation
+3. 🔐 **Security First** - SSH keys and permissions
+4. 🤖 **Scripting Skills** - Automate repetitive tasks
+5. ☁️ **Cloud Integration** - AWS EC2 deployment
+6. 👥 **System Administration** - User and resource management
+7. 📚 **Continuous Learning** - Practice makes perfect
+
+</td>
+<td width="50%">
+
+### 🛤️ **Learning Path Forward**
+- **Next Session:** [Mastering Git](../Session-3_Mastering-Git/)
+- **Then:** [Jenkins CI/CD](../Session-4_Jenkins/)
+- **Advanced:** [Terraform IaC](../Terraform/)
+
+### 🎯 **Immediate Actions**
+- ✅ Complete Linux fundamentals assessment
+- 🚀 Launch your first AWS EC2 instance
+- 📜 Write your first shell script
+- 🔐 Set up SSH key authentication
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🛠️ Hands-On Activities
+
+<details>
+<summary><strong>🔬 Lab 1: Linux System Exploration</strong></summary>
+
+### Objective
+Launch and explore a Linux system on AWS EC2
+
+### Tasks
+1. **AWS EC2 Setup**
+   - Launch Amazon Linux 2 instance
+   - Configure security groups
+   - Connect via SSH
+
+2. **File System Exploration**
+   - Navigate directory hierarchy
+   - Understand file permissions
+   - Practice basic commands
+
+3. **System Information**
+   - Check system resources
+   - Monitor processes
+   - Explore log files
+
+### Deliverables
+- Running EC2 instance
+- Command execution screenshots
+- System exploration report
+
+</details>
+
+<details>
+<summary><strong>⚡ Lab 2: Command Line Mastery</strong></summary>
+
+### Objective
+Master essential Linux commands and operations
+
+### Tasks
+1. **File Operations**
+   - Create, copy, move, delete files
+   - Work with directories
+   - Manage permissions
+
+2. **Text Processing**
+   - Use grep, awk, sed
+   - Process log files
+   - Search and filter data
+
+3. **System Monitoring**
+   - Monitor processes with top/htop
+   - Check disk usage
+   - Analyze system performance
+
+### Deliverables
+- Command reference sheet
+- Text processing examples
+- System monitoring report
+
+</details>
+
+<details>
+<summary><strong>🔐 Lab 3: SSH & Security Configuration</strong></summary>
+
+### Objective
+Implement secure remote access and file transfer
+
+### Tasks
+1. **SSH Key Setup**
+   - Generate SSH key pairs
+   - Configure key-based authentication
+   - Set up SSH config file
+
+2. **Secure File Transfer**
+   - Practice SFTP commands
+   - Use SCP for file copying
+   - Implement secure workflows
+
+3. **Security Hardening**
+   - Configure SSH daemon
+   - Set up firewall rules
+   - Implement access controls
+
+### Deliverables
+- SSH key configuration
+- Secure access documentation
+- Security checklist
+
+</details>
+
+<details>
+<summary><strong>📜 Lab 4: Shell Scripting Project</strong></summary>
+
+### Objective
+Create practical automation scripts
+
+### Tasks
+1. **System Monitoring Script**
+   - Check disk usage
+   - Monitor memory and CPU
+   - Generate alerts
+
+2. **User Management Script**
+   - Automate user creation
+   - Set up permissions
+   - Generate reports
+
+3. **Backup Automation**
+   - Create backup scripts
+   - Schedule with cron
+   - Implement rotation
+
+### Deliverables
+- 3 working shell scripts
+- Script documentation
+- Automation demonstration
+
+</details>
+
+---
+
+## 📚 Resources & References
+
+<details>
+<summary><strong>📖 Essential Reading</strong></summary>
+
+### Books
+- 📚 **"The Linux Command Line"** by William Shotts
+- 📚 **"Linux Administration: A Beginner's Guide"** by Wale Soyinka
+- 📚 **"UNIX and Linux System Administration Handbook"** by Evi Nemeth
+- 📚 **"Learning the bash Shell"** by Cameron Newham
+
+### Online Documentation
+- 📄 **Linux Documentation Project** - Comprehensive guides
+- 📄 **GNU/Linux Command-Line Tools** - Command reference
+- 📄 **Bash Guide for Beginners** - Shell scripting basics
+- 📄 **Advanced Bash-Scripting Guide** - Advanced techniques
+
+</details>
+
+<details>
+<summary><strong>🌐 Online Resources</strong></summary>
+
+### Interactive Learning
+- 🌐 [Linux Journey](https://linuxjourney.com/) - Interactive tutorials
+- 🌐 [OverTheWire Wargames](https://overthewire.org/wargames/) - Security challenges
+- 🌐 [Explainshell](https://explainshell.com/) - Command explanation
+- 🌐 [Bash Academy](https://guide.bash.academy/) - Bash scripting guide
+
+### Video Content
+- 🎥 **YouTube Channels:** Linux Academy, TechWorld with Nana
+- 🎥 **Course Platforms:** Pluralsight, Udemy, Linux Academy
+- 🎥 **Conference Talks:** LinuxCon, Open Source Summit
+
+</details>
+
+<details>
+<summary><strong>🛠️ Tools & Utilities</strong></summary>
+
+### Essential Tools
+- **Terminal Emulators:** iTerm2 (Mac), Windows Terminal, GNOME Terminal
+- **SSH Clients:** OpenSSH, PuTTY, MobaXterm
+- **Text Editors:** Vim, Nano, Emacs
+- **File Managers:** Midnight Commander, Ranger
+
+### Cloud Platforms
+- ☁️ **AWS EC2** - Elastic Compute Cloud
+- ☁️ **Google Cloud Compute** - Virtual machines
+- ☁️ **Azure Virtual Machines** - Cloud computing
+- ☁️ **DigitalOcean Droplets** - Simple cloud servers
+
+</details>
+
+---
+
+## 📊 Assessment & Certification
+
+<div align="center">
+
+### 🎯 **Knowledge Validation**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 📝 **Assessment Methods**
+- **Practical Labs:** Command line proficiency (40%)
+- **Shell Scripts:** Automation projects (30%)
+- **System Admin:** User and permission management (20%)
+- **Security:** SSH and access control (10%)
+
+### 🏆 **Passing Criteria**
+- Overall score: 80% or higher
+- All labs completed successfully
+- Working shell scripts demonstrated
+- Security best practices implemented
+
+</td>
+<td width="50%">
+
+### 🎓 **Certification Preparation**
+- **Linux Professional Institute (LPI)** - LPIC-1
+- **Red Hat Certified System Administrator** - RHCSA
+- **CompTIA Linux+** - Vendor-neutral certification
+- **AWS Certified SysOps Administrator** - Cloud focus
+
+### 📈 **Career Benefits**
+- Linux skills premium: 15-25% salary increase
+- DevOps role preparation
+- Cloud platform readiness
+- Automation capabilities
+
+</td>
+</tr>
+</table>
+
+---
+
+<div align="center">
+
+## 🚀 **Ready to Master Linux?**
+
+### *"In the world of DevOps, Linux is not just an option—it's the foundation"*
+
+**Next Session:** [Mastering Git →](../Session-3_Mastering-Git/)
+
+---
+
+**Created by Varun Kumar Manik**  
+*AWS Ambassador | Kubernetes Expert | DevOps Specialist*
+
+**Session 2: Linux Fundamentals** | **Section 2: DevOps & Infrastructure as Code**  
+*Last Updated: July 2025*
+
+</div>
