@@ -1,865 +1,964 @@
-# Session 3: Mastering Git
+# 🔀 Session 3: Mastering Git
+## *Version Control & Collaboration for DevOps Excellence*
 
-## 🎯 Module Overview
+<div align="center">
 
-This module covers the fundamentals of Git version control system and enables participants to use Git effectively for project management. You'll learn to collaborate efficiently using modern Git workflows and platforms like GitLab and Bitbucket.
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![GitLab](https://img.shields.io/badge/GitLab-FCA326?style=for-the-badge&logo=gitlab&logoColor=white)
+![Collaboration](https://img.shields.io/badge/Collaboration-Team-blue?style=for-the-badge&logo=handshake&logoColor=white)
 
-## 📚 Learning Objectives
+**Duration:** 2 Weeks | **Level:** Beginner to Intermediate | **Type:** Theory + Hands-on
 
-By the end of this session, you will be able to:
-- ✅ **Understand version control concepts** and Git architecture
-- ✅ **Create, clone, and manage Git repositories** effectively
-- ✅ **Implement branching strategies** and merge workflows
-- ✅ **Resolve merge conflicts** and fix common mistakes
-- ✅ **Use remote repositories** and collaboration features
-- ✅ **Master Git rebase** and advanced operations
-- ✅ **Work with GitLab and Bitbucket** platforms
-- ✅ **Implement CI/CD** with GitLab CI
+---
 
-## 📖 Module Content
+### 📅 **Last Updated**
+<table>
+<tr>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/📅-2025--07--27-blue?style=for-the-badge" alt="Date"/>
+</td>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/🕐-18:15_UTC-green?style=for-the-badge" alt="Time"/>
+</td>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/📝-v3.0-orange?style=for-the-badge" alt="Version"/>
+</td>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/✅-Git_Mastery-success?style=for-the-badge" alt="Status"/>
+</td>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/🎯-12_Slides-purple?style=for-the-badge" alt="Slides"/>
+</td>
+</tr>
+</table>
 
-### 1. Introduction to Source Code Control Systems
+</div>
 
-#### What is Version Control?
-Version control is a system that records changes to files over time so you can recall specific versions later. It allows multiple developers to work on the same project simultaneously.
+---
 
-**Key Benefits:**
-- **Track Changes**: Complete history of modifications
-- **Collaboration**: Multiple developers working together
-- **Backup**: Distributed copies of code
-- **Branching**: Parallel development streams
-- **Rollback**: Revert to previous versions
-- **Accountability**: Who changed what and when
+## 📋 Presentation Navigation
+<div align="center">
 
-#### Types of Version Control Systems
+| [🎯 Overview](#-slide-1-session-overview) | [📚 Learning Goals](#-slide-2-learning-objectives) | [🔄 Version Control](#-slide-3-version-control-fundamentals) | [🔀 Git Basics](#-slide-4-git-fundamentals) |
+|:---:|:---:|:---:|:---:|
+| [🌿 Branching](#-slide-5-git-branching-mastery) | [🔗 Merging](#-slide-6-merging--conflict-resolution) | [🔄 Rebase & History](#-slide-7-rebase--history-management) | [🌐 Remote Repos](#-slide-8-remote-repositories) |
+| [🤝 Collaboration](#-slide-9-collaboration-workflows) | [🚀 GitLab/GitHub](#-slide-10-gitlab--github-mastery) | [⚙️ CI/CD Integration](#-slide-11-cicd-integration) | [🎓 Next Steps](#-slide-12-next-steps--mastery) |
 
-**Local Version Control:**
-- Files stored locally with version history
-- Simple but limited collaboration
-- Example: RCS (Revision Control System)
+</div>
 
-**Centralized Version Control:**
-- Single server stores all versions
-- Clients check out files from central location
-- Examples: CVS, Subversion (SVN), Perforce
+---
 
-**Distributed Version Control:**
-- Every client has complete repository copy
-- No single point of failure
-- Examples: Git, Mercurial, Bazaar
+## 🎯 Slide 1: Session Overview
 
-#### Why Git?
+<div align="center">
 
-**Advantages:**
-- **Distributed**: Every clone is a full backup
-- **Fast**: Local operations are lightning fast
-- **Flexible**: Supports various workflows
-- **Secure**: Cryptographic integrity
-- **Popular**: Industry standard
-- **Open Source**: Free and community-driven
+### 🌟 **Master Git for DevOps Excellence**
 
-### 2. Overview of Git and Workflow
+![Git Workflow Overview](./images/git-workflow-overview.svg)
 
-#### Git Architecture
+</div>
 
+> **Mission:** Transform your development workflow with professional Git mastery and team collaboration skills
+
+### 🎪 **Why Git Matters for DevOps**
 ```
-Working Directory  →  Staging Area  →  Local Repository  →  Remote Repository
-     (Modified)         (Staged)         (Committed)         (Pushed)
+🌍 95% of Development Teams    📊 100% of Open Source Projects    🔧 Essential DevOps Skill
+💰 Version Control = Job Security    🚀 Collaboration Superpower    🎯 Industry Standard
 ```
 
-**Components:**
-- **Working Directory**: Your current files
-- **Staging Area (Index)**: Prepared changes for commit
-- **Local Repository**: Your local Git database
-- **Remote Repository**: Shared repository (GitHub, GitLab)
+### 📅 **Session Structure**
+- **Week 1:** Git fundamentals, branching, and merging
+- **Week 2:** Advanced workflows, collaboration, and CI/CD integration
 
-#### Git Object Model
+### 🎯 **Target Audience**
+- Developers new to version control
+- DevOps engineers building collaboration skills
+- Teams transitioning to Git workflows
+- Professionals seeking Git mastery
 
-**Git Objects:**
-- **Blob**: File content
-- **Tree**: Directory structure
-- **Commit**: Snapshot with metadata
-- **Tag**: Named reference to commit
+---
 
-#### Basic Git Workflow
+## 📚 Slide 2: Learning Objectives
 
+<div align="center">
+
+### 🎓 **By the End of This Session, You Will:**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🧠 **Core Git Skills**
+- ✅ **Understand** version control concepts and Git architecture
+- ✅ **Create and manage** Git repositories effectively
+- ✅ **Master branching** strategies and workflows
+- ✅ **Resolve conflicts** and handle complex merges
+
+</td>
+<td width="50%">
+
+### 🛠️ **Professional Workflows**
+- ✅ **Collaborate** using remote repositories
+- ✅ **Implement** GitFlow and feature branch workflows
+- ✅ **Integrate** CI/CD with Git platforms
+- ✅ **Apply** industry best practices
+
+</td>
+</tr>
+</table>
+
+### 🎯 **Success Metrics**
+```
+Git Commands: 30+ mastered | Branching: Advanced strategies | Collaboration: Team workflows
+```
+
+---
+
+## 🔄 Slide 3: Version Control Fundamentals
+
+<div align="center">
+
+### 📚 **Understanding Version Control Systems**
+
+![Version Control Evolution](./images/version-control-evolution.svg)
+
+</div>
+
+### 🏗️ **Version Control Benefits**
+
+<table>
+<tr>
+<td width="33%">
+
+### 📈 **Track Changes**
+*Complete History*
+- 🕐 Timeline of modifications
+- 👤 Author identification
+- 📝 Commit messages
+- 🔍 Diff comparisons
+
+</td>
+<td width="33%">
+
+### 🤝 **Collaboration**
+*Team Productivity*
+- 👥 Multiple developers
+- 🔄 Parallel development
+- 🔀 Merge capabilities
+- 🛡️ Conflict resolution
+
+</td>
+<td width="33%">
+
+### 🔒 **Safety & Backup**
+*Risk Management*
+- 💾 Distributed copies
+- ⏪ Rollback capability
+- 🌿 Branching strategies
+- 🔐 Access control
+
+</td>
+</tr>
+</table>
+
+### 📊 **VCS Evolution Timeline**
+```
+Local VCS (1970s) → Centralized VCS (1990s) → Distributed VCS (2000s) → Git Dominance (2010s+)
+```
+
+---
+
+## 🔀 Slide 4: Git Fundamentals
+
+<div align="center">
+
+### ⚡ **Git Architecture & Core Concepts**
+
+![Git Architecture](./images/git-architecture.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🏗️ **Git Architecture**
+- **Working Directory** - Your current files
+- **Staging Area** - Prepared changes
+- **Local Repository** - Committed history
+- **Remote Repository** - Shared codebase
+
+### 🔧 **Essential Commands**
 ```bash
-# 1. Modify files in working directory
-echo "Hello World" > file.txt
-
-# 2. Stage changes
-git add file.txt
-
-# 3. Commit changes
-git commit -m "Add hello world file"
-
-# 4. Push to remote
-git push origin main
+git init          # Initialize repository
+git add .         # Stage changes
+git commit -m     # Commit changes
+git status        # Check status
+git log           # View history
 ```
 
-#### Git States
+</td>
+<td width="50%">
 
-**File States:**
-- **Untracked**: New files not in Git
-- **Modified**: Changed but not staged
-- **Staged**: Ready for commit
-- **Committed**: Stored in local repository
+### 📊 **Git States**
+- **Modified** - Changed but not staged
+- **Staged** - Ready for commit
+- **Committed** - Saved in repository
+- **Pushed** - Shared to remote
 
-### 3. Creating/Cloning/Committing a New Repo
-
-#### Creating a New Repository
-
-**Initialize Local Repository:**
-```bash
-# Create new directory
-mkdir my-project
-cd my-project
-
-# Initialize Git repository
-git init
-
-# Check repository status
-git status
-
-# Configure user information
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
-
-# Check configuration
-git config --list
+### 🎯 **Git Workflow**
+```
+Modify → Stage → Commit → Push
 ```
 
-**First Commit:**
+**🔄 Basic Cycle:**
+Edit files → `git add` → `git commit` → `git push`
+
+</td>
+</tr>
+</table>
+
+### 💡 **Git vs Other VCS**
+- **Distributed** - Every clone is a full backup
+- **Fast** - Local operations are lightning quick
+- **Flexible** - Multiple workflow support
+- **Secure** - SHA-1 hash integrity
+
+---
+
+## 🌿 Slide 5: Git Branching Mastery
+
+<div align="center">
+
+### 🌳 **Branching Strategies & Workflows**
+
+![Git Branching](./images/git-branching-strategies.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🌿 **Branch Operations**
 ```bash
-# Create initial file
-echo "# My Project" > README.md
+# Create and switch to branch
+git checkout -b feature/new-feature
+git switch -c feature/new-feature
 
-# Add file to staging area
-git add README.md
-
-# Create first commit
-git commit -m "Initial commit: Add README"
-
-# View commit history
-git log
-git log --oneline
-```
-
-#### Cloning Existing Repository
-
-**Clone Repository:**
-```bash
-# Clone from remote repository
-git clone https://github.com/user/repo.git
-git clone git@github.com:user/repo.git  # SSH
-
-# Clone to specific directory
-git clone https://github.com/user/repo.git my-local-name
-
-# Clone specific branch
-git clone -b branch-name https://github.com/user/repo.git
-
-# Shallow clone (recent history only)
-git clone --depth 1 https://github.com/user/repo.git
-```
-
-#### Working with Files
-
-**Adding Files:**
-```bash
-# Add specific file
-git add filename.txt
-
-# Add multiple files
-git add file1.txt file2.txt
-
-# Add all files in directory
-git add .
-
-# Add all modified files
-git add -A
-
-# Add files interactively
-git add -i
-
-# Add parts of file
-git add -p filename.txt
-```
-
-**Committing Changes:**
-```bash
-# Commit with message
-git commit -m "Commit message"
-
-# Commit with detailed message
-git commit -m "Short description" -m "Detailed explanation"
-
-# Commit all modified files (skip staging)
-git commit -a -m "Commit message"
-
-# Amend last commit
-git commit --amend -m "Updated commit message"
-
-# Empty commit (for triggering CI)
-git commit --allow-empty -m "Trigger CI"
-```
-
-**Viewing History:**
-```bash
-# View commit history
-git log
-git log --oneline
-git log --graph
-git log --stat
-
-# View specific file history
-git log filename.txt
-
-# View changes in commits
-git show commit-hash
-git show HEAD~1  # Previous commit
-
-# Compare commits
-git diff commit1 commit2
-git diff HEAD~1 HEAD
-```
-
-### 4. Branching & Merging in Git
-
-#### Understanding Branches
-
-**What are Branches?**
-Branches are lightweight, movable pointers to specific commits. They allow parallel development without affecting the main codebase.
-
-**Default Branch:**
-- **main/master**: Primary development branch
-- **HEAD**: Pointer to current branch
-
-#### Branch Operations
-
-**Creating and Switching Branches:**
-```bash
 # List branches
-git branch
-git branch -a  # Include remote branches
+git branch -a
 
-# Create new branch
-git branch feature-branch
-
-# Switch to branch
-git checkout feature-branch
-
-# Create and switch in one command
-git checkout -b feature-branch
-
-# Modern syntax (Git 2.23+)
-git switch feature-branch
-git switch -c feature-branch  # Create and switch
-```
-
-**Branch Management:**
-```bash
-# Rename branch
-git branch -m old-name new-name
+# Switch branches
+git checkout main
+git switch develop
 
 # Delete branch
-git branch -d branch-name      # Safe delete
-git branch -D branch-name      # Force delete
-
-# Delete remote branch
-git push origin --delete branch-name
-
-# Track remote branch
-git branch -u origin/branch-name
+git branch -d feature/completed
 ```
 
-#### Merging Strategies
+### 🎯 **Branch Types**
+- **main/master** - Production code
+- **develop** - Integration branch
+- **feature/** - New features
+- **hotfix/** - Critical fixes
+- **release/** - Release preparation
 
-**Fast-Forward Merge:**
-```bash
-# Switch to target branch
-git checkout main
+</td>
+<td width="50%">
 
-# Merge feature branch
-git merge feature-branch
+### 🔄 **GitFlow Strategy**
+1. **Feature branches** from develop
+2. **Develop** integrates features
+3. **Release branches** for testing
+4. **Main** for production releases
+5. **Hotfix branches** for urgent fixes
 
-# Result: Linear history
+### 📊 **Branch Naming**
+```
+feature/user-authentication
+bugfix/login-error
+hotfix/security-patch
+release/v1.2.0
 ```
 
-**Three-Way Merge:**
-```bash
-# When branches have diverged
-git checkout main
-git merge feature-branch
+</td>
+</tr>
+</table>
 
-# Creates merge commit
+### 🎯 **Best Practices**
+- Keep branches focused and short-lived
+- Use descriptive branch names
+- Regular integration with main branch
+- Delete merged branches
+
+---
+
+## 🔗 Slide 6: Merging & Conflict Resolution
+
+<div align="center">
+
+### 🤝 **Merge Strategies & Conflict Resolution**
+
+![Git Merging](./images/git-merge-strategies.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🔀 **Merge Types**
+```bash
+# Fast-forward merge
+git merge feature/simple
+
+# Three-way merge
+git merge feature/complex
+
+# Squash merge
+git merge --squash feature/cleanup
+
+# No fast-forward
+git merge --no-ff feature/important
 ```
 
-**Merge Options:**
+### 🎯 **Merge Strategies**
+- **Fast-forward** - Linear history
+- **Three-way** - Merge commit created
+- **Squash** - Combine commits
+- **Rebase** - Replay commits
+
+</td>
+<td width="50%">
+
+### ⚔️ **Conflict Resolution**
 ```bash
-# No fast-forward (always create merge commit)
-git merge --no-ff feature-branch
+# When conflicts occur
+git status
+git diff
 
-# Squash merge (combine all commits)
-git merge --squash feature-branch
+# Resolve conflicts manually
+# Edit conflicted files
+git add resolved-file.txt
+git commit
 
-# Abort merge
+# Abort merge if needed
 git merge --abort
 ```
 
-#### Common Branching Strategies
+### 🛠️ **Conflict Tools**
+- **VS Code** - Built-in merge editor
+- **GitKraken** - Visual merge tool
+- **Meld** - Three-way comparison
+- **P4Merge** - Professional tool
 
-**Git Flow:**
-- **main**: Production-ready code
-- **develop**: Integration branch
-- **feature/***: New features
-- **release/***: Release preparation
-- **hotfix/***: Emergency fixes
+</td>
+</tr>
+</table>
 
-**GitHub Flow:**
-- **main**: Always deployable
-- **feature branches**: Short-lived for features
-- **Pull requests**: Code review and merge
+### 💡 **Conflict Prevention**
+- Frequent pulls from main branch
+- Small, focused commits
+- Clear communication in teams
+- Regular integration testing
 
-**GitLab Flow:**
-- **main**: Development branch
-- **production**: Production branch
-- **environment branches**: Staging, testing
+---
 
-### 5. Fix Merge Conflicts and Mistakes
+## 🔄 Slide 7: Rebase & History Management
 
-#### Understanding Merge Conflicts
+<div align="center">
 
-**When Conflicts Occur:**
-- Same file modified in different branches
-- Same lines changed differently
-- File deleted in one branch, modified in another
+### 📚 **Rebase Operations & History Cleanup**
 
-**Conflict Markers:**
-```
-<<<<<<< HEAD
-Current branch content
-=======
-Incoming branch content
->>>>>>> feature-branch
-```
+![Git Rebase](./images/git-rebase-operations.svg)
 
-#### Resolving Conflicts
+</div>
 
-**Manual Resolution:**
+<table>
+<tr>
+<td width="50%">
+
+### 🔄 **Rebase Operations**
 ```bash
-# Start merge
-git merge feature-branch
-
-# Git shows conflict files
-# Edit files to resolve conflicts
-# Remove conflict markers
-
-# Stage resolved files
-git add resolved-file.txt
-
-# Complete merge
-git commit
-```
-
-**Using Merge Tools:**
-```bash
-# Configure merge tool
-git config --global merge.tool vimdiff
-
-# Launch merge tool
-git mergetool
-
-# Available tools: vimdiff, meld, kdiff3, etc.
-```
-
-#### Fixing Common Mistakes
-
-**Undo Last Commit (Keep Changes):**
-```bash
-git reset --soft HEAD~1
-```
-
-**Undo Last Commit (Discard Changes):**
-```bash
-git reset --hard HEAD~1
-```
-
-**Undo Specific File:**
-```bash
-git checkout HEAD -- filename.txt
-```
-
-**Revert Commit (Safe for Shared History):**
-```bash
-git revert commit-hash
-```
-
-**Fix Commit Message:**
-```bash
-git commit --amend -m "Corrected message"
-```
-
-**Unstage Files:**
-```bash
-git reset HEAD filename.txt
-```
-
-**Discard Local Changes:**
-```bash
-git checkout -- filename.txt
-git restore filename.txt  # Modern syntax
-```
-
-### 6. Merge Requests/Pull Requests
-
-#### Understanding Pull Requests
-
-**What is a Pull Request?**
-A pull request (GitHub) or merge request (GitLab) is a method of submitting contributions to a project. It allows code review before merging.
-
-**Benefits:**
-- **Code Review**: Quality assurance
-- **Discussion**: Collaborative feedback
-- **Testing**: Automated checks
-- **Documentation**: Change tracking
-
-#### Creating Pull Requests
-
-**GitHub Workflow:**
-```bash
-# 1. Fork repository (on GitHub)
-# 2. Clone your fork
-git clone https://github.com/yourusername/repo.git
-
-# 3. Create feature branch
-git checkout -b feature-branch
-
-# 4. Make changes and commit
-git add .
-git commit -m "Add new feature"
-
-# 5. Push to your fork
-git push origin feature-branch
-
-# 6. Create pull request on GitHub
-```
-
-**GitLab Workflow:**
-```bash
-# 1. Clone repository
-git clone https://gitlab.com/project/repo.git
-
-# 2. Create feature branch
-git checkout -b feature-branch
-
-# 3. Make changes and commit
-git add .
-git commit -m "Add new feature"
-
-# 4. Push branch
-git push origin feature-branch
-
-# 5. Create merge request on GitLab
-```
-
-#### Pull Request Best Practices
-
-**Good Pull Request:**
-- **Small and Focused**: Single feature or fix
-- **Clear Title**: Descriptive summary
-- **Detailed Description**: What, why, and how
-- **Tests Included**: Verify functionality
-- **Documentation Updated**: Keep docs current
-
-**Review Process:**
-- **Code Review**: Check logic and style
-- **Testing**: Verify functionality
-- **Discussion**: Address feedback
-- **Approval**: Maintainer approval
-- **Merge**: Integration to main branch
-
-### 7. Remote and Rebase in Git
-
-#### Working with Remotes
-
-**Remote Repository Management:**
-```bash
-# List remotes
-git remote -v
-
-# Add remote
-git remote add origin https://github.com/user/repo.git
-
-# Change remote URL
-git remote set-url origin https://github.com/user/new-repo.git
-
-# Remove remote
-git remote remove origin
-
-# Rename remote
-git remote rename origin upstream
-```
-
-**Fetching and Pulling:**
-```bash
-# Fetch changes (don't merge)
-git fetch origin
-
-# Pull changes (fetch + merge)
-git pull origin main
-
-# Pull with rebase
-git pull --rebase origin main
-
-# Fetch all branches
-git fetch --all
-```
-
-**Pushing Changes:**
-```bash
-# Push to remote
-git push origin main
-
-# Push new branch
-git push -u origin feature-branch
-
-# Force push (dangerous)
-git push --force origin main
-
-# Safer force push
-git push --force-with-lease origin main
-```
-
-#### Git Rebase
-
-**What is Rebase?**
-Rebase moves or combines commits to create a linear history. It "replays" commits on top of another branch.
-
-**Interactive Rebase:**
-```bash
-# Rebase last 3 commits
+# Interactive rebase
 git rebase -i HEAD~3
 
-# Rebase onto another branch
+# Rebase onto main
 git rebase main
 
-# Continue after resolving conflicts
+# Continue after conflicts
 git rebase --continue
 
 # Abort rebase
 git rebase --abort
 ```
 
-**Rebase Options:**
-- **pick**: Use commit as-is
-- **reword**: Change commit message
-- **edit**: Modify commit
-- **squash**: Combine with previous commit
-- **drop**: Remove commit
+### 🎯 **Rebase vs Merge**
+- **Rebase** - Linear, clean history
+- **Merge** - Preserves branch context
+- **Use rebase** - Feature branches
+- **Use merge** - Integration points
 
-**Rebase vs Merge:**
+</td>
+<td width="50%">
 
-| Rebase | Merge |
-|--------|-------|
-| Linear history | Preserves branch history |
-| Cleaner log | Shows actual development |
-| Rewrites history | Safe for shared branches |
-| Good for feature branches | Good for integration |
-
-### 8. Bitbucket, GitLab CI
-
-#### GitLab Features
-
-**GitLab Components:**
-- **Repository**: Git hosting
-- **Issues**: Bug tracking
-- **Merge Requests**: Code review
-- **CI/CD**: Automated pipelines
-- **Wiki**: Documentation
-- **Snippets**: Code sharing
-
-**GitLab Workflow:**
+### 📊 **History Management**
 ```bash
-# Clone GitLab repository
-git clone https://gitlab.com/group/project.git
+# View history
+git log --oneline --graph
+git log --author="John"
+git log --since="2 weeks ago"
 
-# Create feature branch
-git checkout -b feature/new-functionality
+# Amend last commit
+git commit --amend
 
-# Make changes and commit
-git add .
-git commit -m "Implement new functionality"
+# Reset operations
+git reset --soft HEAD~1
+git reset --hard HEAD~1
 
-# Push to GitLab
-git push origin feature/new-functionality
-
-# Create merge request via GitLab UI
+# Cherry-pick commits
+git cherry-pick abc123
 ```
 
-#### GitLab CI/CD
+### 🔍 **History Tools**
+- **gitk** - Visual history browser
+- **tig** - Text-mode interface
+- **GitLens** - VS Code extension
+- **GitHub Desktop** - GUI client
 
-**GitLab CI Configuration (.gitlab-ci.yml):**
-```yaml
-# Define stages
-stages:
-  - build
-  - test
-  - deploy
+</td>
+</tr>
+</table>
 
-# Define variables
-variables:
-  NODE_VERSION: "16"
-
-# Build job
-build:
-  stage: build
-  image: node:$NODE_VERSION
-  script:
-    - npm install
-    - npm run build
-  artifacts:
-    paths:
-      - dist/
-    expire_in: 1 hour
-
-# Test job
-test:
-  stage: test
-  image: node:$NODE_VERSION
-  script:
-    - npm install
-    - npm run test
-  coverage: '/Coverage: \d+\.\d+%/'
-
-# Deploy job
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploying application..."
-    - ./deploy.sh
-  only:
-    - main
-  when: manual
-```
-
-**Pipeline Features:**
-- **Stages**: Sequential execution phases
-- **Jobs**: Individual tasks within stages
-- **Artifacts**: Files passed between jobs
-- **Cache**: Speed up builds
-- **Variables**: Configuration values
-- **Conditions**: Control job execution
-
-#### Bitbucket Features
-
-**Bitbucket Components:**
-- **Repositories**: Git hosting
-- **Pull Requests**: Code review
-- **Pipelines**: CI/CD automation
-- **Issues**: Bug tracking
-- **Wiki**: Documentation
-
-**Bitbucket Pipelines (bitbucket-pipelines.yml):**
-```yaml
-image: node:16
-
-pipelines:
-  default:
-    - step:
-        name: Build and Test
-        caches:
-          - node
-        script:
-          - npm install
-          - npm run build
-          - npm run test
-        artifacts:
-          - dist/**
-
-  branches:
-    main:
-      - step:
-          name: Deploy to Production
-          deployment: production
-          script:
-            - echo "Deploying to production..."
-            - ./deploy-prod.sh
-```
-
-## 💻 Term Project 1: GitLab Project Setup
-
-### Project Overview
-Set up a GitLab project with proper branch strategy and implement merge request workflow.
-
-### Project Requirements
-
-#### 1. Repository Setup
-- Create new GitLab project
-- Initialize with README, .gitignore, and LICENSE
-- Set up project description and visibility
-
-#### 2. Branch Strategy Implementation
-```bash
-# Create development branch
-git checkout -b develop
-
-# Create feature branch from develop
-git checkout -b feature/user-authentication
-
-# Create release branch
-git checkout -b release/v1.0.0
-
-# Create hotfix branch from main
-git checkout -b hotfix/security-patch
-```
-
-#### 3. Branch Protection Rules
-- Protect main branch
-- Require merge requests
-- Require approvals
-- Enable merge request discussions
-
-#### 4. Merge Request Workflow
-- Create feature branch
-- Implement functionality
-- Write tests
-- Create merge request
-- Code review process
-- Merge to develop
-
-#### 5. CI/CD Pipeline Setup
-```yaml
-# .gitlab-ci.yml
-stages:
-  - validate
-  - build
-  - test
-  - deploy
-
-validate:
-  stage: validate
-  script:
-    - echo "Validating code style..."
-    - npm run lint
-
-build:
-  stage: build
-  script:
-    - echo "Building application..."
-    - npm run build
-
-test:
-  stage: test
-  script:
-    - echo "Running tests..."
-    - npm run test
-
-deploy_staging:
-  stage: deploy
-  script:
-    - echo "Deploying to staging..."
-  only:
-    - develop
-
-deploy_production:
-  stage: deploy
-  script:
-    - echo "Deploying to production..."
-  only:
-    - main
-  when: manual
-```
-
-### Deliverables
-1. **GitLab Project**: Configured repository
-2. **Branch Strategy Document**: Workflow documentation
-3. **Merge Request Examples**: Sample MRs with reviews
-4. **CI/CD Pipeline**: Working automation
-5. **Documentation**: Setup and usage guide
-
-## 🛠️ Hands-On Labs
-
-### Lab 1: Git Fundamentals
-- Initialize repository
-- Practice basic commands
-- Create commits and view history
-- Configure Git settings
-
-### Lab 2: Branching and Merging
-- Create and manage branches
-- Practice merge strategies
-- Resolve merge conflicts
-- Implement Git Flow workflow
-
-### Lab 3: Remote Collaboration
-- Set up remote repositories
-- Practice push/pull operations
-- Fork and clone repositories
-- Create pull requests
-
-### Lab 4: Advanced Git Operations
-- Interactive rebase
-- Cherry-picking commits
-- Git hooks implementation
-- Repository maintenance
-
-## 📊 Assessment Methods
-
-### Practical Assessments
-- Git command proficiency test
-- Branch management scenarios
-- Conflict resolution exercises
-- Collaboration workflow implementation
-
-### Project Evaluation
-- Repository structure and organization
-- Commit message quality
-- Branch strategy implementation
-- Merge request process
-- CI/CD pipeline functionality
-
-## 📚 Additional Resources
-
-### Documentation
-- [Git Official Documentation](https://git-scm.com/doc)
-- [Pro Git Book](https://git-scm.com/book)
-- [GitLab Documentation](https://docs.gitlab.com/)
-- [Bitbucket Documentation](https://support.atlassian.com/bitbucket-cloud/)
-
-### Interactive Learning
-- [Learn Git Branching](https://learngitbranching.js.org/)
-- [Git Immersion](http://gitimmersion.com/)
-- [GitHub Learning Lab](https://lab.github.com/)
-- [Atlassian Git Tutorials](https://www.atlassian.com/git/tutorials)
-
-### Tools and Clients
-- **Command Line**: Git CLI
-- **GUI Clients**: GitKraken, SourceTree, GitHub Desktop
-- **IDE Integration**: VS Code, IntelliJ, Eclipse
-- **Web Interfaces**: GitHub, GitLab, Bitbucket
-
-## 🎯 Next Steps
-
-After mastering Git, you'll be prepared for:
-- **Session 4**: Jenkins - CI/CD automation
-- **Advanced Git**: Hooks, submodules, and workflows
-- **DevOps Pipelines**: Automated testing and deployment
-- **Collaboration**: Team development practices
-
-## 💡 Key Takeaways
-
-1. **Git is essential** for modern software development
-2. **Branching strategies** enable parallel development
-3. **Merge requests** ensure code quality
-4. **Rebase creates** clean, linear history
-5. **Remote collaboration** requires proper workflows
-6. **CI/CD integration** automates quality checks
-7. **Practice regularly** to build Git proficiency
-8. **Documentation** is crucial for team collaboration
+### ⚠️ **Rebase Golden Rule**
+**Never rebase commits that have been pushed to shared repositories!**
 
 ---
 
-**Created by Varun Kumar**
+## 🌐 Slide 8: Remote Repositories
 
-*Session 3: Mastering Git - Section 2: DevOps & Infrastructure as Code*
+<div align="center">
+
+### 🌍 **Working with Remote Repositories**
+
+![Remote Repositories](./images/git-remote-operations.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🌐 **Remote Operations**
+```bash
+# Add remote
+git remote add origin https://github.com/user/repo.git
+
+# List remotes
+git remote -v
+
+# Fetch changes
+git fetch origin
+
+# Pull changes
+git pull origin main
+
+# Push changes
+git push origin feature/new-feature
+
+# Set upstream
+git push -u origin main
+```
+
+</td>
+<td width="50%">
+
+### 🔄 **Sync Strategies**
+```bash
+# Fetch before work
+git fetch origin
+git status
+
+# Pull with rebase
+git pull --rebase origin main
+
+# Force push (dangerous!)
+git push --force-with-lease
+
+# Track remote branch
+git branch -u origin/main
+```
+
+### 🎯 **Remote Best Practices**
+- Always fetch before starting work
+- Use meaningful commit messages
+- Push regularly to backup work
+- Never force push to shared branches
+
+</td>
+</tr>
+</table>
+
+### 🔐 **Authentication Methods**
+- **HTTPS** - Username/password or token
+- **SSH** - Key-based authentication (recommended)
+- **Personal Access Tokens** - GitHub/GitLab tokens
+- **OAuth** - Third-party authentication
+
+---
+
+## 🤝 Slide 9: Collaboration Workflows
+
+<div align="center">
+
+### 👥 **Team Collaboration Strategies**
+
+![Collaboration Workflows](./images/git-collaboration-workflows.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🔄 **GitFlow Workflow**
+- **Main** - Production releases
+- **Develop** - Integration branch
+- **Feature** - New development
+- **Release** - Release preparation
+- **Hotfix** - Critical fixes
+
+### 🎯 **Feature Branch Workflow**
+```bash
+# Create feature branch
+git checkout -b feature/user-login
+
+# Work and commit
+git add .
+git commit -m "Add login form"
+
+# Push and create PR
+git push origin feature/user-login
+```
+
+</td>
+<td width="50%">
+
+### 🚀 **GitHub Flow**
+1. Create branch from main
+2. Add commits
+3. Open Pull Request
+4. Discuss and review
+5. Deploy and test
+6. Merge to main
+
+### 📋 **Pull Request Process**
+- **Create** - Descriptive title and description
+- **Review** - Code review by peers
+- **Test** - Automated CI/CD checks
+- **Merge** - Integration to main branch
+
+</td>
+</tr>
+</table>
+
+### 🎯 **Team Best Practices**
+- Use consistent branch naming conventions
+- Write clear commit messages
+- Review code before merging
+- Maintain clean history
+
+---
+
+## 🚀 Slide 10: GitLab & GitHub Mastery
+
+<div align="center">
+
+### 🌟 **Platform-Specific Features**
+
+![Platform Features](./images/git-platforms-comparison.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🦊 **GitLab Features**
+- **Built-in CI/CD** - Integrated pipelines
+- **Issue Tracking** - Project management
+- **Wiki** - Documentation
+- **Container Registry** - Docker images
+- **Security Scanning** - Vulnerability detection
+
+### 🔧 **GitLab CI/CD**
+```yaml
+# .gitlab-ci.yml
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  script:
+    - npm test
+```
+
+</td>
+<td width="50%">
+
+### 🐙 **GitHub Features**
+- **Actions** - CI/CD workflows
+- **Issues** - Bug tracking
+- **Projects** - Kanban boards
+- **Packages** - Package registry
+- **Codespaces** - Cloud development
+
+### ⚡ **GitHub Actions**
+```yaml
+# .github/workflows/ci.yml
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm test
+```
+
+</td>
+</tr>
+</table>
+
+### 🎯 **Platform Selection**
+- **GitLab** - Complete DevOps platform, self-hosted options
+- **GitHub** - Largest community, excellent integrations
+- **Bitbucket** - Atlassian integration, enterprise features
+
+---
+
+## ⚙️ Slide 11: CI/CD Integration
+
+<div align="center">
+
+### 🔄 **Continuous Integration & Deployment**
+
+![CI/CD Pipeline](./images/git-cicd-pipeline.svg)
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🔄 **CI/CD Pipeline**
+1. **Code Push** - Developer commits
+2. **Trigger** - Automated pipeline start
+3. **Build** - Compile and package
+4. **Test** - Automated testing
+5. **Deploy** - Release to environments
+
+### 🎯 **Pipeline Triggers**
+- **Push** - On every commit
+- **Pull Request** - On PR creation
+- **Schedule** - Time-based triggers
+- **Manual** - On-demand execution
+
+</td>
+<td width="50%">
+
+### 🛠️ **Pipeline Configuration**
+```yaml
+# GitLab CI example
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t app .
+    - docker push registry/app
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f k8s/
+  only:
+    - main
+```
+
+### 📊 **Pipeline Benefits**
+- **Automation** - Reduce manual errors
+- **Speed** - Faster deployments
+- **Quality** - Consistent testing
+- **Feedback** - Quick issue detection
+
+</td>
+</tr>
+</table>
+
+### 🎯 **Best Practices**
+- Keep pipelines fast and reliable
+- Use parallel execution where possible
+- Implement proper testing stages
+- Monitor pipeline performance
+
+---
+
+## 🎓 Slide 12: Next Steps & Mastery
+
+<div align="center">
+
+### 🌟 **Your Git Journey Continues**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎯 **Key Takeaways**
+1. 🔀 **Git is Essential** - Industry standard for version control
+2. 🌿 **Branching is Power** - Parallel development capability
+3. 🤝 **Collaboration is Key** - Team workflows and communication
+4. 🔄 **History Matters** - Clean, meaningful commit history
+5. 🚀 **Automation Wins** - CI/CD integration for efficiency
+6. 📚 **Practice Makes Perfect** - Regular use builds expertise
+7. 🌍 **Community Driven** - Open source collaboration
+
+</td>
+<td width="50%">
+
+### 🛤️ **Learning Path Forward**
+- **Next Session:** [Jenkins CI/CD](../Session-4_Jenkins/)
+- **Advanced:** [Terraform IaC](../Terraform/)
+- **Specialization:** DevOps pipeline integration
+
+### 🎯 **Immediate Actions**
+- ✅ Set up Git with SSH keys
+- 🌿 Practice branching and merging
+- 🤝 Create your first Pull Request
+- 🔄 Configure CI/CD pipeline
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🛠️ Hands-On Activities
+
+<details>
+<summary><strong>🔬 Lab 1: Git Repository Setup</strong></summary>
+
+### Objective
+Set up a complete Git environment with SSH authentication
+
+### Tasks
+1. **Git Configuration**
+   - Configure user name and email
+   - Set up SSH keys for GitHub/GitLab
+   - Configure Git aliases and preferences
+
+2. **Repository Creation**
+   - Initialize local repository
+   - Create remote repository
+   - Connect local to remote
+
+3. **Basic Operations**
+   - Create files and make commits
+   - Practice staging and committing
+   - Push to remote repository
+
+### Deliverables
+- Configured Git environment
+- Connected remote repository
+- Initial commits and pushes
+
+</details>
+
+<details>
+<summary><strong>🌿 Lab 2: Branching and Merging</strong></summary>
+
+### Objective
+Master Git branching strategies and merge operations
+
+### Tasks
+1. **Branch Creation**
+   - Create feature branches
+   - Implement GitFlow workflow
+   - Practice branch switching
+
+2. **Merge Operations**
+   - Fast-forward merges
+   - Three-way merges
+   - Conflict resolution
+
+3. **Advanced Operations**
+   - Interactive rebase
+   - Cherry-picking commits
+   - History cleanup
+
+### Deliverables
+- Multiple branch workflow
+- Resolved merge conflicts
+- Clean commit history
+
+</details>
+
+<details>
+<summary><strong>🤝 Lab 3: Team Collaboration</strong></summary>
+
+### Objective
+Implement professional team collaboration workflows
+
+### Tasks
+1. **Pull Request Workflow**
+   - Create feature branches
+   - Submit pull requests
+   - Conduct code reviews
+
+2. **Conflict Resolution**
+   - Simulate team conflicts
+   - Practice resolution strategies
+   - Implement prevention measures
+
+3. **CI/CD Integration**
+   - Set up automated pipelines
+   - Configure branch protection
+   - Implement deployment workflows
+
+### Deliverables
+- Team collaboration setup
+- Working CI/CD pipeline
+- Documented workflow process
+
+</details>
+
+---
+
+## 📚 Resources & References
+
+<details>
+<summary><strong>📖 Essential Reading</strong></summary>
+
+### Books
+- 📚 **"Pro Git"** by Scott Chacon - Comprehensive Git guide
+- 📚 **"Git Pocket Guide"** by Richard Silverman - Quick reference
+- 📚 **"Version Control with Git"** by Jon Loeliger - In-depth coverage
+- 📚 **"Git Workflows"** by Yan Pritzker - Team collaboration strategies
+
+### Online Documentation
+- 📄 **Git Official Documentation** - Complete reference
+- 📄 **GitHub Guides** - Platform-specific tutorials
+- 📄 **GitLab Documentation** - CI/CD integration guides
+- 📄 **Atlassian Git Tutorials** - Comprehensive learning path
+
+</details>
+
+<details>
+<summary><strong>🌐 Online Resources</strong></summary>
+
+### Interactive Learning
+- 🌐 [Learn Git Branching](https://learngitbranching.js.org/) - Visual Git tutorial
+- 🌐 [Git Immersion](http://gitimmersion.com/) - Hands-on Git workshop
+- 🌐 [GitHub Learning Lab](https://lab.github.com/) - Interactive courses
+- 🌐 [GitLab Learn](https://about.gitlab.com/learn/) - Platform tutorials
+
+### Tools & Utilities
+- 🛠️ **GitKraken** - Visual Git client
+- 🛠️ **SourceTree** - Free Git GUI
+- 🛠️ **GitHub Desktop** - Simple Git interface
+- 🛠️ **GitLens** - VS Code Git extension
+
+</details>
+
+<details>
+<summary><strong>🎯 Practice Resources</strong></summary>
+
+### Practice Repositories
+- 🎮 **Git Exercises** - Hands-on practice scenarios
+- 🎮 **Open Source Projects** - Real-world contribution
+- 🎮 **Personal Projects** - Build your portfolio
+- 🎮 **Team Simulations** - Collaboration practice
+
+### Cheat Sheets
+- 📋 **Git Command Reference** - Quick command lookup
+- 📋 **GitFlow Cheat Sheet** - Workflow reference
+- 📋 **Merge Conflict Resolution** - Step-by-step guide
+- 📋 **CI/CD Integration** - Pipeline templates
+
+</details>
+
+---
+
+## 📊 Assessment & Certification
+
+<div align="center">
+
+### 🎯 **Knowledge Validation**
+
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 📝 **Assessment Methods**
+- **Practical Labs:** Git operations and workflows (50%)
+- **Team Project:** Collaboration simulation (30%)
+- **CI/CD Setup:** Pipeline configuration (15%)
+- **Best Practices:** Code review and documentation (5%)
+
+### 🏆 **Passing Criteria**
+- Overall score: 85% or higher
+- All labs completed successfully
+- Working team collaboration setup
+- Functional CI/CD pipeline
+
+</td>
+<td width="50%">
+
+### 🎓 **Certification Preparation**
+- **GitHub Certified Developer** - Platform expertise
+- **GitLab Certified Associate** - CI/CD focus
+- **Git Professional Certification** - Advanced skills
+- **DevOps Foundation** - Workflow integration
+
+### 📈 **Career Benefits**
+- Version control expertise: Essential skill
+- Team collaboration: Leadership capability
+- CI/CD integration: DevOps readiness
+- Open source contribution: Portfolio building
+
+</td>
+</tr>
+</table>
+
+---
+
+<div align="center">
+
+## 🚀 **Ready to Master Git?**
+
+### *"In Git we trust - version control is the foundation of all great software"*
+
+**Next Session:** [Jenkins CI/CD Automation →](../Session-4_Jenkins/)
+
+---
+
+**Created by Varun Kumar Manik**  
+*AWS Ambassador | Kubernetes Expert | DevOps Specialist*
+
+**Session 3: Mastering Git** | **Section 2: DevOps & Infrastructure as Code**  
+*Last Updated: July 2025*
+
+</div>

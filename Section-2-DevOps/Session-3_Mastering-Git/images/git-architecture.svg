@@ -1,0 +1,177 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="workingGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="stagingGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="localGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A855F7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="remoteGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F05032;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F05032;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#F05032">🏗️ Git Architecture & Data Flow</text>
+  
+  <!-- Working Directory -->
+  <rect x="50" y="80" width="180" height="120" rx="15" fill="url(#workingGradient)" stroke="#1E3A8A" stroke-width="3"/>
+  <text x="140" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">📁 Working Directory</text>
+  <text x="140" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#E5E7EB">Your Project Files</text>
+  
+  <!-- File examples in working directory -->
+  <rect x="70" y="145" width="140" height="45" rx="5" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
+  <text x="140" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">📄 index.html (modified)</text>
+  <text x="140" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">📄 style.css (new)</text>
+  <text x="140" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">📄 script.js (deleted)</text>
+  
+  <!-- Arrow: git add -->
+  <path d="M 240 140 L 290 140" stroke="#F05032" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="265" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#F05032">git add</text>
+  <text x="265" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Stage changes</text>
+  
+  <!-- Staging Area (Index) -->
+  <rect x="300" y="80" width="180" height="120" rx="15" fill="url(#stagingGradient)" stroke="#059669" stroke-width="3"/>
+  <text x="390" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">📋 Staging Area</text>
+  <text x="390" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#E5E7EB">(Index)</text>
+  
+  <!-- Staged files -->
+  <rect x="320" y="145" width="140" height="45" rx="5" fill="#DCFCE7" stroke="#10B981" stroke-width="1"/>
+  <text x="390" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">✅ index.html</text>
+  <text x="390" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">✅ style.css</text>
+  <text x="390" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532D">✅ script.js</text>
+  
+  <!-- Arrow: git commit -->
+  <path d="M 490 140 L 540 140" stroke="#F05032" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="515" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#F05032">git commit</text>
+  <text x="515" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Save snapshot</text>
+  
+  <!-- Local Repository -->
+  <rect x="550" y="80" width="180" height="120" rx="15" fill="url(#localGradient)" stroke="#7C3AED" stroke-width="3"/>
+  <text x="640" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">🗂️ Local Repository</text>
+  <text x="640" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#E5E7EB">(.git directory)</text>
+  
+  <!-- Commit history -->
+  <rect x="570" y="145" width="140" height="45" rx="5" fill="#F3E8FF" stroke="#A855F7" stroke-width="1"/>
+  <text x="640" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#581C87">📦 abc123 (HEAD)</text>
+  <text x="640" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#581C87">📦 def456</text>
+  <text x="640" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#581C87">📦 ghi789</text>
+  
+  <!-- Arrow: git push -->
+  <path d="M 640 210 L 640 260" stroke="#F05032" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="665" y="240" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#F05032">git push</text>
+  <text x="665" y="255" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Upload to remote</text>
+  
+  <!-- Remote Repository -->
+  <rect x="550" y="270" width="180" height="120" rx="15" fill="url(#remoteGradient)" stroke="#F05032" stroke-width="3"/>
+  <text x="640" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">🌐 Remote Repository</text>
+  <text x="640" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">GitHub/GitLab/Bitbucket</text>
+  
+  <!-- Remote commits -->
+  <rect x="570" y="335" width="140" height="45" rx="5" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+  <text x="640" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">📦 abc123 (origin/main)</text>
+  <text x="640" y="365" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">📦 def456</text>
+  <text x="640" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#92400E">📦 ghi789</text>
+  
+  <!-- Arrow: git pull/fetch -->
+  <path d="M 540 330 L 490 330" stroke="#059669" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="515" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#059669">git pull</text>
+  <text x="515" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Download changes</text>
+  
+  <!-- Git States Box -->
+  <rect x="50" y="270" width="430" height="120" rx="15" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="2"/>
+  <text x="265" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">📊 Git File States</text>
+  
+  <!-- File states -->
+  <rect x="70" y="310" width="90" height="30" rx="5" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/>
+  <text x="115" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#7F1D1D">Modified</text>
+  <text x="115" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#7F1D1D">Changed files</text>
+  
+  <rect x="180" y="310" width="90" height="30" rx="5" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+  <text x="225" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#92400E">Staged</text>
+  <text x="225" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#92400E">Ready to commit</text>
+  
+  <rect x="290" y="310" width="90" height="30" rx="5" fill="#DCFCE7" stroke="#10B981" stroke-width="1"/>
+  <text x="335" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#14532D">Committed</text>
+  <text x="335" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#14532D">Saved in repo</text>
+  
+  <rect x="400" y="310" width="90" height="30" rx="5" fill="#E0E7FF" stroke="#6366F1" stroke-width="1"/>
+  <text x="445" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#3730A3">Pushed</text>
+  <text x="445" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#3730A3">Shared remotely</text>
+  
+  <!-- State transition arrows -->
+  <path d="M 165 325 L 175 325" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrow)"/>
+  <path d="M 275 325 L 285 325" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrow)"/>
+  <path d="M 385 325 L 395 325" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrow)"/>
+  
+  <!-- Commands reference -->
+  <text x="70" y="365" font-family="monospace" font-size="9" fill="#374151">git status</text>
+  <text x="180" y="365" font-family="monospace" font-size="9" fill="#374151">git add</text>
+  <text x="290" y="365" font-family="monospace" font-size="9" fill="#374151">git commit</text>
+  <text x="400" y="365" font-family="monospace" font-size="9" fill="#374151">git push</text>
+  
+  <!-- Git Objects Box -->
+  <rect x="50" y="420" width="680" height="150" rx="15" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="390" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">🔧 Git Internal Objects</text>
+  
+  <!-- Blob Object -->
+  <rect x="80" y="460" width="120" height="80" rx="10" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  <text x="140" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1E3A8A">📄 Blob</text>
+  <text x="140" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1E3A8A">File Content</text>
+  <text x="140" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Stores actual</text>
+  <text x="140" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">file data</text>
+  
+  <!-- Tree Object -->
+  <rect x="220" y="460" width="120" height="80" rx="10" fill="#F0FDF4" stroke="#10B981" stroke-width="2"/>
+  <text x="280" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#059669">🌳 Tree</text>
+  <text x="280" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#059669">Directory</text>
+  <text x="280" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Points to blobs</text>
+  <text x="280" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">and other trees</text>
+  
+  <!-- Commit Object -->
+  <rect x="360" y="460" width="120" height="80" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
+  <text x="420" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#D97706">📦 Commit</text>
+  <text x="420" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D97706">Snapshot</text>
+  <text x="420" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Points to tree,</text>
+  <text x="420" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">parent, metadata</text>
+  
+  <!-- Tag Object -->
+  <rect x="500" y="460" width="120" height="80" rx="10" fill="#F3E8FF" stroke="#A855F7" stroke-width="2"/>
+  <text x="560" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7C3AED">🏷️ Tag</text>
+  <text x="560" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7C3AED">Reference</text>
+  <text x="560" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">Points to commit</text>
+  <text x="560" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">with annotation</text>
+  
+  <!-- Object relationships -->
+  <path d="M 205 500 L 215 500" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrow)"/>
+  <path d="M 345 500 L 355 500" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrow)"/>
+  <path d="M 485 500 L 495 500" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#smallArrow)"/>
+  
+  <!-- SHA-1 Hash Example -->
+  <rect x="640" y="460" width="80" height="80" rx="10" fill="#FEE2E2" stroke="#EF4444" stroke-width="2"/>
+  <text x="680" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#DC2626">🔐 SHA-1</text>
+  <text x="680" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#DC2626">Hash</text>
+  <text x="680" y="510" text-anchor="middle" font-family="monospace" font-size="7" fill="#6B7280">a1b2c3d4</text>
+  <text x="680" y="520" text-anchor="middle" font-family="monospace" font-size="7" fill="#6B7280">e5f6g7h8</text>
+  <text x="680" y="530" text-anchor="middle" font-family="monospace" font-size="7" fill="#6B7280">i9j0k1l2</text>
+  
+  <!-- Arrow marker definitions -->
+  <defs>
+    <marker id="arrowhead" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#F05032"/>
+    </marker>
+    <marker id="smallArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#374151"/>
+    </marker>
+  </defs>
+</svg>
