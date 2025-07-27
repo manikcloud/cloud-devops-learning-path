@@ -228,31 +228,25 @@ Cloud Servers: 90% | Containers: 99% | Supercomputers: 100% | Mobile (Android): 
 </td>
 <td width="50%">
 
-### 🧭 **Navigation Commands**
-```bash
-# Directory Navigation
-pwd                 # Print working directory
-ls -la             # List files (detailed)
-cd /path/to/dir    # Change directory
-cd ~               # Go to home directory
-cd ..              # Go up one level
-cd -               # Go to previous directory
+### 🧭 **Navigation Concepts**
+- **Absolute paths** - Start with `/` (e.g., `/home/user/file.txt`)
+- **Relative paths** - Relative to current directory
+- **Home directory** - `~` represents user's home
+- **Parent directory** - `..` goes up one level
+- **Current directory** - `.` represents current location
+- **Hidden files** - Start with `.` (e.g., `.bashrc`)
 
-# Path Types
-/absolute/path     # Absolute path
-relative/path      # Relative path
-~/user/path        # Home directory path
-```
+**🎯 Hands-on Practice:** [Project-1 File System Lab](./Project-1/#-task-2-file-system-mastery)
 
 </td>
 </tr>
 </table>
 
 ### 💡 **File System Best Practices**
-- Use absolute paths in scripts
-- Understand permission inheritance
+- Use absolute paths in scripts for reliability
+- Understand permission inheritance in directories
 - Regular cleanup of `/tmp` directory
-- Monitor `/var/log` for system health
+- Monitor `/var/log` for system health and troubleshooting
 
 ---
 
@@ -260,7 +254,7 @@ relative/path      # Relative path
 
 <div align="center">
 
-### 🔧 **Command Line Mastery**
+### 🔧 **Command Line Mastery Categories**
 
 </div>
 
@@ -269,72 +263,60 @@ relative/path      # Relative path
 <td width="33%">
 
 ### 📁 **File Operations**
-```bash
-# Create & Manage Files
-touch filename
-mkdir dirname
-cp source dest
-mv old new
-rm filename
-rm -rf dirname
+**Core Concepts:**
+- Creating files and directories
+- Copying and moving files
+- Viewing file contents
+- File permissions management
 
-# File Content
-cat filename
-less filename
-head -n 10 file
-tail -f logfile
-grep "pattern" file
-```
+**Key Commands:**
+- `touch`, `mkdir` - Creation
+- `cp`, `mv` - Copy/Move
+- `cat`, `less`, `head`, `tail` - Viewing
+- `chmod`, `chown` - Permissions
 
 </td>
 <td width="33%">
 
 ### 🔍 **Search & Find**
-```bash
-# Find Files
-find /path -name "*.txt"
-find /path -type f -size +100M
-locate filename
-which command
+**Core Concepts:**
+- Finding files by name/type/size
+- Searching content within files
+- Locating system binaries
+- Pattern matching with regex
 
-# Search Content
-grep -r "pattern" /path
-grep -i "text" file
-grep -n "line" file
-awk '{print $1}' file
-sed 's/old/new/g' file
-```
+**Key Commands:**
+- `find` - Locate files/directories
+- `grep` - Search text patterns
+- `locate` - Quick file search
+- `which`, `whereis` - Find binaries
 
 </td>
 <td width="33%">
 
 ### 📊 **System Information**
-```bash
-# System Status
-ps aux
-top
-htop
-df -h
-du -sh /path
-free -h
-uptime
-uname -a
+**Core Concepts:**
+- Process monitoring
+- System resource usage
+- Network information
+- Service management
 
-# Network
-netstat -tulpn
-ss -tulpn
-ping hostname
-curl -I url
-```
+**Key Commands:**
+- `ps`, `top`, `htop` - Processes
+- `df`, `du`, `free` - Resources
+- `netstat`, `ss` - Network
+- `systemctl` - Services
 
 </td>
 </tr>
 </table>
 
-### 🎯 **Command Efficiency Tips**
+### 🎯 **Command Mastery Path**
 ```
-Use Tab completion | History with ↑↓ arrows | Aliases for frequent commands | Pipe commands with |
+Basic Navigation → File Operations → System Monitoring → Advanced Administration
 ```
+
+**🛠️ Hands-on Practice:** [Project-1 Command Mastery](./Project-1/#-task-3-command-line-mastery)
 
 ---
 
@@ -342,7 +324,7 @@ Use Tab completion | History with ↑↓ arrows | Aliases for frequent commands 
 
 <div align="center">
 
-### 🚀 **Power User Commands**
+### 🚀 **System Administration Essentials**
 
 </div>
 
@@ -351,66 +333,45 @@ Use Tab completion | History with ↑↓ arrows | Aliases for frequent commands 
 <td width="50%">
 
 ### 📦 **Package Management**
+**Concepts:**
+- Software installation and removal
+- Package dependencies
+- System updates and security patches
+- Repository management
 
-**🔴 Red Hat/CentOS/Amazon Linux:**
-```bash
-# YUM/DNF Package Manager
-yum update
-yum install package-name
-yum remove package-name
-yum search keyword
-yum list installed
-
-# DNF (newer)
-dnf update
-dnf install package-name
-dnf info package-name
-```
-
-**🟠 Ubuntu/Debian:**
-```bash
-# APT Package Manager
-apt update
-apt upgrade
-apt install package-name
-apt remove package-name
-apt search keyword
-apt list --installed
-```
+**Package Managers:**
+- **YUM/DNF** - Red Hat/CentOS/Amazon Linux
+- **APT** - Ubuntu/Debian
+- **Snap** - Universal packages
+- **Flatpak** - Sandboxed applications
 
 </td>
 <td width="50%">
 
-### ⚙️ **System Control**
-```bash
-# Service Management
-systemctl start service
-systemctl stop service
-systemctl restart service
-systemctl enable service
-systemctl status service
-systemctl list-units
+### ⚙️ **System Services**
+**Concepts:**
+- Service lifecycle management
+- Boot-time service configuration
+- Process monitoring and control
+- System targets and runlevels
 
-# Process Management
-kill PID
-killall process-name
-nohup command &
-jobs
-bg %1
-fg %1
-```
+**Service Management:**
+- **systemctl** - Modern service control
+- **service** - Legacy service control
+- **chkconfig** - Boot configuration
+- **systemd** - System and service manager
 
 </td>
 </tr>
 </table>
 
-### 🗜️ **Archive & Compression**
-```bash
-tar -czf archive.tar.gz directory/    # Create compressed archive
-tar -xzf archive.tar.gz              # Extract archive
-zip -r archive.zip directory/        # Create zip file
-unzip archive.zip                    # Extract zip file
-```
+### 🗜️ **Archive & Compression Concepts**
+- **tar** - Tape archive format for bundling files
+- **gzip/gunzip** - Compression algorithms
+- **zip/unzip** - Cross-platform archive format
+- **Backup strategies** - Incremental vs full backups
+
+**🔧 Hands-on Practice:** [Project-1 Advanced Commands](./Project-1/#-task-3-command-line-mastery)
 
 ---
 
@@ -418,7 +379,7 @@ unzip archive.zip                    # Extract zip file
 
 <div align="center">
 
-### ✏️ **Mastering Vi/Vim Editor**
+### ✏️ **Text Editor Mastery**
 
 </div>
 
@@ -426,55 +387,54 @@ unzip archive.zip                    # Extract zip file
 <tr>
 <td width="50%">
 
-### 🎮 **Vim Modes & Navigation**
-```bash
-# Vim Modes
-i          # Insert mode
-Esc        # Normal mode
-:          # Command mode
-v          # Visual mode
+### 🎮 **Vi/Vim Editor Concepts**
+**Modal Editing Philosophy:**
+- **Normal Mode** - Navigation and commands
+- **Insert Mode** - Text editing
+- **Visual Mode** - Text selection
+- **Command Mode** - File operations
 
-# Navigation (Normal mode)
-h j k l    # Left, Down, Up, Right
-w b        # Word forward/backward
-0 $        # Line start/end
-gg G       # File start/end
-/pattern   # Search forward
-n N        # Next/previous search
-```
+**Why Vim for DevOps:**
+- Available on all Linux systems
+- Powerful for configuration editing
+- Efficient for remote server work
+- Extensive customization options
 
 </td>
 <td width="50%">
 
-### ⚡ **Vim Editing Commands**
-```bash
-# Editing (Normal mode)
-x          # Delete character
-dd         # Delete line
-yy         # Copy line
-p P        # Paste after/before
-u          # Undo
-Ctrl+r     # Redo
-:%s/old/new/g  # Replace all
+### ⚡ **Editor Alternatives**
+**Nano:**
+- Beginner-friendly interface
+- Simple key combinations
+- Good for quick edits
 
-# Save & Exit (Command mode)
-:w         # Save
-:q         # Quit
-:wq        # Save and quit
-:q!        # Quit without saving
-```
+**Emacs:**
+- Extensible and customizable
+- Built-in features (email, calendar)
+- Steep learning curve
+
+**Modern Editors:**
+- VS Code with Remote-SSH
+- Sublime Text with SFTP
+- Atom with remote packages
 
 </td>
 </tr>
 </table>
 
-### 📋 **File Permissions**
-```bash
-chmod 755 file    # rwxr-xr-x (owner: all, group/others: read+execute)
-chmod 644 file    # rw-r--r-- (owner: read+write, others: read only)
-chown user:group file    # Change ownership
-chgrp group file         # Change group
-```
+### 📋 **File Permission Concepts**
+**Permission Model:**
+- **Read (r)** - View file contents or list directory
+- **Write (w)** - Modify file or create/delete in directory
+- **Execute (x)** - Run file or access directory
+
+**Permission Levels:**
+- **Owner** - File creator/owner
+- **Group** - Users in the same group
+- **Others** - All other users
+
+**🎯 Hands-on Practice:** [Project-1 Text Editors Lab](./Project-1/#-task-2-file-system-mastery)
 
 ---
 
@@ -482,7 +442,7 @@ chgrp group file         # Change group
 
 <div align="center">
 
-### 🌐 **Deploying Linux in the Cloud**
+### 🌐 **Cloud Linux Deployment**
 
 ![AWS EC2 Linux](../images/aws-ec2-linux.svg)
 
@@ -492,54 +452,46 @@ chgrp group file         # Change group
 <tr>
 <td width="50%">
 
-### 🚀 **EC2 Instance Launch Process**
-1. **🔐 Access AWS Console**
-   - Login to AWS Management Console
-   - Navigate to EC2 service
+### 🚀 **EC2 Deployment Concepts**
+**Amazon Machine Images (AMI):**
+- Pre-configured OS templates
+- Amazon Linux 2 - AWS optimized
+- Ubuntu Server - Popular choice
+- Red Hat Enterprise Linux - Enterprise grade
 
-2. **📱 Choose AMI**
-   - Amazon Linux 2
-   - Ubuntu Server 20.04 LTS
-   - Red Hat Enterprise Linux
-   - CentOS
-
-3. **⚙️ Configure Instance**
-   - Instance type (t2.micro for free tier)
-   - VPC and subnet selection
-   - Security group configuration
+**Instance Types:**
+- **t2.micro** - Burstable performance (Free Tier)
+- **t3.small** - Balanced compute
+- **m5.large** - General purpose
+- **c5.large** - Compute optimized
 
 </td>
 <td width="50%">
 
-### 🔒 **Security Configuration**
-```bash
-# Security Group Rules
-Type: SSH
-Protocol: TCP
-Port: 22
-Source: Your IP (recommended)
+### 🔒 **Security Best Practices**
+**Security Groups:**
+- Virtual firewall rules
+- Inbound/outbound traffic control
+- Port-based access control
+- Source IP restrictions
 
-# Key Pair Management
-# Download .pem file securely
-# Set proper permissions
-chmod 400 my-key.pem
-```
-
-### 💰 **Instance Types**
-- **t2.micro** - 1 vCPU, 1GB RAM (Free Tier)
-- **t3.small** - 2 vCPU, 2GB RAM
-- **m5.large** - 2 vCPU, 8GB RAM
-- **c5.large** - 2 vCPU, 4GB RAM
+**Key Management:**
+- RSA vs ED25519 key types
+- Private key security
+- Key rotation strategies
+- Multi-factor authentication
 
 </td>
 </tr>
 </table>
 
-### 🎯 **Best Practices**
-- Use IAM roles instead of access keys
-- Regular security updates
-- Monitor with CloudWatch
-- Backup with snapshots
+### 💰 **Cost Optimization**
+- Use appropriate instance sizes
+- Stop instances when not needed
+- Leverage spot instances for development
+- Monitor usage with CloudWatch
+
+**🚀 Hands-on Practice:** [Project-1 AWS Deployment](./Project-1/#️-task-1-aws-linux-deployment)
 
 ---
 
@@ -547,7 +499,7 @@ chmod 400 my-key.pem
 
 <div align="center">
 
-### 🛡️ **Secure Shell (SSH) Mastery**
+### 🛡️ **Secure Shell Mastery**
 
 </div>
 
@@ -555,55 +507,54 @@ chmod 400 my-key.pem
 <tr>
 <td width="50%">
 
-### 🔑 **SSH Key Authentication**
-```bash
-# Generate SSH Key Pair
-ssh-keygen -t rsa -b 4096 -C "email@example.com"
-ssh-keygen -t ed25519 -C "email@example.com"
+### 🔑 **SSH Authentication Methods**
+**Password Authentication:**
+- Simple but less secure
+- Vulnerable to brute force
+- Not recommended for production
 
-# Copy Public Key to Server
-ssh-copy-id user@hostname
-cat ~/.ssh/id_rsa.pub | ssh user@host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+**Key-Based Authentication:**
+- Public/private key pairs
+- Much more secure
+- Industry standard practice
+- Supports automation
 
-# Connect with Private Key
-ssh -i ~/.ssh/private-key user@hostname
-ssh -i ~/Downloads/my-key.pem ec2-user@ec2-ip
-```
+**Multi-Factor Authentication:**
+- Combines multiple methods
+- Enhanced security
+- Required for compliance
 
 </td>
 <td width="50%">
 
-### 📁 **SFTP & SCP File Transfer**
-```bash
-# SFTP Commands
-sftp user@hostname
-get remote-file        # Download
-put local-file         # Upload
-get -r remote-dir      # Download directory
-put -r local-dir       # Upload directory
+### 📁 **Secure File Transfer Concepts**
+**SCP (Secure Copy):**
+- Simple file copying
+- Uses SSH protocol
+- Good for one-time transfers
 
-# SCP Commands
-scp file user@host:/path/      # Upload file
-scp user@host:/file /local/    # Download file
-scp -r dir user@host:/path/    # Upload directory
-scp -i key file user@host:/    # With private key
-```
+**SFTP (SSH File Transfer Protocol):**
+- Interactive file management
+- Directory operations
+- Batch file transfers
+- Resume capability
+
+**Rsync over SSH:**
+- Incremental synchronization
+- Bandwidth efficient
+- Preserves permissions
 
 </td>
 </tr>
 </table>
 
-### ⚙️ **SSH Configuration**
-```bash
-# ~/.ssh/config
-Host myserver
-    HostName server.example.com
-    User myusername
-    IdentityFile ~/.ssh/my-private-key
-    Port 22
+### 🌐 **SSH Tunneling Concepts**
+- **Local Port Forwarding** - Access remote services locally
+- **Remote Port Forwarding** - Expose local services remotely
+- **Dynamic Port Forwarding** - SOCKS proxy functionality
+- **Jump Hosts** - Access internal networks securely
 
-# Connect using alias: ssh myserver
-```
+**🔐 Hands-on Practice:** [Project-1 SSH Security Lab](./Project-1/#-task-4-ssh--security-setup)
 
 ---
 
@@ -619,75 +570,53 @@ Host myserver
 <tr>
 <td width="50%">
 
-### 📝 **Basic Script Structure**
-```bash
-#!/bin/bash
-# Script description
+### 📝 **Scripting Fundamentals**
+**Script Structure:**
+- Shebang line (`#!/bin/bash`)
+- Comments and documentation
+- Variable declarations
+- Function definitions
+- Error handling
 
-# Variables
-NAME="DevOps"
-COUNT=10
-FRUITS=("apple" "banana" "orange")
-
-# Output
-echo "Hello, $NAME!"
-echo "Count: $COUNT"
-echo "First fruit: ${FRUITS[0]}"
-
-# Environment variables
-echo "Home: $HOME"
-echo "User: $USER"
-echo "Path: $PATH"
-```
+**Best Practices:**
+- Use meaningful variable names
+- Quote variables to prevent issues
+- Check command exit codes
+- Implement proper error handling
+- Add logging and debugging
 
 </td>
 <td width="50%">
 
 ### 🔄 **Control Structures**
-```bash
-# If-else statements
-if [ $AGE -gt 18 ]; then
-    echo "Adult"
-elif [ $AGE -eq 18 ]; then
-    echo "Just turned adult"
-else
-    echo "Minor"
-fi
+**Conditional Logic:**
+- if/elif/else statements
+- case statements
+- Test conditions and operators
 
-# For loops
-for i in {1..5}; do
-    echo "Number: $i"
-done
+**Loops:**
+- for loops for iteration
+- while loops for conditions
+- until loops for negation
 
-# While loops
-counter=1
-while [ $counter -le 5 ]; do
-    echo "Counter: $counter"
-    ((counter++))
-done
-```
+**Functions:**
+- Code reusability
+- Parameter passing
+- Return values
+- Local variables
 
 </td>
 </tr>
 </table>
 
-### 🔧 **Advanced Scripting**
-```bash
-# Functions
-greet() {
-    local name=$1
-    echo "Hello, $name!"
-}
+### 🎯 **Common Automation Tasks**
+- **System monitoring** - Resource usage, log analysis
+- **Backup automation** - File archiving, rotation
+- **User management** - Account creation, permissions
+- **Service management** - Health checks, restarts
+- **Deployment scripts** - Application updates, configuration
 
-# Error handling
-set -e  # Exit on error
-command || { echo "Command failed"; exit 1; }
-
-# File operations
-while IFS= read -r line; do
-    echo "Processing: $line"
-done < "input.txt"
-```
+**📜 Hands-on Practice:** [Project-1 Shell Scripting](./Project-1/#-task-5-shell-scripting-automation)
 
 ---
 
@@ -703,57 +632,53 @@ done < "input.txt"
 <tr>
 <td width="50%">
 
-### 👤 **User Management**
-```bash
-# Create Users
-sudo useradd -m username
-sudo useradd -m -s /bin/bash username
-sudo passwd username
+### 👤 **User Management Concepts**
+**User Account Types:**
+- **Regular users** - Standard system access
+- **System users** - Service accounts
+- **Root user** - Administrative privileges
+- **Service accounts** - Application-specific
 
-# Modify Users
-sudo usermod -c "Full Name" username
-sudo usermod -d /new/home username
-sudo usermod -a -G sudo username
-
-# Delete Users
-sudo userdel username
-sudo userdel -r username  # Remove home dir
-```
+**Account Management:**
+- User creation and deletion
+- Password policies
+- Account expiration
+- Home directory management
 
 </td>
 <td width="50%">
 
-### 👥 **Group Management**
-```bash
-# Group Operations
-sudo groupadd groupname
-sudo groupmod -n newname oldname
-sudo groupdel groupname
+### 👥 **Group Management Concepts**
+**Group Types:**
+- **Primary groups** - Default group membership
+- **Secondary groups** - Additional permissions
+- **System groups** - Service-related groups
+- **Custom groups** - Organization-specific
 
-# User-Group Relations
-sudo gpasswd -a user group    # Add user to group
-sudo gpasswd -d user group    # Remove user from group
-groups username               # List user's groups
-id username                   # User and group IDs
-```
+**Permission Strategy:**
+- Principle of least privilege
+- Role-based access control
+- Group-based permissions
+- Regular access reviews
 
 </td>
 </tr>
 </table>
 
-### 🔐 **Permission Management**
-```bash
-# Numeric permissions (rwx = 421)
-chmod 755 file    # rwxr-xr-x
-chmod 644 file    # rw-r--r--
-chmod 600 file    # rw-------
+### 🔐 **Security Administration**
+**Access Control:**
+- File and directory permissions
+- Special permissions (SUID, SGID, Sticky bit)
+- Access Control Lists (ACLs)
+- SELinux/AppArmor policies
 
-# Symbolic permissions
-chmod u+x file    # Add execute for owner
-chmod g-w file    # Remove write for group
-chmod o=r file    # Set others to read only
-chmod a+r file    # Add read for all
-```
+**System Hardening:**
+- Disable unnecessary services
+- Configure firewalls
+- Regular security updates
+- Audit logging and monitoring
+
+**👥 Hands-on Practice:** [Project-1 System Administration](./Project-1/#-task-6-system-administration)
 
 ---
 
