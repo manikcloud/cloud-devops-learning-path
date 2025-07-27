@@ -1,0 +1,97 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="awsOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF9900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF9900;stop-opacity:0.8" />
+    </linearGradient>
+    <linearGradient id="stepBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="securityGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#FF9900">☁️ AWS EC2 Linux Deployment Steps</text>
+  
+  <!-- Step 1: Launch Instance -->
+  <rect x="50" y="60" width="300" height="100" rx="10" fill="url(#stepBlue)" stroke="#1E3A8A" stroke-width="2"/>
+  <text x="200" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">1️⃣ Launch EC2 Instance</text>
+  <text x="70" y="105" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• Login to AWS Console → EC2</text>
+  <text x="70" y="120" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• Click "Launch Instance"</text>
+  <text x="70" y="135" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• Name: Linux-DevOps-Lab</text>
+  <text x="70" y="150" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• Choose Amazon Linux 2 AMI</text>
+  
+  <!-- Step 2: Instance Configuration -->
+  <rect x="450" y="60" width="300" height="100" rx="10" fill="url(#stepBlue)" stroke="#1E3A8A" stroke-width="2"/>
+  <text x="600" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">2️⃣ Configure Instance</text>
+  <text x="470" y="105" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• Instance Type: t2.micro</text>
+  <text x="470" y="120" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• 1 vCPU, 1 GiB Memory</text>
+  <text x="470" y="135" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• Free Tier Eligible</text>
+  <text x="470" y="150" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• EBS Storage: 8 GB</text>
+  
+  <!-- Step 3: Security Group -->
+  <rect x="50" y="200" width="300" height="120" rx="10" fill="url(#securityGreen)" stroke="#059669" stroke-width="2"/>
+  <text x="200" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">3️⃣ Security Group Setup</text>
+  <text x="70" y="245" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• Name: Linux-DevOps-SG</text>
+  <text x="70" y="260" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• SSH (22) - My IP</text>
+  <text x="70" y="275" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• HTTP (80) - 0.0.0.0/0</text>
+  <text x="70" y="290" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• HTTPS (443) - 0.0.0.0/0</text>
+  <text x="70" y="305" font-family="Arial, sans-serif" font-size="11" fill="#E5E7EB">• Custom (8080) - 0.0.0.0/0</text>
+  
+  <!-- Step 4: Key Pair -->
+  <rect x="450" y="200" width="300" height="120" rx="10" fill="#DC2626" stroke="#B91C1C" stroke-width="2"/>
+  <text x="600" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">4️⃣ Key Pair Creation</text>
+  <text x="470" y="245" font-family="Arial, sans-serif" font-size="11" fill="#FEE2E2">• Create new key pair</text>
+  <text x="470" y="260" font-family="Arial, sans-serif" font-size="11" fill="#FEE2E2">• Name: linux-devops-key</text>
+  <text x="470" y="275" font-family="Arial, sans-serif" font-size="11" fill="#FEE2E2">• Type: RSA, Format: .pem</text>
+  <text x="470" y="290" font-family="Arial, sans-serif" font-size="11" fill="#FEE2E2">• Download and save securely</text>
+  <text x="470" y="305" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#FECACA">⚠️ Cannot download again!</text>
+  
+  <!-- Step 5: Launch -->
+  <rect x="250" y="360" width="300" height="80" rx="10" fill="url(#awsOrange)" stroke="#FF9900" stroke-width="2"/>
+  <text x="400" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">5️⃣ Launch Instance</text>
+  <text x="270" y="405" font-family="Arial, sans-serif" font-size="11" fill="white">• Review configuration</text>
+  <text x="270" y="420" font-family="Arial, sans-serif" font-size="11" fill="white">• Click "Launch Instance"</text>
+  <text x="270" y="435" font-family="Arial, sans-serif" font-size="11" fill="white">• Wait for "Running" status</text>
+  
+  <!-- Connection Section -->
+  <rect x="50" y="480" width="700" height="100" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="400" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">🔐 SSH Connection Setup</text>
+  
+  <!-- Connection Steps -->
+  <rect x="70" y="520" width="200" height="50" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="170" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#10B981">Step 1: Set Permissions</text>
+  <text x="170" y="550" text-anchor="middle" font-family="monospace" font-size="9" fill="#9CA3AF">chmod 400 key.pem</text>
+  <text x="170" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Secure key file</text>
+  
+  <rect x="300" y="520" width="200" height="50" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="400" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#10B981">Step 2: Connect</text>
+  <text x="400" y="550" text-anchor="middle" font-family="monospace" font-size="8" fill="#9CA3AF">ssh -i key.pem ec2-user@IP</text>
+  <text x="400" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">SSH to instance</text>
+  
+  <rect x="530" y="520" width="200" height="50" rx="5" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="630" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#10B981">Step 3: Verify</text>
+  <text x="630" y="550" text-anchor="middle" font-family="monospace" font-size="9" fill="#9CA3AF">whoami && uname -a</text>
+  <text x="630" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Test connection</text>
+  
+  <!-- Flow arrows -->
+  <path d="M 200 160 L 200 200" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 600 160 L 600 200" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 350 260 L 400 360" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 450 260 L 400 360" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M 400 440 L 400 480" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+  </defs>
+</svg>

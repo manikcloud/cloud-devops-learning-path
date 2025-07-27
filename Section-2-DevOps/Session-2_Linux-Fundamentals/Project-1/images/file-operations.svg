@@ -1,0 +1,180 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="createGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="readGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="modifyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#D97706;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="deleteGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="#F8FAFC"/>
+  
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#374151">📁 Linux File Operations Mastery</text>
+  
+  <!-- CRUD Operations -->
+  <text x="400" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#6B7280">Create • Read • Update • Delete</text>
+  
+  <!-- Create Operations -->
+  <rect x="50" y="80" width="160" height="180" rx="10" fill="url(#createGradient)" stroke="#059669" stroke-width="2"/>
+  <text x="130" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">📝 CREATE</text>
+  
+  <!-- Create commands -->
+  <rect x="60" y="120" width="140" height="20" rx="3" fill="#DCFCE7" stroke="#10B981" stroke-width="1"/>
+  <text x="130" y="133" text-anchor="middle" font-family="monospace" font-size="9" fill="#14532D">touch file.txt</text>
+  
+  <rect x="60" y="145" width="140" height="20" rx="3" fill="#DCFCE7" stroke="#10B981" stroke-width="1"/>
+  <text x="130" y="158" text-anchor="middle" font-family="monospace" font-size="9" fill="#14532D">mkdir directory</text>
+  
+  <rect x="60" y="170" width="140" height="20" rx="3" fill="#DCFCE7" stroke="#10B981" stroke-width="1"/>
+  <text x="130" y="183" text-anchor="middle" font-family="monospace" font-size="9" fill="#14532D">echo "text" > file</text>
+  
+  <rect x="60" y="195" width="140" height="20" rx="3" fill="#DCFCE7" stroke="#10B981" stroke-width="1"/>
+  <text x="130" y="208" text-anchor="middle" font-family="monospace" font-size="9" fill="#14532D">mkdir -p path/to/dir</text>
+  
+  <rect x="60" y="220" width="140" height="20" rx="3" fill="#DCFCE7" stroke="#10B981" stroke-width="1"/>
+  <text x="130" y="233" text-anchor="middle" font-family="monospace" font-size="9" fill="#14532D">touch file{1..5}.txt</text>
+  
+  <text x="130" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E5E7EB">Create files & directories</text>
+  
+  <!-- Read Operations -->
+  <rect x="230" y="80" width="160" height="180" rx="10" fill="url(#readGradient)" stroke="#1E3A8A" stroke-width="2"/>
+  <text x="310" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">👁️ READ</text>
+  
+  <!-- Read commands -->
+  <rect x="240" y="120" width="140" height="20" rx="3" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
+  <text x="310" y="133" text-anchor="middle" font-family="monospace" font-size="9" fill="#1E3A8A">cat file.txt</text>
+  
+  <rect x="240" y="145" width="140" height="20" rx="3" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
+  <text x="310" y="158" text-anchor="middle" font-family="monospace" font-size="9" fill="#1E3A8A">less file.txt</text>
+  
+  <rect x="240" y="170" width="140" height="20" rx="3" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
+  <text x="310" y="183" text-anchor="middle" font-family="monospace" font-size="9" fill="#1E3A8A">head -n 10 file</text>
+  
+  <rect x="240" y="195" width="140" height="20" rx="3" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
+  <text x="310" y="208" text-anchor="middle" font-family="monospace" font-size="9" fill="#1E3A8A">tail -f logfile</text>
+  
+  <rect x="240" y="220" width="140" height="20" rx="3" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1"/>
+  <text x="310" y="233" text-anchor="middle" font-family="monospace" font-size="9" fill="#1E3A8A">ls -la</text>
+  
+  <text x="310" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#E5E7EB">View & list content</text>
+  
+  <!-- Modify Operations -->
+  <rect x="410" y="80" width="160" height="180" rx="10" fill="url(#modifyGradient)" stroke="#D97706" stroke-width="2"/>
+  <text x="490" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">✏️ MODIFY</text>
+  
+  <!-- Modify commands -->
+  <rect x="420" y="120" width="140" height="20" rx="3" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
+  <text x="490" y="133" text-anchor="middle" font-family="monospace" font-size="9" fill="#92400E">cp source dest</text>
+  
+  <rect x="420" y="145" width="140" height="20" rx="3" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
+  <text x="490" y="158" text-anchor="middle" font-family="monospace" font-size="9" fill="#92400E">mv old new</text>
+  
+  <rect x="420" y="170" width="140" height="20" rx="3" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
+  <text x="490" y="183" text-anchor="middle" font-family="monospace" font-size="9" fill="#92400E">chmod 755 file</text>
+  
+  <rect x="420" y="195" width="140" height="20" rx="3" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
+  <text x="490" y="208" text-anchor="middle" font-family="monospace" font-size="9" fill="#92400E">chown user:group</text>
+  
+  <rect x="420" y="220" width="140" height="20" rx="3" fill="#FFF7ED" stroke="#F59E0B" stroke-width="1"/>
+  <text x="490" y="233" text-anchor="middle" font-family="monospace" font-size="9" fill="#92400E">vim file.txt</text>
+  
+  <text x="490" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FEF3C7">Copy, move & edit</text>
+  
+  <!-- Delete Operations -->
+  <rect x="590" y="80" width="160" height="180" rx="10" fill="url(#deleteGradient)" stroke="#DC2626" stroke-width="2"/>
+  <text x="670" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">🗑️ DELETE</text>
+  
+  <!-- Delete commands -->
+  <rect x="600" y="120" width="140" height="20" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/>
+  <text x="670" y="133" text-anchor="middle" font-family="monospace" font-size="9" fill="#7F1D1D">rm file.txt</text>
+  
+  <rect x="600" y="145" width="140" height="20" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/>
+  <text x="670" y="158" text-anchor="middle" font-family="monospace" font-size="9" fill="#7F1D1D">rm -r directory</text>
+  
+  <rect x="600" y="170" width="140" height="20" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/>
+  <text x="670" y="183" text-anchor="middle" font-family="monospace" font-size="9" fill="#7F1D1D">rm -i file</text>
+  
+  <rect x="600" y="195" width="140" height="20" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/>
+  <text x="670" y="208" text-anchor="middle" font-family="monospace" font-size="9" fill="#7F1D1D">rmdir empty_dir</text>
+  
+  <rect x="600" y="220" width="140" height="20" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/>
+  <text x="670" y="233" text-anchor="middle" font-family="monospace" font-size="8" fill="#7F1D1D">⚠️ rm -rf (DANGER!)</text>
+  
+  <text x="670" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#FEE2E2">Remove files & dirs</text>
+  
+  <!-- Search & Find Section -->
+  <rect x="50" y="290" width="350" height="120" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="225" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">🔍 SEARCH & FIND</text>
+  
+  <!-- Search commands -->
+  <rect x="70" y="330" width="100" height="25" rx="3" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="120" y="345" text-anchor="middle" font-family="monospace" font-size="9" fill="#10B981">find . -name "*.txt"</text>
+  <text x="120" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Find files</text>
+  
+  <rect x="180" y="330" width="100" height="25" rx="3" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="230" y="345" text-anchor="middle" font-family="monospace" font-size="9" fill="#10B981">grep "error" log</text>
+  <text x="230" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Search content</text>
+  
+  <rect x="290" y="330" width="100" height="25" rx="3" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="340" y="345" text-anchor="middle" font-family="monospace" font-size="9" fill="#10B981">locate filename</text>
+  <text x="340" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Quick locate</text>
+  
+  <rect x="70" y="370" width="100" height="25" rx="3" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="120" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#10B981">which command</text>
+  <text x="120" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Find binary</text>
+  
+  <rect x="180" y="370" width="100" height="25" rx="3" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="230" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#10B981">find . -size +100M</text>
+  <text x="230" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Large files</text>
+  
+  <rect x="290" y="370" width="100" height="25" rx="3" fill="#1F2937" stroke="#374151" stroke-width="1"/>
+  <text x="340" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="#10B981">grep -r "TODO"</text>
+  <text x="340" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Recursive search</text>
+  
+  <!-- Permissions Section -->
+  <rect x="420" y="290" width="330" height="120" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="585" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#374151">🔐 PERMISSIONS</text>
+  
+  <!-- Permission examples -->
+  <rect x="440" y="330" width="80" height="25" rx="3" fill="#7C3AED" stroke="#6D28D9" stroke-width="1"/>
+  <text x="480" y="345" text-anchor="middle" font-family="monospace" font-size="9" fill="white">chmod 755</text>
+  <text x="480" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">rwxr-xr-x</text>
+  
+  <rect x="530" y="330" width="80" height="25" rx="3" fill="#7C3AED" stroke="#6D28D9" stroke-width="1"/>
+  <text x="570" y="345" text-anchor="middle" font-family="monospace" font-size="9" fill="white">chmod 644</text>
+  <text x="570" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">rw-r--r--</text>
+  
+  <rect x="620" y="330" width="80" height="25" rx="3" fill="#7C3AED" stroke="#6D28D9" stroke-width="1"/>
+  <text x="660" y="345" text-anchor="middle" font-family="monospace" font-size="9" fill="white">chmod 600</text>
+  <text x="660" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">rw-------</text>
+  
+  <rect x="440" y="370" width="80" height="25" rx="3" fill="#7C3AED" stroke="#6D28D9" stroke-width="1"/>
+  <text x="480" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="white">chown user</text>
+  <text x="480" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Change owner</text>
+  
+  <rect x="530" y="370" width="80" height="25" rx="3" fill="#7C3AED" stroke="#6D28D9" stroke-width="1"/>
+  <text x="570" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="white">chgrp group</text>
+  <text x="570" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">Change group</text>
+  
+  <rect x="620" y="370" width="80" height="25" rx="3" fill="#7C3AED" stroke="#6D28D9" stroke-width="1"/>
+  <text x="660" y="385" text-anchor="middle" font-family="monospace" font-size="9" fill="white">ls -la</text>
+  <text x="660" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#6B7280">View perms</text>
+  
+  <!-- Best Practices -->
+  <rect x="50" y="430" width="700" height="50" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
+  <text x="400" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#92400E">💡 Best Practices</text>
+  <text x="400" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#92400E">Use -i flag for interactive operations • Test commands in safe directory • Backup important files • Use absolute paths in scripts</text>
+</svg>
