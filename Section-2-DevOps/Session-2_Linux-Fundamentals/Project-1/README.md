@@ -10,6 +10,29 @@
 
 **Duration:** 1 Week | **Difficulty:** Beginner to Intermediate | **Type:** Hands-on Project
 
+---
+
+### 📅 **Last Updated**
+<table>
+<tr>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/📅-2025--07--27-blue?style=for-the-badge" alt="Date"/>
+</td>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/🕐-17:30_UTC-green?style=for-the-badge" alt="Time"/>
+</td>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/📝-v2.1-orange?style=for-the-badge" alt="Version"/>
+</td>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/✅-Core_Focus-success?style=for-the-badge" alt="Status"/>
+</td>
+<td align="center" width="20%">
+<img src="https://img.shields.io/badge/🎯-3_Tasks-purple?style=for-the-badge" alt="Tasks"/>
+</td>
+</tr>
+</table>
+
 </div>
 
 ---
@@ -127,6 +150,9 @@ echo "✅ All tools ready!"
 ---
 
 ## ☁️ Task 1: AWS Linux Deployment
+
+<details>
+<summary><strong>🚀 Click to Expand: Deploy Your Linux Server on AWS</strong></summary>
 
 <div align="center">
 
@@ -304,9 +330,14 @@ uptime          # Shows system uptime
 - ✅ Can execute basic commands on remote server
 - ✅ Security group properly configured
 
+</details>
+
 ---
 
 ## 📁 Task 2: File System Mastery
+
+<details>
+<summary><strong>🗂️ Click to Expand: Master Linux File System Operations</strong></summary>
 
 <div align="center">
 
@@ -575,11 +606,14 @@ echo "✅ File System Lab completed!"
 - ✅ Understand and manage file permissions
 - ✅ Complete practical file system lab
 
+</details>
+
 ---
 
-*Continue to [Task 3: Command Line Mastery](#-task-3-command-line-mastery) →*
-
 ## ⚡ Task 3: Command Line Mastery
+
+<details>
+<summary><strong>🔧 Click to Expand: Advanced Linux Command Proficiency</strong></summary>
 
 <div align="center">
 
@@ -841,6 +875,8 @@ echo "🎉 Advanced Command Line Lab completed!"
 - ✅ Perform basic network operations
 - ✅ Install and manage packages
 - ✅ Generate comprehensive system reports
+
+</details>
 
 ---
 
