@@ -1,0 +1,2 @@
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path   
