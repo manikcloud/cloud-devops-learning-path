@@ -1,0 +1,150 @@
+<svg width="1000" height="600" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="awsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6600;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="vpcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:0.3" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#00000030"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1000" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">AWS Infrastructure for Jenkins CI/CD</text>
+  
+  <!-- AWS Cloud Border -->
+  <rect x="50" y="60" width="900" height="520" rx="20" fill="url(#awsGradient)" stroke="#FF6600" stroke-width="3" filter="url(#shadow)"/>
+  <text x="100" y="85" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">AWS Cloud</text>
+  
+  <!-- VPC -->
+  <rect x="100" y="110" width="800" height="450" rx="15" fill="url(#vpcGradient)" stroke="#3498db" stroke-width="2" stroke-dasharray="10,5"/>
+  <text x="130" y="135" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">VPC: Jenkins Infrastructure (10.0.0.0/16)</text>
+  
+  <!-- Public Subnet -->
+  <rect x="130" y="160" width="350" height="180" rx="10" fill="#e8f5e8" stroke="#27ae60" stroke-width="2"/>
+  <text x="150" y="180" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#27ae60">Public Subnet (10.0.1.0/24)</text>
+  
+  <!-- Jenkins Master -->
+  <rect x="150" y="200" width="140" height="120" rx="8" fill="#D33833" filter="url(#shadow)"/>
+  <text x="220" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">JENKINS MASTER</text>
+  <text x="220" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">t3.medium</text>
+  <text x="220" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Amazon Linux 2</text>
+  <text x="220" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Port: 8080, 22, 50000</text>
+  <text x="220" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">EIP: 54.123.45.67</text>
+  <text x="220" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">20GB GP3 SSD</text>
+  
+  <!-- Application Load Balancer -->
+  <rect x="310" y="200" width="140" height="120" rx="8" fill="#3498db" filter="url(#shadow)"/>
+  <text x="380" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">APPLICATION</text>
+  <text x="380" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">LOAD BALANCER</text>
+  <text x="380" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Internet-facing</text>
+  <text x="380" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Port: 80, 443</text>
+  <text x="380" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Health Checks</text>
+  <text x="380" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">SSL Termination</text>
+  
+  <!-- Private Subnet -->
+  <rect x="520" y="160" width="350" height="180" rx="10" fill="#fff3e0" stroke="#f39c12" stroke-width="2"/>
+  <text x="540" y="180" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f39c12">Private Subnet (10.0.2.0/24)</text>
+  
+  <!-- Jenkins Slaves -->
+  <rect x="540" y="200" width="120" height="120" rx="8" fill="#5DADE2" filter="url(#shadow)"/>
+  <text x="600" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">JENKINS SLAVE 1</text>
+  <text x="600" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">t3.small</text>
+  <text x="600" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Java + Maven</text>
+  <text x="600" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Port: 22</text>
+  <text x="600" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">10GB GP3 SSD</text>
+  <text x="600" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Auto Scaling</text>
+  
+  <rect x="680" y="200" width="120" height="120" rx="8" fill="#5DADE2" filter="url(#shadow)"/>
+  <text x="740" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">JENKINS SLAVE 2</text>
+  <text x="740" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">t3.small</text>
+  <text x="740" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Docker + K8s</text>
+  <text x="740" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Port: 22</text>
+  <text x="740" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">10GB GP3 SSD</text>
+  <text x="740" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">Auto Scaling</text>
+  
+  <!-- Database Subnet -->
+  <rect x="130" y="360" width="740" height="120" rx="10" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
+  <text x="150" y="380" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e91e63">Database Subnet (10.0.3.0/24 & 10.0.4.0/24)</text>
+  
+  <!-- RDS Database -->
+  <rect x="200" y="400" width="200" height="60" rx="8" fill="#FF9900" filter="url(#shadow)"/>
+  <text x="300" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">RDS MySQL</text>
+  <text x="300" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">db.t3.micro • Multi-AZ</text>
+  <text x="300" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">20GB Storage • Encrypted</text>
+  
+  <!-- S3 Bucket -->
+  <rect x="450" y="400" width="200" height="60" rx="8" fill="#569A31" filter="url(#shadow)"/>
+  <text x="550" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">S3 BUCKET</text>
+  <text x="550" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Artifacts Storage</text>
+  <text x="550" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Build Logs & Reports</text>
+  
+  <!-- CloudWatch -->
+  <rect x="700" y="400" width="150" height="60" rx="8" fill="#9D5AAE" filter="url(#shadow)"/>
+  <text x="775" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">CLOUDWATCH</text>
+  <text x="775" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Monitoring</text>
+  <text x="775" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Logs & Metrics</text>
+  
+  <!-- Security Groups -->
+  <g id="security-groups">
+    <rect x="130" y="500" width="200" height="50" rx="5" fill="#e74c3c" filter="url(#shadow)"/>
+    <text x="230" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">JENKINS-SG</text>
+    <text x="230" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">8080, 22, 50000</text>
+    
+    <rect x="350" y="500" width="200" height="50" rx="5" fill="#f39c12" filter="url(#shadow)"/>
+    <text x="450" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">ALB-SG</text>
+    <text x="450" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">80, 443</text>
+    
+    <rect x="570" y="500" width="200" height="50" rx="5" fill="#9b59b6" filter="url(#shadow)"/>
+    <text x="670" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">DB-SG</text>
+    <text x="670" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="white">3306 (MySQL)</text>
+  </g>
+  
+  <!-- Internet Gateway -->
+  <rect x="450" y="70" width="100" height="30" rx="5" fill="#2ecc71" filter="url(#shadow)"/>
+  <text x="500" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">IGW</text>
+  
+  <!-- NAT Gateway -->
+  <rect x="200" y="340" width="80" height="25" rx="5" fill="#f39c12" filter="url(#shadow)"/>
+  <text x="240" y="357" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">NAT GW</text>
+  
+  <!-- Connection Lines -->
+  <g id="connections">
+    <!-- Internet to IGW -->
+    <line x1="500" y1="50" x2="500" y2="70" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="520" y="60" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Internet</text>
+    
+    <!-- IGW to ALB -->
+    <line x1="500" y1="100" x2="380" y2="200" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    
+    <!-- ALB to Jenkins Master -->
+    <line x1="310" y1="260" x2="290" y2="260" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    
+    <!-- Jenkins Master to Slaves -->
+    <line x1="290" y1="260" x2="540" y2="260" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="540" y1="260" x2="680" y2="260" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    
+    <!-- Private subnet to NAT -->
+    <line x1="540" y1="320" x2="240" y2="340" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    
+    <!-- Database connections -->
+    <line x1="220" y1="320" x2="300" y2="400" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="600" y1="320" x2="550" y2="400" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="740" y1="320" x2="775" y2="400" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+  
+  <!-- Cost Information -->
+  <text x="500" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7f8c8d">
+    💰 Estimated Monthly Cost: $150-200 (t3.medium master + 2x t3.small slaves + RDS + ALB + data transfer)
+  </text>
+</svg>

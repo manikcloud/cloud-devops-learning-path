@@ -1,0 +1,131 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="testGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#00000020"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">Jenkins Testing Integration Flow</text>
+  
+  <!-- Source Code -->
+  <rect x="50" y="80" width="120" height="80" rx="10" fill="#3498db" filter="url(#shadow)"/>
+  <text x="110" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">SOURCE CODE</text>
+  <text x="110" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Java Application</text>
+  <text x="110" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Unit Tests</text>
+  <text x="110" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Test Classes</text>
+  
+  <!-- Build Stage -->
+  <rect x="220" y="80" width="120" height="80" rx="10" fill="#f39c12" filter="url(#shadow)"/>
+  <text x="280" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">BUILD</text>
+  <text x="280" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Maven Clean</text>
+  <text x="280" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Compile</text>
+  <text x="280" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Package</text>
+  
+  <!-- Test Execution -->
+  <rect x="390" y="80" width="120" height="80" rx="10" fill="url(#testGradient)" filter="url(#shadow)"/>
+  <text x="450" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">TEST</text>
+  <text x="450" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">JUnit Tests</text>
+  <text x="450" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Test Reports</text>
+  <text x="450" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Coverage</text>
+  
+  <!-- Quality Gate -->
+  <rect x="560" y="80" width="120" height="80" rx="10" fill="#e74c3c" filter="url(#shadow)"/>
+  <text x="620" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">QUALITY GATE</text>
+  <text x="620" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Pass/Fail</text>
+  <text x="620" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Threshold Check</text>
+  <text x="620" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">80% Coverage</text>
+  
+  <!-- Flow arrows -->
+  <line x1="170" y1="120" x2="220" y2="120" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="340" y1="120" x2="390" y2="120" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="510" y1="120" x2="560" y2="120" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+  
+  <!-- Test Details Section -->
+  <g id="test-details">
+    <rect x="50" y="200" width="700" height="180" rx="15" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+    <text x="400" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">JUnit Test Integration Details</text>
+    
+    <!-- Test Types -->
+    <rect x="80" y="250" width="150" height="100" rx="8" fill="#3498db" filter="url(#shadow)"/>
+    <text x="155" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">UNIT TESTS</text>
+    <text x="155" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Method testing</text>
+    <text x="155" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Class testing</text>
+    <text x="155" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Mock objects</text>
+    <text x="155" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Fast execution</text>
+    
+    <rect x="250" y="250" width="150" height="100" rx="8" fill="#2ecc71" filter="url(#shadow)"/>
+    <text x="325" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">INTEGRATION</text>
+    <text x="325" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Component testing</text>
+    <text x="325" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Database testing</text>
+    <text x="325" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• API testing</text>
+    <text x="325" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Service testing</text>
+    
+    <rect x="420" y="250" width="150" height="100" rx="8" fill="#f39c12" filter="url(#shadow)"/>
+    <text x="495" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">COVERAGE</text>
+    <text x="495" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Line coverage</text>
+    <text x="495" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Branch coverage</text>
+    <text x="495" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Method coverage</text>
+    <text x="495" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Class coverage</text>
+    
+    <rect x="590" y="250" width="150" height="100" rx="8" fill="#9b59b6" filter="url(#shadow)"/>
+    <text x="665" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">REPORTS</text>
+    <text x="665" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• JUnit XML</text>
+    <text x="665" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• HTML reports</text>
+    <text x="665" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Trend analysis</text>
+    <text x="665" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">• Failure details</text>
+  </g>
+  
+  <!-- Pipeline Code Example -->
+  <g id="pipeline-code">
+    <rect x="50" y="400" width="700" height="150" rx="10" fill="#2c3e50" filter="url(#shadow)"/>
+    <text x="400" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Jenkins Pipeline Code Example</text>
+    
+    <text x="70" y="450" font-family="Courier, monospace" font-size="11" fill="#e74c3c">stage('Test') {</text>
+    <text x="90" y="470" font-family="Courier, monospace" font-size="11" fill="#3498db">steps {</text>
+    <text x="110" y="490" font-family="Courier, monospace" font-size="11" fill="#ffffff">sh 'mvn test'</text>
+    <text x="90" y="510" font-family="Courier, monospace" font-size="11" fill="#3498db">}</text>
+    <text x="90" y="530" font-family="Courier, monospace" font-size="11" fill="#2ecc71">post {</text>
+    <text x="110" y="550" font-family="Courier, monospace" font-size="11" fill="#f39c12">always {</text>
+    <text x="130" y="570" font-family="Courier, monospace" font-size="11" fill="#ffffff">junit 'target/surefire-reports/*.xml'</text>
+    
+    <text x="400" y="450" font-family="Courier, monospace" font-size="11" fill="#ffffff">publishHTML([</text>
+    <text x="420" y="470" font-family="Courier, monospace" font-size="11" fill="#3498db">allowMissing: false,</text>
+    <text x="420" y="490" font-family="Courier, monospace" font-size="11" fill="#3498db">alwaysLinkToLastBuild: true,</text>
+    <text x="420" y="510" font-family="Courier, monospace" font-size="11" fill="#3498db">keepAll: true,</text>
+    <text x="420" y="530" font-family="Courier, monospace" font-size="11" fill="#3498db">reportDir: 'target/site/jacoco',</text>
+    <text x="420" y="550" font-family="Courier, monospace" font-size="11" fill="#3498db">reportFiles: 'index.html',</text>
+    <text x="420" y="570" font-family="Courier, monospace" font-size="11" fill="#3498db">reportName: 'Coverage Report'</text>
+    
+    <text x="600" y="450" font-family="Courier, monospace" font-size="11" fill="#ffffff">])</text>
+    <text x="110" y="590" font-family="Courier, monospace" font-size="11" fill="#f39c12">}</text>
+    <text x="90" y="610" font-family="Courier, monospace" font-size="11" fill="#2ecc71">}</text>
+    <text x="70" y="630" font-family="Courier, monospace" font-size="11" fill="#e74c3c">}</text>
+  </g>
+  
+  <!-- Success/Failure Paths -->
+  <g id="outcomes">
+    <!-- Success Path -->
+    <path d="M 620 160 Q 650 200 680 240" fill="none" stroke="#27ae60" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="680" y="220" width="100" height="40" rx="5" fill="#27ae60" filter="url(#shadow)"/>
+    <text x="730" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">DEPLOY ✓</text>
+    
+    <!-- Failure Path -->
+    <path d="M 620 160 Q 650 300 680 340" fill="none" stroke="#e74c3c" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="680" y="320" width="100" height="40" rx="5" fill="#e74c3c" filter="url(#shadow)"/>
+    <text x="730" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">STOP ✗</text>
+    
+    <text x="650" y="200" font-family="Arial, sans-serif" font-size="10" fill="#27ae60">Tests Pass</text>
+    <text x="650" y="300" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c">Tests Fail</text>
+  </g>
+</svg>

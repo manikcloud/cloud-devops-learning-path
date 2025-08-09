@@ -76,6 +76,12 @@ Infrastructure as Code (IaC) is the practice of managing and provisioning comput
 
 ## 🏗️ **AWS Architecture Design**
 
+<div align="center">
+
+![AWS Infrastructure](../images/aws-infrastructure.svg)
+
+</div>
+
 ### **Infrastructure Components:**
 
 ```

@@ -1,0 +1,128 @@
+<svg width="900" height="500" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="freestyleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pipelineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2ecc71;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27ae60;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="multibranchGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f39c12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e67e22;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#00000030"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="900" height="500" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">Jenkins Job Types Comparison</text>
+  
+  <!-- Freestyle Job -->
+  <g id="freestyle-job">
+    <rect x="50" y="80" width="250" height="350" rx="15" fill="url(#freestyleGradient)" filter="url(#shadow)"/>
+    <rect x="50" y="80" width="250" height="50" rx="15" fill="#2980b9"/>
+    <text x="175" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">FREESTYLE JOB</text>
+    
+    <!-- Features -->
+    <text x="175" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Features:</text>
+    <text x="70" y="175" font-family="Arial, sans-serif" font-size="12" fill="white">✓ GUI-based configuration</text>
+    <text x="70" y="195" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Simple setup process</text>
+    <text x="70" y="215" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Good for beginners</text>
+    <text x="70" y="235" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Quick job creation</text>
+    <text x="70" y="255" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Plugin integration</text>
+    
+    <!-- Use Cases -->
+    <text x="175" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Best For:</text>
+    <text x="70" y="305" font-family="Arial, sans-serif" font-size="11" fill="white">• Simple build tasks</text>
+    <text x="70" y="320" font-family="Arial, sans-serif" font-size="11" fill="white">• Learning Jenkins</text>
+    <text x="70" y="335" font-family="Arial, sans-serif" font-size="11" fill="white">• Quick prototypes</text>
+    <text x="70" y="350" font-family="Arial, sans-serif" font-size="11" fill="white">• Legacy projects</text>
+    
+    <!-- Limitations -->
+    <text x="175" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Limitations:</text>
+    <text x="70" y="395" font-family="Arial, sans-serif" font-size="11" fill="white">• No version control</text>
+    <text x="70" y="410" font-family="Arial, sans-serif" font-size="11" fill="white">• Limited reusability</text>
+  </g>
+  
+  <!-- Pipeline Job -->
+  <g id="pipeline-job">
+    <rect x="325" y="80" width="250" height="350" rx="15" fill="url(#pipelineGradient)" filter="url(#shadow)"/>
+    <rect x="325" y="80" width="250" height="50" rx="15" fill="#27ae60"/>
+    <text x="450" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">PIPELINE JOB</text>
+    
+    <!-- Features -->
+    <text x="450" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Features:</text>
+    <text x="345" y="175" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Code-based (Jenkinsfile)</text>
+    <text x="345" y="195" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Version controlled</text>
+    <text x="345" y="215" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Complex workflows</text>
+    <text x="345" y="235" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Parallel execution</text>
+    <text x="345" y="255" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Conditional logic</text>
+    
+    <!-- Use Cases -->
+    <text x="450" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Best For:</text>
+    <text x="345" y="305" font-family="Arial, sans-serif" font-size="11" fill="white">• Production pipelines</text>
+    <text x="345" y="320" font-family="Arial, sans-serif" font-size="11" fill="white">• Complex deployments</text>
+    <text x="345" y="335" font-family="Arial, sans-serif" font-size="11" fill="white">• Team collaboration</text>
+    <text x="345" y="350" font-family="Arial, sans-serif" font-size="11" fill="white">• Enterprise projects</text>
+    
+    <!-- Advantages -->
+    <text x="450" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Advantages:</text>
+    <text x="345" y="395" font-family="Arial, sans-serif" font-size="11" fill="white">• Highly reusable</text>
+    <text x="345" y="410" font-family="Arial, sans-serif" font-size="11" fill="white">• Industry standard</text>
+  </g>
+  
+  <!-- Multi-branch Pipeline -->
+  <g id="multibranch-job">
+    <rect x="600" y="80" width="250" height="350" rx="15" fill="url(#multibranchGradient)" filter="url(#shadow)"/>
+    <rect x="600" y="80" width="250" height="50" rx="15" fill="#e67e22"/>
+    <text x="725" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">MULTI-BRANCH</text>
+    <text x="725" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">PIPELINE</text>
+    
+    <!-- Features -->
+    <text x="725" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Features:</text>
+    <text x="620" y="175" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Branch-based pipelines</text>
+    <text x="620" y="195" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Automatic discovery</text>
+    <text x="620" y="215" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Dynamic creation</text>
+    <text x="620" y="235" font-family="Arial, sans-serif" font-size="12" fill="white">✓ PR/MR support</text>
+    <text x="620" y="255" font-family="Arial, sans-serif" font-size="12" fill="white">✓ Branch cleanup</text>
+    
+    <!-- Use Cases -->
+    <text x="725" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Best For:</text>
+    <text x="620" y="305" font-family="Arial, sans-serif" font-size="11" fill="white">• Feature branches</text>
+    <text x="620" y="320" font-family="Arial, sans-serif" font-size="11" fill="white">• Git workflows</text>
+    <text x="620" y="335" font-family="Arial, sans-serif" font-size="11" fill="white">• Pull requests</text>
+    <text x="620" y="350" font-family="Arial, sans-serif" font-size="11" fill="white">• Large teams</text>
+    
+    <!-- Benefits -->
+    <text x="725" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">Benefits:</text>
+    <text x="620" y="395" font-family="Arial, sans-serif" font-size="11" fill="white">• Automated management</text>
+    <text x="620" y="410" font-family="Arial, sans-serif" font-size="11" fill="white">• Scalable workflows</text>
+  </g>
+  
+  <!-- Comparison arrows and flow -->
+  <g id="progression">
+    <path d="M 300 255 Q 312 255 325 255" fill="none" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M 575 255 Q 587 255 600 255" fill="none" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+    
+    <text x="312" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Evolve to</text>
+    <text x="587" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Scale to</text>
+  </g>
+  
+  <!-- Learning Path -->
+  <rect x="50" y="450" width="800" height="40" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+  <text x="450" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">
+    📚 Learning Path: Start with Freestyle → Master Pipeline → Scale with Multi-branch
+  </text>
+  
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+</svg>

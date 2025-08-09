@@ -1,0 +1,134 @@
+<svg width="1000" height="500" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pipelineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2ecc71;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#00000020"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1000" height="500" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">Jenkins CI/CD Pipeline Flow</text>
+  
+  <!-- Pipeline Stages -->
+  
+  <!-- Stage 1: Source Control -->
+  <g id="source">
+    <rect x="50" y="100" width="120" height="80" rx="10" fill="#e74c3c" filter="url(#shadow)"/>
+    <text x="110" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">SOURCE</text>
+    <text x="110" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Git Repository</text>
+    <text x="110" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Webhook Trigger</text>
+    <text x="110" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Branch: main</text>
+  </g>
+  
+  <!-- Stage 2: Build -->
+  <g id="build">
+    <rect x="220" y="100" width="120" height="80" rx="10" fill="#f39c12" filter="url(#shadow)"/>
+    <text x="280" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">BUILD</text>
+    <text x="280" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Maven Clean</text>
+    <text x="280" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Compile</text>
+    <text x="280" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Package</text>
+  </g>
+  
+  <!-- Stage 3: Test -->
+  <g id="test">
+    <rect x="390" y="100" width="120" height="80" rx="10" fill="#9b59b6" filter="url(#shadow)"/>
+    <text x="450" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">TEST</text>
+    <text x="450" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Unit Tests</text>
+    <text x="450" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">JUnit Reports</text>
+    <text x="450" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Coverage 80%+</text>
+  </g>
+  
+  <!-- Stage 4: Quality Gate -->
+  <g id="quality">
+    <rect x="560" y="100" width="120" height="80" rx="10" fill="#1abc9c" filter="url(#shadow)"/>
+    <text x="620" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">QUALITY</text>
+    <text x="620" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Code Analysis</text>
+    <text x="620" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Security Scan</text>
+    <text x="620" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Quality Gates</text>
+  </g>
+  
+  <!-- Stage 5: Deploy -->
+  <g id="deploy">
+    <rect x="730" y="100" width="120" height="80" rx="10" fill="#3498db" filter="url(#shadow)"/>
+    <text x="790" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">DEPLOY</text>
+    <text x="790" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">AWS EC2</text>
+    <text x="790" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Tomcat Server</text>
+    <text x="790" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Auto Deploy</text>
+  </g>
+  
+  <!-- Pipeline Flow Arrows -->
+  <line x1="170" y1="140" x2="220" y2="140" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="340" y1="140" x2="390" y2="140" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="510" y1="140" x2="560" y2="140" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="680" y1="140" x2="730" y2="140" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+  
+  <!-- Jenkins Master-Slave Architecture -->
+  <g id="jenkins-architecture">
+    <!-- Jenkins Master -->
+    <rect x="200" y="250" width="200" height="100" rx="15" fill="#D33833" filter="url(#shadow)"/>
+    <text x="300" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">JENKINS MASTER</text>
+    <text x="300" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">• Pipeline Orchestration</text>
+    <text x="300" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">• Job Scheduling</text>
+    <text x="300" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">• Web Interface</text>
+    <text x="300" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">• Configuration Management</text>
+    
+    <!-- Jenkins Slaves -->
+    <rect x="450" y="270" width="150" height="60" rx="10" fill="#5DADE2" filter="url(#shadow)"/>
+    <text x="525" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">JENKINS SLAVE 1</text>
+    <text x="525" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Build Executor</text>
+    <text x="525" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Java/Maven</text>
+    
+    <rect x="650" y="270" width="150" height="60" rx="10" fill="#5DADE2" filter="url(#shadow)"/>
+    <text x="725" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">JENKINS SLAVE 2</text>
+    <text x="725" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Build Executor</text>
+    <text x="725" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Docker/K8s</text>
+    
+    <!-- Connection lines -->
+    <line x1="400" y1="300" x2="450" y2="300" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+    <line x1="400" y1="300" x2="650" y2="300" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+  
+  <!-- Notification System -->
+  <g id="notifications">
+    <rect x="50" y="400" width="120" height="60" rx="10" fill="#e67e22" filter="url(#shadow)"/>
+    <text x="110" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">NOTIFICATIONS</text>
+    <text x="110" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Email Alerts</text>
+    <text x="110" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Slack/Teams</text>
+    
+    <!-- Success/Failure paths -->
+    <rect x="220" y="380" width="100" height="40" rx="5" fill="#27ae60" filter="url(#shadow)"/>
+    <text x="270" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">SUCCESS ✓</text>
+    
+    <rect x="220" y="430" width="100" height="40" rx="5" fill="#e74c3c" filter="url(#shadow)"/>
+    <text x="270" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">FAILURE ✗</text>
+    
+    <!-- Arrows from pipeline to notifications -->
+    <path d="M 790 180 Q 850 250 270 380" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+    <path d="M 450 180 Q 400 350 270 430" fill="none" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+  </g>
+  
+  <!-- AWS Cloud -->
+  <g id="aws-cloud">
+    <ellipse cx="900" cy="300" rx="80" ry="50" fill="#FF9900" filter="url(#shadow)"/>
+    <text x="900" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">AWS CLOUD</text>
+    <text x="900" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">EC2 Instances</text>
+    <text x="900" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Load Balancer</text>
+    
+    <!-- Arrow from deploy to AWS -->
+    <line x1="850" y1="140" x2="900" y2="250" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+  
+  <!-- Pipeline Execution Time -->
+  <text x="500" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#7f8c8d">
+    ⏱️ Total Pipeline Execution Time: ~8-12 minutes
+  </text>
+</svg>

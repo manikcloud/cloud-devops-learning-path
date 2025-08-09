@@ -1,0 +1,144 @@
+<svg width="900" height="600" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="masterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D33833;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B71C1C;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="slaveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5DADE2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3498DB;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#00000030"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2c3e50"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="900" height="600" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">Jenkins Master-Slave Architecture</text>
+  
+  <!-- Jenkins Master -->
+  <g id="jenkins-master">
+    <rect x="300" y="80" width="300" height="200" rx="20" fill="url(#masterGradient)" filter="url(#shadow)"/>
+    
+    <!-- Master Header -->
+    <rect x="300" y="80" width="300" height="50" rx="20" fill="#B71C1C"/>
+    <text x="450" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">JENKINS MASTER</text>
+    
+    <!-- Master Components -->
+    <g id="master-components">
+      <!-- Web Interface -->
+      <rect x="320" y="150" width="120" height="40" rx="5" fill="#ffffff" stroke="#B71C1C" stroke-width="2"/>
+      <text x="380" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#B71C1C">WEB INTERFACE</text>
+      <text x="380" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#B71C1C">Port: 8080</text>
+      
+      <!-- Job Scheduler -->
+      <rect x="460" y="150" width="120" height="40" rx="5" fill="#ffffff" stroke="#B71C1C" stroke-width="2"/>
+      <text x="520" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#B71C1C">JOB SCHEDULER</text>
+      <text x="520" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#B71C1C">Pipeline Orchestration</text>
+      
+      <!-- Configuration -->
+      <rect x="320" y="210" width="120" height="40" rx="5" fill="#ffffff" stroke="#B71C1C" stroke-width="2"/>
+      <text x="380" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#B71C1C">CONFIGURATION</text>
+      <text x="380" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#B71C1C">Jobs & Settings</text>
+      
+      <!-- Plugin Manager -->
+      <rect x="460" y="210" width="120" height="40" rx="5" fill="#ffffff" stroke="#B71C1C" stroke-width="2"/>
+      <text x="520" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#B71C1C">PLUGIN MANAGER</text>
+      <text x="520" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#B71C1C">Extensions & Tools</text>
+    </g>
+  </g>
+  
+  <!-- Jenkins Slaves -->
+  <g id="jenkins-slaves">
+    <!-- Slave 1 -->
+    <rect x="50" y="350" width="200" height="150" rx="15" fill="url(#slaveGradient)" filter="url(#shadow)"/>
+    <rect x="50" y="350" width="200" height="40" rx="15" fill="#3498DB"/>
+    <text x="150" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">JENKINS SLAVE 1</text>
+    
+    <text x="150" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Build Environment:</text>
+    <text x="150" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• Java 11 + Maven</text>
+    <text x="150" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• Git + SSH</text>
+    <text x="150" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• Build Tools</text>
+    <text x="150" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">OS: Amazon Linux 2</text>
+    <text x="150" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Port: 22 (SSH)</text>
+    
+    <!-- Slave 2 -->
+    <rect x="350" y="350" width="200" height="150" rx="15" fill="url(#slaveGradient)" filter="url(#shadow)"/>
+    <rect x="350" y="350" width="200" height="40" rx="15" fill="#3498DB"/>
+    <text x="450" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">JENKINS SLAVE 2</text>
+    
+    <text x="450" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Build Environment:</text>
+    <text x="450" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• Docker + K8s</text>
+    <text x="450" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• Node.js + Python</text>
+    <text x="450" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• Container Tools</text>
+    <text x="450" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">OS: Ubuntu 20.04</text>
+    <text x="450" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Port: 22 (SSH)</text>
+    
+    <!-- Slave 3 -->
+    <rect x="650" y="350" width="200" height="150" rx="15" fill="url(#slaveGradient)" filter="url(#shadow)"/>
+    <rect x="650" y="350" width="200" height="40" rx="15" fill="#3498DB"/>
+    <text x="750" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">JENKINS SLAVE 3</text>
+    
+    <text x="750" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Build Environment:</text>
+    <text x="750" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• .NET Core</text>
+    <text x="750" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• Windows Tools</text>
+    <text x="750" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">• PowerShell</text>
+    <text x="750" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">OS: Windows Server</text>
+    <text x="750" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Port: 5985 (WinRM)</text>
+  </g>
+  
+  <!-- Communication Lines -->
+  <g id="communication">
+    <!-- Master to Slave 1 -->
+    <line x1="400" y1="280" x2="150" y2="350" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="250" y="310" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">SSH Connection</text>
+    <text x="250" y="325" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Port: 22</text>
+    
+    <!-- Master to Slave 2 -->
+    <line x1="450" y1="280" x2="450" y2="350" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="460" y="315" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">SSH Connection</text>
+    <text x="460" y="330" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Port: 22</text>
+    
+    <!-- Master to Slave 3 -->
+    <line x1="500" y1="280" x2="750" y2="350" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="600" y="310" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">WinRM Connection</text>
+    <text x="600" y="325" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">Port: 5985</text>
+  </g>
+  
+  <!-- Communication Protocol -->
+  <g id="protocol-info">
+    <rect x="50" y="520" width="800" height="60" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+    <text x="450" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c3e50">Communication Protocol</text>
+    <text x="450" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">
+      Master communicates with slaves via SSH (Linux/Mac) or WinRM (Windows) • Port 50000 for agent communication • JNLP protocol for dynamic agents
+    </text>
+  </g>
+  
+  <!-- Benefits Box -->
+  <g id="benefits">
+    <rect x="50" y="50" width="200" height="120" rx="10" fill="#2ecc71" filter="url(#shadow)"/>
+    <text x="150" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">BENEFITS</text>
+    <text x="150" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">✓ Distributed Builds</text>
+    <text x="150" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">✓ Parallel Execution</text>
+    <text x="150" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">✓ Environment Isolation</text>
+    <text x="150" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">✓ Scalability</text>
+    <text x="150" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">✓ Resource Optimization</text>
+  </g>
+  
+  <!-- Load Balancing Indicator -->
+  <g id="load-balancing">
+    <rect x="650" y="50" width="200" height="120" rx="10" fill="#9b59b6" filter="url(#shadow)"/>
+    <text x="750" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">LOAD BALANCING</text>
+    <text x="750" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">⚖️ Automatic Distribution</text>
+    <text x="750" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">📊 Resource Monitoring</text>
+    <text x="750" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">🔄 Queue Management</text>
+    <text x="750" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">⚡ Performance Optimization</text>
+    <text x="750" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">🎯 Efficient Execution</text>
+  </g>
+</svg>

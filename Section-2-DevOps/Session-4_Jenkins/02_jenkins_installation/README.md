@@ -48,6 +48,12 @@ This module covers the complete installation and initial configuration of Jenkin
 
 ### **Jenkins Security Architecture**
 
+<div align="center">
+
+![Jenkins Architecture](../images/jenkins-architecture.svg)
+
+</div>
+
 #### **Authentication Methods:**
 - 🔐 **Jenkins Database** - Built-in user management
 - 🏢 **LDAP/Active Directory** - Enterprise integration
