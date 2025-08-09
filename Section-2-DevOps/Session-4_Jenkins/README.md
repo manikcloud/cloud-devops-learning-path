@@ -1,358 +1,261 @@
-# 🚀 Session 4: Jenkins - CI/CD Automation Mastery
+# 🚀 Jenkins - Continuous Integration & Continuous Deployment
 
-![Jenkins Architecture](./images/jenkins-architecture.svg)
+<div align="center">
 
-## 🎯 Module Overview
+![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-blue?style=for-the-badge&logo=jenkins&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-purple?style=for-the-badge&logo=terraform&logoColor=white)
+![Pipeline](https://img.shields.io/badge/Pipeline-as%20Code-green?style=for-the-badge&logo=git&logoColor=white)
 
-Welcome to the comprehensive Jenkins CI/CD automation module! This session transforms you from a Jenkins beginner to a pipeline automation expert. You'll master the art of continuous integration and deployment, learning to build robust, scalable pipelines that power modern DevOps practices.
+**🎯 Master CI/CD Pipelines | 🔧 Automate Deployments | 📊 Build Production Systems**
 
-### 🌟 What Makes This Module Special
+</div>
 
-- **Hands-on Learning**: Real-world projects with AWS and GCP deployments
-- **Visual Learning**: Rich SVG diagrams and interactive examples  
-- **Industry Best Practices**: Enterprise-grade pipeline patterns
-- **Multi-Cloud Approach**: AWS and Google Cloud Platform integration
-- **Modern Techniques**: Pipeline as Code, Blue-Green deployments, and more
+---
 
-## 📚 Learning Objectives
+## 📋 Module Overview
 
-By the end of this session, you will be able to:
+This comprehensive Jenkins module covers the fundamentals of **Continuous Integration and Continuous Deployment** and integrations with other tools. By the end of this module, you will be able to create fully automated pipelines for production-ready applications.
 
-### 🏗️ Foundation Skills
-- ✅ **Install and configure Jenkins** on various platforms (Linux, Docker, Cloud)
-- ✅ **Set up master-slave architecture** for distributed, scalable builds
-- ✅ **Navigate Jenkins UI** and understand core concepts
+### 🎯 **Learning Objectives**
+- ✅ Understand CI/CD concepts and Jenkins architecture
+- ✅ Install and configure Jenkins on AWS infrastructure
+- ✅ Create and manage various types of Jenkins jobs
+- ✅ Implement Pipeline as Code with Jenkinsfiles
+- ✅ Set up Master-Slave architecture for scalability
+- ✅ Deploy Java applications to AWS using automated pipelines
 
-### 🔧 Pipeline Development
-- ✅ **Create and manage Jenkins jobs** (Freestyle and Pipeline)
-- ✅ **Implement Pipeline as Code** with Jenkinsfile best practices
-- ✅ **Use advanced pipeline features** (parallel execution, conditional logic)
-- ✅ **Integrate shared libraries** for reusable pipeline components
+---
 
-### 🌐 Integration & Deployment
-- ✅ **Integrate Jenkins** with Git, Docker, AWS, and GCP
-- ✅ **Deploy applications automatically** using modern deployment strategies
-- ✅ **Implement Blue-Green and Canary deployments**
-- ✅ **Set up multi-environment promotion pipelines**
+## 📚 Theory & Concepts
 
-### 📊 Monitoring & Optimization
-- ✅ **Monitor and troubleshoot** pipeline executions
-- ✅ **Implement comprehensive testing** (Unit, Integration, E2E)
-- ✅ **Set up notifications and alerts** (Slack, Email, Teams)
-- ✅ **Optimize pipeline performance** and resource usage
+### 🔄 **What is Continuous Integration (CI)?**
 
-![Jenkins CI/CD Pipeline](./images/jenkins-cicd-pipeline.svg)
+**Continuous Integration** is a development practice where developers integrate code into a shared repository frequently, preferably several times a day. Each integration is verified by an automated build and automated tests.
 
-## 📖 Module Content
+#### **Key Benefits of CI:**
+- 🚀 **Early Bug Detection** - Issues are caught quickly
+- 🔄 **Faster Development** - Reduced integration problems
+- 📊 **Better Code Quality** - Automated testing ensures standards
+- 👥 **Team Collaboration** - Shared codebase with frequent updates
 
-### 1. Jenkins and Installation
-
-#### What is Jenkins?
-
-Jenkins is an open-source automation server that enables developers to build, test, and deploy their applications continuously. It's the leading CI/CD tool in the DevOps ecosystem.
-
-**Key Features:**
-- **Open Source**: Free and community-driven
-- **Extensible**: 1800+ plugins available
-- **Distributed**: Master-slave architecture
-- **Platform Independent**: Java-based, runs anywhere
-- **Easy Configuration**: Web-based interface
-- **Pipeline Support**: Code-based pipeline definitions
-
-#### CI/CD Concepts
-
-**Continuous Integration (CI):**
-- Frequent code integration
-- Automated builds and tests
-- Early bug detection
-- Consistent build environment
-
-**Continuous Delivery (CD):**
-- Automated deployment to staging
-- Manual approval for production
-- Consistent deployment process
-- Rollback capabilities
-
-**Continuous Deployment:**
-- Fully automated deployment
-- No manual intervention
-- High confidence in automation
-- Rapid feature delivery
-
-#### Jenkins Installation
-
-**Prerequisites:**
-- Java 8 or 11 (OpenJDK recommended)
-- Minimum 256MB RAM (1GB+ recommended)
-- 1GB+ disk space
-
-**Installation on Linux (Ubuntu/Debian):**
-```bash
-# Update system
-sudo apt update
-
-# Install Java
-sudo apt install openjdk-11-jdk -y
-
-# Add Jenkins repository
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-
-# Install Jenkins
-sudo apt update
-sudo apt install jenkins -y
-
-# Start Jenkins service
-sudo systemctl start jenkins
-sudo systemctl enable jenkins
-
-# Check status
-sudo systemctl status jenkins
-```
-
-**Installation on CentOS/RHEL:**
-```bash
-# Install Java
-sudo yum install java-11-openjdk-devel -y
-
-# Add Jenkins repository
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-
-# Install Jenkins
-sudo yum install jenkins -y
-
-# Start Jenkins
-sudo systemctl start jenkins
-sudo systemctl enable jenkins
-
-# Configure firewall
-sudo firewall-cmd --permanent --add-port=8080/tcp
-sudo firewall-cmd --reload
-```
-
-**Installation using Docker:**
-```bash
-# Pull Jenkins image
-docker pull jenkins/jenkins:lts
-
-# Run Jenkins container
-docker run -d \
-  --name jenkins \
-  -p 8080:8080 \
-  -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  jenkins/jenkins:lts
-
-# Get initial admin password
-docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
-```
-
-**Installation on AWS EC2:**
-```bash
-#!/bin/bash
-# User data script for EC2 instance
-
-# Update system
-yum update -y
-
-# Install Java
-amazon-linux-extras install java-openjdk11 -y
-
-# Add Jenkins repository
-wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-
-# Install Jenkins
-yum install jenkins -y
-
-# Start Jenkins
-systemctl start jenkins
-systemctl enable jenkins
-
-# Install Git and Docker
-yum install git docker -y
-systemctl start docker
-systemctl enable docker
-
-# Add jenkins user to docker group
-usermod -a -G docker jenkins
-```
-
-#### Initial Setup
-
-**First-Time Setup:**
-1. Access Jenkins at `http://your-server:8080`
-2. Get initial admin password:
-   ```bash
-   sudo cat /var/jenkins_home/secrets/initialAdminPassword
-   ```
-3. Install suggested plugins
-4. Create admin user
-5. Configure Jenkins URL
-
-**Essential Plugins:**
-- **Git Plugin**: Git integration
-- **Pipeline Plugin**: Pipeline support
-- **Blue Ocean**: Modern UI
-- **AWS Pipeline Plugin**: AWS integration
-- **Docker Plugin**: Docker integration
-- **Slack Notification**: Team notifications
-
-### 2. Configuring Master, Slave and Multimode
-
-#### Jenkins Architecture
-
-**Master Node:**
-- Schedules builds
-- Dispatches builds to slaves
-- Monitors slaves
-- Records and presents build results
-- Serves Jenkins UI
-
-**Slave/Agent Nodes:**
-- Execute builds dispatched by master
-- Can run on different operating systems
-- Specialized for specific tasks
-- Scalable build capacity
-
-#### Setting Up Slave Nodes
-
-**Prerequisites for Slave:**
-- Java installed
-- Network connectivity to master
-- SSH access (for SSH slaves)
-- Appropriate tools installed
-
-**Adding SSH Slave:**
-1. **Generate SSH Key on Master:**
-   ```bash
-   ssh-keygen -t rsa -b 4096 -f ~/.ssh/jenkins_slave_key
-   ```
-
-2. **Copy Public Key to Slave:**
-   ```bash
-   ssh-copy-id -i ~/.ssh/jenkins_slave_key.pub user@slave-ip
-   ```
-
-3. **Configure in Jenkins:**
-   - Go to "Manage Jenkins" → "Manage Nodes"
-   - Click "New Node"
-   - Enter node name and select "Permanent Agent"
-   - Configure:
-     - Remote root directory: `/home/jenkins`
-     - Launch method: "Launch agents via SSH"
-     - Host: slave IP address
-     - Credentials: SSH private key
-
-**JNLP Slave Setup:**
-1. **Download agent.jar on slave:**
-   ```bash
-   wget http://jenkins-master:8080/jnlpJars/agent.jar
-   ```
-
-2. **Run agent:**
-   ```bash
-   java -jar agent.jar -jnlpUrl http://jenkins-master:8080/computer/slave-name/slave-agent.jnlp -secret <secret-key>
-   ```
-
-**Docker Slave Configuration:**
-```yaml
-# docker-compose.yml for Jenkins slave
-version: '3'
-services:
-  jenkins-slave:
-    image: jenkins/ssh-slave
-    environment:
-      - JENKINS_SLAVE_SSH_PUBKEY=<public-key>
-    ports:
-      - "22:22"
-    volumes:
-      - slave_workspace:/home/jenkins
-```
-
-#### Multi-Mode Configuration
-
-**Node Labels:**
-- Assign labels to nodes for specific tasks
-- Examples: `linux`, `windows`, `docker`, `aws`
-
-**Build Restrictions:**
-```groovy
-// Restrict build to specific nodes
-node('linux && docker') {
-    // Build steps here
-}
-```
-
-**Load Balancing:**
-- **Fair Share**: Equal distribution
-- **Load Balancing**: Based on current load
-- **Fastest First**: Prefer faster nodes
-
-### 3. Set Up a Job and Pipeline
-
-#### Creating Freestyle Jobs
-
-**Basic Freestyle Job:**
-1. **New Item** → **Freestyle project**
-2. **Source Code Management:**
-   - Git repository URL
-   - Credentials
-   - Branch specification
-
-3. **Build Triggers:**
-   - Poll SCM: `H/5 * * * *` (every 5 minutes)
-   - GitHub hook trigger
-   - Build periodically: `H 2 * * *` (daily at 2 AM)
-
-4. **Build Environment:**
-   - Delete workspace before build
-   - Use secret text/files
-   - Set environment variables
-
-5. **Build Steps:**
-   ```bash
-   # Example build steps
-   echo "Starting build..."
-   mvn clean compile
-   mvn test
-   mvn package
-   ```
-
-6. **Post-build Actions:**
-   - Archive artifacts
-   - Publish test results
-   - Send notifications
-
-#### Pipeline Jobs
-
-**Pipeline vs Freestyle:**
-| Pipeline | Freestyle |
-|----------|-----------|
-| Code-based | GUI-based |
-| Version controlled | Configuration in Jenkins |
-| Complex workflows | Simple linear builds |
-| Reusable | Job-specific |
-
-**Creating Pipeline Job:**
-1. **New Item** → **Pipeline**
-2. **Pipeline Definition:**
-   - Pipeline script (inline)
-   - Pipeline script from SCM (Jenkinsfile)
-
-**Simple Pipeline Script:**
+### 🚀 **What is Continuous Deployment (CD)?**
+
+**Continuous Deployment** extends CI by automatically deploying all code changes to production after passing automated tests. **Continuous Delivery** is similar but requires manual approval for production deployment.
+
+#### **CD Pipeline Stages:**
+1. **Source** - Code repository (Git)
+2. **Build** - Compile and package application
+3. **Test** - Automated testing (unit, integration, acceptance)
+4. **Deploy** - Release to staging/production environments
+5. **Monitor** - Track application performance and health
+
+### 🏗️ **Jenkins Architecture**
+
+Jenkins follows a **Master-Slave architecture**:
+
+#### **Jenkins Master:**
+- 📊 **Central Controller** - Manages the entire CI/CD process
+- 🗂️ **Job Scheduler** - Distributes builds to slave nodes
+- 🔧 **Configuration Management** - Stores all job configurations
+- 📈 **UI Interface** - Web-based dashboard for management
+
+#### **Jenkins Slaves (Agents):**
+- ⚡ **Build Executors** - Run actual build jobs
+- 🔧 **Tool Installation** - Host specific build tools
+- 📦 **Environment Isolation** - Separate environments for different projects
+- 🌐 **Scalability** - Add more slaves as needed
+
+### 🔧 **Types of Jenkins Jobs**
+
+#### **1. Freestyle Jobs**
+- 🎯 **Simple Configuration** - GUI-based setup
+- 🔧 **Flexible** - Can run any commands or scripts
+- 📊 **Good for Beginners** - Easy to understand and configure
+
+#### **2. Pipeline Jobs**
+- 📜 **Code-based Configuration** - Defined in Jenkinsfile
+- 🔄 **Version Controlled** - Pipeline definition stored in SCM
+- 🏗️ **Complex Workflows** - Support for parallel execution, conditions
+- 🚀 **Industry Standard** - Modern approach to CI/CD
+
+#### **3. Multi-branch Pipeline**
+- 🌿 **Branch-based** - Automatically creates pipelines for branches
+- 🔄 **Dynamic** - Pipelines created/deleted with branches
+- 👥 **Team Collaboration** - Perfect for feature branch workflows
+
+---
+
+## 🛤️ Learning Path Structure
+
+<table>
+<tr>
+<th width="5%">#</th>
+<th width="25%">Module</th>
+<th width="45%">Description</th>
+<th width="25%">Key Skills</th>
+</tr>
+
+<!-- MODULE 1: INFRASTRUCTURE SETUP -->
+<tr>
+<td colspan="4" align="center"><strong>🏗️ MODULE 1: INFRASTRUCTURE SETUP</strong></td>
+</tr>
+
+<tr>
+<td>01</td>
+<td><strong><a href="./01_infrastructure_setup">Infrastructure Setup</a></strong></td>
+<td>Create AWS EC2 instances with Terraform for Jenkins infrastructure</td>
+<td>Terraform, AWS EC2, Infrastructure as Code</td>
+</tr>
+
+<!-- MODULE 2: JENKINS INSTALLATION -->
+<tr>
+<td colspan="4" align="center"><strong>⚙️ MODULE 2: JENKINS INSTALLATION</strong></td>
+</tr>
+
+<tr>
+<td>02</td>
+<td><strong><a href="./02_jenkins_installation">Jenkins Installation</a></strong></td>
+<td>Install and configure Jenkins with security settings</td>
+<td>Jenkins Installation, Security Configuration</td>
+</tr>
+
+<!-- MODULE 3: BASIC JOBS -->
+<tr>
+<td colspan="4" align="center"><strong>🔧 MODULE 3: BASIC JOBS</strong></td>
+</tr>
+
+<tr>
+<td>03</td>
+<td><strong><a href="./03_basic_jobs">Basic Jobs</a></strong></td>
+<td>Create freestyle and Maven-based Jenkins jobs</td>
+<td>Freestyle Jobs, Maven Integration, Build Configuration</td>
+</tr>
+
+<!-- MODULE 4: PIPELINE FUNDAMENTALS -->
+<tr>
+<td colspan="4" align="center"><strong>📜 MODULE 4: PIPELINE FUNDAMENTALS</strong></td>
+</tr>
+
+<tr>
+<td>04</td>
+<td><strong><a href="./04_pipeline_fundamentals">Pipeline Fundamentals</a></strong></td>
+<td>Introduction to Jenkins pipelines and Pipeline as Code</td>
+<td>Pipeline Syntax, Jenkinsfile, Groovy Basics</td>
+</tr>
+
+<!-- MODULE 5: ADVANCED PIPELINES -->
+<tr>
+<td colspan="4" align="center"><strong>🚀 MODULE 5: ADVANCED PIPELINES</strong></td>
+</tr>
+
+<tr>
+<td>05</td>
+<td><strong><a href="./05_advanced_pipelines">Advanced Pipelines</a></strong></td>
+<td>Advanced pipeline features, parameters, and triggers</td>
+<td>Parameterized Builds, Pipeline Management, Advanced Features</td>
+</tr>
+
+<!-- MODULE 6: TESTING INTEGRATION -->
+<tr>
+<td colspan="4" align="center"><strong>🧪 MODULE 6: TESTING INTEGRATION</strong></td>
+</tr>
+
+<tr>
+<td>06</td>
+<td><strong><a href="./06_testing_integration">Testing Integration</a></strong></td>
+<td>Integrate unit testing with JUnit in Jenkins pipelines</td>
+<td>Unit Testing, JUnit, Test Reports, Quality Gates</td>
+</tr>
+
+<!-- MODULE 7: NOTIFICATIONS & MONITORING -->
+<tr>
+<td colspan="4" align="center"><strong>📧 MODULE 7: NOTIFICATIONS & MONITORING</strong></td>
+</tr>
+
+<tr>
+<td>07</td>
+<td><strong><a href="./07_notifications_monitoring">Notifications & Monitoring</a></strong></td>
+<td>Configure email notifications and build monitoring</td>
+<td>Email Notifications, Build Monitoring, Alerting</td>
+</tr>
+
+<!-- MODULE 8: REAL-WORLD PROJECTS -->
+<tr>
+<td colspan="4" align="center"><strong>🌍 MODULE 8: REAL-WORLD PROJECTS</strong></td>
+</tr>
+
+<tr>
+<td>08</td>
+<td><strong><a href="./08_real_world_projects">Real-World Projects</a></strong></td>
+<td>Deploy Python Flask and PHP applications with Docker</td>
+<td>Multi-language Support, Docker Integration, Real Applications</td>
+</tr>
+
+<!-- MODULE 9: MASTER-SLAVE ARCHITECTURE -->
+<tr>
+<td colspan="4" align="center"><strong>🏗️ MODULE 9: MASTER-SLAVE ARCHITECTURE</strong></td>
+</tr>
+
+<tr>
+<td>09</td>
+<td><strong><a href="./09_master_slave_architecture">Master-Slave Architecture</a></strong></td>
+<td>Configure Jenkins Master-Slave setup for scalability</td>
+<td>Distributed Builds, Jenkins Architecture, Scalability</td>
+</tr>
+
+<!-- MODULE 10: FINAL PROJECT -->
+<tr>
+<td colspan="4" align="center"><strong>🎯 MODULE 10: CAPSTONE PROJECT</strong></td>
+</tr>
+
+<tr>
+<td>10</td>
+<td><strong><a href="./10_final_project">Final Project</a></strong></td>
+<td><strong>Term Project 2: Complete Java Application CI/CD with AWS Deployment</strong><br>
+End-to-end pipeline with Jenkins deploying Java application to AWS</td>
+<td>Complete CI/CD, AWS Deployment, Production Pipeline</td>
+</tr>
+
+</table>
+
+---
+
+## 🎯 **Term Project 2: Java Application CI/CD Pipeline**
+
+### **Project Overview**
+Build a complete CI/CD pipeline that demonstrates industry-standard practices:
+
+#### **Pipeline Features:**
+- ✅ **Source Control Integration** - Git webhook triggers
+- ✅ **Automated Building** - Maven/Gradle build process
+- ✅ **Comprehensive Testing** - Unit tests with JUnit
+- ✅ **Quality Gates** - Build fails if tests fail
+- ✅ **AWS Deployment** - Automated deployment to EC2
+- ✅ **Notifications** - Email alerts for build status
+- ✅ **Rollback Capability** - Ability to rollback deployments
+
+#### **Technologies Integrated:**
+- **Jenkins** - CI/CD Orchestration
+- **AWS EC2** - Deployment Target
+- **Terraform** - Infrastructure Management
+- **Maven** - Build Tool
+- **JUnit** - Testing Framework
+- **Git** - Version Control
+- **Docker** - Containerization (optional)
+
+---
+
+## 🔧 **Jenkins Pipeline Concepts**
+
+### **Declarative vs Scripted Pipelines**
+
+#### **Declarative Pipeline (Recommended):**
 ```groovy
 pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/user/repo.git'
-            }
-        }
-        
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
@@ -365,701 +268,187 @@ pipeline {
             }
         }
         
-        stage('Package') {
+        stage('Deploy') {
             steps {
-                sh 'mvn package'
+                sh 'mvn deploy'
             }
-        }
-    }
-    
-    post {
-        always {
-            cleanWs()
-        }
-        success {
-            echo 'Build succeeded!'
-        }
-        failure {
-            echo 'Build failed!'
         }
     }
 }
 ```
 
-### 4. Build, Integrate and Delivery Pipeline
+#### **Key Benefits:**
+- 🎯 **Structured Syntax** - Easier to read and maintain
+- 🔒 **Built-in Security** - Safer execution environment
+- 📊 **Better Validation** - Syntax validation before execution
+- 🎨 **Visual Pipeline** - Better Blue Ocean integration
 
-#### Build Pipeline Components
+### **Pipeline Stages Explained**
 
-**Source Code Management:**
+#### **1. Checkout Stage**
 ```groovy
 stage('Checkout') {
     steps {
-        checkout scm
-        // Or specific repository
-        git branch: 'main', 
-            url: 'https://github.com/user/repo.git',
-            credentialsId: 'github-credentials'
+        git branch: 'main', url: 'https://github.com/user/repo.git'
     }
 }
 ```
 
-**Build Stage:**
+#### **2. Build Stage**
 ```groovy
 stage('Build') {
     steps {
-        script {
-            if (fileExists('pom.xml')) {
-                sh 'mvn clean compile'
-            } else if (fileExists('package.json')) {
-                sh 'npm install && npm run build'
-            } else if (fileExists('Dockerfile')) {
-                sh 'docker build -t myapp:${BUILD_NUMBER} .'
-            }
-        }
+        sh 'mvn clean package'
     }
 }
 ```
 
-**Testing Stages:**
+#### **3. Test Stage**
 ```groovy
-stage('Unit Tests') {
+stage('Test') {
     steps {
         sh 'mvn test'
     }
     post {
         always {
-            publishTestResults testResultsPattern: 'target/surefire-reports/*.xml'
-        }
-    }
-}
-
-stage('Integration Tests') {
-    steps {
-        sh 'mvn verify -P integration-tests'
-    }
-}
-
-stage('Code Quality') {
-    steps {
-        script {
-            def scannerHome = tool 'SonarQubeScanner'
-            withSonarQubeEnv('SonarQube') {
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
+            junit 'target/surefire-reports/*.xml'
         }
     }
 }
 ```
 
-**Artifact Management:**
-```groovy
-stage('Archive Artifacts') {
-    steps {
-        archiveArtifacts artifacts: 'target/*.jar', 
-                        fingerprint: true
-    }
-}
-
-stage('Docker Image') {
-    steps {
-        script {
-            def image = docker.build("myapp:${BUILD_NUMBER}")
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                image.push()
-                image.push('latest')
-            }
-        }
-    }
-}
-```
-
-#### Integration Pipeline
-
-**Multi-Branch Pipeline:**
-```groovy
-pipeline {
-    agent any
-    
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn clean compile'
-            }
-        }
-        
-        stage('Test') {
-            parallel {
-                stage('Unit Tests') {
-                    steps {
-                        sh 'mvn test'
-                    }
-                }
-                stage('Integration Tests') {
-                    steps {
-                        sh 'mvn verify -P integration'
-                    }
-                }
-            }
-        }
-        
-        stage('Deploy to Staging') {
-            when {
-                branch 'develop'
-            }
-            steps {
-                sh 'deploy-to-staging.sh'
-            }
-        }
-        
-        stage('Deploy to Production') {
-            when {
-                branch 'main'
-            }
-            steps {
-                input message: 'Deploy to production?', ok: 'Deploy'
-                sh 'deploy-to-production.sh'
-            }
-        }
-    }
-}
-```
-
-#### Delivery Pipeline
-
-**Environment Promotion:**
-```groovy
-pipeline {
-    agent any
-    
-    parameters {
-        choice(
-            name: 'ENVIRONMENT',
-            choices: ['dev', 'staging', 'production'],
-            description: 'Target environment'
-        )
-    }
-    
-    stages {
-        stage('Deploy') {
-            steps {
-                script {
-                    switch(params.ENVIRONMENT) {
-                        case 'dev':
-                            sh 'deploy-to-dev.sh'
-                            break
-                        case 'staging':
-                            sh 'deploy-to-staging.sh'
-                            break
-                        case 'production':
-                            input message: 'Confirm production deployment'
-                            sh 'deploy-to-production.sh'
-                            break
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
-### 5. Pipeline as Code
-
-#### Jenkinsfile Fundamentals
-
-**Jenkinsfile Benefits:**
-- **Version Control**: Pipeline definition in Git
-- **Code Review**: Changes reviewed like code
-- **Reusability**: Shared across projects
-- **Consistency**: Standardized pipelines
-
-**Jenkinsfile Structure:**
-```groovy
-pipeline {
-    agent any  // or specific agent
-    
-    environment {
-        // Environment variables
-        MAVEN_OPTS = '-Xmx1024m'
-    }
-    
-    parameters {
-        // Build parameters
-        string(name: 'BRANCH', defaultValue: 'main', description: 'Branch to build')
-    }
-    
-    stages {
-        // Build stages
-    }
-    
-    post {
-        // Post-build actions
-    }
-}
-```
-
-#### Advanced Pipeline Features
-
-**Parallel Execution:**
-```groovy
-stage('Parallel Tests') {
-    parallel {
-        stage('Unit Tests') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Integration Tests') {
-            steps {
-                sh 'mvn verify -P integration'
-            }
-        }
-        stage('Security Scan') {
-            steps {
-                sh 'security-scan.sh'
-            }
-        }
-    }
-}
-```
-
-**Conditional Execution:**
+#### **4. Deploy Stage**
 ```groovy
 stage('Deploy') {
     when {
-        anyOf {
-            branch 'main'
-            branch 'release/*'
-        }
+        branch 'main'
     }
     steps {
-        sh 'deploy.sh'
+        sh 'scp target/*.jar user@server:/opt/app/'
+        sh 'ssh user@server "sudo systemctl restart myapp"'
     }
 }
 ```
-
-**Error Handling:**
-```groovy
-stage('Risky Operation') {
-    steps {
-        script {
-            try {
-                sh 'risky-command.sh'
-            } catch (Exception e) {
-                echo "Command failed: ${e.getMessage()}"
-                currentBuild.result = 'UNSTABLE'
-            }
-        }
-    }
-}
-```
-
-**Shared Libraries:**
-```groovy
-// vars/deployApp.groovy
-def call(String environment) {
-    echo "Deploying to ${environment}"
-    sh "deploy-to-${environment}.sh"
-}
-
-// Jenkinsfile
-@Library('my-shared-library') _
-
-pipeline {
-    agent any
-    stages {
-        stage('Deploy') {
-            steps {
-                deployApp('staging')
-            }
-        }
-    }
-}
-```
-
-## 💻 Term Projects
-
-### Term Project 2: Java Application CI/CD with Jenkins and AWS
-
-#### Project Overview
-Set up a complete CI/CD pipeline for a Java application using Jenkins and deploy to AWS.
-
-#### Architecture
-```
-GitHub → Jenkins → Build → Test → Deploy to AWS EC2/ECS
-```
-
-#### Requirements
-
-**1. Application Setup:**
-- Spring Boot Java application
-- Maven build system
-- Unit and integration tests
-- Dockerfile for containerization
-
-**2. Jenkins Pipeline:**
-```groovy
-pipeline {
-    agent any
-    
-    environment {
-        AWS_REGION = 'us-east-1'
-        ECR_REPOSITORY = 'my-java-app'
-        ECS_CLUSTER = 'production'
-        ECS_SERVICE = 'java-app-service'
-    }
-    
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                sh 'mvn clean compile'
-            }
-        }
-        
-        stage('Test') {
-            parallel {
-                stage('Unit Tests') {
-                    steps {
-                        sh 'mvn test'
-                    }
-                    post {
-                        always {
-                            publishTestResults testResultsPattern: 'target/surefire-reports/*.xml'
-                        }
-                    }
-                }
-                stage('Integration Tests') {
-                    steps {
-                        sh 'mvn verify -P integration-tests'
-                    }
-                }
-            }
-        }
-        
-        stage('Package') {
-            steps {
-                sh 'mvn package -DskipTests'
-                archiveArtifacts artifacts: 'target/*.jar'
-            }
-        }
-        
-        stage('Docker Build') {
-            steps {
-                script {
-                    def image = docker.build("${ECR_REPOSITORY}:${BUILD_NUMBER}")
-                    
-                    // Push to ECR
-                    docker.withRegistry("https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com", "ecr:${AWS_REGION}:aws-credentials") {
-                        image.push()
-                        image.push('latest')
-                    }
-                }
-            }
-        }
-        
-        stage('Deploy to Staging') {
-            steps {
-                script {
-                    sh """
-                        aws ecs update-service \
-                            --cluster ${ECS_CLUSTER}-staging \
-                            --service ${ECS_SERVICE} \
-                            --force-new-deployment \
-                            --region ${AWS_REGION}
-                    """
-                }
-            }
-        }
-        
-        stage('Deploy to Production') {
-            when {
-                branch 'main'
-            }
-            steps {
-                input message: 'Deploy to production?', ok: 'Deploy'
-                script {
-                    sh """
-                        aws ecs update-service \
-                            --cluster ${ECS_CLUSTER} \
-                            --service ${ECS_SERVICE} \
-                            --force-new-deployment \
-                            --region ${AWS_REGION}
-                    """
-                }
-            }
-        }
-    }
-    
-    post {
-        always {
-            cleanWs()
-        }
-        success {
-            slackSend channel: '#deployments',
-                     color: 'good',
-                     message: "✅ ${env.JOB_NAME} - ${env.BUILD_NUMBER} deployed successfully"
-        }
-        failure {
-            slackSend channel: '#deployments',
-                     color: 'danger',
-                     message: "❌ ${env.JOB_NAME} - ${env.BUILD_NUMBER} failed"
-        }
-    }
-}
-```
-
-**3. AWS Infrastructure:**
-- ECS Cluster for container orchestration
-- ECR for Docker image registry
-- Application Load Balancer
-- RDS for database
-- CloudWatch for monitoring
-
-### Term Project 3: Web Application CI/CD with Jenkins and GCP
-
-#### Project Overview
-Set up CI/CD pipeline for a Node.js web application using Jenkins and deploy to Google Cloud Platform.
-
-#### Architecture
-```
-GitLab → Jenkins → Build → Test → Deploy to GCP GKE
-```
-
-#### Requirements
-
-**1. Application Setup:**
-- Node.js/React web application
-- npm/yarn package management
-- Jest unit tests
-- Dockerfile and Kubernetes manifests
-
-**2. Jenkins Pipeline:**
-```groovy
-pipeline {
-    agent any
-    
-    environment {
-        GCP_PROJECT = 'my-gcp-project'
-        GKE_CLUSTER = 'web-app-cluster'
-        GKE_ZONE = 'us-central1-a'
-        IMAGE_NAME = 'web-app'
-    }
-    
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        
-        stage('Lint and Test') {
-            parallel {
-                stage('Lint') {
-                    steps {
-                        sh 'npm run lint'
-                    }
-                }
-                stage('Unit Tests') {
-                    steps {
-                        sh 'npm test -- --coverage --watchAll=false'
-                    }
-                    post {
-                        always {
-                            publishHTML([
-                                allowMissing: false,
-                                alwaysLinkToLastBuild: true,
-                                keepAll: true,
-                                reportDir: 'coverage/lcov-report',
-                                reportFiles: 'index.html',
-                                reportName: 'Coverage Report'
-                            ])
-                        }
-                    }
-                }
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                sh 'npm run build'
-            }
-        }
-        
-        stage('Docker Build and Push') {
-            steps {
-                script {
-                    def image = docker.build("gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:${BUILD_NUMBER}")
-                    
-                    docker.withRegistry('https://gcr.io', 'gcr:gcp-service-account') {
-                        image.push()
-                        image.push('latest')
-                    }
-                }
-            }
-        }
-        
-        stage('Deploy to Staging') {
-            steps {
-                script {
-                    sh """
-                        gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${GCP_PROJECT}
-                        
-                        sed -i 's|IMAGE_TAG|${BUILD_NUMBER}|g' k8s/staging/deployment.yaml
-                        
-                        kubectl apply -f k8s/staging/
-                        kubectl rollout status deployment/web-app-staging
-                    """
-                }
-            }
-        }
-        
-        stage('Integration Tests') {
-            steps {
-                sh 'npm run test:integration'
-            }
-        }
-        
-        stage('Deploy to Production') {
-            when {
-                branch 'main'
-            }
-            steps {
-                input message: 'Deploy to production?', ok: 'Deploy'
-                script {
-                    sh """
-                        sed -i 's|IMAGE_TAG|${BUILD_NUMBER}|g' k8s/production/deployment.yaml
-                        
-                        kubectl apply -f k8s/production/
-                        kubectl rollout status deployment/web-app-production
-                    """
-                }
-            }
-        }
-    }
-    
-    post {
-        always {
-            cleanWs()
-        }
-        success {
-            emailext (
-                subject: "✅ Deployment Successful: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
-                body: "The deployment was successful. Check the application at: https://myapp.example.com",
-                to: "${env.CHANGE_AUTHOR_EMAIL}"
-            )
-        }
-        failure {
-            emailext (
-                subject: "❌ Deployment Failed: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
-                body: "The deployment failed. Please check the Jenkins logs for details.",
-                to: "${env.CHANGE_AUTHOR_EMAIL}"
-            )
-        }
-    }
-}
-```
-
-**3. GCP Infrastructure:**
-- GKE cluster for Kubernetes orchestration
-- Container Registry for Docker images
-- Cloud Load Balancer
-- Cloud SQL for database
-- Stackdriver for monitoring
-
-## 🛠️ Hands-On Labs
-
-### Lab 1: Jenkins Installation and Setup
-- Install Jenkins on EC2 instance
-- Configure initial settings
-- Install essential plugins
-- Set up user authentication
-
-### Lab 2: Master-Slave Configuration
-- Set up Jenkins slave nodes
-- Configure different node types
-- Test distributed builds
-- Monitor node performance
-
-### Lab 3: Pipeline Creation
-- Create freestyle jobs
-- Build declarative pipelines
-- Implement pipeline as code
-- Use shared libraries
-
-### Lab 4: Integration and Deployment
-- Integrate with Git repositories
-- Set up automated testing
-- Deploy to cloud platforms
-- Implement monitoring and notifications
-
-## 📊 Assessment Methods
-
-### Practical Assessments
-- Jenkins installation and configuration
-- Pipeline creation and management
-- CI/CD implementation
-- Troubleshooting and optimization
-
-### Project Evaluation
-- Pipeline design and implementation
-- Code quality and testing integration
-- Deployment automation
-- Monitoring and alerting setup
-- Documentation and best practices
-
-## 📚 Additional Resources
-
-### Documentation
-- [Jenkins Official Documentation](https://www.jenkins.io/doc/)
-- [Pipeline Syntax Reference](https://www.jenkins.io/doc/book/pipeline/syntax/)
-- [Plugin Index](https://plugins.jenkins.io/)
-- [Best Practices Guide](https://www.jenkins.io/doc/book/pipeline/pipeline-best-practices/)
-
-### Learning Resources
-- [Jenkins Handbook](https://www.jenkins.io/doc/book/)
-- [Pipeline Examples](https://github.com/jenkinsci/pipeline-examples)
-- [CloudBees Jenkins Resources](https://www.cloudbees.com/jenkins/resources)
-- [Jenkins Community](https://www.jenkins.io/participate/)
-
-### Tools and Integrations
-- **Version Control**: Git, SVN, Mercurial
-- **Build Tools**: Maven, Gradle, npm, yarn
-- **Testing**: JUnit, TestNG, Jest, Selenium
-- **Cloud Platforms**: AWS, GCP, Azure
-- **Monitoring**: Prometheus, Grafana, ELK Stack
-
-## 🎯 Next Steps
-
-After mastering Jenkins, you'll be prepared for:
-- **Advanced CI/CD**: GitOps, ArgoCD, Tekton
-- **Container Orchestration**: Kubernetes, Docker Swarm
-- **Infrastructure as Code**: Terraform, Ansible
-- **Monitoring and Observability**: Prometheus, Grafana
-
-## 💡 Key Takeaways
-
-1. **Jenkins automates** the entire software delivery process
-2. **Pipeline as Code** enables version-controlled CI/CD
-3. **Master-slave architecture** provides scalability
-4. **Integration capabilities** connect all DevOps tools
-5. **Automation reduces** manual errors and deployment time
-6. **Monitoring and notifications** ensure pipeline reliability
-7. **Security considerations** are crucial for production pipelines
-8. **Continuous improvement** optimizes pipeline performance
 
 ---
 
-**Created by Varun Kumar**
+## 🚀 Getting Started
 
-*Session 4: Jenkins - Section 2: DevOps & Infrastructure as Code*
+### **Prerequisites**
+- ✅ AWS Account with appropriate permissions
+- ✅ Basic understanding of Linux commands
+- ✅ Git version control knowledge
+- ✅ Java development basics
+- ✅ Understanding of Maven build tool
+
+### **Learning Path**
+1. **Start with Module 01** - Set up your infrastructure
+2. **Follow Sequential Order** - Each module builds on the previous
+3. **Complete All Exercises** - Hands-on practice is essential
+4. **Build the Final Project** - Demonstrate your complete understanding
+
+### **Time Commitment**
+- **Total Duration**: 4-6 weeks
+- **Per Module**: 3-5 hours
+- **Final Project**: 8-10 hours
+
+---
+
+## 📊 Learning Outcomes
+
+By completing this module, you will:
+
+### **Technical Skills**
+- ✅ Design and implement production-ready CI/CD pipelines
+- ✅ Configure Jenkins for enterprise environments
+- ✅ Integrate multiple tools in automation workflows
+- ✅ Deploy applications to cloud infrastructure automatically
+- ✅ Implement proper testing strategies in pipelines
+- ✅ Set up monitoring and notification systems
+
+### **Professional Skills**
+- ✅ DevOps best practices and methodologies
+- ✅ Infrastructure automation and management
+- ✅ Problem-solving in CI/CD environments
+- ✅ Team collaboration in DevOps workflows
+- ✅ Production deployment strategies
+
+---
+
+## 🛠️ Tools & Technologies
+
+<div align="center">
+
+| Category | Tools | Purpose |
+|----------|-------|---------|
+| **CI/CD** | Jenkins, Pipeline as Code | Automation & Orchestration |
+| **Cloud** | AWS EC2, S3, IAM | Infrastructure & Deployment |
+| **IaC** | Terraform | Infrastructure Management |
+| **Build Tools** | Maven | Java Application Building |
+| **Testing** | JUnit | Unit Testing & Quality |
+| **Version Control** | Git, GitHub | Source Code Management |
+| **Containerization** | Docker | Application Packaging |
+
+</div>
+
+---
+
+## 📈 Career Impact
+
+### **Job Roles This Prepares You For**
+- 🎯 **DevOps Engineer** - $85,000 - $130,000
+- 🎯 **CI/CD Specialist** - $80,000 - $120,000
+- 🎯 **Build & Release Engineer** - $75,000 - $115,000
+- 🎯 **Site Reliability Engineer (SRE)** - $90,000 - $140,000
+- 🎯 **Cloud Automation Engineer** - $85,000 - $125,000
+
+### **Industry Certifications Alignment**
+- ✅ **AWS Certified DevOps Engineer** - Professional
+- ✅ **Jenkins Certified Engineer** - CloudBees
+- ✅ **Docker Certified Associate** - Docker Inc.
+
+---
+
+## 🎓 **Best Practices Covered**
+
+### **Pipeline Design**
+- 🔄 **Fail Fast Principle** - Quick feedback on issues
+- 🔒 **Security First** - Secure credential management
+- 📊 **Monitoring & Logging** - Comprehensive observability
+- 🚀 **Scalability** - Design for growth
+
+### **Code Quality**
+- 🧪 **Automated Testing** - Comprehensive test coverage
+- 📋 **Code Standards** - Consistent coding practices
+- 🔍 **Static Analysis** - Code quality checks
+- 📊 **Metrics Collection** - Performance monitoring
+
+---
+
+## 🤝 Support & Community
+
+- 📧 **Questions**: Create issues in the repository
+- 💬 **Discussions**: Use GitHub Discussions for community help
+- 📚 **Documentation**: Each module includes detailed README files
+- 🎥 **Video Guides**: Available for complex setups and configurations
+
+---
+
+<div align="center">
+
+### 🚀 **Ready to Master Jenkins CI/CD?**
+
+**Start Your Journey: [Module 01 - Infrastructure Setup](./01_infrastructure_setup/README.md)**
+
+*Transform your development workflow with professional CI/CD practices!*
+
+---
+
+### 💡 **Remember**
+*"The goal of CI/CD is not just automation, but creating a culture of continuous improvement and rapid, reliable delivery."*
+
+</div>
+
+---
+
+**📝 Note**: This is a comprehensive hands-on learning module. Each section builds upon the previous one, creating a complete understanding of Jenkins and CI/CD practices. Take your time with each module and ensure you understand the concepts before moving forward. The final project will demonstrate your mastery of all concepts learned throughout the course.
