@@ -187,25 +187,6 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 ## 🔒 **Security Configuration**
 
-### **Authentication Setup**
-
-#### **Jenkins Own User Database**
-```groovy
-// Security realm configuration
-jenkins.model.Jenkins.instance.setSecurityRealm(
-    new hudson.security.HudsonPrivateSecurityRealm(false)
-)
-```
-
-#### **Matrix-based Security**
-```groovy
-// Authorization strategy
-def strategy = new hudson.security.ProjectMatrixAuthorizationStrategy()
-strategy.add(Jenkins.ADMINISTER, "admin")
-strategy.add(Jenkins.READ, "authenticated")
-jenkins.model.Jenkins.instance.setAuthorizationStrategy(strategy)
-```
-
 ### **Security Best Practices**
 
 #### **1. User Management**
