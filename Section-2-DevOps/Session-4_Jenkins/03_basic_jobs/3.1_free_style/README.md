@@ -91,16 +91,19 @@ public class Calculator {
 
 ### **Step 3: Build Environment**
 
-Configure build environment options:
+Configure build environment for **local Jenkins execution**:
 
 ```bash
 ✅ Delete workspace before build starts
 ✅ Add timestamps to the Console Output
+✅ Restrict where this project can be run: master (or leave blank for local execution)
 
-# Environment Variables (optional)
+# Environment Variables for local Jenkins
 JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto.x86_64
 PATH=$JAVA_HOME/bin:$PATH
 ```
+
+**Note:** We're running everything on the local Jenkins master node - no slave/agent configuration needed!
 
 ### **Step 4: Build Steps**
 
@@ -260,11 +263,19 @@ Send email for: Failure, Back to Normal
 
 ### **Step 6: Test Your Freestyle Job**
 
+**Before running your job, ensure Built-In Node is online:**
+1. **Go to:** Manage Jenkins → Nodes → Built-In Node
+2. **Check Status:** Should show "Online" (not "Disconnected by admin")
+3. **If offline:** Click "Bring this node back online"
+
+**Now test your job:**
 1. **Save the job configuration**
 2. **Click "Build Now"**
 3. **Watch the build progress in "Build History"**
 4. **Check "Console Output" for detailed logs**
 5. **Verify archived artifacts**
+
+**Note:** If your job stays in "Build scheduled" state, your Built-In Node is likely offline. See troubleshooting section below.
 
 ---
 
@@ -377,6 +388,26 @@ After completing this project, you will have:
 ---
 
 ## 🔍 **Common Issues & Solutions**
+
+### **Job Stays in "Scheduled" State - Built-In Node Offline**
+
+**Problem:** Your job shows "Build scheduled" but never starts executing.
+
+**Root Cause:** Your Built-In Node is offline because it shows "Bring this node back online" at the top.
+
+**Solution:**
+1. **Go to:** Manage Jenkins → Nodes → Built-In Node
+2. **Click:** "Bring this node back online"
+3. **Verify Settings:**
+   - Number of executors: at least 1
+   - Usage: "Use this node as much as possible"
+4. **Save** the configuration
+
+**Why This Happens:**
+- Every time you hit "Build Now", Jenkins queues the job
+- Jenkins can't assign it to the built-in node because it's offline
+- Job stays in "scheduled" state waiting for a node to come online
+- Once you bring the node online, your job will start instantly
 
 ### **Java Not Found**
 ```bash
