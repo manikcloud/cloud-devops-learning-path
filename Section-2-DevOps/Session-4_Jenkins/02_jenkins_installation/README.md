@@ -104,40 +104,59 @@ This module covers the complete installation and initial configuration of Jenkin
 ```bash
 # Update system packages
 sudo yum update -y
-
-# Install Java 11 (Jenkins requirement)
-sudo yum install -y java-11-openjdk java-11-openjdk-devel
-
-# Verify Java installation
-java -version
 ```
 
 #### **2. Jenkins Repository Setup**
 ```bash
 # Add Jenkins repository
-sudo wget -O /etc/yum.repos.d/jenkins.repo \
-    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 
 # Import Jenkins GPG key
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+# Upgrade system packages
+sudo yum upgrade
 ```
 
-#### **3. Jenkins Installation**
+#### **3. Java Installation**
+```bash
+# Install Java 17 Amazon Corretto
+sudo yum install java-17-amazon-corretto -y
+```
+
+#### **4. Jenkins Installation**
 ```bash
 # Install Jenkins
-sudo yum install -y jenkins
+sudo yum install jenkins -y
 
 # Start Jenkins service
 sudo systemctl start jenkins
-sudo systemctl enable jenkins
 
-# Check service status
+# Check Jenkins status
 sudo systemctl status jenkins
+
+# Enable Jenkins to start on boot
+sudo systemctl enable jenkins
 ```
 
-#### **4. Firewall Configuration**
+#### **5. Verify Installation**
 ```bash
-# Open port 8080 for Jenkins
+# Verify Java installation
+java -version
+
+# Check Jenkins service status
+sudo systemctl status jenkins
+
+# Verify Jenkins is listening on port 8080
+sudo netstat -tlnp | grep 8080
+
+# Get initial admin password
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+#### **6. Firewall Configuration (Optional)**
+```bash
+# Open port 8080 for Jenkins (if firewall is enabled)
 sudo firewall-cmd --permanent --add-port=8080/tcp
 sudo firewall-cmd --reload
 
@@ -308,10 +327,40 @@ After completing this module, you will have:
 java -version
 
 # Check Jenkins logs
-sudo journalctl -u jenkins -n 50
+sudo journalctl -xeu jenkins.service
 
-# Check port availability
+# Check Jenkins application logs
+sudo tail -f /var/log/jenkins/jenkins.log
+
+# Set JAVA_HOME if needed
+echo 'JAVA_HOME="/usr/lib/jvm/java-17-amazon-corretto.x86_64"' | sudo tee -a /etc/sysconfig/jenkins
+
+# Restart Jenkins
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
+```
+
+#### **Web Interface Not Accessible**
+```bash
+# Check if Jenkins is running
+sudo systemctl status jenkins
+
+# Check if port 8080 is in use
 sudo netstat -tlnp | grep 8080
+
+# Check security group (AWS EC2)
+# Ensure port 8080 is open in your EC2 security group
+
+# Test local connectivity
+curl -I http://localhost:8080
+```
+
+#### **Permission Issues**
+```bash
+# Fix Jenkins directory permissions
+sudo chown -R jenkins:jenkins /var/lib/jenkins/
+sudo chown -R jenkins:jenkins /var/cache/jenkins/
+sudo chown -R jenkins:jenkins /var/log/jenkins/
 
 # Restart Jenkins
 sudo systemctl restart jenkins
