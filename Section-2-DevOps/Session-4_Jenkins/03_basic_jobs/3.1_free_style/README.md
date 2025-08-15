@@ -1,460 +1,190 @@
 # 🔧 Project 3.1: Freestyle Jobs - Simple Java HelloWorld
+# Simple Java command for linux terminal in Jenkins 
 
-<div align="center">
+# Jenkins Setup and Simple Java HelloWorld Program
 
-![Freestyle](https://img.shields.io/badge/Freestyle-Jobs-blue?style=for-the-badge&logo=jenkins&logoColor=white)
-![Java](https://img.shields.io/badge/Java-HelloWorld-red?style=for-the-badge&logo=java&logoColor=white)
+In this branch (`3.1-free-style`), we will create a simple Java HelloWorld program . Once your Jenkins instance is ready, you can switch to this branch and follow the instructions below. In the next branch, we will set up Jenkins for Maven and run the same job from the freestyle project.
 
-**🎯 Your First Jenkins Job | 🔧 GUI Configuration | ☕ Simple Java Build**
 
-</div>
 
----
+### Clone this repository to your local machine by running the command:
+```
+git clone https://github.com/manikcloud/Jenkins-cicd.git
+```
 
-## 📋 Project Overview
+2. Switch to the `0.1_create_ec2_tf` branch by running the command: 
+```
+git switch 3.1-free-style
+```
 
-This project introduces you to creating your first Jenkins job using the Freestyle project type. You'll learn to build and run a simple Java HelloWorld program using Jenkins' user-friendly web interface.
+#### Run Following Command 
 
-### 🎯 **Learning Objectives**
-- ✅ Create and configure a Freestyle Jenkins job
-- ✅ Build and run simple Java programs
-- ✅ Configure build steps with shell commands
-- ✅ Understand workspace management and artifacts
-- ✅ Learn basic Jenkins job configuration
+```
 
----
+javac HelloWorld.java
+java HelloWorld
 
-## ☕ **Sample Java Project**
+```
 
-### **Step 1: Create Simple Java HelloWorld**
+## Create a Simple Java HelloWorld Program
+<details>
+1. Create a new file named `HelloWorld.java` in your preferred directory.
+2. Add the following Java code to the file:
 
-Create a simple Java file that we'll build with Jenkins:
-
-#### **HelloWorld.java**
-```java
+```
 public class HelloWorld {
     public static void main(String[] args) {
-        System.out.println("Hello, World from Jenkins!");
-        System.out.println("Build Number: " + System.getenv("BUILD_NUMBER"));
-        System.out.println("Job Name: " + System.getenv("JOB_NAME"));
-        System.out.println("Current Date: " + new java.util.Date());
+        System.out.println("Hello, World!");
     }
 }
+
 ```
 
-### **Step 2: Create Additional Java Examples**
+Save the file and close it.
 
-#### **Calculator.java**
-```java
-public class Calculator {
-    public static void main(String[] args) {
-        System.out.println("=== Simple Calculator ===");
-        
-        int a = 10;
-        int b = 5;
-        
-        System.out.println("Addition: " + a + " + " + b + " = " + (a + b));
-        System.out.println("Subtraction: " + a + " - " + b + " = " + (a - b));
-        System.out.println("Multiplication: " + a + " * " + b + " = " + (a * b));
-        System.out.println("Division: " + a + " / " + b + " = " + (a / b));
-        
-        System.out.println("Calculator executed successfully!");
-    }
-}
+Compile the Java program using the javac command:
+
 ```
-
----
-
-## 🔧 **Step-by-Step Freestyle Job Creation**
-
-### **Step 1: Create New Freestyle Job**
-
-1. **Navigate to Jenkins Dashboard**
-   - Open Jenkins web interface (http://your-jenkins-server:8080)
-   - Click "New Item" in the left sidebar
-
-2. **Configure Job Basics**
-   ```
-   Job Name: java-helloworld-freestyle
-   Job Type: Freestyle project
-   Description: Simple Java HelloWorld build using Freestyle job
-   ```
-
-3. **Click "OK"** to create the job
-
-### **Step 2: General Configuration**
-
-#### **Project Settings:**
-- ✅ **Description:** "Simple Java HelloWorld build and execution"
-- ✅ **Discard old builds:** Keep last 10 builds
-- ✅ **GitHub project:** (optional - if using GitHub repository)
-
-### **Step 3: Build Environment**
-
-Configure build environment for **local Jenkins execution**:
-
-```bash
-✅ Delete workspace before build starts
-✅ Add timestamps to the Console Output
-✅ Restrict where this project can be run: master (or leave blank for local execution)
-
-# Environment Variables for local Jenkins
-JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto.x86_64
-PATH=$JAVA_HOME/bin:$PATH
-```
-
-**Note:** We're running everything on the local Jenkins master node - no slave/agent configuration needed!
-
-### **Step 4: Build Steps**
-
-Add multiple build steps to compile and run Java programs:
-
-#### **Build Step 1: Create Java Files**
-
-**Execute Shell:**
-```bash
-#!/bin/bash
-echo "=== Creating Java Source Files ==="
-
-# Create HelloWorld.java
-cat > HelloWorld.java << 'EOF'
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World from Jenkins!");
-        System.out.println("Build Number: " + System.getenv("BUILD_NUMBER"));
-        System.out.println("Job Name: " + System.getenv("JOB_NAME"));
-        System.out.println("Current Date: " + new java.util.Date());
-    }
-}
-EOF
-
-# Create Calculator.java
-cat > Calculator.java << 'EOF'
-public class Calculator {
-    public static void main(String[] args) {
-        System.out.println("=== Simple Calculator ===");
-        
-        int a = 10;
-        int b = 5;
-        
-        System.out.println("Addition: " + a + " + " + b + " = " + (a + b));
-        System.out.println("Subtraction: " + a + " - " + b + " = " + (a - b));
-        System.out.println("Multiplication: " + a + " * " + b + " = " + (a * b));
-        System.out.println("Division: " + a + " / " + b + " = " + (a / b));
-        
-        System.out.println("Calculator executed successfully!");
-    }
-}
-EOF
-
-echo "✅ Java source files created successfully!"
-ls -la *.java
-```
-
-#### **Build Step 2: Compile Java Programs**
-
-**Execute Shell:**
-```bash
-#!/bin/bash
-echo "=== Compiling Java Programs ==="
-
-# Check Java version
-echo "Java Version:"
-java -version
-echo ""
-
-# Compile HelloWorld.java
-echo "Compiling HelloWorld.java..."
 javac HelloWorld.java
 
-if [ $? -eq 0 ]; then
-    echo "✅ HelloWorld.java compiled successfully!"
-else
-    echo "❌ HelloWorld.java compilation failed!"
-    exit 1
-fi
-
-# Compile Calculator.java
-echo "Compiling Calculator.java..."
-javac Calculator.java
-
-if [ $? -eq 0 ]; then
-    echo "✅ Calculator.java compiled successfully!"
-else
-    echo "❌ Calculator.java compilation failed!"
-    exit 1
-fi
-
-echo ""
-echo "📁 Compiled class files:"
-ls -la *.class
 ```
 
-#### **Build Step 3: Run Java Programs**
+This command will create a file named HelloWorld.class, which is the compiled Java bytecode.
 
-**Execute Shell:**
-```bash
-#!/bin/bash
-echo "=== Running Java Programs ==="
-
-# Run HelloWorld
-echo "🚀 Running HelloWorld program:"
-echo "----------------------------------------"
+Run the compiled Java program using the java command:
+```
 java HelloWorld
-echo "----------------------------------------"
-echo ""
+```
+The program should execute, and you should see the following output:
 
-# Run Calculator
-echo "🧮 Running Calculator program:"
-echo "----------------------------------------"
-java Calculator
-echo "----------------------------------------"
-echo ""
+```
+Hello, World!
+```
+This Java program simply outputs "Hello, World!" when executed. It serves as a basic example to help students understand Java code structure and the process of compiling and running Java programs.
 
-echo "✅ All Java programs executed successfully!"
+## Explain the Java HelloWorld Program to Students
+Describe the structure of a Java class, including the public class declaration and the class name HelloWorld.
+
+Explain the main method and its role as the entry point for Java applications.
+Discuss the System.out.println() method, which is used to print text to the console.
+</details>
+
+# Maven Installation on Ubuntu
+
+1. Install Maven on your Ubuntu machine by running the following command:
+
+2. Verify the Maven installation by running:
+
+3. Create a simple Maven project using the following command:
+
+4. Install the `tree` package to view the project structure:
+
+5. Navigate to the `my-app` directory:
+
+6. Display the project structure using the `tree` command:
+
+7. Build the Maven project by running:
+
+8. Execute the Java program from the Maven project:
+
+
+```
+sudo apt install maven
+mvn --version
+
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+sudo apt install tree -y
+
+cd my-app/
+
+tree
+mvn install
+
+tree
+java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
 ```
 
-#### **Build Step 4: Create Build Summary**
+# Maven Archetype: Generate Command
 
-**Execute Shell:**
-```bash
-#!/bin/bash
-echo "=== Creating Build Summary ==="
+The following command is used to create a new Maven project from a specific archetype template:
 
-# Create build summary file
-cat > build-summary.txt << EOF
-Java Build Summary
-==================
-Build Number: $BUILD_NUMBER
-Job Name: $JOB_NAME
-Build Date: $(date)
-Workspace: $WORKSPACE
-Java Version: $(java -version 2>&1 | head -1)
-
-Files Created:
-$(ls -la *.java *.class 2>/dev/null)
-
-Build Status: SUCCESS
-EOF
-
-echo "📋 Build summary created:"
-cat build-summary.txt
-
-# Create a simple JAR file (optional)
-echo ""
-echo "📦 Creating JAR file..."
-jar cf hello-programs.jar *.class
-echo "✅ JAR file created: hello-programs.jar"
-ls -la *.jar
+```
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
 ```
 
-### **Step 5: Post-build Actions**
+## Explanation of Parameters
 
-#### **Archive Artifacts**
+- `groupId`: The group ID of the project, typically following the reverse domain name pattern (e.g., `com.mycompany.app`).
+- `artifactId`: The unique identifier for the project, which will also be used as the project folder name (e.g., `my-app`).
+- `archetypeArtifactId`: The identifier of the archetype template used to generate the project structure (e.g., `maven-archetype-quickstart`).
+- `archetypeVersion`: The version of the archetype template to be used (e.g., `1.4`).
+- `interactiveMode`: A boolean flag indicating whether Maven should run in interactive mode (e.g., `false`).
+
+
+
+# Maven Goals
+
+Maven goals are specific tasks executed as part of the Maven build process. Some common Maven goals are `clean`, `install`, `package`, and `test`.
+
+## Common Maven Goals
+
+1. **clean**: The `clean` goal is used to remove all files generated by the previous build, ensuring a fresh build state. To run this goal, use the command:
+
+   ```
+   mvn clean
+   ```
+
+2. **install**: The `install` goal compiles, tests, and packages the project, and then installs the generated artifacts into the local repository. This allows other projects to use this project as a dependency. To run this goal, use the command:
+
+   ```
+   mvn install
+   ```
+
+3. **package**: The `package` goal compiles and tests the project, then packages the compiled code into the specified format (e.g., JAR, WAR, etc.). To run this goal, use the command:
+
+   ```
+   mvn package
+   ```
+
+4. **test**: The `test` goal compiles and tests the project, ensuring that the project's test suite passes. To run this goal, use the command:
+
+   ```
+   mvn test
+   ```
+
+These goals are part of Maven's build lifecycle and can be executed individually or combined. For example, to run both `clean` and `install` goals, use the command:
+
 ```
-Files to archive: *.class, *.jar, build-summary.txt, *.java
-```
-
-#### **Email Notification (Optional)**
-```
-Recipients: your-email@company.com
-Send email for: Failure, Back to Normal
-```
-
-### **Step 6: Test Your Freestyle Job**
-
-**Before running your job, ensure Built-In Node is online:**
-1. **Go to:** Manage Jenkins → Nodes → Built-In Node
-2. **Check Status:** Should show "Online" (not "Disconnected by admin")
-3. **If offline:** Click "Bring this node back online"
-
-**Now test your job:**
-1. **Save the job configuration**
-2. **Click "Build Now"**
-3. **Watch the build progress in "Build History"**
-4. **Check "Console Output" for detailed logs**
-5. **Verify archived artifacts**
-
-**Note:** If your job stays in "Build scheduled" state, your Built-In Node is likely offline. See troubleshooting section below.
-
----
-
-## 📊 **Expected Build Output**
-
-### **Console Output Example:**
-```
-Started by user admin
-Running as SYSTEM
-Building in workspace /var/lib/jenkins/workspace/java-helloworld-freestyle
-
-[java-helloworld-freestyle] $ /bin/bash /tmp/jenkins123.sh
-=== Creating Java Source Files ===
-✅ Java source files created successfully!
--rw-r--r-- 1 jenkins jenkins 245 Aug 10 15:30 Calculator.java
--rw-r--r-- 1 jenkins jenkins 198 Aug 10 15:30 HelloWorld.java
-
-[java-helloworld-freestyle] $ /bin/bash /tmp/jenkins456.sh
-=== Compiling Java Programs ===
-Java Version:
-openjdk version "17.0.7" 2023-04-18 LTS
-
-Compiling HelloWorld.java...
-✅ HelloWorld.java compiled successfully!
-Compiling Calculator.java...
-✅ Calculator.java compiled successfully!
-
-📁 Compiled class files:
--rw-r--r-- 1 jenkins jenkins 623 Aug 10 15:30 Calculator.class
--rw-r--r-- 1 jenkins jenkins 456 Aug 10 15:30 HelloWorld.class
-
-[java-helloworld-freestyle] $ /bin/bash /tmp/jenkins789.sh
-=== Running Java Programs ===
-🚀 Running HelloWorld program:
-----------------------------------------
-Hello, World from Jenkins!
-Build Number: 1
-Job Name: java-helloworld-freestyle
-Current Date: Thu Aug 10 15:30:45 UTC 2025
-----------------------------------------
-
-🧮 Running Calculator program:
-----------------------------------------
-=== Simple Calculator ===
-Addition: 10 + 5 = 15
-Subtraction: 10 - 5 = 5
-Multiplication: 10 * 5 = 50
-Division: 10 / 5 = 2
-Calculator executed successfully!
-----------------------------------------
-
-✅ All Java programs executed successfully!
-
-[java-helloworld-freestyle] $ /bin/bash /tmp/jenkins012.sh
-=== Creating Build Summary ===
-📋 Build summary created:
-Java Build Summary
-==================
-Build Number: 1
-Job Name: java-helloworld-freestyle
-Build Date: Thu Aug 10 15:30:45 UTC 2025
-Workspace: /var/lib/jenkins/workspace/java-helloworld-freestyle
-Java Version: openjdk version "17.0.7" 2023-04-18 LTS
-
-📦 Creating JAR file...
-✅ JAR file created: hello-programs.jar
--rw-r--r-- 1 jenkins jenkins 1234 Aug 10 15:30 hello-programs.jar
-
-Archiving artifacts
-Finished: SUCCESS
+mvn clean install
 ```
 
----
+## Goals of Maven
 
-## 🎯 **Learning Exercises**
+1. **Project Object Model (POM)**: Maven uses an XML file, the POM, to describe the project, its dependencies, and the build process.
+2. **Dependency Management**: Maven automatically manages project dependencies and transitive dependencies.
+3. **Standardized Build Process**: Maven standardizes the build process, making it easier for developers to understand the build process across different projects.
+4. **Build Lifecycle**: Maven has a predefined build lifecycle, which consists of a series of build phases that the project goes through to be built and deployed.
+5. **Build Plugins**: Maven provides plugins to support various build tasks, such as compiling code, running tests, packaging, and deploying applications.
+6. **Project Reporting**: Maven can generate project documentation and reports, including code coverage, test results, and dependency information.
 
-### **Exercise 1: Modify the Programs**
-1. Edit the HelloWorld program to include your name
-2. Modify the Calculator to perform more operations
-3. Run the build and see the changes
 
-### **Exercise 2: Add Error Handling**
-1. Create a Java program that might fail
-2. Add error handling in build steps
-3. Test both success and failure scenarios
 
-### **Exercise 3: Environment Variables**
-1. Use more Jenkins environment variables
-2. Create a program that reads system properties
-3. Display build information in your Java programs
+### What is next 
+After explaining the Java HelloWorld program, you can proceed to the next branch to set up Jenkins for Maven and run the same job from a freestyle project.
 
----
+In the next step, we will configure Maven in Jenkins and create a Maven job in Jenkins to build and run the project.
 
-## 📊 **Expected Learning Outcomes**
 
-After completing this project, you will have:
 
-### **Jenkins Skills**
-- ✅ **Freestyle Job Creation** - Complete job setup and configuration
-- ✅ **Build Steps** - Multiple shell commands and scripts
-- ✅ **Artifact Management** - Archiving build outputs
-- ✅ **Build Monitoring** - Understanding console output and logs
 
-### **Java Build Skills**
-- ✅ **Java Compilation** - Using javac in automated builds
-- ✅ **Java Execution** - Running Java programs in Jenkins
-- ✅ **JAR Creation** - Basic packaging with jar command
-- ✅ **Build Automation** - Automated compile and run process
+## Connect & Follow
 
----
+For more info, please connect and follow me:
 
-## 🔍 **Common Issues & Solutions**
+- Github: [https://github.com/manikcloud](https://github.com/manikcloud)
+- LinkedIn: [https://www.linkedin.com/in/vkmanik/](https://www.linkedin.com/in/vkmanik/)
+- Email: [varunmanik1@gmail.com](mailto:varunmanik1@gmail.com)
+- Facebook: [https://www.facebook.com/cloudvirtualization/](https://www.facebook.com/cloudvirtualization/)
+- YouTube: [https://bit.ly/32fknRN](https://bit.ly/32fknRN)
+- Twitter: [https://twitter.com/varunkmanik](https://twitter.com/varunkmanik)
 
-### **Job Stays in "Scheduled" State - Built-In Node Offline**
-
-**Problem:** Your job shows "Build scheduled" but never starts executing.
-
-**Root Cause:** Your Built-In Node is offline because it shows "Bring this node back online" at the top.
-
-**Solution:**
-1. **Go to:** Manage Jenkins → Nodes → Built-In Node
-2. **Click:** "Bring this node back online"
-3. **Verify Settings:**
-   - Number of executors: at least 1
-   - Usage: "Use this node as much as possible"
-4. **Save** the configuration
-
-**Why This Happens:**
-- Every time you hit "Build Now", Jenkins queues the job
-- Jenkins can't assign it to the built-in node because it's offline
-- Job stays in "scheduled" state waiting for a node to come online
-- Once you bring the node online, your job will start instantly
-
-### **Java Not Found**
-```bash
-# Solution: Set JAVA_HOME in build environment
-JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto.x86_64
-PATH=$JAVA_HOME/bin:$PATH
-```
-
-### **Compilation Errors**
-```bash
-# Check Java syntax in your source files
-# Verify file names match class names
-# Ensure proper file encoding
-```
-
-### **Permission Issues**
-```bash
-# Ensure Jenkins has write permissions in workspace
-# Check file permissions after creation
-```
-
----
-
-## ➡️ **Next Steps**
-
-Once you've mastered basic Freestyle jobs:
-
-1. **Try Different Programming Languages** - Python, Node.js, etc.
-2. **Add More Complex Build Logic** - Conditional builds, loops
-3. **Integrate with Version Control** - Git repository integration
-4. **Proceed to Maven Jobs** - [3.2 Maven Style Jobs](../3.2_maven_style/README.md)
-
----
-
-## 📚 **Additional Resources**
-
-- 📖 [Jenkins Freestyle Project Documentation](https://www.jenkins.io/doc/book/using/using-freestyle-projects/)
-- 📖 [Java Compilation and Execution](https://docs.oracle.com/javase/tutorial/getStarted/cupojava/)
-- 📖 [Jenkins Environment Variables](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#using-environment-variables)
-
----
-
-<div align="center">
-
-### 🎯 **Congratulations!**
-*You've created your first Jenkins Freestyle job with Java! This is the foundation for all Jenkins automation.*
-
-**Next: [3.2 Maven Style Jobs](../3.2_maven_style/README.md)**
-
-</div>
