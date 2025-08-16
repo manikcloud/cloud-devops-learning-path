@@ -497,12 +497,18 @@ sudo systemctl restart tomcat
 
 2. **Search and Install These Plugins:**
    - **Pipeline Plugin** - For pipeline support
+   - **Git Plugin** - For Git SCM integration and Pipeline script from SCM
    - **Maven Integration Plugin** - For Maven builds
    - **Deploy to Container Plugin** - For Tomcat deployment
    - **JUnit Plugin** - For test reporting
 
 3. **Install Plugins:**
-   - Check the boxes for required plugins
+   - Check the boxes for required plugins:
+     - ✅ **Pipeline Plugin**
+     - ✅ **Git Plugin** 
+     - ✅ **Maven Integration Plugin**
+     - ✅ **Deploy to Container Plugin**
+     - ✅ **JUnit Plugin**
    - Click `Install without restart`
    - Wait for installation to complete
 
