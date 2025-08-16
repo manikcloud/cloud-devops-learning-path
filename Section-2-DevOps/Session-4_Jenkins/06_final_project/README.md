@@ -132,7 +132,7 @@ This capstone project demonstrates a **complete DevOps implementation** using in
 - **Maven 3.6+** - Build automation and dependency management
 - **Git** - Version control system
 - **Jenkins 2.400+** - CI/CD automation server
-- **Tomcat 9** - Web application server
+- **Tomcat 9.0.108+** - Web application server (Latest: 9.0.108, Alternative: 10.1.44)
 
 ### **☁️ Cloud Platform Support**
 - **AWS EC2** - Amazon Linux 2/2023, Ubuntu instances
@@ -247,14 +247,20 @@ sudo yum install java-11-amazon-corretto-devel maven git -y
 ```
 
 #### **Tomcat 9 Manual Installation**
+
+> **📋 Tomcat Version Options:**
+> - **Tomcat 9.0.108** (Latest stable - Recommended for production)
+> - **Tomcat 10.1.44** (Latest major version - Jakarta EE)
+> - **Tomcat 11.x** (Latest development - Preview features)
+
 ```bash
-# Create tomcat user and download Tomcat
+# Create tomcat user and download latest Tomcat 9.0.108
 sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
-cd /tmp && wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.82/bin/apache-tomcat-9.0.82.tar.gz
+cd /tmp && wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.108/bin/apache-tomcat-9.0.108.tar.gz
 
 # Extract and configure
-sudo tar xf apache-tomcat-9.0.82.tar.gz -C /opt/tomcat
-sudo ln -s /opt/tomcat/apache-tomcat-9.0.82 /opt/tomcat/latest
+sudo tar xf apache-tomcat-9.0.108.tar.gz -C /opt/tomcat
+sudo ln -s /opt/tomcat/apache-tomcat-9.0.108 /opt/tomcat/latest
 sudo chown -RH tomcat: /opt/tomcat/latest
 ```
 
