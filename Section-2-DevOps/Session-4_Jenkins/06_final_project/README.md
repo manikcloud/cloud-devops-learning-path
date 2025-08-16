@@ -557,25 +557,34 @@ sudo systemctl restart tomcat
 
 ### **✅ Verification Steps**
 
-#### **Check Credentials:**
-```bash
-# Navigate to: Manage Jenkins → Manage Credentials
-# You should see: tomcat-9 credential listed
-```
+#### **Verify Credentials Configuration:**
+1. **Navigate to:** `Manage Jenkins` → `Manage Credentials`
+2. **Click on:** `(global)` domain
+3. **Check:** You should see `tomcat-9` credential listed
+4. **Verify details:** Click on credential to confirm username is `admin`
 
-#### **Check Maven Tool:**
-```bash
-# Navigate to: Manage Jenkins → Global Tool Configuration
-# You should see: maven tool configured in Maven section
-```
+#### **Verify Maven Tool Configuration:**
+1. **Navigate to:** `Manage Jenkins` → `Global Tool Configuration`
+2. **Scroll to:** `Maven` section
+3. **Check:** You should see `maven` tool configured
+4. **Verify:** Auto-install should be checked with latest version
 
-#### **Test Jenkins Access:**
+#### **Test Jenkins Dashboard Access:**
 ```bash
-# Access Jenkins dashboard
+# Open browser and navigate to:
 http://YOUR_SERVER_IP:8080
 
-# Should show Jenkins dashboard with plugins installed
+# You should see:
+✅ Jenkins dashboard loads successfully
+✅ No plugin installation warnings
+✅ "Manage Jenkins" menu accessible
 ```
+
+#### **Quick Configuration Test:**
+1. **Create a test job:** `New Item` → `Freestyle project` → `Test`
+2. **Build Environment:** Should show Maven tool available
+3. **Build Steps:** Should show "Deploy war/ear to a container" option
+4. **Delete test job** after verification
   Install automatically: ✅
   Version: Latest stable (3.9.x)
 ```
