@@ -1,0 +1,107 @@
+pipeline {
+    agent {
+        label 'jnlp'
+    }
+    // This pipeline runs on any slave node with 'jnlp' label
+    
+    stages {
+        stage('Hello from JNLP Slave') {
+            steps {
+                script {
+                    echo "🎉 Hello World from JNLP Jenkins Slave!"
+                    echo "Running on: ${env.NODE_NAME}"
+                    echo "Workspace: ${env.WORKSPACE}"
+                    echo "Build Number: ${env.BUILD_NUMBER}"
+                    echo "Connection Type: JNLP (No SSH keys needed!)"
+                }
+            }
+        }
+        // First stage: Basic greeting and connection info
+        
+        stage('System Information') {
+            steps {
+                echo "Gathering system information from JNLP slave..."
+                sh 'echo "=== HOSTNAME ==="'
+                sh 'hostname'
+                sh 'echo "=== USER ==="'
+                sh 'whoami'
+                sh 'echo "=== CURRENT DIRECTORY ==="'
+                sh 'pwd'
+                sh 'echo "=== DATE AND TIME ==="'
+                sh 'date'
+                sh 'echo "=== JAVA VERSION ==="'
+                sh 'java -version'
+            }
+        }
+        // Second stage: Display system information
+        
+        stage('JNLP Connection Test') {
+            steps {
+                echo "Testing JNLP connection capabilities..."
+                sh '''
+                echo "=== JNLP SLAVE TEST ==="
+                echo "Hello from JNLP Slave!" > jnlp-test.txt
+                echo "Connected via JNLP - No SSH keys needed!" >> jnlp-test.txt
+                echo "Generated on: $(date)" >> jnlp-test.txt
+                echo "Hostname: $(hostname)" >> jnlp-test.txt
+                echo "User: $(whoami)" >> jnlp-test.txt
+                echo "Working Directory: $(pwd)" >> jnlp-test.txt
+                echo ""
+                echo "=== FILE CONTENTS ==="
+                cat jnlp-test.txt
+                echo ""
+                echo "=== CLEANING UP ==="
+                rm jnlp-test.txt
+                echo "JNLP connection working perfectly!"
+                '''
+            }
+        }
+        // Third stage: Create test file and demonstrate JNLP functionality
+        
+        stage('Simple Commands') {
+            steps {
+                echo "Executing simple commands on JNLP slave..."
+                sh 'echo "This is running on JNLP slave - much easier than SSH!"'
+                sh 'echo "=== DIRECTORY LISTING ==="'
+                sh 'ls -la'
+                sh 'echo "=== DISK USAGE ==="'
+                sh 'df -h'
+                sh 'echo "=== MEMORY USAGE ==="'
+                sh 'free -m'
+            }
+        }
+        // Fourth stage: Execute basic system commands
+    }
+    
+    post {
+        success {
+            script {
+                echo "✅ SUCCESS: JNLP Hello World pipeline completed!"
+                echo "Pipeline executed on JNLP slave: ${env.NODE_NAME}"
+                echo "JNLP advantages demonstrated:"
+                echo "  • No SSH key management"
+                echo "  • Auto reconnection capability"
+                echo "  • Firewall friendly setup"
+                echo "  • Super easy configuration"
+                echo "Total build time: ${currentBuild.durationString}"
+            }
+        }
+        // Success message with JNLP benefits
+        
+        failure {
+            script {
+                echo "❌ FAILURE: Pipeline failed on JNLP slave"
+                echo "Failed on node: ${env.NODE_NAME}"
+                echo "Check Jenkins master connectivity and Java installation"
+            }
+        }
+        // Failure message with troubleshooting hints
+        
+        always {
+            echo "🏁 JNLP Pipeline execution completed"
+            echo "This pipeline ran from: Section-2-DevOps/Session-4_Jenkins/05_master_slave_architecture/Jenkinsfile"
+            echo "JNLP setup is perfect for development and testing!"
+        }
+        // Always runs regardless of success or failure
+    }
+}
