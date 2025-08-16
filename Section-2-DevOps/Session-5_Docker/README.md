@@ -26,6 +26,84 @@ This module will help you **master the core fundamentals of continuous deploymen
 
 ---
 
+## 🔧 Docker Installation
+
+### **Amazon Linux 2/2023**
+```bash
+# Update system
+sudo yum update -y
+
+# Install Docker
+sudo yum install docker -y
+
+# Start Docker service
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Add user to docker group (avoid sudo)
+sudo usermod -aG docker $USER
+
+# Verify installation
+docker --version
+docker run hello-world
+
+# Note: Log out and log back in for group changes to take effect
+```
+
+### **Ubuntu/Debian**
+```bash
+# Update system
+sudo apt update
+
+# Install prerequisites
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+
+# Add Docker GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# Add Docker repository
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Update package index
+sudo apt update
+
+# Install Docker
+sudo apt install docker-ce docker-ce-cli containerd.io -y
+
+# Start Docker service
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Add user to docker group
+sudo usermod -aG docker $USER
+
+# Verify installation
+docker --version
+docker run hello-world
+
+# Note: Log out and log back in for group changes to take effect
+```
+
+### **Quick Installation (Alternative)**
+```bash
+# Universal installer script (works on most Linux distributions)
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# Add user to docker group
+sudo usermod -aG docker $USER
+
+# Start Docker service
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Verify installation
+docker --version
+docker run hello-world
+```
+
+---
+
 ## 📚 Learning Topics
 
 ### **🔧 Installation and Configuration**
