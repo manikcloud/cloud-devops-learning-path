@@ -7,7 +7,7 @@ Deploy the Address Book application manually to understand the deployment proces
 - ✅ Infrastructure setup completed (from main README)
 - ✅ Tomcat 9 running on port 8090
 - ✅ Maven installed and configured
-- ✅ Java 11+ installed
+- ✅ Java 17+ installed
 
 ---
 

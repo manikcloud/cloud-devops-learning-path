@@ -233,7 +233,7 @@ Add custom environment variables for your build:
 ```bash
 # In Build Environment section
 Environment variables:
-  JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+  JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
   BUILD_USER=jenkins
   PROJECT_NAME=HelloWorld-Freestyle
 ```

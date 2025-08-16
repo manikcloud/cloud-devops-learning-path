@@ -38,21 +38,28 @@ This capstone project demonstrates a **complete DevOps implementation** using in
 
 ## 🎯 Project Objectives
 
+### **🌟 Introduction**
+
+Welcome to the **Jenkins CI/CD Final Project** - the culmination of your DevOps learning journey! This comprehensive project bridges the gap between theoretical knowledge and real-world application by implementing a complete continuous integration and deployment pipeline.
+
+You'll work with a **production-ready Address Book web application**, transforming it from manual deployment to fully automated enterprise-grade CI/CD. This hands-on experience mirrors what you'll encounter in professional DevOps environments, giving you the confidence and skills to excel in your career.
+
 ### **🚀 Primary Goals**
-- **Master CI/CD Concepts** - Understand continuous integration and deployment
-- **Hands-on DevOps Tools** - Work with industry-standard tools
-- **Real Application Deployment** - Deploy actual web application
+- **Master CI/CD Concepts** - Understand continuous integration and deployment workflows
+- **Hands-on DevOps Tools** - Work with industry-standard tools (Jenkins, Maven, Git, Tomcat/Jetty)
+- **Real Application Deployment** - Deploy actual web application with database integration
 - **Automation Skills** - Transform manual processes to automated pipelines
-- **Production Readiness** - Learn enterprise deployment practices
+- **Production Readiness** - Learn enterprise deployment practices and best practices
 
 ### **📚 Learning Outcomes**
-- **Linux System Administration** - Ubuntu & Amazon Linux proficiency
-- **Git Version Control** - Source code management and collaboration
-- **Jenkins Pipeline Development** - CI/CD automation and orchestration
+- **Linux System Administration** - Ubuntu & Amazon Linux proficiency with Java 17
+- **Git Version Control** - Source code management and collaboration workflows
+- **Jenkins Pipeline Development** - CI/CD automation and orchestration with Jenkinsfile
 - **Java Application Building** - Maven build lifecycle and dependency management
-- **Automated Testing** - JUnit integration and test automation
-- **Web Application Deployment** - Tomcat server configuration and WAR deployment
-- **Infrastructure as Code** - Pipeline as code with Jenkinsfile
+- **Automated Testing** - JUnit integration and test automation strategies
+- **Web Application Deployment** - Tomcat/Jetty server configuration and WAR deployment
+- **Infrastructure as Code** - Pipeline as code with declarative Jenkinsfile syntax
+- **Troubleshooting Skills** - Debug build failures and deployment issues
 
 ---
 

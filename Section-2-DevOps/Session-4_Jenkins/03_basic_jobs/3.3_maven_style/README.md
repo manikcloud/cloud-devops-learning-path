@@ -38,7 +38,7 @@ Master Jenkins Maven job creation using the **current repository** for advanced 
 ### **📋 Prerequisites Checklist**
 - ✅ Jenkins installed with Maven Integration plugin
 - ✅ Maven installed on the system (Project 3.2 completed)
-- ✅ Java JDK 11 or later
+- ✅ Java JDK 17 or later
 - ✅ Current repository accessible to Jenkins
 - ✅ Understanding of Maven fundamentals
 
