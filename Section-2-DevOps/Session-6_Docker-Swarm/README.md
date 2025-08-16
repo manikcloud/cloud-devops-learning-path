@@ -64,14 +64,8 @@ sudo usermod -aG docker $USER
 
 ## 📁 Module Structure
 
-### **[6.1 Swarm Basics](./6.1_swarm_basics/)**
-- **[Swarm Commands](./6.1_swarm_basics/swarm-commands.md)** - Essential Docker Swarm commands
-- **[Networking Concepts](./6.1_swarm_basics/networking-concepts.md)** - Swarm networking basics
-
-### **[6.2 Swarm Project](./6.2_swarm_project/)**
-- **[Hello World Web App](./6.2_swarm_project/README.md)** - Simple web service with color changes
-- **[HTML File](./6.2_swarm_project/index.html)** - Custom web page
-- **[Dockerfile](./6.2_swarm_project/Dockerfile)** - Container definition
+### **[6.1 Swarm Basics & Project](./6.1_swarm_basics/)**
+- **[Commands & Web Project](./6.1_swarm_basics/README.md)** - Essential commands and color-changing web app
 
 ### **[6.3 Stack Project](./6.3_stack_project/)**
 - **[Multi-Service Stack](./6.3_stack_project/README.md)** - Deploy web + database with docker-compose
@@ -112,17 +106,12 @@ docker service ps web
 
 ## 🎯 Learning Path
 
-### **Week 1: [Swarm Basics](./6.1_swarm_basics/)**
+### **Week 1: [Swarm Basics & Web Project](./6.1_swarm_basics/)**
 - Initialize Docker Swarm
-- Basic service management
-- Scaling and updates
+- Create interactive web service
+- Scale and manage services
 
-### **Week 2: [Web Project](./6.2_swarm_project/)**
-- Create custom web service
-- Deploy with multiple replicas
-- Change background colors dynamically
-
-### **Week 3: [Stack Management](./6.3_stack_project/)**
+### **Week 2: [Stack Management](./6.3_stack_project/)**
 - Deploy multi-service applications
 - Use docker-compose.yml files
 - Manage web + database stacks

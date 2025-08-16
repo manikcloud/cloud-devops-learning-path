@@ -1,4 +1,4 @@
-# 🐝 Docker Swarm Basics
+# 🐝 Docker Swarm Basics & Project
 
 ## 📋 Essential Commands
 
@@ -20,7 +20,7 @@ docker node ls
 ### **Service Management**
 ```bash
 # Create service
-docker service create --name web --publish 8080:80 nginx
+docker service create --name web --publish 8080:80 --replicas 3 nginx
 
 # List services
 docker service ls
@@ -29,7 +29,7 @@ docker service ls
 docker service ps web
 
 # Scale service
-docker service scale web=3
+docker service scale web=5
 
 # Update service
 docker service update --image nginx:alpine web
@@ -38,92 +38,98 @@ docker service update --image nginx:alpine web
 docker service rm web
 ```
 
-### **Stack Management**
-```bash
-# Deploy stack from compose file
-docker stack deploy -c docker-compose.yml mystack
-
-# List stacks
-docker stack ls
-
-# List stack services
-docker stack services mystack
-
-# Remove stack
-docker stack rm mystack
-```
-
 ---
 
-## 🌐 Swarm Networking
+## 🚀 Simple Web Project
 
-### **Network Types**
-- **Ingress** - Load balancing for published ports
-- **Overlay** - Multi-host networking
-- **Bridge** - Single host networking
-
-### **Network Commands**
+### **Step 1: Create Custom Web App**
 ```bash
-# Create overlay network
-docker network create --driver overlay mynetwork
+# Create project files
+mkdir hello-swarm && cd hello-swarm
 
-# List networks
-docker network ls
+# Create simple HTML file
+cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Docker Swarm Hello World</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; 
+               background-color: #3498db; color: white; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; 
+                 border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🐝 Docker Swarm Hello World</h1>
+    <p>This page is served by Docker Swarm!</p>
+    
+    <h3>Change Background Color:</h3>
+    <button onclick="changeColor('#3498db')" style="background-color: #3498db; color: white;">Blue</button>
+    <button onclick="changeColor('#e74c3c')" style="background-color: #e74c3c; color: white;">Red</button>
+    <button onclick="changeColor('#2ecc71')" style="background-color: #2ecc71; color: white;">Green</button>
+    <button onclick="changeColor('#f39c12')" style="background-color: #f39c12; color: white;">Orange</button>
 
-# Inspect network
-docker network inspect mynetwork
+    <script>
+        function changeColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+    </script>
+</body>
+</html>
+EOF
+
+# Create Dockerfile
+cat > Dockerfile << 'EOF'
+FROM httpd:2.4-alpine
+COPY index.html /usr/local/apache2/htdocs/
+EXPOSE 80
+EOF
 ```
 
----
-
-## 🚀 Quick Examples
-
-### **Example 1: Multi-Node Web Service**
+### **Step 2: Build and Deploy**
 ```bash
-# On manager node
+# Build image
+docker build -t hello-swarm .
+
+# Initialize swarm
 docker swarm init
-docker swarm join-token worker
 
-# On worker node (use actual token and private IP)
-docker swarm join --token SWMTKN-1-xxxxx 172.31.1.100:2377
+# Deploy service
+docker service create --name web --publish 8080:80 --replicas 3 hello-swarm
 
-# Deploy service across nodes
-docker service create --name web --publish 8080:80 --replicas 4 nginx
+# Check deployment
 docker service ps web
+
+# Access: http://localhost:8080
 ```
 
-### **Example 2: Check Node Distribution**
+### **Step 3: Scale and Test**
 ```bash
-# See which containers run on which nodes
+# Scale up
+docker service scale web=5
+
+# Check distribution across nodes
 docker service ps web
 
-# Scale and watch distribution
-docker service scale web=6
-docker service ps web
+# Test load balancing
+curl http://localhost:8080
 ```
 
 ---
 
 ## 🔍 Troubleshooting
 
-### **Common Issues**
 ```bash
 # If join fails:
-# 1. Check network connectivity
 ping <manager-private-ip>
-
-# 2. Verify Docker is running
 sudo systemctl status docker
-
-# 3. Start Docker if stopped
 sudo systemctl start docker
 
-# 4. Check security group ports (2377, 7946, 4789)
-
-# 5. Regenerate token if needed (on manager)
+# Regenerate token if needed
 docker swarm join-token --rotate worker
 ```
 
 ---
 
-*Simple Docker Swarm fundamentals!* 🚀
+*Simple Docker Swarm with interactive web app!* 🚀
