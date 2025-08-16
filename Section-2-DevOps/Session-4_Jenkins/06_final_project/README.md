@@ -229,6 +229,33 @@ sudo apt install tomcat9 tomcat9-admin -y
 # Configure and start service
 sudo systemctl enable tomcat9
 sudo systemctl start tomcat9
+
+# Check service status
+sudo systemctl status tomcat9
+```
+
+### **🔧 Ubuntu Tomcat Service Management**
+```bash
+# Start Tomcat
+sudo systemctl start tomcat9
+
+# Stop Tomcat
+sudo systemctl stop tomcat9
+
+# Restart Tomcat
+sudo systemctl restart tomcat9
+
+# Check status
+sudo systemctl status tomcat9
+
+# Enable auto-start on boot
+sudo systemctl enable tomcat9
+
+# View logs
+sudo journalctl -u tomcat9 -f
+# OR
+sudo tail -f /var/log/tomcat9/catalina.out
+```
 ```
 
 ### **🔴 Amazon Linux/RHEL Systems**
@@ -262,6 +289,133 @@ cd /tmp && wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.108/bin/apache
 sudo tar xf apache-tomcat-9.0.108.tar.gz -C /opt/tomcat
 sudo ln -s /opt/tomcat/apache-tomcat-9.0.108 /opt/tomcat/latest
 sudo chown -RH tomcat: /opt/tomcat/latest
+sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
+
+# Create systemd service file
+sudo tee /etc/systemd/system/tomcat.service > /dev/null <<EOF
+[Unit]
+Description=Tomcat 9 servlet container
+After=network.target
+
+[Service]
+Type=forking
+User=tomcat
+Group=tomcat
+Environment="JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto"
+Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true"
+Environment="CATALINA_BASE=/opt/tomcat/latest"
+Environment="CATALINA_HOME=/opt/tomcat/latest"
+Environment="CATALINA_PID=/opt/tomcat/latest/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+ExecStart=/opt/tomcat/latest/bin/startup.sh
+ExecStop=/opt/tomcat/latest/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Start and enable Tomcat service
+sudo systemctl daemon-reload
+sudo systemctl enable tomcat
+sudo systemctl start tomcat
+
+# Check service status
+sudo systemctl status tomcat
+```
+
+### **🔧 Tomcat Service Management Commands**
+```bash
+# Start Tomcat
+sudo systemctl start tomcat
+
+# Stop Tomcat
+sudo systemctl stop tomcat
+
+# Restart Tomcat
+sudo systemctl restart tomcat
+
+# Check status
+sudo systemctl status tomcat
+
+# Enable auto-start on boot
+sudo systemctl enable tomcat
+
+# Disable auto-start on boot
+sudo systemctl disable tomcat
+
+# View logs
+sudo journalctl -u tomcat -f
+```
+
+---
+
+## 🔧 Tomcat Service Management
+
+### **📋 Service Commands Summary**
+
+<table>
+<tr>
+<th width="30%">Action</th>
+<th width="35%">Ubuntu (tomcat9)</th>
+<th width="35%">Amazon Linux (tomcat)</th>
+</tr>
+
+<tr>
+<td><strong>Start Service</strong></td>
+<td><code>sudo systemctl start tomcat9</code></td>
+<td><code>sudo systemctl start tomcat</code></td>
+</tr>
+
+<tr>
+<td><strong>Stop Service</strong></td>
+<td><code>sudo systemctl stop tomcat9</code></td>
+<td><code>sudo systemctl stop tomcat</code></td>
+</tr>
+
+<tr>
+<td><strong>Restart Service</strong></td>
+<td><code>sudo systemctl restart tomcat9</code></td>
+<td><code>sudo systemctl restart tomcat</code></td>
+</tr>
+
+<tr>
+<td><strong>Check Status</strong></td>
+<td><code>sudo systemctl status tomcat9</code></td>
+<td><code>sudo systemctl status tomcat</code></td>
+</tr>
+
+<tr>
+<td><strong>Enable Auto-start</strong></td>
+<td><code>sudo systemctl enable tomcat9</code></td>
+<td><code>sudo systemctl enable tomcat</code></td>
+</tr>
+
+<tr>
+<td><strong>View Logs</strong></td>
+<td><code>sudo journalctl -u tomcat9 -f</code><br><code>sudo tail -f /var/log/tomcat9/catalina.out</code></td>
+<td><code>sudo journalctl -u tomcat -f</code><br><code>sudo tail -f /opt/tomcat/latest/logs/catalina.out</code></td>
+</tr>
+
+</table>
+
+### **🔍 Service Verification**
+```bash
+# Check if service is running
+sudo systemctl is-active tomcat9    # Ubuntu
+sudo systemctl is-active tomcat     # Amazon Linux
+
+# Check if service is enabled
+sudo systemctl is-enabled tomcat9   # Ubuntu
+sudo systemctl is-enabled tomcat    # Amazon Linux
+
+# Test Tomcat is responding
+curl -I http://localhost:8090
+
+# Check process
+ps aux | grep tomcat
+
+# Check port usage
+sudo netstat -tlnp | grep 8090
 ```
 
 ---
