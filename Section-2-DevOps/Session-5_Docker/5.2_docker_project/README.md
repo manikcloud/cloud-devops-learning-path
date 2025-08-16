@@ -38,6 +38,7 @@ docker run -d -p 9090:8080 --name addressbook addressbook-app
 ### **Or Use Script**
 ```bash
 # After cloning and navigating to project directory:
+chmod +x simple-build.sh
 ./simple-build.sh
 ```
 
