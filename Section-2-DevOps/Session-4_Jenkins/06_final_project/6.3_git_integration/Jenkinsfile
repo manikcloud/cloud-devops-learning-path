@@ -127,19 +127,19 @@ pipeline {
             }
         }
         
-        stage("🚀 Deploy to Tomcat") {          	 
+        stage("Deploy to Tomcat") {          	 
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
                     script {
-                        echo "🚀 Deploying to Tomcat server..."
-                        echo "🎯 Target: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
+                        echo "Deploying to Tomcat server..."
+                        echo "Target: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
                     }
                     deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: "http://${SERVER_IP}:${TOMCAT_PORT}")], 
                            contextPath: "/${APP_CONTEXT}", 
                            war: '**/target/*.war'
                     script {
-                        echo "✅ Deployment completed successfully"
-                        echo "🌐 Application URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
+                        echo "Deployment completed successfully"
+                        echo "Application URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
                     }
                 }
             }
@@ -150,37 +150,35 @@ pipeline {
         always {
             dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
                 script {
-                    echo "📊 Publishing test results..."
+                    echo "Publishing test results..."
+                    if (fileExists('target/surefire-reports/*.xml')) {
+                        junit 'target/surefire-reports/*.xml'
+                    } else {
+                        echo "No test results found"
+                    }
                 }
-                junit 'target/surefire-reports/*.xml'
             }
         }
         success {
             script {
-                echo "🎉 =================================="
-                echo "🎉 WEBHOOK BUILD SUCCESSFUL!"
-                echo "🎉 =================================="
-                echo "✅ Build completed at: ${BUILD_TIMESTAMP}"
-                echo "🌐 Application deployed: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
-                echo "👤 Triggered by: ${env.pusher ?: 'GitHub webhook'}"
-                echo "🎉 =================================="
+                echo "WEBHOOK BUILD SUCCESSFUL!"
+                echo "Build completed at: ${BUILD_TIMESTAMP}"
+                echo "Application deployed: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
+                echo "Triggered by: ${env.pusher ?: 'GitHub webhook'}"
             }
         }
         failure {
             script {
-                echo "❌ =================================="
-                echo "❌ WEBHOOK BUILD FAILED!"
-                echo "❌ =================================="
-                echo "💥 Build failed at: ${BUILD_TIMESTAMP}"
-                echo "👤 Triggered by: ${env.pusher ?: 'GitHub webhook'}"
-                echo "🔍 Check console output for details"
-                echo "❌ =================================="
+                echo "WEBHOOK BUILD FAILED!"
+                echo "Build failed at: ${BUILD_TIMESTAMP}"
+                echo "Triggered by: ${env.pusher ?: 'GitHub webhook'}"
+                echo "Check console output for details"
             }
         }
         unstable {
             script {
-                echo "⚠️ Build completed with warnings"
-                echo "🔍 Check test results for details"
+                echo "Build completed with warnings"
+                echo "Check test results for details"
             }
         }
     }
