@@ -195,12 +195,6 @@ http://98.86.230.111:8080/github-webhook/
    ⚠️ Note: Use proper authorization in production
    ```
 
-3. **CSRF Protection:**
-   ```yaml
-   CSRF Protection: 
-   ✅ Enable proxy compatibility (if using reverse proxy)
-   ```
-
 #### **Step 7: Firewall Configuration**
 
 **Ubuntu/Amazon Linux:**
