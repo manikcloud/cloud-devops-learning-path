@@ -42,8 +42,6 @@ sudo cp target/addressbook.war /var/lib/tomcat9/webapps/
 ls -la /var/lib/tomcat9/webapps/
 ```
 
-```
-
 ### **Step 4: Wait for Auto-Deployment**
 ```bash
 # Wait for Tomcat to extract WAR file (30 seconds)
