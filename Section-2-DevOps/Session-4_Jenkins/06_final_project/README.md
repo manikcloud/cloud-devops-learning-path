@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Jenkins Pipeline](https://img.shields.io/badge/Jenkins-Pipeline-blue?style=for-the-badge&logo=jenkins&logoColor=white)
-![Java](https://img.shields.io/badge/Java-11+-red?style=for-the-badge&logo=java&logoColor=white)
+![Java](https://img.shields.io/badge/Java-17+-red?style=for-the-badge&logo=java&logoColor=white)
 ![Maven](https://img.shields.io/badge/Apache-Maven-orange?style=for-the-badge&logo=apache-maven&logoColor=white)
 ![Tomcat](https://img.shields.io/badge/Apache-Tomcat-yellow?style=for-the-badge&logo=apache-tomcat&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-Ubuntu%20%7C%20Amazon-green?style=for-the-badge&logo=linux&logoColor=white)
@@ -128,7 +128,7 @@ This capstone project demonstrates a **complete DevOps implementation** using in
 - **Security:** SSH access, ports 8080 (Jenkins) and 8090 (Tomcat/Jetty) open
 
 ### **🔧 Required Software Stack**
-- **Java 17+** - Runtime environment and development kit
+- **Java 17+** - Runtime environment and development kit (backward compatible with Java 8 applications)
 - **Maven 3.6+** - Build automation and dependency management
 - **Git** - Version control system
 - **Jenkins 2.400+** - CI/CD automation server
