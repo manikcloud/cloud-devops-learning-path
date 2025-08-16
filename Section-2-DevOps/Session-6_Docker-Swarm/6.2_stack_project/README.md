@@ -96,7 +96,7 @@ docker stack ls
 ## 📁 Project Files
 
 ```
-6.3_stack_project/
+6.2_stack_project/
 ├── docker-compose.yml     # Stack definition
 └── README.md             # This guide
 ```

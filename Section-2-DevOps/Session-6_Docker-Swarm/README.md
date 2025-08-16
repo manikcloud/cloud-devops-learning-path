@@ -67,9 +67,9 @@ sudo usermod -aG docker $USER
 ### **[6.1 Swarm Basics & Project](./6.1_swarm_basics/)**
 - **[Commands & Web Project](./6.1_swarm_basics/README.md)** - Essential commands and color-changing web app
 
-### **[6.3 Stack Project](./6.3_stack_project/)**
-- **[Multi-Service Stack](./6.3_stack_project/README.md)** - Deploy web + database with docker-compose
-- **[Docker Compose File](./6.3_stack_project/docker-compose.yml)** - Stack definition
+### **[6.2 Stack Project](./6.2_stack_project/)**
+- **[Multi-Service Stack](./6.2_stack_project/README.md)** - Deploy web + database with docker-compose
+- **[Docker Compose File](./6.2_stack_project/docker-compose.yml)** - Stack definition
 
 ---
 
@@ -111,7 +111,7 @@ docker service ps web
 - Create interactive web service
 - Scale and manage services
 
-### **Week 2: [Stack Management](./6.3_stack_project/)**
+### **Week 2: [Stack Management](./6.2_stack_project/)**
 - Deploy multi-service applications
 - Use docker-compose.yml files
 - Manage web + database stacks
