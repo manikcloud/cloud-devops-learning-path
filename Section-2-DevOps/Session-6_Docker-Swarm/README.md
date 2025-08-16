@@ -23,6 +23,45 @@ Docker Swarm is Docker's built-in orchestration tool that manages multiple conta
 
 ---
 
+## 🔧 Prerequisites
+
+### **Infrastructure Requirements**
+- **2 EC2 Instances** - One manager, one worker node
+- **Security Group Configuration** - Allow Swarm communication ports
+- **Docker Installed** - On both EC2 instances
+
+### **EC2 Setup**
+```bash
+# Instance 1: Manager Node
+# Instance 2: Worker Node
+# Both should have Docker installed
+```
+
+### **Security Group Rules**
+Add these rules to both EC2 security groups:
+```
+Type: SSH, Port: 22, Source: Your IP
+Type: HTTP, Port: 80, Source: 0.0.0.0/0
+Type: Custom TCP, Port: 8080, Source: 0.0.0.0/0
+Type: Custom TCP, Port: 2377, Source: Security Group ID
+Type: Custom TCP, Port: 7946, Source: Security Group ID  
+Type: Custom UDP, Port: 7946, Source: Security Group ID
+Type: Custom UDP, Port: 4789, Source: Security Group ID
+```
+
+### **Docker Installation (Both EC2s)**
+```bash
+# Amazon Linux 2
+sudo yum update -y
+sudo yum install docker -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+# Log out and log back in
+```
+
+---
+
 ## 📁 Module Structure
 
 ### **[6.1 Swarm Basics](./6.1_swarm_basics/)**
@@ -38,32 +77,31 @@ Docker Swarm is Docker's built-in orchestration tool that manages multiple conta
 
 ## 🚀 Quick Start
 
-### **Initialize Swarm**
+### **Step 1: Initialize Swarm (Manager Node)**
 ```bash
-# Initialize Docker Swarm
+# On EC2-1 (Manager)
 docker swarm init
 
-# Check swarm status
+# Get join token
+docker swarm join-token worker
+```
+
+### **Step 2: Join Worker Node**
+```bash
+# On EC2-2 (Worker) - use token from Step 1
+docker swarm join --token SWMTKN-1-xxxxx <manager-private-ip>:2377
+
+# Verify on manager
 docker node ls
 ```
 
-### **Deploy Service**
+### **Step 3: Deploy Service**
 ```bash
-# Deploy simple web service
+# Deploy service across both nodes
 docker service create --name web --publish 8080:80 --replicas 3 nginx
 
-# Check service
-docker service ls
+# Check service distribution
 docker service ps web
-```
-
-### **Scale Service**
-```bash
-# Scale up
-docker service scale web=5
-
-# Scale down
-docker service scale web=2
 ```
 
 ---
