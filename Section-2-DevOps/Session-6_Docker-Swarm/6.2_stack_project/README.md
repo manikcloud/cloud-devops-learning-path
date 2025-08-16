@@ -1,242 +1,73 @@
-# 🐝 Docker Stack Project - Multi-Service App
+# 🐝 Docker Stack Project - Simple Demo
 
 ## 📖 What is Docker Stack?
 
-Docker Stack is a feature that allows you to deploy and manage multi-service applications in Docker Swarm mode using a single `docker-compose.yml` file.
+Docker Stack deploys multiple services together using a single docker-compose.yml file.
 
-### **Key Concepts:**
-
-#### **🔄 Stack vs Service vs Container**
-- **Container** - Single running instance of an image
-- **Service** - One or more containers of the same image (replicas)
-- **Stack** - Group of related services that work together
-
-#### **🎯 Why Use Docker Stack?**
-- **Multi-Service Apps** - Deploy web + database + cache together
-- **Single Command** - Deploy entire application stack at once
-- **Service Dependencies** - Services can communicate by name
-- **Declarative** - Define desired state in YAML file
-- **Version Control** - Track changes to your application architecture
-
-#### **📋 Stack vs Docker Compose**
-| Feature | Docker Compose | Docker Stack |
-|---------|----------------|--------------|
-| **Environment** | Single host | Swarm cluster |
-| **Scaling** | Manual | Automatic |
-| **Load Balancing** | External | Built-in |
-| **High Availability** | No | Yes |
-| **Production Ready** | Development | Production |
-
-### **🌐 How Stack Works**
-```
-docker stack deploy -c docker-compose.yml mystack
-                    ↓
-            Creates Services
-                    ↓
-        Distributes Across Nodes
-                    ↓
-          Load Balances Traffic
-```
+**Stack = Multiple Services Working Together**
 
 ---
 
-## 🚀 PHP Login Application Stack
-
-This project deploys a complete PHP login application with MariaDB database using Docker Stack.
-
-### **Application Features:**
-- **User Registration** - Create new user accounts
-- **User Login** - Authenticate existing users
-- **Password Hashing** - Secure password storage
-- **MariaDB Integration** - Lightweight MySQL-compatible database
-- **Container Info** - Shows which container serves the request
-- **Load Balancing** - 2 PHP replicas distribute traffic
-
----
-
-## 🚀 Quick Steps
+## 🚀 Simple Steps
 
 ### **Step 1: Clone Repository**
 ```bash
-# Clone the repository
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-
-# Navigate to stack project
 cd cloud-devops-learning-path/Section-2-DevOps/Session-6_Docker-Swarm/6.2_stack_project
-
-# Check files
-ls -la
 ```
 
 ### **Step 2: Initialize Swarm**
 ```bash
-# Initialize swarm (if not already done)
 docker swarm init
-
-# Verify swarm
-docker node ls
 ```
 
-### **Step 3: Build Custom Image**
+### **Step 3: Deploy Stack**
 ```bash
-# Build PHP image with MySQL support
-docker build -t php-mysql-app .
-
-# Verify image is built
-docker images | grep php-mysql-app
+docker stack deploy -c docker-compose.yml mystack
 ```
 
-### **Step 4: Deploy Stack**
+### **Step 4: Check Stack**
 ```bash
-# Deploy PHP + MySQL stack
-docker stack deploy -c docker-compose.yml loginapp
-
-# Check stack
+# View stack
 docker stack ls
+
+# View services
+docker stack services mystack
+
+# View containers
+docker service ps mystack_web
+docker service ps mystack_db
 ```
 
-### **Step 5: Check Services**
+### **Step 5: Test**
 ```bash
-# List stack services
-docker stack services loginapp
-
-# Check service details
-docker service ps loginapp_web
-docker service ps loginapp_db
-```
-
-### **Step 6: Test Application**
-```bash
-# Wait for services to be ready (30-60 seconds)
-sleep 60
-
-# Access login application
+# Access web service
 curl http://localhost:8080
 
-# Or open in browser: http://localhost:8080
+# Or open browser: http://localhost:8080
 ```
 
 ---
 
 ## 🔧 Stack Management
 
-### **Test Login Application**
-```bash
-# Test with sample users:
-# Username: admin, Password: admin123
-# Username: testuser, Password: test123
-
-# Or register new users through the web interface
-
-# View database users for validation:
-# http://localhost:8080/users.php
-```
-
-### **View Stack Info**
-```bash
-# List all stacks
-docker stack ls
-
-# List services in stack
-docker stack services loginapp
-
-# Check service logs
-docker service logs loginapp_web
-docker service logs loginapp_db
-```
-
-### **Scale Services**
 ```bash
 # Scale web service
-docker service scale loginapp_web=4
+docker service scale mystack_web=5
 
-# Check scaling
-docker service ps loginapp_web
-```
-
-### **Remove Stack**
-```bash
-# Remove entire stack
-docker stack rm loginapp
-
-# Verify removal
-docker stack ls
+# Remove stack
+docker stack rm mystack
 ```
 
 ---
 
-## 📋 What's Included
+## 📋 What This Demo Shows
 
-### **Services:**
-- **Web Service** - 2 PHP-Apache replicas on port 8080
-- **Database Service** - 1 MariaDB replica with sample users
-
-### **Network:**
-- **Overlay Network** - Services can communicate by name
-- **webnet** - Custom network for the stack
-
-### **Stack Benefits in This Project:**
-- **Single Command Deployment** - `docker stack deploy -c docker-compose.yml loginapp`
-- **Service Discovery** - PHP app connects to database using hostname `db`
-- **Load Balancing** - Traffic distributed across 2 PHP replicas
-- **High Availability** - If one container fails, others continue
-- **Data Persistence** - Database initialization with sample users
-- **Real Application** - Functional login system with user registration
-- **MariaDB Stability** - More reliable than MySQL in containers
+- **Multi-Service Deployment** - Web + Database together
+- **Load Balancing** - 3 nginx replicas
+- **Service Discovery** - Services can talk to each other
+- **Single Command** - Deploy entire stack at once
 
 ---
 
-## 📁 Project Files
-
-```
-6.2_stack_project/
-├── docker-compose.yml     # Stack definition (PHP + MariaDB)
-├── Dockerfile            # Custom PHP image with MySQL support
-├── init.sql              # Database initialization script
-├── app/                  # PHP application files
-│   ├── index.php        # Login application
-│   └── users.php        # Database validation page
-└── README.md            # This guide
-```
-
-### **Application Pages:**
-- **http://localhost:8080/** - Login/Register page
-- **http://localhost:8080/users.php** - Database users validation page
-
-### **Sample Users:**
-- **Username:** admin, **Password:** admin123
-- **Username:** testuser, **Password:** test123
-
----
-
-## 🎯 Real-World Stack Examples
-
-### **E-commerce Application Stack:**
-```yaml
-services:
-  frontend:    # React/Angular app
-  backend:     # Node.js/Python API
-  database:    # PostgreSQL/MySQL
-  cache:       # Redis
-  search:      # Elasticsearch
-```
-
-### **Monitoring Stack:**
-```yaml
-services:
-  prometheus:  # Metrics collection
-  grafana:     # Visualization
-  alertmanager: # Alerting
-  node-exporter: # System metrics
-```
-
-### **Our Simple Stack:**
-```yaml
-services:
-  web:         # Nginx web server
-  db:          # MySQL database
-```
-
----
-
-*Simple multi-service deployment with Docker Stack!* 🚀
+*Simple Docker Stack demo!* 🚀

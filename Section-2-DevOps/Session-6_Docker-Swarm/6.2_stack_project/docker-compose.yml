@@ -2,28 +2,18 @@ version: '3.8'
 
 services:
   web:
-    image: php-mysql-app
+    image: nginx:alpine
     ports:
       - "8080:80"
-    depends_on:
-      - db
     deploy:
-      replicas: 2
+      replicas: 3
     networks:
       - webnet
-    environment:
-      - DB_HOST=db
-      - DB_NAME=loginapp
-      - DB_USER=root
-      - DB_PASS=password123
 
   db:
     image: mariadb:10.6
     environment:
       MARIADB_ROOT_PASSWORD: password123
-      MARIADB_DATABASE: loginapp
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     deploy:
       replicas: 1
     networks:
