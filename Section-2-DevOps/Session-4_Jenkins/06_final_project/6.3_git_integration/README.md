@@ -195,27 +195,6 @@ http://98.86.230.111:8080/github-webhook/
    ⚠️ Note: Use proper authorization in production
    ```
 
-#### **Step 7: Firewall Configuration**
-
-**Ubuntu/Amazon Linux:**
-```bash
-# Allow Jenkins port
-sudo ufw allow 8080
-# OR for iptables
-sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
-
-# Verify port is accessible
-curl -I http://YOUR_SERVER_IP:8080
-```
-
-**AWS Security Group:**
-```yaml
-Type: Custom TCP
-Port: 8080
-Source: 0.0.0.0/0 (for webhook access)
-Description: Jenkins webhook access
-```
-
 ---
 
 ### **Phase 5: Testing & Validation**
@@ -301,25 +280,6 @@ Authorization: "Anyone can do anything" (for testing)
 
 # Or create API token:
 User → Configure → API Token → Add new Token
-```
-
-#### **Issue 3: Firewall/Network Issues**
-
-**Symptoms:**
-- Connection timeout
-- Network unreachable
-
-**Solutions:**
-```bash
-# Check port accessibility
-telnet YOUR_JENKINS_IP 8080
-
-# AWS Security Group
-# Ensure port 8080 is open to 0.0.0.0/0
-
-# Local firewall
-sudo ufw status
-sudo ufw allow 8080
 ```
 
 ---
