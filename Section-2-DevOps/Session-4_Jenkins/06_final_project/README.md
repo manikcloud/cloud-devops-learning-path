@@ -132,7 +132,8 @@ This capstone project demonstrates a **complete DevOps implementation** using in
 - **Maven 3.6+** - Build automation and dependency management
 - **Git** - Version control system
 - **Jenkins 2.400+** - CI/CD automation server
-- **Tomcat 9.0.108+** - Web application server (Latest: 9.0.108, Alternative: 10.1.44)
+- **Jetty 11.0.24+** - Lightweight web server (Recommended)
+- **Tomcat 9.0.108+** - Alternative web application server
 
 ### **☁️ Cloud Platform Support**
 - **AWS EC2** - Amazon Linux 2/2023, Ubuntu instances
@@ -221,6 +222,20 @@ sudo apt install openjdk-11-jdk maven git -y
 java -version && mvn -version && git --version
 ```
 
+#### **Step 4: Install Jetty (Recommended)**
+```bash
+# Install Jetty
+sudo apt install jetty9 -y
+
+# Start and enable Jetty
+sudo systemctl enable jetty9
+sudo systemctl start jetty9
+sudo systemctl status jetty9
+```
+
+<details>
+<summary><strong>🔧 Alternative: Tomcat Installation (Click to expand)</strong></summary>
+
 #### **Tomcat 9 Installation**
 ```bash
 # Install Tomcat 9
@@ -256,6 +271,8 @@ sudo journalctl -u tomcat9 -f
 # OR
 sudo tail -f /var/log/tomcat9/catalina.out
 ```
+
+</details>
 ```
 
 ### **🔴 Amazon Linux/RHEL Systems**
@@ -272,6 +289,23 @@ sudo dnf update -y
 sudo yum install java-11-amazon-corretto-devel maven git -y
 # OR for AL2023: sudo dnf install java-11-amazon-corretto-devel maven git -y
 ```
+
+#### **Install Jetty (Recommended)**
+```bash
+# Download and install Jetty
+cd /tmp
+wget https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-home/11.0.24/jetty-home-11.0.24.tar.gz
+sudo tar -xzf jetty-home-11.0.24.tar.gz -C /opt/
+sudo mv /opt/jetty-home-11.0.24 /opt/jetty
+sudo useradd -r -s /bin/false jetty
+sudo chown -R jetty:jetty /opt/jetty
+
+# For this project, we'll use Maven Jetty plugin instead
+# This provides easier development and deployment
+```
+
+<details>
+<summary><strong>🔧 Alternative: Tomcat Installation (Click to expand)</strong></summary>
 
 #### **Tomcat 9 Manual Installation**
 
@@ -347,7 +381,41 @@ sudo systemctl disable tomcat
 sudo journalctl -u tomcat -f
 ```
 
+</details>
+
 ---
+
+## 🚀 Jetty Configuration & Usage
+
+## 🚀 Jetty Configuration & Usage
+
+### **🎯 Why Jetty for This Project?**
+- **Lightweight** - Faster startup and lower memory usage
+- **Maven Integration** - Built-in Maven plugin for easy development
+- **Development Friendly** - Hot reload and quick testing
+- **Production Ready** - Scales well for enterprise applications
+
+### **🔧 Running with Maven Jetty Plugin**
+```bash
+# Navigate to project directory
+cd your-project-directory
+
+# Run with Jetty (default port 8080)
+mvn jetty:run
+
+# Run with custom port
+mvn jetty:run -Djetty.port=8090
+
+# Run in background
+mvn jetty:run &
+
+# Stop Jetty
+Ctrl+C (if running in foreground)
+# OR kill the process if running in background
+```
+
+<details>
+<summary><strong>🔧 Tomcat Service Management (Click to expand)</strong></summary>
 
 ## 🔧 Tomcat Service Management
 
@@ -417,6 +485,8 @@ ps aux | grep tomcat
 # Check port usage
 sudo netstat -tlnp | grep 8090
 ```
+
+</details>
 
 ---
 
