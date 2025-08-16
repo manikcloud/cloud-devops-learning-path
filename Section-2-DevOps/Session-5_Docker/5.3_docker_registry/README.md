@@ -65,16 +65,4 @@ docker search nginx
 
 ---
 
-## 🚀 Use the Script
-
-```bash
-# Make script executable
-chmod +x push-to-hub.sh
-
-# Run script
-./push-to-hub.sh
-```
-
----
-
 *Share your Docker images with the world!* 🚀

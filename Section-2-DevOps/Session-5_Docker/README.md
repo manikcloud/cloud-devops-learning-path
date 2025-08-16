@@ -39,7 +39,6 @@ This module will help you **master the core fundamentals of continuous deploymen
 
 ### **[5.3 Docker Registry](./5.3_docker_registry/)**
 - **[Docker Hub Guide](./5.3_docker_registry/README.md)** - Push images to Docker Hub
-- **[Push Script](./5.3_docker_registry/push-to-hub.sh)** - Automated push to Docker Hub
 
 ---
 
