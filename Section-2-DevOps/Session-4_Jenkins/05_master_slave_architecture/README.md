@@ -65,42 +65,36 @@ sudo yum install java-17-amazon-corretto -y
 # Verify Java installation
 java -version
 
-# Create jenkins user
-sudo useradd -m jenkins
-
-# Create SSH directory for jenkins user
-sudo mkdir -p /home/jenkins/.ssh
-sudo chown jenkins:jenkins /home/jenkins/.ssh
-sudo chmod 700 /home/jenkins/.ssh
+# Create workspace directory for Jenkins (using ec2-user)
+mkdir -p /home/ec2-user/jenkins-workspace
 ```
 
-### **Step 2: Generate SSH Keys on Master**
+### **Step 2: Use Existing SSH Keys**
 
-**On Jenkins Master (98.86.230.111):**
+**No need to create new keys! Use your existing EC2 SSH setup:**
 
 ```bash
-# Switch to jenkins user
-sudo su - jenkins
+# On Jenkins Master, you already have access via ec2-user
+# Test SSH connection to slave (replace with your slave IP)
+ssh -i /path/to/your/key.pem ec2-user@YOUR_SLAVE_IP
 
-# Generate SSH key pair
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/jenkins_slave_key
-
-# Display public key (copy this)
-cat ~/.ssh/jenkins_slave_key.pub
+# Example:
+# ssh -i ~/.ssh/my-key.pem ec2-user@10.0.1.100
 ```
 
-### **Step 3: Configure SSH Access**
+### **Step 3: Configure Jenkins Master SSH**
 
-**On Slave Server:**
+**Copy your existing SSH key to Jenkins user on master:**
 
 ```bash
-# Add master's public key to slave
-sudo su - jenkins
-echo "PASTE_PUBLIC_KEY_HERE" >> ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
+# On Jenkins Master (98.86.230.111)
+sudo mkdir -p /var/lib/jenkins/.ssh
+sudo cp /home/ec2-user/.ssh/your-key.pem /var/lib/jenkins/.ssh/
+sudo chown jenkins:jenkins /var/lib/jenkins/.ssh/your-key.pem
+sudo chmod 600 /var/lib/jenkins/.ssh/your-key.pem
 
-# Test SSH connection from master
-# ssh -i ~/.ssh/jenkins_slave_key jenkins@YOUR_SLAVE_IP
+# Or if you have the key locally, copy it:
+# sudo cp /path/to/your/key.pem /var/lib/jenkins/.ssh/
 ```
 
 ### **Step 4: Add Slave Node in Jenkins**
@@ -114,22 +108,22 @@ chmod 600 ~/.ssh/authorized_keys
 
 2. **Add New Node:**
    ```
-   New Node → Node name: "slave-node-1" → Permanent Agent → OK
+   New Node → Node name: "ec2-slave-1" → Permanent Agent → OK
    ```
 
-3. **Configure Node:**
+3. **Configure Node (Using ec2-user):**
    ```yaml
-   Name: slave-node-1
-   Description: Simple Hello World Slave
+   Name: ec2-slave-1
+   Description: EC2 Slave using ec2-user
    Number of executors: 2
-   Remote root directory: /home/jenkins
-   Labels: linux slave hello-world
+   Remote root directory: /home/ec2-user/jenkins-workspace
+   Labels: ec2 slave linux
    Usage: Use this node as much as possible
    Launch method: Launch agents via SSH
    Host: YOUR_SLAVE_IP
    Credentials: Add → SSH Username with private key
-     Username: jenkins
-     Private Key: Enter directly → [Paste private key content]
+     Username: ec2-user
+     Private Key: Enter directly → [Paste your .pem key content]
    Host Key Verification Strategy: Non verifying Verification Strategy
    ```
 
@@ -146,38 +140,34 @@ chmod 600 ~/.ssh/authorized_keys
 
 1. **New Pipeline:**
    ```
-   Jenkins Dashboard → New Item → Pipeline → Name: "hello-world-slave"
+   Jenkins Dashboard → New Item → Pipeline → Name: "hello-world-ec2-slave"
    ```
 
-2. **Pipeline Script:**
+2. **Pipeline Script (Updated for ec2-user):**
    ```groovy
    pipeline {
        agent {
-           label 'slave'
+           label 'ec2'
        }
        
        stages {
-           stage('Hello from Slave') {
+           stage('Hello from EC2 Slave') {
                steps {
                    script {
-                       echo "🎉 Hello World from Jenkins Slave!"
+                       echo "🎉 Hello World from EC2 Jenkins Slave!"
                        echo "Running on: ${env.NODE_NAME}"
                        echo "Workspace: ${env.WORKSPACE}"
-                       
-                       // Show system info
-                       sh 'hostname'
-                       sh 'whoami'
-                       sh 'pwd'
-                       sh 'date'
-                       sh 'uname -a'
+                       echo "User: ec2-user (no need for separate jenkins user!)"
                    }
                }
            }
            
            stage('Simple Commands') {
                steps {
-                   echo "Executing simple commands on slave..."
-                   sh 'echo "This is running on the slave node!"'
+                   echo "Executing simple commands on EC2 slave..."
+                   sh 'echo "This is running on EC2 slave with ec2-user!"'
+                   sh 'whoami'
+                   sh 'pwd'
                    sh 'ls -la'
                    sh 'df -h'
                    sh 'free -m'
@@ -187,10 +177,12 @@ chmod 600 ~/.ssh/authorized_keys
            stage('Create Test File') {
                steps {
                    sh '''
-                   echo "Hello from Jenkins Slave Node!" > hello-slave.txt
-                   echo "Generated on: $(date)" >> hello-slave.txt
-                   echo "Hostname: $(hostname)" >> hello-slave.txt
-                   cat hello-slave.txt
+                   echo "Hello from EC2 Jenkins Slave!" > hello-ec2-slave.txt
+                   echo "Generated on: $(date)" >> hello-ec2-slave.txt
+                   echo "Hostname: $(hostname)" >> hello-ec2-slave.txt
+                   echo "User: $(whoami)" >> hello-ec2-slave.txt
+                   echo "Working Directory: $(pwd)" >> hello-ec2-slave.txt
+                   cat hello-ec2-slave.txt
                    '''
                }
            }
@@ -198,10 +190,11 @@ chmod 600 ~/.ssh/authorized_keys
        
        post {
            success {
-               echo "✅ Hello World pipeline completed successfully on slave!"
+               echo "✅ Hello World pipeline completed successfully on EC2 slave!"
+               echo "Using existing ec2-user - much simpler setup!"
            }
            failure {
-               echo "❌ Pipeline failed on slave node"
+               echo "❌ Pipeline failed on EC2 slave node"
            }
        }
    }
@@ -215,8 +208,11 @@ chmod 600 ~/.ssh/authorized_keys
 
 #### **SSH Connection Failed:**
 ```bash
-# Check SSH connectivity from master
-ssh -i ~/.ssh/jenkins_slave_key jenkins@YOUR_SLAVE_IP
+# Test SSH connectivity from master using your existing key
+ssh -i /path/to/your/key.pem ec2-user@YOUR_SLAVE_IP
+
+# Example:
+ssh -i ~/.ssh/my-key.pem ec2-user@10.0.1.100
 
 # Verify SSH service on slave
 sudo systemctl status sshd
@@ -235,10 +231,20 @@ which java
 
 #### **Permission Issues:**
 ```bash
-# Fix jenkins user permissions
-sudo chown -R jenkins:jenkins /home/jenkins
-sudo chmod 700 /home/jenkins/.ssh
-sudo chmod 600 /home/jenkins/.ssh/authorized_keys
+# Ensure ec2-user has proper permissions
+sudo chown -R ec2-user:ec2-user /home/ec2-user/jenkins-workspace
+chmod 755 /home/ec2-user/jenkins-workspace
+
+# Check Jenkins master key permissions
+sudo chmod 600 /var/lib/jenkins/.ssh/your-key.pem
+sudo chown jenkins:jenkins /var/lib/jenkins/.ssh/your-key.pem
+```
+
+#### **Security Group Issues:**
+```bash
+# Ensure SSH port 22 is open between master and slave
+# In AWS Console: Security Groups → Edit inbound rules
+# Add rule: SSH (22) from Master's security group or IP
 ```
 
 ---
@@ -249,24 +255,25 @@ sudo chmod 600 /home/jenkins/.ssh/authorized_keys
 
 1. **Check Node Status:**
    ```
-   Jenkins → Manage Nodes → slave-node-1 should show "In sync"
+   Jenkins → Manage Nodes → ec2-slave-1 should show "In sync"
    ```
 
 2. **Run Hello World Pipeline:**
    ```
    Build Now → Check Console Output
-   Should show: "Running on slave-node-1"
+   Should show: "Running on ec2-slave-1"
    ```
 
 3. **Expected Output:**
    ```
-   🎉 Hello World from Jenkins Slave!
-   Running on: slave-node-1
-   Workspace: /home/jenkins/workspace/hello-world-slave
-   [slave-node-1] $ hostname
+   🎉 Hello World from EC2 Jenkins Slave!
+   Running on: ec2-slave-1
+   Workspace: /home/ec2-user/jenkins-workspace/hello-world-ec2-slave
+   User: ec2-user (no need for separate jenkins user!)
+   [ec2-slave-1] $ whoami
+   ec2-user
+   [ec2-slave-1] $ hostname
    YOUR_SLAVE_HOSTNAME
-   [slave-node-1] $ whoami
-   jenkins
    ```
 
 ---
@@ -274,11 +281,19 @@ sudo chmod 600 /home/jenkins/.ssh/authorized_keys
 ## 🏆 Success Indicators
 
 ### **✅ Setup Complete When:**
-- Slave node shows "In sync" status
-- Hello World pipeline runs on slave
+- EC2 slave node shows "In sync" status
+- Hello World pipeline runs on ec2-user
 - Console output shows slave hostname
-- Files created in slave workspace
+- Files created in `/home/ec2-user/jenkins-workspace/`
 - No SSH connection errors
+- **Much simpler than creating separate jenkins user!**
+
+### **🎉 Advantages of Using ec2-user:**
+- ✅ **No new user creation** - Use existing EC2 setup
+- ✅ **Existing SSH keys** - No key generation needed
+- ✅ **Familiar environment** - Same user you always use
+- ✅ **Simpler permissions** - No complex user management
+- ✅ **Faster setup** - Skip user creation steps
 
 ### **🎉 Congratulations!**
 You've successfully set up Jenkins Master-Slave architecture with a working Hello World pipeline!

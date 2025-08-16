@@ -1,26 +1,27 @@
 pipeline {
     agent {
-        label 'slave'
+        label 'ec2'
     }
-    // Pipeline runs on any slave node with 'slave' label
+    // Pipeline runs on any slave node with 'ec2' label (using ec2-user)
     
     stages {
-        stage('Hello from Slave') {
+        stage('Hello from EC2 Slave') {
             steps {
                 script {
-                    echo "🎉 Hello World from Jenkins Slave!"
+                    echo "🎉 Hello World from EC2 Jenkins Slave!"
                     echo "Running on: ${env.NODE_NAME}"
                     echo "Workspace: ${env.WORKSPACE}"
                     echo "Build Number: ${env.BUILD_NUMBER}"
                     echo "Job Name: ${env.JOB_NAME}"
+                    echo "User: ec2-user (using existing EC2 user - much simpler!)"
                 }
             }
         }
-        // First stage: Display basic information about the slave node
+        // First stage: Display basic information about the EC2 slave node
         
         stage('System Information') {
             steps {
-                echo "Gathering system information from slave..."
+                echo "Gathering system information from EC2 slave..."
                 sh 'echo "=== HOSTNAME ==="'
                 sh 'hostname'
                 sh 'echo "=== USER ==="'
@@ -31,52 +32,57 @@ pipeline {
                 sh 'date'
                 sh 'echo "=== SYSTEM INFO ==="'
                 sh 'uname -a'
+                sh 'echo "=== AWS INSTANCE METADATA ==="'
+                sh 'curl -s http://169.254.169.254/latest/meta-data/instance-id || echo "Not on AWS or metadata not available"'
             }
         }
-        // Second stage: Show system details from the slave node
+        // Second stage: Show system details from the EC2 slave node
         
         stage('Simple Commands') {
             steps {
-                echo "Executing simple commands on slave node..."
-                sh 'echo "This command is running on the slave node!"'
+                echo "Executing simple commands on EC2 slave node..."
+                sh 'echo "This command is running on the EC2 slave with ec2-user!"'
                 sh 'echo "=== DIRECTORY LISTING ==="'
                 sh 'ls -la'
                 sh 'echo "=== DISK USAGE ==="'
                 sh 'df -h'
                 sh 'echo "=== MEMORY USAGE ==="'
                 sh 'free -m'
+                sh 'echo "=== NETWORK INFO ==="'
+                sh 'ip addr show | grep inet || ifconfig | grep inet'
             }
         }
-        // Third stage: Execute basic Linux commands on slave
+        // Third stage: Execute basic Linux commands on EC2 slave
         
         stage('Create Test File') {
             steps {
-                echo "Creating test file on slave node..."
+                echo "Creating test file on EC2 slave node..."
                 sh '''
                 echo "=== CREATING HELLO FILE ==="
-                echo "Hello from Jenkins Slave Node!" > hello-slave.txt
-                echo "Generated on: $(date)" >> hello-slave.txt
-                echo "Hostname: $(hostname)" >> hello-slave.txt
-                echo "User: $(whoami)" >> hello-slave.txt
-                echo "Working Directory: $(pwd)" >> hello-slave.txt
+                echo "Hello from EC2 Jenkins Slave Node!" > hello-ec2-slave.txt
+                echo "Generated on: $(date)" >> hello-ec2-slave.txt
+                echo "Hostname: $(hostname)" >> hello-ec2-slave.txt
+                echo "User: $(whoami)" >> hello-ec2-slave.txt
+                echo "Working Directory: $(pwd)" >> hello-ec2-slave.txt
+                echo "Instance ID: $(curl -s http://169.254.169.254/latest/meta-data/instance-id 2>/dev/null || echo 'Not available')" >> hello-ec2-slave.txt
                 echo ""
                 echo "=== FILE CONTENTS ==="
-                cat hello-slave.txt
+                cat hello-ec2-slave.txt
                 echo ""
                 echo "=== FILE CREATED SUCCESSFULLY ==="
-                ls -la hello-slave.txt
+                ls -la hello-ec2-slave.txt
                 '''
             }
         }
-        // Fourth stage: Create and display a test file on slave
+        // Fourth stage: Create and display a test file on EC2 slave
         
         stage('Cleanup') {
             steps {
                 echo "Cleaning up test files..."
                 sh '''
-                if [ -f hello-slave.txt ]; then
-                    echo "Removing hello-slave.txt"
-                    rm hello-slave.txt
+                if [ -f hello-ec2-slave.txt ]; then
+                    echo "Removing hello-ec2-slave.txt"
+                    rm hello-ec2-slave.txt
                     echo "Cleanup completed"
                 else
                     echo "No files to clean up"
@@ -91,7 +97,8 @@ pipeline {
         success {
             script {
                 echo "✅ SUCCESS: Hello World pipeline completed successfully!"
-                echo "Pipeline executed on slave node: ${env.NODE_NAME}"
+                echo "Pipeline executed on EC2 slave node: ${env.NODE_NAME}"
+                echo "Using ec2-user - much simpler than creating separate jenkins user!"
                 echo "Total build time: ${currentBuild.durationString}"
             }
         }
@@ -99,7 +106,7 @@ pipeline {
         
         failure {
             script {
-                echo "❌ FAILURE: Pipeline failed on slave node"
+                echo "❌ FAILURE: Pipeline failed on EC2 slave node"
                 echo "Failed on node: ${env.NODE_NAME}"
                 echo "Check the console output for error details"
             }
@@ -109,6 +116,7 @@ pipeline {
         always {
             echo "🏁 Pipeline execution completed on ${env.NODE_NAME}"
             echo "This message always appears regardless of build result"
+            echo "EC2 slave setup using existing ec2-user is much more practical!"
         }
         // Always block: Runs regardless of success or failure
     }
