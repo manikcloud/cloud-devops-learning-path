@@ -517,6 +517,17 @@ sudo netstat -tlnp | grep :8090
 
 # 4. Test manager access manually
 curl -u admin:admin http://98.86.230.111:8090/manager/text/list
+
+# 5. If curl works but Jenkins deployment fails, check Jenkins credentials
+# Ensure Jenkins credential ID 'tomcat-9' matches exactly
+# Verify username: admin, password: admin
+
+# 6. Check WAR file exists in Jenkins workspace
+# In Jenkins build logs, look for: target/addressbook.war
+
+# 7. Test manual deployment via curl
+curl -u admin:admin -T target/addressbook.war \
+"http://98.86.230.111:8090/manager/text/deploy?path=/addressbook&update=true"
 ```
 
 **Solution for Ubuntu:**
@@ -524,6 +535,40 @@ curl -u admin:admin http://98.86.230.111:8090/manager/text/list
 # Same steps but use different paths:
 sudo cat /etc/tomcat9/tomcat-users.xml
 sudo systemctl restart tomcat9
+```
+
+#### **Issue: Manager Access Works But Jenkins Deployment Fails**
+**When curl works but Jenkins pipeline fails:**
+
+**Check Jenkins Deployment Configuration:**
+```yaml
+# Verify in Jenkins pipeline:
+deploy adapters: [tomcat9(
+    credentialsId: 'tomcat-9',     # Must match exactly
+    path: '',                      # Leave empty
+    url: "http://98.86.230.111:8090"  # Your server IP
+)], 
+contextPath: "/addressbook",       # Application context
+war: '**/target/*.war'            # WAR file pattern
+```
+
+**Debug Steps:**
+```bash
+# 1. Check Jenkins credentials
+# Go to: Manage Jenkins → Manage Credentials
+# Verify: ID = 'tomcat-9', Username = 'admin', Password = 'admin'
+
+# 2. Check WAR file in Jenkins workspace
+# In Jenkins build console, verify:
+ls -la target/*.war
+
+# 3. Test deployment manually from Jenkins server
+cd /var/lib/jenkins/workspace/AddressBook-Pipeline/Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline
+curl -u admin:admin -T target/addressbook.war \
+"http://98.86.230.111:8090/manager/text/deploy?path=/addressbook&update=true"
+
+# 4. Check Tomcat logs for deployment errors
+sudo tail -f /opt/tomcat/latest/logs/catalina.out
 ```
 
 ---

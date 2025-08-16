@@ -73,6 +73,12 @@ pipeline {
                         echo "Target URL: http://${SERVER_IP}:${TOMCAT_PORT}"
                         echo "WAR file: target/addressbook.war"
                         echo "Context path: /${APP_CONTEXT}"
+                        
+                        // Verify WAR file exists
+                        sh "ls -la target/*.war"
+                        
+                        // Test Tomcat manager connectivity
+                        sh "curl -u admin:admin http://${SERVER_IP}:${TOMCAT_PORT}/manager/text/list"
                     }
                     
                     deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: "http://${SERVER_IP}:${TOMCAT_PORT}")], 
@@ -82,6 +88,9 @@ pipeline {
                     script {
                         echo "Deployment completed successfully!"
                         echo "Application URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
+                        
+                        // Verify deployment
+                        sh "curl -I http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
                     }
                 }
             }
