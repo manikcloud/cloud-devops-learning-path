@@ -22,7 +22,24 @@ This module will help you **master the core fundamentals of continuous deploymen
 - **Container Management** - Creating, running, and managing containers
 - **Image Creation** - Building custom Docker images
 - **Networking** - Container networking and communication
-- **Docker Compose** - Multi-container applications
+
+---
+
+## 📁 Module Structure
+
+### **[5.1 Docker Basics](./5.1_docker_basics/)**
+- **[Docker Commands & Networking Guide](./5.1_docker_basics/README.md)** - Essential commands and networking concepts
+
+### **[5.2 Docker Project](./5.2_docker_project/)**
+- **[Address Book Application](./5.2_docker_project/README.md)** - Complete containerization project
+- **[Dockerfile](./5.2_docker_project/Dockerfile)** - Container definition
+- **[Build Script](./5.2_docker_project/simple-build.sh)** - Automated build and deployment
+- **[Maven Configuration](./5.2_docker_project/pom.xml)** - Java project configuration
+- **[Source Code](./5.2_docker_project/src/)** - Java application source
+
+### **[5.3 Docker Registry](./5.3_docker_registry/)**
+- **[Docker Hub Guide](./5.3_docker_registry/README.md)** - Push images to Docker Hub
+- **[Push Script](./5.3_docker_registry/push-to-hub.sh)** - Automated push to Docker Hub
 
 ---
 
@@ -152,25 +169,22 @@ docker run hello-world
 
 ## 🚀 Hands-On Projects
 
-### **Project 1: First Container**
-- Install Docker
-- Run your first container
-- Basic container operations
+### **[Project 1: Docker Basics](./5.1_docker_basics/)**
+- Learn essential Docker commands
+- Understand container networking
+- Practice with real examples
 
-### **Project 2: Custom Application**
-- Create a simple web application
-- Write a Dockerfile
-- Build and run custom image
+### **[Project 2: Address Book Application](./5.2_docker_project/)**
+- Containerize a Java web application
+- Use Tomcat as application server
+- Build and deploy with Docker
+- Access at: http://localhost:9090/addressbook/
 
-### **Project 3: Multi-Container App**
-- Design multi-service application
-- Create Docker Compose file
-- Deploy and manage services
-
-### **Project 4: Registry Operations**
+### **[Project 3: Docker Hub Registry](./5.3_docker_registry/)**
 - Push images to Docker Hub
-- Set up local registry
-- Manage image versions
+- Share containerized applications
+- Pull and run images from registry
+- Learn image tagging and versioning
 
 ---
 
@@ -219,31 +233,25 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Study Path
+## 🎯 Learning Path
 
-### **Week 1: Docker Fundamentals**
+### **Week 1: [Docker Fundamentals](./5.1_docker_basics/)**
 - Container concepts and benefits
 - Docker installation and setup
 - Basic container operations
 - Image management
 
-### **Week 2: Building Images**
+### **Week 2: [Building Images](./5.2_docker_project/)**
 - Dockerfile creation
 - Build process optimization
 - Custom image development
 - Best practices
 
-### **Week 3: Multi-Container Applications**
-- Docker Compose introduction
-- Service orchestration
-- Networking and volumes
-- Environment management
-
-### **Week 4: Registry and Deployment**
+### **Week 3: [Registry Operations](./5.3_docker_registry/)**
 - Docker Hub operations
-- Private registry setup
 - Image distribution
-- Production considerations
+- Tagging and versioning
+- Public and private repositories
 
 ---
 
