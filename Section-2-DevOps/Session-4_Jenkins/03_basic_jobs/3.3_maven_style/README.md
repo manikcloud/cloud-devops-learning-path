@@ -68,11 +68,11 @@ Master Jenkins Maven job creation using the **current repository** for advanced 
 
 ### **📁 Current Repository Integration**
 
-The Maven project will be created within your current repository structure:
+The Maven project will be created within your repository structure:
 
 ```bash
-# Navigate to the Maven style directory
-cd /home/k8s/cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.3_maven_style
+# Navigate to the Maven style directory (after Jenkins checkout)
+cd Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.3_maven_style
 
 # Create a comprehensive Maven project
 mvn archetype:generate \
@@ -129,7 +129,7 @@ maven-jenkins-app/
 ```yaml
 Source Code Management:
   ✅ Git
-  Repository URL: file:///home/k8s/cloud-devops-learning-path
+  Repository URL: https://github.com/manikcloud/cloud-devops-learning-path.git
   Branch Specifier: */main
   
   Additional Behaviours:
@@ -322,8 +322,8 @@ public class AppTest extends TestCase {
 Before creating the Jenkins job, test locally:
 
 ```bash
-# Navigate to the Maven project
-cd /home/k8s/cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.3_maven_style/maven-jenkins-app
+# Navigate to the Maven project (after repository checkout)
+cd Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.3_maven_style/maven-jenkins-app
 
 # Clean and compile
 mvn clean compile
@@ -369,8 +369,8 @@ Building in workspace /var/lib/jenkins/workspace/Maven-HelloWorld-CI
 The recommended git tool is: NONE
  > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/Maven-HelloWorld-CI/.git
 Fetching changes from the remote Git repository
- > git config remote.origin.url file:///home/k8s/cloud-devops-learning-path
- > git fetch --tags --force --progress -- file:///home/k8s/cloud-devops-learning-path +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/manikcloud/cloud-devops-learning-path.git
+ > git fetch --tags --force --progress -- https://github.com/manikcloud/cloud-devops-learning-path.git +refs/heads/*:refs/remotes/origin/*
  > git rev-parse refs/remotes/origin/main^{commit}
 Checking out Revision abc123... (refs/remotes/origin/main)
  > git config core.sparsecheckout

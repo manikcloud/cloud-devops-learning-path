@@ -97,11 +97,11 @@ Ensure your IAM user has these permissions:
 
 ### **📁 Current Repository Structure**
 
-The automation scripts are located in your current repository:
+The automation scripts are located in your repository:
 
 ```bash
-# Navigate to the parameterized job directory
-cd /home/k8s/cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.4_parameterized_job
+# Navigate to the parameterized job directory (after Jenkins checkout)
+cd Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.4_parameterized_job
 
 # View available scripts
 ls -la
@@ -190,7 +190,7 @@ Enable "This project is parameterized" and add these parameters:
 ```yaml
 Source Code Management:
   ✅ Git
-  Repository URL: file:///home/k8s/cloud-devops-learning-path
+  Repository URL: https://github.com/manikcloud/cloud-devops-learning-path.git
   Branch Specifier: */main
   
   Additional Behaviours:

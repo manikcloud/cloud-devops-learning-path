@@ -37,11 +37,11 @@ Create your first Jenkins Freestyle job using the **current repository's** Java 
 
 ### **📁 Repository Setup**
 
-The Java HelloWorld application is already available in your current repository:
+The Java HelloWorld application is already available in your repository:
 
 ```bash
-# Navigate to the Java application directory
-cd /home/k8s/cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.1_free_style/hello-world
+# Navigate to the Java application directory after Jenkins checkout
+cd Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.1_free_style/hello-world
 
 # View the Java source code
 cat HelloWorld.java
@@ -71,11 +71,8 @@ public class HelloWorld {
 ```yaml
 Source Code Management:
   ✅ Git
-  Repository URL: /home/k8s/cloud-devops-learning-path
+  Repository URL: https://github.com/manikcloud/cloud-devops-learning-path.git
   Branch Specifier: */main (or your current branch)
-  
-  # Alternative: Use file:// protocol
-  Repository URL: file:///home/k8s/cloud-devops-learning-path
 ```
 
 #### **Step 3: Configure Build Environment**
@@ -144,11 +141,11 @@ The recommended git tool is: NONE
 using credential 
  > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/HelloWorld-Freestyle/.git # timeout=10
 Fetching changes from the remote Git repository
- > git config remote.origin.url file:///home/k8s/cloud-devops-learning-path # timeout=10
-Fetching upstream changes from file:///home/k8s/cloud-devops-learning-path
+ > git config remote.origin.url https://github.com/manikcloud/cloud-devops-learning-path.git # timeout=10
+Fetching upstream changes from https://github.com/manikcloud/cloud-devops-learning-path.git
  > git --version # timeout=10
  > git --version # 'git version 2.34.1'
- > git fetch --tags --force --progress -- file:///home/k8s/cloud-devops-learning-path +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git fetch --tags --force --progress -- https://github.com/manikcloud/cloud-devops-learning-path.git +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
 Checking out Revision abc123def456... (refs/remotes/origin/main)
  > git config core.sparsecheckout # timeout=10

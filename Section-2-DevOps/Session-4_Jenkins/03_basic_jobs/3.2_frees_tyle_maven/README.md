@@ -85,8 +85,8 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 #### **Step 1: Generate Maven Project**
 ```bash
-# Navigate to your workspace
-cd /home/k8s/cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.2_frees_tyle_maven
+# Navigate to your workspace (Jenkins will handle the checkout)
+cd Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.2_frees_tyle_maven
 
 # Create Maven project using quickstart archetype
 mvn archetype:generate \
