@@ -48,7 +48,19 @@ This project deploys a multi-service application using Docker Stack with docker-
 
 ## 🚀 Quick Steps
 
-### **Step 1: Initialize Swarm**
+### **Step 1: Clone Repository**
+```bash
+# Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+
+# Navigate to stack project
+cd cloud-devops-learning-path/Section-2-DevOps/Session-6_Docker-Swarm/6.2_stack_project
+
+# Check files
+ls -la
+```
+
+### **Step 2: Initialize Swarm**
 ```bash
 # Initialize swarm (if not already done)
 docker swarm init
@@ -57,7 +69,7 @@ docker swarm init
 docker node ls
 ```
 
-### **Step 2: Deploy Stack**
+### **Step 3: Deploy Stack**
 ```bash
 # Deploy stack from compose file
 docker stack deploy -c docker-compose.yml mystack
@@ -66,7 +78,7 @@ docker stack deploy -c docker-compose.yml mystack
 docker stack ls
 ```
 
-### **Step 3: Check Services**
+### **Step 4: Check Services**
 ```bash
 # List stack services
 docker stack services mystack
@@ -76,7 +88,7 @@ docker service ps mystack_web
 docker service ps mystack_db
 ```
 
-### **Step 4: Test Application**
+### **Step 5: Test Application**
 ```bash
 # Access web service
 curl http://localhost:8080
