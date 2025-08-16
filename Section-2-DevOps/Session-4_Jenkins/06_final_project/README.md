@@ -125,10 +125,10 @@ This capstone project demonstrates a **complete DevOps implementation** using in
 - **Operating System:** Ubuntu 20.04+ or Amazon Linux 2/2023
 - **Hardware:** 2+ CPU cores, 4GB+ RAM, 20GB+ storage
 - **Network:** Public IP address with internet access
-- **Security:** SSH access, ports 8080 (Jenkins) and 8090 (Tomcat) open
+- **Security:** SSH access, ports 8080 (Jenkins) and 8090 (Tomcat/Jetty) open
 
 ### **🔧 Required Software Stack**
-- **Java 11+** - Runtime environment and development kit
+- **Java 17+** - Runtime environment and development kit
 - **Maven 3.6+** - Build automation and dependency management
 - **Git** - Version control system
 - **Jenkins 2.400+** - CI/CD automation server
@@ -216,7 +216,7 @@ This capstone project demonstrates a **complete DevOps implementation** using in
 sudo apt update && sudo apt upgrade -y
 
 # Install OpenJDK 11
-sudo apt install openjdk-11-jdk maven git -y
+sudo apt install openjdk-17-jdk maven git -y
 
 # Verify installations
 java -version && mvn -version && git --version
@@ -245,8 +245,8 @@ sudo yum update -y
 sudo dnf update -y
 
 # Install Java and Maven
-sudo yum install java-11-amazon-corretto-devel maven git -y
-# OR for AL2023: sudo dnf install java-11-amazon-corretto-devel maven git -y
+sudo yum install java-17-amazon-corretto-devel maven git -y
+# OR for AL2023: sudo dnf install java-17-amazon-corretto-devel maven git -y
 ```
 
 #### **Step 4: Install Jetty (Recommended)**
@@ -330,7 +330,7 @@ After=network.target
 Type=forking
 User=tomcat
 Group=tomcat
-Environment="JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto"
+Environment="JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto"
 Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true"
 Environment="CATALINA_BASE=/opt/tomcat/latest"
 Environment="CATALINA_HOME=/opt/tomcat/latest"
@@ -349,6 +349,21 @@ sudo systemctl enable tomcat
 sudo systemctl start tomcat
 sudo systemctl status tomcat
 ```
+
+> **⚠️ Troubleshooting JAVA_HOME Issues:**
+> If Tomcat fails to start with "JAVA_HOME environment variable is not defined correctly":
+> ```bash
+> # Check your Java version
+> java --version
+> 
+> # For Java 17: Use JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+> # For Java 11: Use JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
+> # For Java 21: Use JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
+> 
+> # Update the service file with correct JAVA_HOME and reload
+> sudo systemctl daemon-reload
+> sudo systemctl restart tomcat
+> ```
 
 ### **🔧 Tomcat Service Management**
 
