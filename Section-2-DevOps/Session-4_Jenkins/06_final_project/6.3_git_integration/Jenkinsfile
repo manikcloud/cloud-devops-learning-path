@@ -15,22 +15,9 @@ pipeline {
     // Environment variables: Define server details and build timestamp for webhook builds
     
     triggers {
-        GenericTrigger(
-            genericVariables: [
-                [key: 'ref', value: '$.ref'],
-                [key: 'pusher', value: '$.pusher.name'],
-                [key: 'repository', value: '$.repository.name'],
-                [key: 'commit_message', value: '$.head_commit.message']
-            ],
-            regexpFilterText: '$ref',
-            regexpFilterExpression: 'refs/heads/(main|master)',
-            token: 'addressbook-webhook-token',
-            causeString: 'Triggered by GitHub webhook - Push by $pusher',
-            printContributedVariables: true,
-            printPostContent: false
-        )
+        githubPush()
     }
-    // Webhook trigger: Automatically starts pipeline when GitHub webhook receives push to main branch
+    // GitHub trigger: Automatically starts pipeline when GitHub webhook receives push
     
     stages {
         stage("Webhook Info") {
@@ -38,14 +25,11 @@ pipeline {
                 script {
                     echo "WEBHOOK TRIGGERED BUILD"
                     echo "Build Time: ${BUILD_TIMESTAMP}"
-                    echo "Branch: ${env.ref ?: 'main'}"
-                    echo "Pushed by: ${env.pusher ?: 'Unknown'}"
-                    echo "Repository: ${env.repository ?: 'cloud-devops-learning-path'}"
-                    echo "Commit: ${env.commit_message ?: 'No message'}"
+                    echo "Triggered by GitHub push event"
                 }
             }
         }
-        // Webhook info stage: Displays information about the webhook trigger and git push details
+        // Webhook info stage: Displays information about the webhook trigger
         
         stage("Checkout") {   
             steps {
@@ -103,21 +87,6 @@ pipeline {
         }
         // Build stage: Compiles Java source code into bytecode
         
-        stage("Unit Test") {          	 
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
-                    script {
-                        echo "Running unit tests..."
-                    }
-                    sh "mvn test"
-                    script {
-                        echo "Tests completed successfully"
-                    }
-                }
-            }
-        }
-        // Test stage: Runs unit tests to verify code functionality
-        
         stage("Maven Package") {
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
@@ -155,26 +124,12 @@ pipeline {
     }
     
     post {
-        always {
-            dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
-                script {
-                    echo "Publishing test results..."
-                    if (fileExists('target/surefire-reports/*.xml')) {
-                        junit 'target/surefire-reports/*.xml'
-                    } else {
-                        echo "No test results found"
-                    }
-                }
-            }
-        }
-        // Always block: Publishes test results regardless of build outcome
-        
         success {
             script {
                 echo "WEBHOOK BUILD SUCCESSFUL!"
                 echo "Build completed at: ${BUILD_TIMESTAMP}"
                 echo "Application deployed: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
-                echo "Triggered by: ${env.pusher ?: 'GitHub webhook'}"
+                echo "Triggered by: GitHub webhook"
             }
         }
         // Success block: Displays success message with webhook details when build passes
@@ -183,18 +138,10 @@ pipeline {
             script {
                 echo "WEBHOOK BUILD FAILED!"
                 echo "Build failed at: ${BUILD_TIMESTAMP}"
-                echo "Triggered by: ${env.pusher ?: 'GitHub webhook'}"
+                echo "Triggered by: GitHub webhook"
                 echo "Check console output for details"
             }
         }
         // Failure block: Displays error message with webhook details when build fails
-        
-        unstable {
-            script {
-                echo "Build completed with warnings"
-                echo "Check test results for details"
-            }
-        }
-        // Unstable block: Displays warning message when tests fail but build succeeds
     }
 }

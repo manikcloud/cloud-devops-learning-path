@@ -57,11 +57,8 @@ graph LR
 
 ### **🔧 Required Jenkins Plugins**
 - ✅ **GitHub Integration Plugin** - For webhook support
-- ✅ **Generic Webhook Trigger Plugin** - For advanced webhook handling (Optional)
 - ✅ **Pipeline Plugin** - Core pipeline functionality
 - ✅ **Git Plugin** - Git SCM integration
-
-**Note:** If Generic Webhook Trigger Plugin is not available, we'll use GitHub Integration Plugin instead.
 
 ---
 
@@ -78,8 +75,6 @@ graph LR
 
 2. **Search and Install These Plugins:**
    - **GitHub Integration Plugin**
-   - **Generic Webhook Trigger Plugin** (if available)
-   - **Build Authorization Token Root Plugin** (if using generic webhooks)
 
 3. **Installation Process:**
    ```bash
@@ -109,53 +104,26 @@ graph LR
    Jenkins Dashboard → New Item → Pipeline → Enter name: "AddressBook-Webhook"
    ```
 
-2. **Configure Build Triggers (Method 1 - GitHub Integration):**
+2. **Configure Build Triggers:**
    ```yaml
    Build Triggers:
    ✅ GitHub hook trigger for GITScm polling
-   
-   This is the simplest method and works with GitHub Integration Plugin
    ```
 
-3. **Configure Build Triggers (Method 2 - Generic Webhook - If Available):**
-   ```yaml
-   Build Triggers:
-   ✅ Generic Webhook Trigger
-   
-   Generic Webhook Trigger Settings:
-   Token: addressbook-webhook-token
-   ```
-
-4. **Pipeline Configuration:**
+3. **Pipeline Configuration:**
    ```yaml
    Pipeline Definition: Pipeline script from SCM
    SCM: Git
    Repository URL: https://github.com/YOUR_USERNAME/cloud-devops-learning-path.git
    Branch: */main
-   
-   Script Path Options:
-   - For Generic Webhook: Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration/Jenkinsfile
-   - For GitHub Integration: Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration/Jenkinsfile-simple
+   Script Path: Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration/Jenkinsfile
    ```
-
-**Choose the appropriate Jenkinsfile based on available plugins:**
-- **Jenkinsfile** - Uses Generic Webhook Trigger (advanced features)
-- **Jenkinsfile-simple** - Uses GitHub Integration Plugin (simpler, more compatible)
 
 #### **Step 3: Configure Webhook URL**
 
-**Method 1 - GitHub Integration (Recommended):**
+**GitHub Webhook URL:**
 ```bash
-# GitHub webhook URL (simpler approach):
 http://98.86.230.111:8080/github-webhook/
-
-# This works with GitHub Integration Plugin
-```
-
-**Method 2 - Generic Webhook (If plugin available):**
-```bash
-# Generic webhook URL:
-http://98.86.230.111:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
 ```
 
 ---
@@ -190,15 +158,9 @@ http://98.86.230.111:8080/generic-webhook-trigger/invoke?token=addressbook-webho
 
 2. **Webhook Configuration:**
    ```yaml
-   Method 1 - GitHub Integration:
    Payload URL: http://98.86.230.111:8080/github-webhook/
    Content type: application/json
    Secret: (leave empty)
-   
-   Method 2 - Generic Webhook (if available):
-   Payload URL: http://98.86.230.111:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
-   Content type: application/json
-   Secret: (leave empty for now)
    
    Which events would you like to trigger this webhook?
    ✅ Just the push event
@@ -268,13 +230,9 @@ Description: Jenkins webhook access
 
 1. **Manual Webhook Test:**
    ```bash
-   # Method 1 - GitHub Integration
    curl -X POST http://98.86.230.111:8080/github-webhook/
    
-   # Method 2 - Generic Webhook (if available)
-   curl -X POST http://98.86.230.111:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
-   
-   # Should return: Triggered jobs: AddressBook-Webhook
+   # Should trigger the pipeline
    ```
 
 2. **GitHub Webhook Test:**
