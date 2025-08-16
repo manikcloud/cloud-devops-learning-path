@@ -13,6 +13,26 @@
 
 ---
 
+## 📦 Repository Information
+
+<div align="center">
+
+### 🔗 **Project Repository**
+**Repository URL:** `https://github.com/manikcloud/Jenkins-cicd.git`  
+**Branch:** `8.1-addressbook`  
+**Application:** Address Book Web Application
+
+</div>
+
+```bash
+# Quick Start Commands
+git clone https://github.com/manikcloud/Jenkins-cicd.git
+cd Jenkins-cicd
+git checkout 8.1-addressbook
+```
+
+---
+
 ## 📋 Project Overview
 
 Build a complete CI/CD pipeline for a real-world Address Book web application using Jenkins, Maven, SonarQube, and Tomcat. This project demonstrates enterprise-level DevOps practices with automated testing, code quality analysis, and production deployment.
@@ -72,7 +92,7 @@ git clone https://github.com/manikcloud/Jenkins-cicd.git
 cd Jenkins-cicd
 
 # Switch to the address book branch
-git switch 8.1-addressbook
+git checkout 8.1-addressbook
 ```
 
 ---
@@ -136,6 +156,9 @@ sudo systemctl status tomcat9
 ## 📜 Jenkins Pipeline Configuration
 
 ### **🔧 Complete Jenkinsfile**
+
+**Repository:** `https://github.com/manikcloud/Jenkins-cicd.git`  
+**Branch:** `8.1-addressbook`
 
 ```groovy
 pipeline {
@@ -253,8 +276,14 @@ pipeline {
 ### **🔧 Local Build and Test**
 
 ```bash
+# Clone the repository
+git clone https://github.com/manikcloud/Jenkins-cicd.git
+
 # Navigate to project directory
 cd Jenkins-cicd
+
+# Switch to the correct branch
+git checkout 8.1-addressbook
 
 # Clean and build the project
 mvn clean install
