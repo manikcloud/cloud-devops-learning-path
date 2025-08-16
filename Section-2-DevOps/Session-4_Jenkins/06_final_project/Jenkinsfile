@@ -37,17 +37,6 @@ pipeline {
                 }
             }
         }
-        stage("SonarQube Analysis") {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'password', usernameVariable: 'username')]) {
-                        withSonarQubeEnv('sonarqube-server') {
-                            sh "mvn verify sonar:sonar -Dsonar.host.url=http://3.82.130.168:9000 -Dsonar.login=${username} -Dsonar.password=${password}"
-                        }
-                    }
-                }
-            }
-        }
         stage("Maven Package") {
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
@@ -70,19 +59,11 @@ pipeline {
             }
         }
         success {
-            echo "App URL: http://3.82.130.168:8090/addressbook/"
-            emailext (
-                to: 'varunmanik1@gmail.com',
-                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: "The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' completed successfully."
-            )
+            echo "✅ Pipeline completed successfully!"
+            echo "🚀 App URL: http://3.82.130.168:8090/addressbook/"
         }
         failure {
-            emailext (
-                to: 'varunmanik1@gmail.com',
-                subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: "The job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' failed."
-            )
+            echo "❌ Pipeline failed!"
         }
     }
 }

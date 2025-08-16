@@ -34,21 +34,20 @@ cd cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/06_final_projec
 
 ## 📋 Project Overview
 
-Build a complete CI/CD pipeline for a real-world Address Book web application using Jenkins, Maven, SonarQube, and Tomcat. This project demonstrates enterprise-level DevOps practices with automated testing, code quality analysis, and production deployment.
+Build a complete CI/CD pipeline for a real-world Address Book web application using Jenkins, Maven, and Tomcat. This project demonstrates essential DevOps practices with automated testing and production deployment.
 
 <div align="center">
 
 ### 🎯 **What You'll Build**
-*Professional CI/CD pipeline with complete automation from code to production*
+*Professional CI/CD pipeline with automated build, test, and deployment*
 
 </div>
 
 ### 🎯 **Learning Objectives**
 - ✅ Deploy a complete CI/CD pipeline for a real application
-- ✅ Integrate SonarQube for code quality analysis
-- ✅ Automate deployment to Tomcat server
-- ✅ Implement email notifications for build status
-- ✅ Master enterprise DevOps practices
+- ✅ Automate build, test, and deployment processes
+- ✅ Deploy to Tomcat server automatically
+- ✅ Master essential DevOps practices
 
 ---
 
@@ -67,7 +66,6 @@ A modern web application built with Vaadin 7 and Java that demonstrates:
 - **Backend:** Java
 - **Build Tool:** Apache Maven
 - **Web Server:** Apache Tomcat 9
-- **Code Quality:** SonarQube
 - **CI/CD:** Jenkins Pipeline
 
 ---
@@ -77,9 +75,7 @@ A modern web application built with Vaadin 7 and Java that demonstrates:
 ### **📋 Prerequisites**
 - ✅ Jenkins with Pipeline plugin
 - ✅ Maven configured in Jenkins
-- ✅ SonarQube server setup
 - ✅ Tomcat 9 server
-- ✅ Email configuration for notifications
 
 ### **📦 Repository Setup**
 
@@ -145,11 +141,6 @@ sudo systemctl restart tomcat9
 sudo systemctl status tomcat9
 ```
 
-### **🔍 SonarQube Integration**
-- Configure SonarQube server for code quality analysis
-- Set up SonarQube credentials in Jenkins
-- Configure quality gates and rules
-
 ---
 
 ## 📜 Jenkins Pipeline Configuration
@@ -200,14 +191,62 @@ pipeline {
                 }
             }
         }
-        stage("SonarQube Analysis") {
+        stage("Maven Package") {
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'password', usernameVariable: 'username')]) {
-                        withSonarQubeEnv('sonarqube-server') {
-                            sh "mvn verify sonar:sonar -Dsonar.host.url=http://3.82.130.168:9000 -Dsonar.login=\${username} -Dsonar.password=\${password}"
-                        }
-                    }
+                    sh "mvn package"
+                }
+            }
+        }
+        stage("Deploy On Server") {          	 
+            steps {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: 'http://3.82.130.168:8090')], contextPath: '/addressbook', war: '**/target/*.war'
+                }
+            }
+        }  	
+    }
+    post {
+        always {
+            dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+        success {
+            echo "✅ Pipeline completed successfully!"
+            echo "🚀 App URL: http://3.82.130.168:8090/addressbook/"
+        }
+        failure {
+            echo "❌ Pipeline failed!"
+        }
+    }
+}
+```
+        stage('Navigate to Project') {
+            steps {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "pwd && ls -la"
+                }
+            }
+        }
+        stage('Maven Clean') {
+            steps {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "mvn clean"
+                }
+            }
+        }
+        stage('Maven Build') {
+            steps {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "mvn compile"
+                }
+            }
+        }
+        stage("Unit Test") {          	 
+            steps {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "mvn test"
                 }
             }
         }
@@ -233,19 +272,11 @@ pipeline {
             }
         }
         success {
-            echo "App URL: http://3.82.130.168:8090/addressbook/"
-            emailext (
-                to: 'varunmanik1@gmail.com',
-                subject: "SUCCESS: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]'",
-                body: "The job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' completed successfully."
-            )
+            echo "✅ Pipeline completed successfully!"
+            echo "🚀 App URL: http://3.82.130.168:8090/addressbook/"
         }
         failure {
-            emailext (
-                to: 'varunmanik1@gmail.com',
-                subject: "FAILURE: Job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]'",
-                body: "The job '\${env.JOB_NAME} [\${env.BUILD_NUMBER}]' failed."
-            )
+            echo "❌ Pipeline failed!"
         }
     }
 }
@@ -257,7 +288,7 @@ pipeline {
 
 ### **🔄 Stage 1: Checkout**
 - Clones the repository from GitHub
-- Switches to the `8.1-addressbook` branch
+- Switches to the `main` branch
 - Prepares the workspace for build
 
 ### **🧹 Stage 2: Maven Clean**
@@ -275,17 +306,12 @@ pipeline {
 - Generates test reports
 - Validates code functionality
 
-### **🔍 Stage 5: SonarQube Analysis**
-- Performs static code analysis
-- Checks code quality metrics
-- Identifies potential issues and vulnerabilities
-
-### **📦 Stage 6: Maven Package**
+### **📦 Stage 5: Maven Package**
 - Creates deployable WAR file
 - Packages application with dependencies
 - Prepares for deployment
 
-### **🚀 Stage 7: Deploy On Server**
+### **🚀 Stage 6: Deploy On Server**
 - Deploys WAR file to Tomcat server
 - Configures application context
 - Makes application available to users
@@ -332,20 +358,10 @@ sudo cp target/addressbook.war /var/lib/tomcat9/webapps/ -v
 ### **📋 Required Jenkins Plugins**
 - Pipeline Plugin
 - Maven Integration Plugin
-- SonarQube Scanner Plugin
 - Deploy to Container Plugin
-- Email Extension Plugin
 - JUnit Plugin
 
 ### **🔐 Credentials Configuration**
-
-#### **SonarQube Credentials**
-```yaml
-Credential ID: sonarqube
-Type: Username with password
-Username: [SonarQube username]
-Password: [SonarQube password]
-```
 
 #### **Tomcat Credentials**
 ```yaml
@@ -362,13 +378,6 @@ Password: admin
 Name: my_mvn
 MAVEN_HOME: /usr/share/maven
 Install automatically: false
-```
-
-#### **SonarQube Server Configuration**
-```yaml
-Name: sonarqube-server
-Server URL: http://your-sonarqube-server:9000
-Server authentication token: [Your SonarQube token]
 ```
 
 ---
@@ -389,37 +398,6 @@ Server authentication token: [Your SonarQube token]
 
 ---
 
-## 🔍 Quality Assurance
-
-### **🧪 Testing Strategy**
-- **Unit Tests** - Automated testing of individual components
-- **Integration Tests** - Testing component interactions
-- **Code Coverage** - Measuring test coverage percentage
-- **Test Reports** - Detailed test execution results
-
-### **📊 Code Quality Metrics**
-- **Code Smells** - Maintainability issues
-- **Bugs** - Potential runtime errors
-- **Vulnerabilities** - Security issues
-- **Duplications** - Code duplication analysis
-- **Coverage** - Test coverage percentage
-
----
-
-## 📧 Notification System
-
-### **✅ Success Notifications**
-- Email sent on successful deployment
-- Includes application URL
-- Build number and job details
-
-### **❌ Failure Notifications**
-- Immediate notification on build failure
-- Error details and logs
-- Quick access to failed build information
-
----
-
 ## 🌐 Access URLs
 
 ### **📱 Application URLs**
@@ -428,7 +406,6 @@ Server authentication token: [Your SonarQube token]
 
 ### **🔧 Management URLs**
 - **Tomcat Manager:** `http://your-server-ip:8090/manager/html`
-- **SonarQube Dashboard:** `http://your-sonarqube-server:9000`
 
 ---
 
@@ -450,21 +427,9 @@ Server authentication token: [Your SonarQube token]
 </tr>
 
 <tr>
-<td><strong>SonarQube analysis fails</strong></td>
-<td>Server not accessible or wrong credentials</td>
-<td>• Check SonarQube server status<br>• Verify credentials<br>• Test network connectivity</td>
-</tr>
-
-<tr>
 <td><strong>Maven build fails</strong></td>
 <td>Missing dependencies or Java version</td>
 <td>• Check Java version compatibility<br>• Verify Maven configuration<br>• Check internet connectivity</td>
-</tr>
-
-<tr>
-<td><strong>Email notifications not working</strong></td>
-<td>SMTP configuration issues</td>
-<td>• Configure SMTP settings<br>• Verify email credentials<br>• Test email configuration</td>
 </tr>
 
 </table>
@@ -478,19 +443,18 @@ After completing this project, you will have mastered:
 ### **✅ CI/CD Pipeline Development**
 - **Complete Pipeline Creation** - End-to-end automation
 - **Multi-stage Builds** - Complex pipeline orchestration
-- **Quality Gates** - Automated quality checks
+- **Automated Testing** - Unit test integration
 - **Deployment Automation** - Production deployment strategies
 
-### **✅ Enterprise DevOps Practices**
-- **Code Quality Integration** - SonarQube analysis
+### **✅ Essential DevOps Practices**
+- **Build Automation** - Maven integration
 - **Automated Testing** - Unit and integration testing
-- **Notification Systems** - Build status communications
 - **Infrastructure Management** - Server configuration and management
 
 ### **✅ Production-Ready Skills**
 - **Real Application Deployment** - Actual web application
 - **Server Management** - Tomcat configuration and deployment
-- **Monitoring and Alerting** - Build and deployment monitoring
+- **Build Monitoring** - Pipeline execution monitoring
 - **Troubleshooting** - Production issue resolution
 
 ---
@@ -508,8 +472,9 @@ After completing this project, you will have mastered:
 1. **🐳 Containerization** - Add Docker support
 2. **☁️ Cloud Deployment** - Deploy to AWS/Azure
 3. **📊 Advanced Monitoring** - Add application monitoring
-4. **🔐 Security Scanning** - Integrate security tools
-5. **🚀 Blue-Green Deployment** - Zero-downtime deployments
+4. **🔍 Code Quality** - Integrate SonarQube for analysis
+5. **📧 Notifications** - Add email/Slack notifications
+6. **🚀 Blue-Green Deployment** - Zero-downtime deployments
 
 ---
 
