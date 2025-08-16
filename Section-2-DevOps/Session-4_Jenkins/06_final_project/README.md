@@ -792,26 +792,102 @@ http://YOUR_SERVER_IP:8080
 
 ## 🎯 Success Metrics & Validation
 
-### **✅ Phase 1 Success Criteria**
-- [ ] Application builds successfully with Maven
-- [ ] WAR file deploys to Tomcat without errors
-- [ ] Web interface accessible via browser
-- [ ] All CRUD operations functional
-- [ ] No errors in application logs
+### **✅ Phase 1: Manual Deployment Success Criteria**
+- [ ] **Environment Setup** - Java 17, Maven, Tomcat properly installed
+- [ ] **Application Build** - `mvn clean package` completes successfully
+- [ ] **WAR File Creation** - `target/addressbook.war` generated without errors
+- [ ] **Manual Deployment** - WAR file copies to Tomcat webapps directory
+- [ ] **Application Access** - Web interface accessible at `http://98.86.230.111:8090/addressbook/`
+- [ ] **Functionality Test** - Add, edit, delete contacts work properly
+- [ ] **No Errors** - Clean application logs, no deployment failures
 
-### **✅ Phase 2 Success Criteria**
-- [ ] Jenkins pipeline executes all stages successfully
-- [ ] Automated deployment matches manual deployment
-- [ ] Pipeline completes in under 5 minutes
-- [ ] Application automatically available after pipeline
-- [ ] Pipeline can be triggered by code changes
+### **✅ Phase 2: Pipeline Automation Success Criteria**
+- [ ] **Jenkins Setup** - All required plugins installed and configured
+- [ ] **Credentials** - Tomcat credentials (tomcat-9) configured correctly
+- [ ] **Pipeline Creation** - Pipeline job created from SCM successfully
+- [ ] **Stage Execution** - All pipeline stages (Checkout, Clean, Build, Package, Deploy) complete
+- [ ] **Automated Deployment** - Application deploys without manual intervention
+- [ ] **Build Time** - Pipeline completes in under 5 minutes
+- [ ] **Application Availability** - App accessible immediately after pipeline completion
+- [ ] **Repeatability** - Pipeline can be run multiple times successfully
+
+### **✅ Phase 3: Git Integration Success Criteria**
+- [ ] **Webhook Configuration** - GitHub webhook properly configured and active
+- [ ] **Automatic Triggering** - Pipeline starts automatically on git push
+- [ ] **Branch Filtering** - Only main/master branch triggers deployment
+- [ ] **Build Information** - Webhook displays pusher name and commit details
+- [ ] **End-to-End Automation** - Code push to live deployment without manual steps
+- [ ] **Notification** - Clear success/failure messages in pipeline logs
 
 ### **📊 Performance Benchmarks**
-- **Manual Deployment Time:** 8-12 minutes
-- **Automated Pipeline Time:** 3-5 minutes
-- **Build Success Rate:** >95%
-- **Deployment Success Rate:** >98%
-- **Application Startup Time:** <30 seconds
+
+#### **Time Metrics**
+- **Manual Deployment:** 8-12 minutes (including setup time)
+- **Automated Pipeline:** 3-5 minutes (consistent execution)
+- **Webhook Response:** <30 seconds (from push to pipeline start)
+- **Application Startup:** <30 seconds (after deployment)
+
+#### **Reliability Metrics**
+- **Build Success Rate:** >95% (with proper code)
+- **Deployment Success Rate:** >98% (with correct configuration)
+- **Webhook Trigger Rate:** >99% (with active webhook)
+- **Application Uptime:** >99% (after successful deployment)
+
+### **🔍 Validation Commands**
+
+#### **Infrastructure Validation**
+```bash
+# Verify Java installation
+java --version
+
+# Verify Maven installation
+mvn --version
+
+# Verify Tomcat is running
+sudo systemctl status tomcat
+curl -I http://98.86.230.111:8090
+
+# Verify Jenkins is running
+sudo systemctl status jenkins
+curl -I http://98.86.230.111:8080
+```
+
+#### **Application Validation**
+```bash
+# Test application accessibility
+curl -I http://98.86.230.111:8090/addressbook/
+
+# Check application logs
+sudo tail -f /opt/tomcat/latest/logs/catalina.out
+
+# Verify deployment directory
+ls -la /opt/tomcat/latest/webapps/addressbook/
+```
+
+#### **Pipeline Validation**
+```bash
+# Test Tomcat manager access
+curl -u admin:admin http://98.86.230.111:8090/manager/text/list
+
+# Test webhook endpoint (for Phase 3)
+curl -X POST http://98.86.230.111:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
+```
+
+### **🏆 Success Indicators**
+
+#### **Visual Confirmations**
+- ✅ **Green Build Status** - Jenkins shows successful pipeline execution
+- ✅ **Application Interface** - Address Book web interface loads properly
+- ✅ **Functional Features** - Can add, edit, delete, and search contacts
+- ✅ **Clean Logs** - No error messages in Jenkins or Tomcat logs
+- ✅ **Webhook Activity** - GitHub shows successful webhook deliveries (Phase 3)
+
+#### **Technical Confirmations**
+- ✅ **HTTP 200 Response** - Application returns successful HTTP status
+- ✅ **WAR Deployment** - Tomcat manager shows addressbook application running
+- ✅ **Build Artifacts** - target/addressbook.war file created successfully
+- ✅ **Pipeline Logs** - All stages show successful completion
+- ✅ **Automatic Triggering** - Git push triggers pipeline without manual intervention (Phase 3)
 
 ---
 
