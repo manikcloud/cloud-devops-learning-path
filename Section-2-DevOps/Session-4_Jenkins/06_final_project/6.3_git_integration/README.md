@@ -12,6 +12,14 @@
 
 ---
 
+## 🚀 Real DevOps in Action - Automated Workflow
+
+![Git Integration Workflow](./git-integration-workflow.svg)
+
+*Complete webhook automation workflow showing the magic of continuous deployment*
+
+---
+
 ## 🌟 Overview
 
 This section demonstrates **enterprise-grade Git integration** with Jenkins using GitHub webhooks. You'll configure automatic pipeline triggering whenever code is pushed to your repository, creating a seamless continuous integration workflow that mirrors professional development environments.
