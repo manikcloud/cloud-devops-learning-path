@@ -1,11 +1,11 @@
-# 🚀 Project 4.1: Hello World - Freestyle to Pipeline
+# 🚀 Project 4.1: Hello World Pipeline
 
 <div align="center">
 
-![Freestyle First](https://img.shields.io/badge/Freestyle-First-blue?style=for-the-badge&logo=jenkins&logoColor=white)
-![Then Pipeline](https://img.shields.io/badge/Then-Pipeline-green?style=for-the-badge&logo=jenkins&logoColor=white)
+![Pipeline](https://img.shields.io/badge/Jenkins-Pipeline-blue?style=for-the-badge&logo=jenkins&logoColor=white)
+![Maven](https://img.shields.io/badge/Apache-Maven-orange?style=for-the-badge&logo=apache-maven&logoColor=white)
 
-**🎯 Start with Freestyle | 📜 Learn Pipeline | 🚀 Compare Both Methods**
+**📜 Basic Pipeline Example | ☕ Maven Integration | 🔧 Step by Step**
 
 </div>
 
@@ -13,445 +13,181 @@
 
 ## 📋 Project Overview
 
-This project teaches you to create a "Hello World" job using **Freestyle first**, then convert it to a **Pipeline**. You'll understand the differences between both approaches and learn when to use each method.
+Learn Jenkins Pipeline basics with a simple Maven project build. This is a straightforward example that demonstrates the fundamental pipeline structure.
 
 ### 🎯 **Learning Objectives**
-- ✅ Create Hello World job as Freestyle project
-- ✅ Understand Freestyle job configuration
-- ✅ Convert Freestyle job to Pipeline
-- ✅ Compare Freestyle vs Pipeline approaches
-- ✅ Learn the evolution from GUI to Code
+- ✅ Create your first Jenkins Pipeline job
+- ✅ Understand basic pipeline syntax
+- ✅ Integrate Maven with Jenkins Pipeline
+- ✅ Use Git checkout in pipeline
 
 ---
 
-## 🔧 **Method 1: Freestyle Job (Primary Focus)**
-
-### **Step 1: Create Freestyle Hello World Job**
-
-1. **Navigate to Jenkins Dashboard**
-   - Click "New Item"
-   - Enter job name: `hello-world-freestyle`
-   - Select "Freestyle project"
-   - Click "OK"
-
-### **Step 2: General Configuration**
-
-```
-Job Name: hello-world-freestyle
-Description: My first Hello World job using Freestyle approach
-✅ Discard old builds: Keep last 10 builds
-```
-
-### **Step 3: Build Environment**
-
-```bash
-✅ Delete workspace before build starts
-✅ Add timestamps to the Console Output
-
-# Environment Variables (if needed)
-GREETING=Hello
-TARGET=World
-BUILD_ENV=development
-```
-
-### **Step 4: Build Steps**
-
-#### **Build Step 1: Execute Shell (Linux/Mac) or Batch (Windows)**
-
-**For Linux/Mac:**
-```bash
-#!/bin/bash
-echo "=== Hello World Freestyle Job ==="
-echo "Job Name: $JOB_NAME"
-echo "Build Number: $BUILD_NUMBER"
-echo "Build URL: $BUILD_URL"
-echo "Workspace: $WORKSPACE"
-echo "Jenkins URL: $JENKINS_URL"
-echo ""
-echo "🎉 Hello World from Freestyle Job!"
-echo "Current Date: $(date)"
-echo "Current User: $(whoami)"
-echo "Current Directory: $(pwd)"
-echo "System Info: $(uname -a)"
-```
-
-**For Windows:**
-```batch
-@echo off
-echo === Hello World Freestyle Job ===
-echo Job Name: %JOB_NAME%
-echo Build Number: %BUILD_NUMBER%
-echo Build URL: %BUILD_URL%
-echo Workspace: %WORKSPACE%
-echo Jenkins URL: %JENKINS_URL%
-echo.
-echo 🎉 Hello World from Freestyle Job!
-echo Current Date: %DATE%
-echo Current Time: %TIME%
-echo Current User: %USERNAME%
-echo Current Directory: %CD%
-```
-
-#### **Build Step 2: Execute Shell - Environment Information**
-
-```bash
-#!/bin/bash
-echo "=== Environment Information ==="
-echo "JAVA_HOME: $JAVA_HOME"
-echo "PATH: $PATH"
-echo "Available Java versions:"
-java -version 2>&1 || echo "Java not found"
-echo ""
-echo "Available Maven versions:"
-mvn -version 2>&1 || echo "Maven not found"
-echo ""
-echo "Available Git versions:"
-git --version 2>&1 || echo "Git not found"
-echo ""
-echo "Disk space:"
-df -h . 2>/dev/null || echo "Cannot check disk space"
-```
-
-#### **Build Step 3: Execute Shell - Custom Greeting**
-
-```bash
-#!/bin/bash
-echo "=== Custom Greeting Section ==="
-
-# Use environment variables if set
-GREETING=${GREETING:-"Hello"}
-TARGET=${TARGET:-"World"}
-
-echo "$GREETING $TARGET from Jenkins Freestyle!"
-echo "This is build number: $BUILD_NUMBER"
-
-# Create a simple file
-echo "Build $BUILD_NUMBER completed at $(date)" > build-info.txt
-echo "✅ Build information saved to build-info.txt"
-
-# List workspace contents
-echo ""
-echo "=== Workspace Contents ==="
-ls -la
-```
-
-### **Step 5: Post-build Actions**
-
-#### **Archive Artifacts**
-```
-Files to archive: build-info.txt, *.log
-```
-
-#### **Email Notification (Optional)**
-```
-Recipients: your-email@company.com
-Send email for: Failure, Back to Normal
-```
-
-### **Step 6: Test Your Freestyle Job**
-
-1. **Save the job configuration**
-2. **Click "Build Now"**
-3. **Check Console Output**
-4. **Verify archived artifacts**
-
-### **Expected Freestyle Output:**
-```
-Started by user admin
-Running as SYSTEM
-Building in workspace /var/lib/jenkins/workspace/hello-world-freestyle
-[hello-world-freestyle] $ /bin/bash /tmp/jenkins123.sh
-=== Hello World Freestyle Job ===
-Job Name: hello-world-freestyle
-Build Number: 1
-Build URL: http://localhost:8080/job/hello-world-freestyle/1/
-Workspace: /var/lib/jenkins/workspace/hello-world-freestyle
-Jenkins URL: http://localhost:8080/
-
-🎉 Hello World from Freestyle Job!
-Current Date: Sat Aug 10 13:00:00 UTC 2025
-Current User: jenkins
-Current Directory: /var/lib/jenkins/workspace/hello-world-freestyle
-System Info: Linux jenkins-server 5.4.0-74-generic x86_64 GNU/Linux
-
-=== Environment Information ===
-JAVA_HOME: /usr/lib/jvm/java-11-openjdk
-PATH: /usr/local/bin:/usr/bin:/bin
-Available Java versions:
-openjdk version "11.0.11" 2021-04-20
-
-=== Custom Greeting Section ===
-Hello World from Jenkins Freestyle!
-This is build number: 1
-✅ Build information saved to build-info.txt
-
-=== Workspace Contents ===
-total 4
--rw-r--r-- 1 jenkins jenkins 45 Aug 10 13:00 build-info.txt
-
-Archiving artifacts
-Finished: SUCCESS
-```
-
----
-
-## 📜 **Method 2: Convert to Pipeline**
-
-Now let's convert the same functionality to a Pipeline:
+## 🔧 Step-by-Step Pipeline Creation
 
 ### **Step 1: Create Pipeline Job**
+1. **Jenkins Dashboard**: Navigate to `http://localhost:8080`
+2. **New Item**: Click "New Item"
+3. **Job Configuration**:
+   ```
+   Item name: HelloWorld-Pipeline
+   Type: Pipeline
+   ```
+4. **Click OK**: Proceed to configuration
 
-1. **Create new item:** `hello-world-pipeline`
-2. **Select:** "Pipeline"
-3. **Click:** "OK"
+### **Step 2: Configure Pipeline Script**
 
-### **Step 2: Pipeline Script**
+In the Pipeline section, select "Pipeline script" and enter:
 
 ```groovy
 pipeline {
     agent any
-    
-    environment {
-        GREETING = 'Hello'
-        TARGET = 'World'
-        BUILD_ENV = 'development'
+    tools {
+        maven 'maven'
     }
-    
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-        timestamps()
-    }
-    
     stages {
-        stage('🎉 Hello World') {
+        stage("Checkout") {   
+            steps {               	 
+                git branch: 'main', url: 'https://github.com/manikcloud/cloud-devops-learning-path.git'        	 
+            }    
+        }
+
+        stage('List root dir') {
             steps {
-                echo '=== Hello World Pipeline Job ==='
-                echo "Job Name: ${env.JOB_NAME}"
-                echo "Build Number: ${env.BUILD_NUMBER}"
-                echo "Build URL: ${env.BUILD_URL}"
-                echo "Workspace: ${env.WORKSPACE}"
-                echo "Jenkins URL: ${env.JENKINS_URL}"
-                echo ''
-                echo '🎉 Hello World from Pipeline Job!'
-                
-                script {
-                    if (isUnix()) {
-                        sh '''
-                            echo "Current Date: $(date)"
-                            echo "Current User: $(whoami)"
-                            echo "Current Directory: $(pwd)"
-                            echo "System Info: $(uname -a)"
-                        '''
-                    } else {
-                        bat '''
-                            echo Current Date: %DATE%
-                            echo Current Time: %TIME%
-                            echo Current User: %USERNAME%
-                            echo Current Directory: %CD%
-                        '''
-                    }
-                }
+                sh "pwd && ls -l"
             }
         }
-        
-        stage('🔍 Environment Info') {
+
+        stage('Build and Test Maven Project') {
             steps {
-                echo '=== Environment Information ==='
-                script {
-                    if (isUnix()) {
-                        sh '''
-                            echo "JAVA_HOME: $JAVA_HOME"
-                            echo "PATH: $PATH"
-                            echo "Available Java versions:"
-                            java -version 2>&1 || echo "Java not found"
-                            echo ""
-                            echo "Available Maven versions:"
-                            mvn -version 2>&1 || echo "Maven not found"
-                            echo ""
-                            echo "Available Git versions:"
-                            git --version 2>&1 || echo "Git not found"
-                            echo ""
-                            echo "Disk space:"
-                            df -h . 2>/dev/null || echo "Cannot check disk space"
-                        '''
-                    } else {
-                        bat '''
-                            echo JAVA_HOME: %JAVA_HOME%
-                            echo PATH: %PATH%
-                            java -version 2>&1 || echo Java not found
-                            mvn -version 2>&1 || echo Maven not found
-                            git --version 2>&1 || echo Git not found
-                        '''
-                    }
+                dir('Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.2_frees_tyle_maven/my-app') {
+                    sh "pwd && ls -l"
+                    sh "mvn clean"
+                    sh "mvn package"
+
                 }
             }
-        }
-        
-        stage('💬 Custom Greeting') {
-            steps {
-                echo '=== Custom Greeting Section ==='
-                echo "${GREETING} ${TARGET} from Jenkins Pipeline!"
-                echo "This is build number: ${env.BUILD_NUMBER}"
-                
-                script {
-                    if (isUnix()) {
-                        sh '''
-                            # Create a simple file
-                            echo "Build $BUILD_NUMBER completed at $(date)" > build-info.txt
-                            echo "✅ Build information saved to build-info.txt"
-                            
-                            # List workspace contents
-                            echo ""
-                            echo "=== Workspace Contents ==="
-                            ls -la
-                        '''
-                    } else {
-                        bat '''
-                            echo Build %BUILD_NUMBER% completed at %DATE% %TIME% > build-info.txt
-                            echo ✅ Build information saved to build-info.txt
-                            echo.
-                            echo === Workspace Contents ===
-                            dir
-                        '''
-                    }
-                }
-            }
-        }
-    }
-    
-    post {
-        always {
-            echo '🧹 Cleaning up...'
-            archiveArtifacts artifacts: 'build-info.txt', allowEmptyArchive: true
-        }
-        success {
-            echo '✅ Pipeline completed successfully!'
-        }
-        failure {
-            echo '❌ Pipeline failed!'
         }
     }
 }
 ```
 
----
-
-## 📊 **Comparison: Freestyle vs Pipeline**
-
-### **Freestyle Job Advantages:**
-- 🎯 **Easy to Learn** - GUI-based configuration
-- 🔧 **Quick Setup** - Point and click interface
-- 👥 **Beginner Friendly** - No coding required
-- 📊 **Visual Configuration** - See all settings at once
-- 🔄 **Simple Debugging** - Easy to modify and test
-
-### **Freestyle Job Limitations:**
-- ❌ **No Version Control** - Configuration not in code
-- ❌ **Limited Reusability** - Hard to replicate
-- ❌ **No Complex Logic** - Limited conditional capabilities
-- ❌ **Maintenance Issues** - Manual configuration updates
-- ❌ **No Code Review** - Changes can't be reviewed
-
-### **Pipeline Advantages:**
-- ✅ **Version Controlled** - Pipeline as Code
-- ✅ **Reusable** - Can be shared and replicated
-- ✅ **Complex Logic** - Conditional stages, parallel execution
-- ✅ **Code Review** - Pipeline changes can be reviewed
-- ✅ **Better Visualization** - Stage view and Blue Ocean
-
-### **Pipeline Learning Curve:**
-- 📚 **Groovy Syntax** - Need to learn basic Groovy
-- 🔧 **DSL Knowledge** - Jenkins Pipeline DSL
-- 🎯 **Best Practices** - Understanding pipeline patterns
+### **Step 3: Save and Run**
+1. **Save**: Click "Save"
+2. **Build Now**: Click "Build Now"
+3. **View Console Output**: Monitor the build progress
 
 ---
 
-## 🎯 **When to Use Each Method**
+## 📊 Expected Output
 
-### **Use Freestyle Jobs For:**
-- 🎓 **Learning Jenkins** - Understanding basic concepts
-- 🔧 **Simple Tasks** - Basic build and deployment
-- ⚡ **Quick Prototypes** - Testing ideas quickly
-- 👥 **Team Training** - Teaching Jenkins basics
-- 🔄 **Legacy Projects** - Maintaining existing jobs
-
-### **Use Pipeline Jobs For:**
-- 🏢 **Production Systems** - Enterprise environments
-- 👥 **Team Collaboration** - Multiple developers
-- 🔄 **Complex Workflows** - Multi-stage processes
-- 📊 **Scalable Solutions** - Growing organizations
-- 🎯 **Modern DevOps** - Current best practices
-
----
-
-## 🚀 **Hands-On Exercise**
-
-### **Exercise 1: Create Both Versions**
-1. Create the Freestyle version first
-2. Test and understand each build step
-3. Create the Pipeline version
-4. Compare the execution and output
-
-### **Exercise 2: Modify and Compare**
-1. Add a new build step to Freestyle job
-2. Add equivalent stage to Pipeline
-3. Compare ease of modification
-4. Note differences in execution
-
-### **Exercise 3: Advanced Features**
-1. Add parameters to both jobs
-2. Try conditional execution
-3. Compare capabilities and limitations
-
----
-
-## 📊 **Expected Learning Outcomes**
-
-After completing this project, you will understand:
-
-### **Freestyle Job Mastery**
-- ✅ **Complete Configuration** - All Freestyle job options
-- ✅ **Build Steps** - Various types of build actions
-- ✅ **Post-build Actions** - Artifact archiving, notifications
-- ✅ **Environment Management** - Variables and workspace
-
-### **Pipeline Understanding**
-- ✅ **Basic Pipeline Structure** - Stages, steps, post actions
-- ✅ **Declarative Syntax** - Pipeline DSL basics
-- ✅ **Cross-platform Code** - Unix/Windows compatibility
-- ✅ **Pipeline Benefits** - Why pipelines are preferred
-
-### **Decision Making Skills**
-- ✅ **Method Selection** - When to use Freestyle vs Pipeline
-- ✅ **Migration Planning** - How to convert jobs
-- ✅ **Best Practices** - Industry standards and recommendations
-
----
-
-## ➡️ **Next Steps**
-
-Once you've mastered both approaches:
-
-1. **Practice More Complex Scenarios** - Multi-step builds
-2. **Experiment with Parameters** - Dynamic job behavior
-3. **Try Different Build Tools** - Maven, Gradle, npm
-4. **Proceed to Next Project** - [4.2 Pipeline without Jenkinsfile](../4.2_pipeline_no_jenkinsfile/README.md)
+```bash
+Started by user admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/HelloWorld-Pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] git
+Cloning the remote Git repository
+ > git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+Checking out Revision abc123... (refs/remotes/origin/main)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (List root dir)
+[Pipeline] sh
++ pwd
+/var/lib/jenkins/workspace/HelloWorld-Pipeline
++ ls -l
+total 16
+drwxr-xr-x 3 jenkins jenkins 4096 Aug 16 10:30 Section-1-Cloud
+drwxr-xr-x 4 jenkins jenkins 4096 Aug 16 10:30 Section-2-DevOps
+-rw-r--r-- 1 jenkins jenkins 1234 Aug 16 10:30 README.md
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build and Test Maven Project)
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/HelloWorld-Pipeline/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.2_frees_tyle_maven/my-app
+[Pipeline] {
+[Pipeline] sh
++ pwd
+/var/lib/jenkins/workspace/HelloWorld-Pipeline/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.2_frees_tyle_maven/my-app
++ ls -l
+total 8
+-rw-r--r-- 1 jenkins jenkins 1234 Aug 16 10:30 pom.xml
+drwxr-xr-x 4 jenkins jenkins 4096 Aug 16 10:30 src
+[Pipeline] sh
++ mvn clean
+[INFO] Scanning for projects...
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ my-app ---
+[INFO] BUILD SUCCESS
+[Pipeline] sh
++ mvn package
+[INFO] Scanning for projects...
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ my-app ---
+[INFO] Compiling 1 source file to target/classes
+[INFO] --- maven-surefire-plugin:3.0.0-M7:test (default-test) @ my-app ---
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ my-app ---
+[INFO] Building jar: target/my-app-1.0-SNAPSHOT.jar
+[INFO] BUILD SUCCESS
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+```
 
 ---
 
-## 📚 **Additional Resources**
+## 🔍 Pipeline Breakdown
 
-- 📖 [Jenkins Freestyle Projects](https://www.jenkins.io/doc/book/using/using-freestyle-projects/)
-- 📖 [Jenkins Pipeline Syntax](https://www.jenkins.io/doc/book/pipeline/syntax/)
-- 📖 [Migrating from Freestyle to Pipeline](https://www.jenkins.io/doc/book/pipeline/getting-started/#converting-freestyle-jobs)
+### **Stage 1: Checkout**
+- Clones the Git repository
+- Checks out the main branch
+
+### **Stage 2: List root dir**
+- Shows current directory
+- Lists repository contents
+
+### **Stage 3: Build and Test Maven Project**
+- Navigates to Maven project directory
+- Runs `mvn clean` to clean previous builds
+- Runs `mvn package` to compile, test, and package
+
+---
+
+## 🎯 What You Learned
+
+- ✅ **Pipeline Structure** - agent, tools, stages, steps
+- ✅ **Git Integration** - Checking out source code
+- ✅ **Maven Integration** - Using Maven tool in pipeline
+- ✅ **Directory Navigation** - Using `dir()` to change directories
+- ✅ **Shell Commands** - Running commands with `sh`
+
+---
+
+## ➡️ Next Steps
+
+1. **Modify the pipeline** - Try changing the Maven goals
+2. **Add more stages** - Experiment with additional build steps
+3. **Progress to next project** - [4.2 Pipeline without Jenkinsfile](../4.2_pipeline_no_jenkinsfile/README.md)
 
 ---
 
 <div align="center">
 
-### 🎯 **Master Both Approaches!**
-*Understanding both Freestyle and Pipeline methods makes you a well-rounded Jenkins professional.*
+### 🎯 **Great Job!**
+*You've created your first Jenkins Pipeline!*
 
-**Next: [4.2 Pipeline without Jenkinsfile](../4.2_pipeline_no_jenkinsfile/README.md)**
+**Continue Learning: [4.2 Pipeline without Jenkinsfile →](../4.2_pipeline_no_jenkinsfile/README.md)**
 
 </div>

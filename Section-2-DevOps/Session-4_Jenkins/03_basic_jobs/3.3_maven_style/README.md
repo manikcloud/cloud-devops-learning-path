@@ -86,7 +86,7 @@ mvn archetype:generate \
 cd maven-jenkins-app
 ```
 
-### **🏗️ Enhanced Project Structure**
+### **🏗️ Simple Project Structure**
 ```
 maven-jenkins-app/
 ├── pom.xml                          # Enhanced POM with plugins
@@ -94,15 +94,13 @@ maven-jenkins-app/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/clouddevops/jenkins/
-│   │   │       ├── App.java         # Main application
-│   │   │       └── Calculator.java  # Additional class
+│   │   │       └── App.java         # Main HelloWorld application
 │   │   └── resources/
 │   │       └── application.properties
 │   └── test/
 │       ├── java/
 │       │   └── com/clouddevops/jenkins/
-│       │       ├── AppTest.java     # Main test
-│       │       └── CalculatorTest.java # Additional test
+│       │       └── AppTest.java     # Unit test
 │       └── resources/
 └── target/                          # Generated after build
     ├── classes/
@@ -175,9 +173,9 @@ Post-build Actions:
 
 ## 📊 Enhanced Maven POM Configuration
 
-### **🔧 Complete pom.xml Setup**
+### **🔧 Simple pom.xml Setup**
 
-Create an enhanced `pom.xml` file in your Maven project:
+Create a simple `pom.xml` file in your Maven project:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -193,7 +191,7 @@ Create an enhanced `pom.xml` file in your Maven project:
   <packaging>jar</packaging>
 
   <name>Jenkins Maven Integration App</name>
-  <description>A comprehensive Maven project for Jenkins CI/CD integration</description>
+  <description>A simple Maven project for Jenkins CI/CD integration</description>
 
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
@@ -208,12 +206,6 @@ Create an enhanced `pom.xml` file in your Maven project:
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.12.0</version>
     </dependency>
   </dependencies>
 
@@ -247,98 +239,9 @@ Create an enhanced `pom.xml` file in your Maven project:
 
 ---
 
-## ☕ Java Application Code
-
-### **📄 Enhanced App.java**
-
-```java
-package com.clouddevops.jenkins;
-
-import org.apache.commons.lang3.StringUtils;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-/**
- * Enhanced HelloWorld application for Jenkins Maven integration
- * Demonstrates dependency usage and comprehensive functionality
- */
-public class App {
-    
-    private static final String APPLICATION_NAME = "Jenkins Maven CI/CD Demo";
-    private static final String VERSION = "1.0-SNAPSHOT";
-    
-    public static void main(String[] args) {
-        System.out.println("=".repeat(60));
-        System.out.println(centerText(APPLICATION_NAME));
-        System.out.println(centerText("Version: " + VERSION));
-        System.out.println("=".repeat(60));
-        
-        // Display current timestamp
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        System.out.println("Build executed at: " + now.format(formatter));
-        
-        // Demonstrate Apache Commons Lang usage
-        String message = "Hello, World from Jenkins Maven Integration!";
-        System.out.println("Original message: " + message);
-        System.out.println("Reversed message: " + StringUtils.reverse(message));
-        System.out.println("Capitalized: " + StringUtils.capitalize(message.toLowerCase()));
-        
-        // Demonstrate calculator functionality
-        Calculator calc = new Calculator();
-        System.out.println("\nCalculator Demo:");
-        System.out.println("10 + 5 = " + calc.add(10, 5));
-        System.out.println("10 - 5 = " + calc.subtract(10, 5));
-        System.out.println("10 * 5 = " + calc.multiply(10, 5));
-        System.out.println("10 / 5 = " + calc.divide(10, 5));
-        
-        System.out.println("\n" + "=".repeat(60));
-        System.out.println(centerText("Build Successful! 🎉"));
-        System.out.println("=".repeat(60));
-    }
-    
-    private static String centerText(String text) {
-        return StringUtils.center(text, 60);
-    }
-}
-```
-
-### **🧮 Calculator.java**
-
-```java
-package com.clouddevops.jenkins;
-
-/**
- * Simple Calculator class for demonstration
- * Provides basic arithmetic operations
- */
-public class Calculator {
-    
-    public int add(int a, int b) {
-        return a + b;
-    }
-    
-    public int subtract(int a, int b) {
-        return a - b;
-    }
-    
-    public int multiply(int a, int b) {
-        return a * b;
-    }
-    
-    public double divide(int a, int b) {
-        if (b == 0) {
-            throw new IllegalArgumentException("Division by zero is not allowed");
-        }
-        return (double) a / b;
-    }
-}
-```
----
-
 ## ☕ Simple Java HelloWorld Application
 
-### **📄 Enhanced App.java**
+### **📄 Simple App.java**
 
 ```java
 package com.clouddevops.jenkins;
