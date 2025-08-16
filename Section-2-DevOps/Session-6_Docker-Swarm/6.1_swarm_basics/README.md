@@ -42,78 +42,64 @@ docker service rm web
 
 ## 🚀 Simple Web Project
 
-### **Step 1: Create Custom Web App**
+### **Step 1: Clone Repository**
 ```bash
-# Create project files
-mkdir hello-swarm && cd hello-swarm
+# Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 
-# Create simple HTML file
-cat > index.html << 'EOF'
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Docker Swarm Hello World</title>
-    <style>
-        body { font-family: Arial; text-align: center; padding: 50px; 
-               background-color: #3498db; color: white; }
-        button { padding: 10px 20px; margin: 10px; font-size: 16px; 
-                 border: none; border-radius: 5px; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <h1>🐝 Docker Swarm Hello World</h1>
-    <p>This page is served by Docker Swarm!</p>
-    
-    <h3>Change Background Color:</h3>
-    <button onclick="changeColor('#3498db')" style="background-color: #3498db; color: white;">Blue</button>
-    <button onclick="changeColor('#e74c3c')" style="background-color: #e74c3c; color: white;">Red</button>
-    <button onclick="changeColor('#2ecc71')" style="background-color: #2ecc71; color: white;">Green</button>
-    <button onclick="changeColor('#f39c12')" style="background-color: #f39c12; color: white;">Orange</button>
+# Navigate to project
+cd cloud-devops-learning-path/Section-2-DevOps/Session-6_Docker-Swarm/6.1_swarm_basics
 
-    <script>
-        function changeColor(color) {
-            document.body.style.backgroundColor = color;
-        }
-    </script>
-</body>
-</html>
-EOF
-
-# Create Dockerfile
-cat > Dockerfile << 'EOF'
-FROM httpd:2.4-alpine
-COPY index.html /usr/local/apache2/htdocs/
-EXPOSE 80
-EOF
+# Check files
+ls -la
 ```
 
-### **Step 2: Build and Deploy**
+### **Step 2: Build Docker Image**
 ```bash
 # Build image
 docker build -t hello-swarm .
 
+# Verify image
+docker images | grep hello-swarm
+```
+
+### **Step 3: Initialize Swarm**
+```bash
 # Initialize swarm
 docker swarm init
 
-# Deploy service
-docker service create --name web --publish 8080:80 --replicas 3 hello-swarm
-
-# Check deployment
-docker service ps web
-
-# Access: http://localhost:8080
+# Check nodes
+docker node ls
 ```
 
-### **Step 3: Scale and Test**
+### **Step 4: Deploy Service**
+```bash
+# Deploy service with 3 replicas
+docker service create --name web --publish 8080:80 --replicas 3 hello-swarm
+
+# Check service
+docker service ls
+docker service ps web
+```
+
+### **Step 5: Test Application**
+```bash
+# Test with curl
+curl http://localhost:8080
+
+# Or open in browser: http://localhost:8080
+```
+
+### **Step 6: Scale and Test**
 ```bash
 # Scale up
 docker service scale web=5
 
-# Check distribution across nodes
+# Check distribution
 docker service ps web
 
 # Test load balancing
-curl http://localhost:8080
+for i in {1..10}; do curl -s http://localhost:8080 | grep "Docker Swarm"; done
 ```
 
 ---
@@ -133,3 +119,29 @@ docker swarm join-token --rotate worker
 ---
 
 *Simple Docker Swarm with interactive web app!* 🚀
+
+---
+
+## 📁 Project Files
+
+```
+6.1_swarm_basics/
+├── index.html              # Simple HTML with color buttons
+├── Dockerfile              # Apache httpd container
+└── README.md              # This guide
+```
+
+---
+
+## 🔧 Cleanup
+
+```bash
+# Remove service
+docker service rm web
+
+# Leave swarm mode
+docker swarm leave --force
+
+# Remove image
+docker rmi hello-swarm
+```
