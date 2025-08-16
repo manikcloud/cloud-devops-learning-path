@@ -475,29 +475,107 @@ sudo systemctl restart tomcat
 
 ### **🔧 Jenkins Setup Steps**
 1. **Access Jenkins:** `http://YOUR_SERVER_IP:8080`
-2. **Install Required Plugins:**
-   - Pipeline Plugin
-   - Maven Integration Plugin
-   - Deploy to Container Plugin
-   - JUnit Plugin
-  
-   - <img width="1215" height="313" alt="image" src="https://github.com/user-attachments/assets/8a5f724d-37e1-4414-8aad-08823317b325" />
+2. **Complete Initial Setup** (if first time)
+3. **Install Required Plugins**
+4. **Configure Credentials**
+5. **Configure Maven Tool**
 
+---
 
-### **🔑 Credentials Configuration**
-```yaml
-Tomcat Deployment Credentials:
-  Credential ID: tomcat-9
-  Type: Username with password
-  Username: admin
-  Password: admin
-  Description: Tomcat 9 Deployment Access
+### **📦 Step 1: Install Required Plugins**
+
+1. **Navigate to Plugin Manager:**
+   - Go to `Manage Jenkins` → `Manage Plugins`
+   - Click on `Available` tab
+
+2. **Search and Install These Plugins:**
+   - **Pipeline Plugin** - For pipeline support
+   - **Maven Integration Plugin** - For Maven builds
+   - **Deploy to Container Plugin** - For Tomcat deployment
+   - **JUnit Plugin** - For test reporting
+
+3. **Install Plugins:**
+   - Check the boxes for required plugins
+   - Click `Install without restart`
+   - Wait for installation to complete
+
+---
+
+### **🔑 Step 2: Configure Tomcat Credentials**
+
+1. **Navigate to Credentials:**
+   ```
+   Manage Jenkins → Manage Credentials → (global) → Add Credentials
+   ```
+
+2. **Fill Credential Details:**
+   ```yaml
+   Kind: Username with password
+   Scope: Global (Jenkins, nodes, items, all child items, etc)
+   Username: admin
+   Password: admin
+   ID: tomcat-9
+   Description: Tomcat 9 Deployment Access
+   ```
+
+3. **Step-by-Step Process:**
+   - **Kind:** Select `Username with password` from dropdown
+   - **Scope:** Leave as `Global`
+   - **Username:** Enter `admin`
+   - **Password:** Enter `admin`
+   - **ID:** Enter `tomcat-9` (exactly as shown)
+   - **Description:** Enter `Tomcat 9 Deployment Access`
+   - Click `Create`
+
+---
+
+### **🛠️ Step 3: Configure Maven Tool**
+
+1. **Navigate to Global Tool Configuration:**
+   ```
+   Manage Jenkins → Global Tool Configuration
+   ```
+
+2. **Find Maven Section:**
+   - Scroll down to `Maven` section
+   - Click `Add Maven`
+
+3. **Configure Maven:**
+   ```yaml
+   Name: maven
+   Install automatically: ✅ (checked)
+   Version: Latest available (e.g., 3.9.4)
+   ```
+
+4. **Step-by-Step Process:**
+   - **Name:** Enter `maven` (exactly as shown)
+   - **Install automatically:** Check this box ✅
+   - **Version:** Select latest stable version from dropdown
+   - Click `Save`
+
+---
+
+### **✅ Verification Steps**
+
+#### **Check Credentials:**
+```bash
+# Navigate to: Manage Jenkins → Manage Credentials
+# You should see: tomcat-9 credential listed
 ```
 
-### **🛠️ Tool Configuration**
-```yaml
-Maven Configuration:
-  Name: my_mvn
+#### **Check Maven Tool:**
+```bash
+# Navigate to: Manage Jenkins → Global Tool Configuration
+# You should see: maven tool configured in Maven section
+```
+
+#### **Test Jenkins Access:**
+```bash
+# Access Jenkins dashboard
+http://YOUR_SERVER_IP:8080
+
+# Should show Jenkins dashboard with plugins installed
+```
   Install automatically: ✅
   Version: Latest stable (3.9.x)
 ```
