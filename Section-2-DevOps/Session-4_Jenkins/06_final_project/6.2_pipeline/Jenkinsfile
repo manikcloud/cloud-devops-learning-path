@@ -3,12 +3,14 @@ pipeline {
     tools {
         maven 'maven'
     }
+    // Pipeline configuration: Uses any available agent and Maven tool named 'maven'
     
     environment {
         SERVER_IP = '98.86.230.111'  // Your server IP
         TOMCAT_PORT = '8090'
         APP_CONTEXT = 'addressbook'
     }
+    // Environment variables: Define server details for deployment target
     
     stages {
         stage("Checkout") {   
@@ -16,6 +18,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/manikcloud/cloud-devops-learning-path.git'        	 
             }    
         }
+        // Checkout stage: Downloads source code from GitHub repository main branch
         
         stage('Navigate to Project') {
             steps {
@@ -24,6 +27,7 @@ pipeline {
                 }
             }
         }
+        // Navigation stage: Changes to project directory and lists files for verification
         
         stage('Maven Clean') {
             steps {
@@ -32,6 +36,7 @@ pipeline {
                 }
             }
         }
+        // Clean stage: Removes previous build artifacts to ensure fresh build
         
         stage('Maven Build') {
             steps {
@@ -40,6 +45,7 @@ pipeline {
                 }
             }
         }
+        // Build stage: Compiles Java source code into bytecode
         
         stage("Unit Test") {          	 
             steps {
@@ -48,6 +54,7 @@ pipeline {
                 }
             }
         }
+        // Test stage: Runs unit tests to verify code functionality
         
         stage("Maven Package") {
             steps {
@@ -56,6 +63,7 @@ pipeline {
                 }
             }
         }
+        // Package stage: Creates WAR file for web application deployment
         
         stage("Deploy to Tomcat") {          	 
             steps {
@@ -77,7 +85,8 @@ pipeline {
                     }
                 }
             }
-        }  	
+        }
+        // Deploy stage: Uploads WAR file to Tomcat server using configured credentials
     }
     
     post {
@@ -92,12 +101,17 @@ pipeline {
                 }
             }
         }
+        // Always block: Publishes test results regardless of build outcome
+        
         success {
             echo "Pipeline completed successfully!"
             echo "App URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
         }
+        // Success block: Displays success message and application URL when build passes
+        
         failure {
             echo "Pipeline failed! Check the logs above."
         }
+        // Failure block: Displays error message when build fails
     }
 }

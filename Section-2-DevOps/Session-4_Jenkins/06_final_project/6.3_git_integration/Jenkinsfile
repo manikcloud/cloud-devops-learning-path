@@ -4,6 +4,7 @@ pipeline {
     tools {
         maven 'maven'
     }
+    // Pipeline configuration: Uses any available agent and Maven tool named 'maven'
     
     environment {
         SERVER_IP = '98.86.230.111'  // Your server IP
@@ -11,6 +12,7 @@ pipeline {
         APP_CONTEXT = 'addressbook'
         BUILD_TIMESTAMP = "${new Date().format('yyyy-MM-dd HH:mm:ss')}"
     }
+    // Environment variables: Define server details and build timestamp for webhook builds
     
     triggers {
         GenericTrigger(
@@ -28,122 +30,128 @@ pipeline {
             printPostContent: false
         )
     }
+    // Webhook trigger: Automatically starts pipeline when GitHub webhook receives push to main branch
     
     stages {
-        stage("🔍 Webhook Info") {
+        stage("Webhook Info") {
             steps {
                 script {
-                    echo "🚀 ==================================="
-                    echo "🔗 WEBHOOK TRIGGERED BUILD"
-                    echo "🚀 ==================================="
-                    echo "📅 Build Time: ${BUILD_TIMESTAMP}"
-                    echo "🌿 Branch: ${env.ref ?: 'main'}"
-                    echo "👤 Pushed by: ${env.pusher ?: 'Unknown'}"
-                    echo "📦 Repository: ${env.repository ?: 'cloud-devops-learning-path'}"
-                    echo "💬 Commit: ${env.commit_message ?: 'No message'}"
-                    echo "🚀 ==================================="
+                    echo "WEBHOOK TRIGGERED BUILD"
+                    echo "Build Time: ${BUILD_TIMESTAMP}"
+                    echo "Branch: ${env.ref ?: 'main'}"
+                    echo "Pushed by: ${env.pusher ?: 'Unknown'}"
+                    echo "Repository: ${env.repository ?: 'cloud-devops-learning-path'}"
+                    echo "Commit: ${env.commit_message ?: 'No message'}"
                 }
             }
         }
+        // Webhook info stage: Displays information about the webhook trigger and git push details
         
-        stage("📥 Checkout") {   
+        stage("Checkout") {   
             steps {
                 script {
-                    echo "🔄 Checking out code from repository..."
+                    echo "Checking out code from repository..."
                 }
                 git branch: 'main', url: 'https://github.com/manikcloud/cloud-devops-learning-path.git'
                 script {
-                    echo "✅ Code checkout completed successfully"
+                    echo "Code checkout completed successfully"
                 }
             }    
         }
+        // Checkout stage: Downloads latest source code from GitHub repository main branch
         
-        stage('📂 Navigate to Project') {
+        stage('Navigate to Project') {
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
                     script {
-                        echo "📍 Current directory: $(pwd)"
-                        echo "📋 Project files:"
+                        echo "Current directory: $(pwd)"
+                        echo "Project files:"
                     }
                     sh "pwd && ls -la"
                 }
             }
         }
+        // Navigation stage: Changes to project directory and lists files for verification
         
-        stage('🧹 Maven Clean') {
+        stage('Maven Clean') {
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
                     script {
-                        echo "🧹 Cleaning previous build artifacts..."
+                        echo "Cleaning previous build artifacts..."
                     }
                     sh "mvn clean"
                     script {
-                        echo "✅ Clean completed successfully"
+                        echo "Clean completed successfully"
                     }
                 }
             }
         }
+        // Clean stage: Removes previous build artifacts to ensure fresh build
         
-        stage('🔨 Maven Build') {
+        stage('Maven Build') {
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
                     script {
-                        echo "🔨 Compiling source code..."
+                        echo "Compiling source code..."
                     }
                     sh "mvn compile"
                     script {
-                        echo "✅ Build completed successfully"
+                        echo "Build completed successfully"
                     }
                 }
             }
         }
+        // Build stage: Compiles Java source code into bytecode
         
-        stage("🧪 Unit Test") {          	 
+        stage("Unit Test") {          	 
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
                     script {
-                        echo "🧪 Running unit tests..."
+                        echo "Running unit tests..."
                     }
                     sh "mvn test"
                     script {
-                        echo "✅ Tests completed successfully"
+                        echo "Tests completed successfully"
                     }
                 }
             }
         }
+        // Test stage: Runs unit tests to verify code functionality
         
-        stage("📦 Maven Package") {
+        stage("Maven Package") {
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
                     script {
-                        echo "📦 Creating WAR package..."
+                        echo "Creating WAR package..."
                     }
                     sh "mvn package"
                     script {
-                        echo "✅ Package created successfully"
+                        echo "Package created successfully"
                         sh "ls -la target/*.war"
                     }
                 }
             }
         }
+        // Package stage: Creates WAR file for web application deployment
         
         stage("Deploy to Tomcat") {          	 
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.3_git_integration') {
                     script {
                         echo "Deploying to Tomcat server..."
-                        echo "Target: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
+                        echo "Target: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
                     }
                     deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: "http://${SERVER_IP}:${TOMCAT_PORT}")], 
                            contextPath: "/${APP_CONTEXT}", 
                            war: '**/target/*.war'
                     script {
                         echo "Deployment completed successfully"
-                        echo "Application URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
+                        echo "Application URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
                     }
                 }
             }
-        }  	
+        }
+        // Deploy stage: Uploads WAR file to Tomcat server using configured credentials
     }
     
     post {
@@ -159,14 +167,18 @@ pipeline {
                 }
             }
         }
+        // Always block: Publishes test results regardless of build outcome
+        
         success {
             script {
                 echo "WEBHOOK BUILD SUCCESSFUL!"
                 echo "Build completed at: ${BUILD_TIMESTAMP}"
-                echo "Application deployed: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}"
+                echo "Application deployed: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
                 echo "Triggered by: ${env.pusher ?: 'GitHub webhook'}"
             }
         }
+        // Success block: Displays success message with webhook details when build passes
+        
         failure {
             script {
                 echo "WEBHOOK BUILD FAILED!"
@@ -175,11 +187,14 @@ pipeline {
                 echo "Check console output for details"
             }
         }
+        // Failure block: Displays error message with webhook details when build fails
+        
         unstable {
             script {
                 echo "Build completed with warnings"
                 echo "Check test results for details"
             }
         }
+        // Unstable block: Displays warning message when tests fail but build succeeds
     }
 }
