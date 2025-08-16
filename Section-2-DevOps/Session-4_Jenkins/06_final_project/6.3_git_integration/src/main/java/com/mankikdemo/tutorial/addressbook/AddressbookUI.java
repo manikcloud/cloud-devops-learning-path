@@ -114,7 +114,9 @@ public class AddressbookUI extends UI {
 
         // Split and allow resizing
         setContent(mainLayout);
-        mainLayout.addStyleName("v-app-background-blue"); // Add this line for blue background
+        
+        // Add blue background color for visual identification
+        getPage().getStyles().add(".v-ui { background-color: #e3f2fd !important; }");
     }
 
     /*

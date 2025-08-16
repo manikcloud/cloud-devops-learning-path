@@ -199,7 +199,31 @@ http://98.86.230.111:8080/github-webhook/
 
 ### **Phase 5: Testing & Validation**
 
-#### **Step 8: Test Webhook Integration**
+#### **Step 8: Visual Verification Feature**
+
+**🎨 Background Color Change for Easy Testing:**
+
+This version includes a **visual indicator** to easily verify webhook deployments:
+
+```java
+// File: src/main/java/com/mankikdemo/tutorial/addressbook/AddressbookUI.java
+// Line added for visual confirmation:
+mainLayout.addStyleName("v-app-background-blue"); // Blue background for 6.3 version
+```
+
+**Visual Differences:**
+- **6.2 Pipeline Version:** White background
+- **6.3 Git Integration Version:** Blue background
+- **Easy Verification:** Instantly see which version is deployed
+
+**Color Options (modify the one line):**
+```java
+mainLayout.addStyleName("v-app-background-blue");   // Blue background
+mainLayout.addStyleName("v-app-background-green");  // Green background  
+mainLayout.addStyleName("v-app-background-red");    // Red background
+```
+
+#### **Step 9: Test Webhook Integration**
 
 1. **Manual Webhook Test:**
    ```bash
@@ -214,7 +238,7 @@ http://98.86.230.111:8080/github-webhook/
    # Should show successful delivery with 200 response
    ```
 
-#### **Step 9: End-to-End Test**
+#### **Step 10: End-to-End Test**
 
 1. **Make a Code Change:**
    ```bash
