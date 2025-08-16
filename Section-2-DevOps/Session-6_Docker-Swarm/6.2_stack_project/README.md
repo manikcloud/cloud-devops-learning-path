@@ -40,9 +40,17 @@ docker stack deploy -c docker-compose.yml mystack
 
 ---
 
-## 🚀 Simple Stack with Web + Database
+## 🚀 PHP Login Application Stack
 
-This project deploys a multi-service application using Docker Stack with docker-compose.yml.
+This project deploys a complete PHP login application with MySQL database using Docker Stack.
+
+### **Application Features:**
+- **User Registration** - Create new user accounts
+- **User Login** - Authenticate existing users
+- **Password Hashing** - Secure password storage
+- **Database Integration** - MySQL backend storage
+- **Container Info** - Shows which container serves the request
+- **Load Balancing** - 2 PHP replicas distribute traffic
 
 ---
 
@@ -71,8 +79,8 @@ docker node ls
 
 ### **Step 3: Deploy Stack**
 ```bash
-# Deploy stack from compose file
-docker stack deploy -c docker-compose.yml mystack
+# Deploy PHP + MySQL stack
+docker stack deploy -c docker-compose.yml loginapp
 
 # Check stack
 docker stack ls
@@ -81,25 +89,36 @@ docker stack ls
 ### **Step 4: Check Services**
 ```bash
 # List stack services
-docker stack services mystack
+docker stack services loginapp
 
 # Check service details
-docker service ps mystack_web
-docker service ps mystack_db
+docker service ps loginapp_web
+docker service ps loginapp_db
 ```
 
 ### **Step 5: Test Application**
 ```bash
-# Access web service
+# Wait for services to be ready (30-60 seconds)
+sleep 60
+
+# Access login application
 curl http://localhost:8080
 
-# Or open in browser
-# http://localhost:8080
+# Or open in browser: http://localhost:8080
 ```
 
 ---
 
 ## 🔧 Stack Management
+
+### **Test Login Application**
+```bash
+# Test with sample users:
+# Username: admin, Password: admin123
+# Username: testuser, Password: test123
+
+# Or register new users through the web interface
+```
 
 ### **View Stack Info**
 ```bash
@@ -107,25 +126,26 @@ curl http://localhost:8080
 docker stack ls
 
 # List services in stack
-docker stack services mystack
+docker stack services loginapp
 
 # Check service logs
-docker service logs mystack_web
+docker service logs loginapp_web
+docker service logs loginapp_db
 ```
 
 ### **Scale Services**
 ```bash
 # Scale web service
-docker service scale mystack_web=5
+docker service scale loginapp_web=4
 
 # Check scaling
-docker service ps mystack_web
+docker service ps loginapp_web
 ```
 
 ### **Remove Stack**
 ```bash
 # Remove entire stack
-docker stack rm mystack
+docker stack rm loginapp
 
 # Verify removal
 docker stack ls
@@ -136,19 +156,20 @@ docker stack ls
 ## 📋 What's Included
 
 ### **Services:**
-- **Web Service** - 3 nginx replicas on port 8080
-- **Database Service** - 1 MySQL replica with password
+- **Web Service** - 2 PHP-Apache replicas on port 8080
+- **Database Service** - 1 MySQL replica with sample users
 
 ### **Network:**
 - **Overlay Network** - Services can communicate by name
 - **webnet** - Custom network for the stack
 
 ### **Stack Benefits in This Project:**
-- **Single Command Deployment** - `docker stack deploy -c docker-compose.yml mystack`
-- **Service Discovery** - Web service can connect to database using hostname `db`
-- **Load Balancing** - Traffic distributed across 3 web replicas
+- **Single Command Deployment** - `docker stack deploy -c docker-compose.yml loginapp`
+- **Service Discovery** - PHP app connects to database using hostname `db`
+- **Load Balancing** - Traffic distributed across 2 PHP replicas
 - **High Availability** - If one container fails, others continue
-- **Scaling** - Easy to scale services up or down
+- **Data Persistence** - Database initialization with sample users
+- **Real Application** - Functional login system with user registration
 
 ---
 
@@ -156,9 +177,16 @@ docker stack ls
 
 ```
 6.2_stack_project/
-├── docker-compose.yml     # Stack definition
-└── README.md             # This guide
+├── docker-compose.yml     # Stack definition (PHP + MySQL)
+├── init.sql              # Database initialization script
+├── app/                  # PHP application files
+│   └── index.php        # Login application
+└── README.md            # This guide
 ```
+
+### **Sample Users:**
+- **Username:** admin, **Password:** admin123
+- **Username:** testuser, **Password:** test123
 
 ---
 

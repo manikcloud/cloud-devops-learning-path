@@ -2,19 +2,30 @@ version: '3.8'
 
 services:
   web:
-    image: nginx:alpine
+    image: php:7.4-apache
     ports:
       - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+    depends_on:
+      - db
     deploy:
-      replicas: 3
+      replicas: 2
     networks:
       - webnet
+    environment:
+      - DB_HOST=db
+      - DB_NAME=loginapp
+      - DB_USER=root
+      - DB_PASS=password123
 
   db:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password123
-      MYSQL_DATABASE: myapp
+      MYSQL_DATABASE: loginapp
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     deploy:
       replicas: 1
     networks:
