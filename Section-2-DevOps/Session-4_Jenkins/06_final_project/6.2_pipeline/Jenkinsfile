@@ -19,7 +19,7 @@ pipeline {
         
         stage('Navigate to Project') {
             steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/pipeline_deployment') {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
                     sh "pwd && ls -la"
                 }
             }
@@ -27,7 +27,7 @@ pipeline {
         
         stage('Maven Clean') {
             steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/pipeline_deployment') {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
                     sh "mvn clean"
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
         
         stage('Maven Build') {
             steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/pipeline_deployment') {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
                     sh "mvn compile"
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
         
         stage("Unit Test") {          	 
             steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/pipeline_deployment') {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
                     sh "mvn test"
                 }
             }
@@ -51,7 +51,7 @@ pipeline {
         
         stage("Maven Package") {
             steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/pipeline_deployment') {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
                     sh "mvn package"
                 }
             }
@@ -59,7 +59,7 @@ pipeline {
         
         stage("Deploy to Tomcat") {          	 
             steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/pipeline_deployment') {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
                     deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: "http://${SERVER_IP}:${TOMCAT_PORT}")], contextPath: "/${APP_CONTEXT}", war: '**/target/*.war'
                 }
             }
@@ -68,7 +68,7 @@ pipeline {
     
     post {
         always {
-            dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/pipeline_deployment') {
+            dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
                 junit 'target/surefire-reports/*.xml'
             }
         }
