@@ -304,88 +304,7 @@ sudo chown -R jetty:jetty /opt/jetty
 # This provides easier development and deployment
 ```
 
-<details>
-<summary><strong>🔧 Alternative: Tomcat Installation (Click to expand)</strong></summary>
-
-#### **Tomcat 9 Manual Installation**
-
-> **📋 Tomcat Version Options:**
-> - **Tomcat 9.0.108** (Latest stable - Recommended for production)
-> - **Tomcat 10.1.44** (Latest major version - Jakarta EE)
-> - **Tomcat 11.x** (Latest development - Preview features)
-
-```bash
-# Create tomcat user and download latest Tomcat 9.0.108
-sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
-cd /tmp && wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.108/bin/apache-tomcat-9.0.108.tar.gz
-
-# Extract and configure
-sudo tar xf apache-tomcat-9.0.108.tar.gz -C /opt/tomcat
-sudo ln -s /opt/tomcat/apache-tomcat-9.0.108 /opt/tomcat/latest
-sudo chown -RH tomcat: /opt/tomcat/latest
-sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
-
-# Create systemd service file
-sudo tee /etc/systemd/system/tomcat.service > /dev/null <<EOF
-[Unit]
-Description=Tomcat 9 servlet container
-After=network.target
-
-[Service]
-Type=forking
-User=tomcat
-Group=tomcat
-Environment="JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto"
-Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true"
-Environment="CATALINA_BASE=/opt/tomcat/latest"
-Environment="CATALINA_HOME=/opt/tomcat/latest"
-Environment="CATALINA_PID=/opt/tomcat/latest/temp/tomcat.pid"
-Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
-ExecStart=/opt/tomcat/latest/bin/startup.sh
-ExecStop=/opt/tomcat/latest/bin/shutdown.sh
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Start and enable Tomcat service
-sudo systemctl daemon-reload
-sudo systemctl enable tomcat
-sudo systemctl start tomcat
-
-# Check service status
-sudo systemctl status tomcat
-```
-
-### **🔧 Tomcat Service Management Commands**
-```bash
-# Start Tomcat
-sudo systemctl start tomcat
-
-# Stop Tomcat
-sudo systemctl stop tomcat
-
-# Restart Tomcat
-sudo systemctl restart tomcat
-
-# Check status
-sudo systemctl status tomcat
-
-# Enable auto-start on boot
-sudo systemctl enable tomcat
-
-# Disable auto-start on boot
-sudo systemctl disable tomcat
-
-# View logs
-sudo journalctl -u tomcat -f
-```
-
-</details>
-
 ---
-
-## 🚀 Jetty Configuration & Usage
 
 ## 🚀 Jetty Configuration & Usage
 
@@ -400,18 +319,14 @@ sudo journalctl -u tomcat -f
 # Navigate to project directory
 cd your-project-directory
 
-# Run with Jetty (default port 8080)
-mvn jetty:run
-
-# Run with custom port
-mvn jetty:run -Djetty.port=8090
-
-# Run in background
-mvn jetty:run &
+# Run with Jetty on port 8090 (recommended)
+mvn jetty:run -Djetty.port=8090 &
 
 # Stop Jetty
-Ctrl+C (if running in foreground)
-# OR kill the process if running in background
+kill %1
+# OR find and kill the process
+ps aux | grep jetty
+kill <process_id>
 ```
 
 <details>
