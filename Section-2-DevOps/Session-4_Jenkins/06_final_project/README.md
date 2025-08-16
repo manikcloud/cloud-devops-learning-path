@@ -537,35 +537,54 @@ sudo cat /etc/tomcat9/tomcat-users.xml
 sudo systemctl restart tomcat9
 ```
 
-#### **Issue: 403 Access Denied During Jenkins Deployment**
-**Error:** `HTTP request failed, response code: 403, response message: null`
+#### **Issue: 403 Access Denied for Tomcat Manager**
+**Error:** `403 Access Denied` when accessing manager application
 
 **Root Cause:** Tomcat Manager restricts access by IP address by default
 
-**Solution for Amazon Linux:**
+**IMMEDIATE FIX for Amazon Linux:**
 ```bash
-# 1. Edit manager context.xml to allow Jenkins access
+# 1. Edit manager context.xml to remove IP restrictions
 sudo vim /opt/tomcat/latest/webapps/manager/META-INF/context.xml
 
-# 2. Comment out or modify the Valve restriction
-# Find this line:
-# <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" />
+# 2. Find and comment out the Valve restriction line:
+# Look for this line:
+#   <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" />
+# 
+# Comment it out like this:
+#   <!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" /> -->
 
-# 3. Replace with (allows all IPs):
-# <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow=".*" />
-
-# OR comment it out completely:
-# <!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" /> -->
+# 3. The file should look like this after editing:
+cat << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiResourceLocking="false" privileged="true" >
+  <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
+                   sameSiteCookies="strict" />
+  <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
+  <!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" /> -->
+</Context>
+EOF
 
 # 4. Also edit host-manager if it exists
 sudo vim /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
-# Apply same changes
+# Apply same changes (comment out the Valve line)
 
 # 5. Restart Tomcat
 sudo systemctl restart tomcat
 
-# 6. Verify manager is accessible
+# 6. Wait a moment for Tomcat to fully restart
+sleep 10
+
+# 7. Test manager access
 curl -u admin:admin http://98.86.230.111:8090/manager/text/list
+```
+
+**Expected Result After Fix:**
+```
+OK - Listed applications for virtual host [localhost]
+/:running:0:ROOT
+/addressbook:running:0:addressbook
+/manager:running:0:manager
 ```
 
 **Solution for Ubuntu:**
