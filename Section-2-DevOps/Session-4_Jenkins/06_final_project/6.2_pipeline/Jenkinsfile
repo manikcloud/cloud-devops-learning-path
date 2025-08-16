@@ -60,7 +60,27 @@ pipeline {
         stage("Deploy to Tomcat") {          	 
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: "http://${SERVER_IP}:${TOMCAT_PORT}")], contextPath: "/${APP_CONTEXT}", war: '**/target/*.war'
+                    script {
+                        echo "🚀 Starting deployment to Tomcat..."
+                        echo "🎯 Target URL: http://${SERVER_IP}:${TOMCAT_PORT}"
+                        echo "📦 WAR file: target/addressbook.war"
+                        echo "🌐 Context path: /${APP_CONTEXT}"
+                    }
+                    
+                    // Deploy with error handling
+                    script {
+                        try {
+                            deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: "http://${SERVER_IP}:${TOMCAT_PORT}")], 
+                                   contextPath: "/${APP_CONTEXT}", 
+                                   war: '**/target/*.war'
+                            echo "✅ Deployment completed successfully!"
+                            echo "🌐 Application URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
+                        } catch (Exception e) {
+                            echo "❌ Deployment failed: ${e.getMessage()}"
+                            echo "🔍 Check Tomcat server status and credentials"
+                            throw e
+                        }
+                    }
                 }
             }
         }  	
@@ -69,15 +89,21 @@ pipeline {
     post {
         always {
             dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
-                junit 'target/surefire-reports/*.xml'
+                script {
+                    if (fileExists('target/surefire-reports/*.xml')) {
+                        junit 'target/surefire-reports/*.xml'
+                    } else {
+                        echo "No test results found"
+                    }
+                }
             }
         }
         success {
-            echo "✅ Pipeline completed successfully!"
-            echo "🚀 App URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
+            echo "Pipeline completed successfully!"
+            echo "App URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
         }
         failure {
-            echo "❌ Pipeline failed! Check the logs above."
+            echo "Pipeline failed! Check the logs above."
         }
     }
 }
