@@ -551,6 +551,7 @@ sudo systemctl restart tomcat
    - Click `Create`
 
 ---
+<img width="695" height="816" alt="image" src="https://github.com/user-attachments/assets/ed21fbdf-d43b-4bab-be07-fa293205db7e" />
 
 ### **🛠️ Step 3: Configure Maven Tool**
 
