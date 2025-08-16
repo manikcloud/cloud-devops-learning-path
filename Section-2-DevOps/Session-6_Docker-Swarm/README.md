@@ -73,6 +73,10 @@ sudo usermod -aG docker $USER
 - **[HTML File](./6.2_swarm_project/index.html)** - Custom web page
 - **[Dockerfile](./6.2_swarm_project/Dockerfile)** - Container definition
 
+### **[6.3 Stack Project](./6.3_stack_project/)**
+- **[Multi-Service Stack](./6.3_stack_project/README.md)** - Deploy web + database with docker-compose
+- **[Docker Compose File](./6.3_stack_project/docker-compose.yml)** - Stack definition
+
 ---
 
 ## 🚀 Quick Start
@@ -117,6 +121,11 @@ docker service ps web
 - Create custom web service
 - Deploy with multiple replicas
 - Change background colors dynamically
+
+### **Week 3: [Stack Management](./6.3_stack_project/)**
+- Deploy multi-service applications
+- Use docker-compose.yml files
+- Manage web + database stacks
 
 ---
 

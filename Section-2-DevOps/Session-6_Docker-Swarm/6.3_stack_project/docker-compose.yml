@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    deploy:
+      replicas: 3
+    networks:
+      - webnet
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+      MYSQL_DATABASE: myapp
+    deploy:
+      replicas: 1
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: overlay
