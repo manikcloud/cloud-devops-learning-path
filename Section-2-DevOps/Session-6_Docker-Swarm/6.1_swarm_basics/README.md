@@ -115,9 +115,12 @@ ping <manager-private-ip>
 # 2. Verify Docker is running
 sudo systemctl status docker
 
-# 3. Check security group ports (2377, 7946, 4789)
+# 3. Start Docker if stopped
+sudo systemctl start docker
 
-# 4. Regenerate token if needed
+# 4. Check security group ports (2377, 7946, 4789)
+
+# 5. Regenerate token if needed (on manager)
 docker swarm join-token --rotate worker
 ```
 
