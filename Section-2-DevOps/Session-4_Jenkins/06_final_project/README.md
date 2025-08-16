@@ -7,111 +7,40 @@
 ![Maven](https://img.shields.io/badge/Apache-Maven-orange?style=for-the-badge&logo=apache-maven&logoColor=white)
 ![Tomcat](https://img.shields.io/badge/Apache-Tomcat-yellow?style=for-the-badge&logo=apache-tomcat&logoColor=white)
 
-**🚀 Complete CI/CD Pipeline | 📱 Address Book Web App | 🔧 Production Deployment**
+**📱 Address Book Web App | 🔧 Manual → Pipeline Deployment**
 
 </div>
-
----
-
-## 📦 Repository Information
-
-<div align="center">
-
-### 🔗 **Project Repository**
-**Repository URL:** `https://github.com/manikcloud/cloud-devops-learning-path.git`  
-**Branch:** `main`  
-**Project Path:** `Section-2-DevOps/Session-4_Jenkins/06_final_project`
-
-</div>
-
-```bash
-# Quick Start Commands
-git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-cd cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/06_final_project
-```
 
 ---
 
 ## 📋 Project Overview
 
-Build a complete CI/CD pipeline for a real-world Address Book web application using Jenkins, Maven, and Tomcat. This project demonstrates essential DevOps practices with automated testing and production deployment.
+Build a CI/CD pipeline for an Address Book web application. First deploy manually, then automate with Jenkins pipeline.
 
-<div align="center">
-
-### 🎯 **What You'll Build**
-*Professional CI/CD pipeline with automated build, test, and deployment*
-
-</div>
-
-### 🎯 **Learning Objectives**
-- ✅ Deploy a complete CI/CD pipeline for a real application
-- ✅ Automate build, test, and deployment processes
-- ✅ Deploy to Tomcat server automatically
-- ✅ Master essential DevOps practices
-
----
-
-## 🏗️ Application Architecture
-
-### **📱 Address Book Application**
-A modern web application built with Vaadin 7 and Java that demonstrates:
-
-- **CRUD Operations** - Create, update, and delete contacts
-- **Search & Filter** - Filter contacts by name or email
-- **Vaadin UI** - Modern web interface with Java backend
-- **Maven Build** - Automated build and test processes
-
-### **🔧 Technology Stack**
-- **Frontend:** Vaadin 7 Framework
-- **Backend:** Java
-- **Build Tool:** Apache Maven
-- **Web Server:** Apache Tomcat 9
-- **CI/CD:** Jenkins Pipeline
-
----
-
-## 🚀 Getting Started
-
-### **📋 Prerequisites**
-- ✅ Jenkins with Pipeline plugin
-- ✅ Maven configured in Jenkins
-- ✅ Tomcat 9 server
-
-### **📦 Repository Setup**
-
-```bash
-# Clone the cloud-devops-learning-path repository
-git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-
-# Navigate to final project directory
-cd cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/06_final_project
-
-# View project contents
-ls -la
-```
+### 🎯 **Learning Steps**
+1. **Manual Deployment** - Deploy application manually to understand the process
+2. **Pipeline Automation** - Automate the same process using Jenkins
 
 ---
 
 ## 🔧 Infrastructure Setup
 
-### **🐱 Tomcat 9 Installation & Configuration**
-
-#### **Step 1: Install Tomcat 9**
+### **Step 1: Install Required Software**
 ```bash
-# Update system packages
+# Update system
 sudo apt update -y
 
 # Install Maven and Tomcat 9
 sudo apt install maven tomcat9 tomcat9-admin -y
 ```
 
-#### **Step 2: Configure Tomcat Port**
+### **Step 2: Configure Tomcat**
 ```bash
 # Edit Tomcat server configuration
 sudo vim /var/lib/tomcat9/conf/server.xml
 ```
 
-**Update the connector configuration:**
+**Change port from 8080 to 8090:**
 ```xml
 <Connector port="8090" protocol="HTTP/1.1"
            address="0.0.0.0"
@@ -119,374 +48,244 @@ sudo vim /var/lib/tomcat9/conf/server.xml
            redirectPort="8443" />
 ```
 
-#### **Step 3: Configure Tomcat Users**
+### **Step 3: Configure Tomcat Users**
 ```bash
 # Edit tomcat users file
 sudo vim /etc/tomcat9/tomcat-users.xml
 ```
 
-**Add user configuration:**
+**Add these lines before `</tomcat-users>`:**
 ```xml
-<role rolename="admin-gui,manager-gui,manager-script,manager-jmx,manager-status"/>
+<role rolename="admin-gui,manager-gui,manager-script"/>
 <user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>
-<user username="robot" password="admin" roles="manager-script"/>
 ```
 
-#### **Step 4: Restart Tomcat**
+### **Step 4: Restart Tomcat**
 ```bash
 # Restart Tomcat service
 sudo systemctl restart tomcat9
 
-# Verify Tomcat is running
+# Check status
 sudo systemctl status tomcat9
 ```
 
 ---
 
-## 📜 Jenkins Pipeline Configuration
+## 📁 Project Structure
 
-### **🔧 Complete Jenkinsfile**
-
-**Repository:** `https://github.com/manikcloud/cloud-devops-learning-path.git`  
-**Branch:** `main`  
-**Project Path:** `Section-2-DevOps/Session-4_Jenkins/06_final_project`
-
-```groovy
-pipeline {
-    agent any
-    tools {
-        maven 'my_mvn'
-    }
-    stages {
-        stage("Checkout") {   
-            steps {               	 
-                git branch: 'main', url: 'https://github.com/manikcloud/cloud-devops-learning-path.git'        	 
-            }    
-        }
-        stage('Navigate to Project') {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "pwd && ls -la"
-                }
-            }
-        }
-        stage('Maven Clean') {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "mvn clean"
-                }
-            }
-        }
-        stage('Maven Build') {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "mvn compile"
-                }
-            }
-        }
-        stage("Unit Test") {          	 
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "mvn test"
-                }
-            }
-        }
-        stage("Maven Package") {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "mvn package"
-                }
-            }
-        }
-        stage("Deploy On Server") {          	 
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: 'http://3.82.130.168:8090')], contextPath: '/addressbook', war: '**/target/*.war'
-                }
-            }
-        }  	
-    }
-    post {
-        always {
-            dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
-        success {
-            echo "✅ Pipeline completed successfully!"
-            echo "🚀 App URL: http://3.82.130.168:8090/addressbook/"
-        }
-        failure {
-            echo "❌ Pipeline failed!"
-        }
-    }
-}
 ```
-        stage('Navigate to Project') {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "pwd && ls -la"
-                }
-            }
-        }
-        stage('Maven Clean') {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "mvn clean"
-                }
-            }
-        }
-        stage('Maven Build') {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "mvn compile"
-                }
-            }
-        }
-        stage("Unit Test") {          	 
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "mvn test"
-                }
-            }
-        }
-        stage("Maven Package") {
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    sh "mvn package"
-                }
-            }
-        }
-        stage("Deploy On Server") {          	 
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                    deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: 'http://3.82.130.168:8090')], contextPath: '/addressbook', war: '**/target/*.war'
-                }
-            }
-        }  	
-    }
-    post {
-        always {
-            dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
-        success {
-            echo "✅ Pipeline completed successfully!"
-            echo "🚀 App URL: http://3.82.130.168:8090/addressbook/"
-        }
-        failure {
-            echo "❌ Pipeline failed!"
-        }
-    }
-}
+06_final_project/
+├── manual_deployment/          # Manual deployment files
+│   ├── src/                   # Java source code
+│   ├── pom.xml               # Maven configuration
+│   └── build.xml             # Build configuration
+├── pipeline_deployment/       # Pipeline automation files
+│   ├── src/                  # Same source code
+│   ├── pom.xml              # Same Maven configuration
+│   └── Jenkinsfile          # Jenkins pipeline
+└── README.md                # This guide
 ```
 
 ---
 
-## 🎯 Pipeline Stages Explained
+## 🚀 Part 1: Manual Deployment
 
-### **🔄 Stage 1: Checkout**
-- Clones the repository from GitHub
-- Switches to the `main` branch
-- Prepares the workspace for build
-
-### **🧹 Stage 2: Maven Clean**
-- Removes previous build artifacts
-- Ensures clean build environment
-- Prepares for fresh compilation
-
-### **🔨 Stage 3: Maven Build**
-- Compiles the Java source code
-- Resolves dependencies
-- Validates code compilation
-
-### **🧪 Stage 4: Unit Test**
-- Executes automated unit tests
-- Generates test reports
-- Validates code functionality
-
-### **📦 Stage 5: Maven Package**
-- Creates deployable WAR file
-- Packages application with dependencies
-- Prepares for deployment
-
-### **🚀 Stage 6: Deploy On Server**
-- Deploys WAR file to Tomcat server
-- Configures application context
-- Makes application available to users
-
----
-
-## 📊 Manual Deployment Process
-
-### **🔧 Local Build and Test**
-
+### **Step 1: Clone Repository**
 ```bash
 # Clone the repository
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 
-# Navigate to final project directory
-cd cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/06_final_project
-
-# Clean and build the project
-mvn clean install
-
-# Run the application locally (if Jetty plugin is configured)
-mvn jetty:run
-
-# Access application at http://localhost:8090
+# Navigate to manual deployment
+cd cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/06_final_project/manual_deployment
 ```
 
-### **🚀 Manual Tomcat Deployment**
-
+### **Step 2: Build Application**
 ```bash
-# Build the WAR file
+# Clean and build
 mvn clean install
 
-# Copy WAR file to Tomcat webapps
-sudo cp target/addressbook.war /var/lib/tomcat9/webapps/ -v
-
-# Access application
-# URL: http://localhost:8090/addressbook/
+# Check if WAR file is created
+ls -la target/
 ```
+
+### **Step 3: Deploy to Tomcat**
+```bash
+# Copy WAR file to Tomcat webapps
+sudo cp target/addressbook.war /var/lib/tomcat9/webapps/
+
+# Check deployment
+ls -la /var/lib/tomcat9/webapps/
+```
+
+### **Step 4: Access Application**
+```bash
+# Replace YOUR_SERVER_IP with your actual server IP
+# Example: http://3.82.130.168:8090/addressbook/
+http://YOUR_SERVER_IP:8090/addressbook/
+```
+
+### **Step 5: Verify Manual Deployment**
+- Open browser and go to `http://YOUR_SERVER_IP:8090/addressbook/`
+- You should see the Address Book application
+- Try adding/editing contacts to test functionality
 
 ---
 
-## 🔧 Jenkins Configuration
+## 🔄 Part 2: Pipeline Automation
 
-### **📋 Required Jenkins Plugins**
-- Pipeline Plugin
-- Maven Integration Plugin
-- Deploy to Container Plugin
-- JUnit Plugin
+### **Step 1: Jenkins Setup**
+```bash
+# Install Jenkins (if not already installed)
+# Configure Maven in Jenkins Global Tools
+# Name: my_mvn
+# MAVEN_HOME: /usr/share/maven
+```
 
-### **🔐 Credentials Configuration**
-
-#### **Tomcat Credentials**
+### **Step 2: Configure Jenkins Credentials**
 ```yaml
+# Add Tomcat credentials in Jenkins
 Credential ID: tomcat-9
 Type: Username with password
 Username: admin
 Password: admin
 ```
 
-### **🛠️ Tool Configuration**
+### **Step 3: Create Jenkins Pipeline Job**
+1. **New Item** → **Pipeline**
+2. **Pipeline Definition:** Pipeline script from SCM
+3. **SCM:** Git
+4. **Repository URL:** `https://github.com/manikcloud/cloud-devops-learning-path.git`
+5. **Branch:** `main`
+6. **Script Path:** `Section-2-DevOps/Session-4_Jenkins/06_final_project/pipeline_deployment/Jenkinsfile`
 
-#### **Maven Configuration**
-```yaml
-Name: my_mvn
-MAVEN_HOME: /usr/share/maven
-Install automatically: false
+### **Step 4: Update Server IP in Jenkinsfile**
+```bash
+# Edit the Jenkinsfile
+cd pipeline_deployment
+vim Jenkinsfile
+
+# Replace 3.82.130.168 with your server IP in these lines:
+# - Tomcat URL in deploy stage
+# - App URL in success message
+```
+
+### **Step 5: Run Pipeline**
+1. **Build Now** in Jenkins
+2. **Monitor Console Output**
+3. **Check each stage completion**
+
+---
+
+## 📜 Pipeline Stages
+
+### **🔧 Jenkinsfile Overview**
+```groovy
+pipeline {
+    agent any
+    tools {
+        maven 'my_mvn'
+    }
+    
+    environment {
+        TOMCAT_URL = 'http://YOUR_SERVER_IP:8090'
+        APP_CONTEXT = '/addressbook'
+    }
+    
+    stages {
+        stage("Checkout") { ... }
+        stage("Build") { ... }
+        stage("Test") { ... }
+        stage("Package") { ... }
+        stage("Deploy") { ... }
+    }
+}
+```
+
+### **📊 Pipeline Flow**
+1. **Checkout** → Get code from repository
+2. **Build** → Compile Java code with Maven
+3. **Test** → Run unit tests
+4. **Package** → Create WAR file
+5. **Deploy** → Deploy to Tomcat server
+
+---
+
+## 🔍 Verification Steps
+
+### **✅ Manual Deployment Check**
+```bash
+# Check if WAR is deployed
+ls -la /var/lib/tomcat9/webapps/
+
+# Check Tomcat logs
+sudo tail -f /var/log/tomcat9/catalina.out
+
+# Test application
+curl http://YOUR_SERVER_IP:8090/addressbook/
+```
+
+### **✅ Pipeline Deployment Check**
+```bash
+# Check Jenkins console output
+# Verify each stage passes
+# Check final deployment message
+# Test application URL
 ```
 
 ---
 
-## 📱 Application Features
-
-### **👥 Contact Management**
-- **Add Contacts** - Create new contact entries
-- **Edit Contacts** - Update existing contact information
-- **Delete Contacts** - Remove contacts from the address book
-- **Search Contacts** - Filter contacts by name or email
-
-### **🎨 User Interface**
-- **Modern Web UI** - Built with Vaadin framework
-- **Responsive Design** - Works on desktop and mobile
-- **Intuitive Navigation** - Easy-to-use interface
-- **Real-time Updates** - Dynamic content updates
-
----
-
-## 🌐 Access URLs
-
-### **📱 Application URLs**
-- **Local Development:** `http://localhost:8090/addressbook/`
-- **Production:** `http://your-server-ip:8090/addressbook/`
-
-### **🔧 Management URLs**
-- **Tomcat Manager:** `http://your-server-ip:8090/manager/html`
-
----
-
-## 🔧 Troubleshooting Guide
+## 🛠️ Troubleshooting
 
 ### **❌ Common Issues**
 
-<table>
-<tr>
-<th width="30%">Issue</th>
-<th width="35%">Cause</th>
-<th width="35%">Solution</th>
-</tr>
-
-<tr>
-<td><strong>Tomcat deployment fails</strong></td>
-<td>Incorrect credentials or URL</td>
-<td>• Verify Tomcat credentials<br>• Check server URL and port<br>• Ensure Tomcat is running</td>
-</tr>
-
-<tr>
-<td><strong>Maven build fails</strong></td>
-<td>Missing dependencies or Java version</td>
-<td>• Check Java version compatibility<br>• Verify Maven configuration<br>• Check internet connectivity</td>
-</tr>
-
-</table>
+| Issue | Solution |
+|-------|----------|
+| **Port 8090 not accessible** | Check firewall: `sudo ufw allow 8090` |
+| **Tomcat not starting** | Check logs: `sudo journalctl -u tomcat9` |
+| **WAR not deploying** | Check permissions: `sudo chown tomcat9:tomcat9 /var/lib/tomcat9/webapps/` |
+| **Maven build fails** | Check Java version: `java -version` |
+| **Jenkins can't connect to Tomcat** | Verify credentials and URL |
 
 ---
 
-## 🎓 Learning Outcomes
+## 🎯 Learning Outcomes
 
-After completing this project, you will have mastered:
+After completing this project:
 
-### **✅ CI/CD Pipeline Development**
-- **Complete Pipeline Creation** - End-to-end automation
-- **Multi-stage Builds** - Complex pipeline orchestration
-- **Automated Testing** - Unit test integration
-- **Deployment Automation** - Production deployment strategies
+### **✅ Manual Deployment Skills**
+- Maven build process
+- WAR file creation
+- Tomcat deployment
+- Application testing
 
-### **✅ Essential DevOps Practices**
-- **Build Automation** - Maven integration
-- **Automated Testing** - Unit and integration testing
-- **Infrastructure Management** - Server configuration and management
+### **✅ Pipeline Automation Skills**
+- Jenkins pipeline creation
+- SCM integration
+- Automated deployment
+- Build monitoring
 
-### **✅ Production-Ready Skills**
-- **Real Application Deployment** - Actual web application
-- **Server Management** - Tomcat configuration and deployment
-- **Build Monitoring** - Pipeline execution monitoring
-- **Troubleshooting** - Production issue resolution
+### **✅ DevOps Understanding**
+- Manual vs Automated processes
+- CI/CD pipeline benefits
+- Infrastructure as Code basics
+- Production deployment practices
 
 ---
 
 ## 🚀 Next Steps
 
-<div align="center">
-
-### 🎯 **Congratulations!**
-*You've built a complete enterprise-grade CI/CD pipeline!*
-
-</div>
-
-### **🔄 Enhancements to Consider:**
-1. **🐳 Containerization** - Add Docker support
-2. **☁️ Cloud Deployment** - Deploy to AWS/Azure
-3. **📊 Advanced Monitoring** - Add application monitoring
-4. **🔍 Code Quality** - Integrate SonarQube for analysis
-5. **📧 Notifications** - Add email/Slack notifications
-6. **🚀 Blue-Green Deployment** - Zero-downtime deployments
+1. **Add more stages** - Code quality checks, security scans
+2. **Environment variables** - Make pipeline more flexible
+3. **Multi-environment deployment** - Dev, Test, Prod
+4. **Rollback strategies** - Handle deployment failures
+5. **Monitoring** - Add application monitoring
 
 ---
 
-## 🤝 Connect & Follow
-
 <div align="center">
 
-**Created with ❤️ by Varun Kumar Manik**
+**🎉 Congratulations! You've built a complete CI/CD pipeline!**
 
 [![GitHub](https://img.shields.io/badge/GitHub-manikcloud-black?style=for-the-badge&logo=github)](https://github.com/manikcloud)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-vkmanik-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/vkmanik/)
-[![Email](https://img.shields.io/badge/Email-varunmanik1%40gmail.com-red?style=for-the-badge&logo=gmail)](mailto:varunmanik1@gmail.com)
-[![YouTube](https://img.shields.io/badge/YouTube-Technical%20Tutorials-red?style=for-the-badge&logo=youtube)](https://bit.ly/32fknRN)
 
 </div>
