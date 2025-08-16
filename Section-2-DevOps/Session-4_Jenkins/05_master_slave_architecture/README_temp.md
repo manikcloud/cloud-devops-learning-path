@@ -45,6 +45,25 @@ Imagine you're working at a growing tech company. Your single Jenkins server is 
 
 ---
 
+## 🌟 Why JNLP is Better
+
+### **✅ Advantages over SSH:**
+- **No SSH key management** - Zero key generation/copying
+- **No user creation** - Works with any user
+- **Firewall friendly** - Outbound connection only
+- **Auto reconnection** - Slave reconnects automatically
+- **Simpler troubleshooting** - Just download and run
+- **Works anywhere** - Even behind NAT/firewalls
+
+### **🎯 Perfect for:**
+- Quick testing and demos
+- Development environments
+- When SSH is complicated
+- Temporary slave nodes
+- Learning Jenkins concepts
+
+---
+
 ## 🏗️ Architecture
 
 ![JNLP Architecture](./jnlp-architecture.svg)
@@ -188,41 +207,6 @@ INFO: Connected to Jenkins
    Click "Build Now"
    ```
 
----
-
-## 🎯 Testing Your JNLP Setup
-
-### **Verify Connection:**
-
-1. **Check Node Status:**
-   ```
-   Jenkins → Manage Nodes → jnlp-slave-1 should show "Connected"
-   ```
-
-2. **Run Pipeline:**
-   ```
-   Create new pipeline with label 'jnlp'
-   Build Now → Should run on JNLP slave
-   ```
-
-3. **Expected Output:**
-   ```
-   🎉 Hello World from JNLP Jenkins Slave!
-   Running on: jnlp-slave-1
-   Connection Type: JNLP (No SSH keys needed!)
-   [jnlp-slave-1] $ whoami
-   ec2-user
-   ```
-
----
-
-## 🚀 Quick Commands Summary
-
-### **Slave Setup:**
-```bash
-# 1. Install Java and Git
-sudo yum install java-17-amazon-corretto git -y
-
 # 2. Create workspace
 mkdir -p ~/jenkins-workspace && cd ~/jenkins-workspace
 
@@ -245,12 +229,12 @@ agent {
 **JNLP setup is complete when:**
 - ✅ Slave shows "Connected" in Jenkins
 - ✅ Pipeline runs with `label 'jnlp'`
-- ✅ Hello World pipeline executes successfully
+- ✅ No SSH keys needed
 - ✅ Auto-reconnects if disconnected
 - ✅ Works from anywhere with internet
 
-**Perfect for development environments and learning Jenkins distributed builds!** 🚀
+**Perfect for quick demos and development environments!** 🚀
 
 ---
 
-*Simple, effective Jenkins Master-Slave setup without SSH complexity!*
+*JNLP: When you want Jenkins slaves without the SSH complexity!*
