@@ -51,7 +51,7 @@ sleep 30
 
 ls -la /var/lib/tomcat9/webapps/addressbook/
 
-
+```
 
 ### **Step 5: Access Application**
 ```bash
