@@ -134,7 +134,7 @@ graph LR
 http://YOUR_JENKINS_IP:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
 
 # Example:
-http://3.82.130.168:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
+http://98.86.230.111:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
 ```
 
 ---
@@ -169,7 +169,7 @@ http://3.82.130.168:8080/generic-webhook-trigger/invoke?token=addressbook-webhoo
 
 2. **Webhook Configuration:**
    ```yaml
-   Payload URL: http://YOUR_JENKINS_IP:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
+   Payload URL: http://98.86.230.111:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
    Content type: application/json
    Secret: (leave empty for now)
    
@@ -242,7 +242,7 @@ Description: Jenkins webhook access
 1. **Manual Webhook Test:**
    ```bash
    # Test webhook URL directly
-   curl -X POST http://YOUR_JENKINS_IP:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
+   curl -X POST http://98.86.230.111:8080/generic-webhook-trigger/invoke?token=addressbook-webhook-token
    
    # Should return: Triggered jobs: AddressBook-Webhook
    ```

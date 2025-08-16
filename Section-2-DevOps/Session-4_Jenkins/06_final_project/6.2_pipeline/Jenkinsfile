@@ -5,7 +5,7 @@ pipeline {
     }
     
     environment {
-        SERVER_IP = '3.82.130.168'  // Replace with your server IP
+        SERVER_IP = '98.86.230.111'  // Your server IP
         TOMCAT_PORT = '8090'
         APP_CONTEXT = 'addressbook'
     }
