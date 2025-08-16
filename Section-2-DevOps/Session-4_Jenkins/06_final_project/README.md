@@ -473,8 +473,10 @@ sudo vim /opt/tomcat/latest/conf/tomcat-users.xml
 
 **Add these lines before `</tomcat-users>` (Both Systems):**
 ```xml
-<role rolename="admin-gui,manager-gui,manager-script"/>
-<user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>
+<role rolename="admin-gui"/>
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<user username="admin" password="admin" roles="admin-gui,manager-gui,manager-script"/>
 ```
 
 #### **Restart After Configuration**
@@ -484,6 +486,44 @@ sudo systemctl restart tomcat9
 
 # Amazon Linux
 sudo systemctl restart tomcat
+```
+
+### **🔧 Deployment Troubleshooting**
+
+#### **Issue: Jenkins Deployment Fails**
+**Symptoms:**
+```
+[DeployPublisher][INFO] Attempting to deploy 1 war file(s)
+[DeployPublisher][INFO] Deploying ... to container Tomcat 9.x Remote with context /addressbook
+[ERROR] Deployment failed
+```
+
+**Solution for Amazon Linux:**
+```bash
+# 1. Verify tomcat-users.xml configuration
+sudo cat /opt/tomcat/latest/conf/tomcat-users.xml
+
+# Should contain these lines before </tomcat-users>:
+# <role rolename="admin-gui"/>
+# <role rolename="manager-gui"/>
+# <role rolename="manager-script"/>
+# <user username="admin" password="admin" roles="admin-gui,manager-gui,manager-script"/>
+
+# 2. Restart Tomcat after changes
+sudo systemctl restart tomcat
+
+# 3. Verify Tomcat is running on correct port
+sudo netstat -tlnp | grep :8090
+
+# 4. Test manager access manually
+curl -u admin:admin http://98.86.230.111:8090/manager/text/list
+```
+
+**Solution for Ubuntu:**
+```bash
+# Same steps but use different paths:
+sudo cat /etc/tomcat9/tomcat-users.xml
+sudo systemctl restart tomcat9
 ```
 
 ---
