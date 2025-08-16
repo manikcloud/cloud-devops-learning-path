@@ -120,6 +120,7 @@
             <h3>📊 Database Information</h3>
             <p><strong>Database Host:</strong> db</p>
             <p><strong>Database Name:</strong> loginapp</p>
+            <p><strong>Database Type:</strong> MariaDB 10.6</p>
             <p><strong>Table:</strong> users</p>
             <p><strong>Container:</strong> <?php echo gethostname(); ?></p>
             <p><strong>Server Time:</strong> <?php echo date('Y-m-d H:i:s'); ?></p>

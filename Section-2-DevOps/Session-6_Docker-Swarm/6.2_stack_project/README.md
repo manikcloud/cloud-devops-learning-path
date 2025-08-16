@@ -42,13 +42,13 @@ docker stack deploy -c docker-compose.yml mystack
 
 ## 🚀 PHP Login Application Stack
 
-This project deploys a complete PHP login application with MySQL database using Docker Stack.
+This project deploys a complete PHP login application with MariaDB database using Docker Stack.
 
 ### **Application Features:**
 - **User Registration** - Create new user accounts
 - **User Login** - Authenticate existing users
 - **Password Hashing** - Secure password storage
-- **Database Integration** - MySQL backend storage
+- **MariaDB Integration** - Lightweight MySQL-compatible database
 - **Container Info** - Shows which container serves the request
 - **Load Balancing** - 2 PHP replicas distribute traffic
 
@@ -169,7 +169,7 @@ docker stack ls
 
 ### **Services:**
 - **Web Service** - 2 PHP-Apache replicas on port 8080
-- **Database Service** - 1 MySQL replica with sample users
+- **Database Service** - 1 MariaDB replica with sample users
 
 ### **Network:**
 - **Overlay Network** - Services can communicate by name
@@ -182,6 +182,7 @@ docker stack ls
 - **High Availability** - If one container fails, others continue
 - **Data Persistence** - Database initialization with sample users
 - **Real Application** - Functional login system with user registration
+- **MariaDB Stability** - More reliable than MySQL in containers
 
 ---
 
@@ -189,7 +190,7 @@ docker stack ls
 
 ```
 6.2_stack_project/
-├── docker-compose.yml     # Stack definition (PHP + MySQL)
+├── docker-compose.yml     # Stack definition (PHP + MariaDB)
 ├── Dockerfile            # Custom PHP image with MySQL support
 ├── init.sql              # Database initialization script
 ├── app/                  # PHP application files

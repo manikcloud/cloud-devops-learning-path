@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🐝 Building and Deploying PHP Login App Stack"
+echo "🐝 Building and Deploying PHP Login App Stack with MariaDB"
 
 # Build custom PHP image
 echo "📦 Building PHP image with MySQL support..."
@@ -11,7 +11,7 @@ if [ $? -eq 0 ]; then
     echo "✅ Image built successfully!"
     
     # Deploy stack
-    echo "🚀 Deploying stack..."
+    echo "🚀 Deploying stack with MariaDB..."
     docker stack deploy -c docker-compose.yml loginapp
     
     # Show stack status
@@ -24,6 +24,7 @@ if [ $? -eq 0 ]; then
     echo "👥 View users at: http://localhost:8080/users.php"
     echo ""
     echo "⏳ Wait 30-60 seconds for services to be ready..."
+    echo "🗄️  Using MariaDB 10.6 for better stability"
     
 else
     echo "❌ Image build failed!"

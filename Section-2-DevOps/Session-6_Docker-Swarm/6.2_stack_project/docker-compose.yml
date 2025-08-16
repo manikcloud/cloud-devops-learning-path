@@ -18,10 +18,10 @@ services:
       - DB_PASS=password123
 
   db:
-    image: mysql:8.0
+    image: mariadb:10.6
     environment:
-      MYSQL_ROOT_PASSWORD: password123
-      MYSQL_DATABASE: loginapp
+      MARIADB_ROOT_PASSWORD: password123
+      MARIADB_DATABASE: loginapp
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     deploy:
