@@ -232,47 +232,6 @@ sudo systemctl enable jetty9
 sudo systemctl start jetty9
 sudo systemctl status jetty9
 ```
-
-<details>
-<summary><strong>🔧 Alternative: Tomcat Installation (Click to expand)</strong></summary>
-
-#### **Tomcat 9 Installation**
-```bash
-# Install Tomcat 9
-sudo apt install tomcat9 tomcat9-admin -y
-
-# Configure and start service
-sudo systemctl enable tomcat9
-sudo systemctl start tomcat9
-
-# Check service status
-sudo systemctl status tomcat9
-```
-
-### **🔧 Ubuntu Tomcat Service Management**
-```bash
-# Start Tomcat
-sudo systemctl start tomcat9
-
-# Stop Tomcat
-sudo systemctl stop tomcat9
-
-# Restart Tomcat
-sudo systemctl restart tomcat9
-
-# Check status
-sudo systemctl status tomcat9
-
-# Enable auto-start on boot
-sudo systemctl enable tomcat9
-
-# View logs
-sudo journalctl -u tomcat9 -f
-# OR
-sudo tail -f /var/log/tomcat9/catalina.out
-```
-
-</details>
 ```
 
 ### **🔴 Amazon Linux/RHEL Systems**
@@ -290,7 +249,7 @@ sudo yum install java-11-amazon-corretto-devel maven git -y
 # OR for AL2023: sudo dnf install java-11-amazon-corretto-devel maven git -y
 ```
 
-#### **Install Jetty (Recommended)**
+#### **Step 4: Install Jetty (Recommended)**
 ```bash
 # Download and install Jetty
 cd /tmp
@@ -329,12 +288,69 @@ ps aux | grep jetty
 kill <process_id>
 ```
 
-<details>
-<summary><strong>🔧 Tomcat Service Management (Click to expand)</strong></summary>
+---
 
-## 🔧 Tomcat Service Management
+## 🔧 Alternative: Tomcat Installation & Configuration
 
-### **📋 Service Commands Summary**
+### **🐧 Ubuntu Tomcat Installation**
+```bash
+# Install Tomcat 9
+sudo apt install tomcat9 tomcat9-admin -y
+
+# Configure and start service
+sudo systemctl enable tomcat9
+sudo systemctl start tomcat9
+sudo systemctl status tomcat9
+```
+
+### **🔴 Amazon Linux Tomcat Installation**
+
+#### **Download and Setup Tomcat**
+```bash
+# Create tomcat user and download latest Tomcat 9.0.108
+sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
+cd /tmp && wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.108/bin/apache-tomcat-9.0.108.tar.gz
+
+# Extract and configure
+sudo tar xf apache-tomcat-9.0.108.tar.gz -C /opt/tomcat
+sudo ln -s /opt/tomcat/apache-tomcat-9.0.108 /opt/tomcat/latest
+sudo chown -RH tomcat: /opt/tomcat/latest
+sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'
+```
+
+#### **Create Systemd Service**
+```bash
+# Create systemd service file
+sudo tee /etc/systemd/system/tomcat.service > /dev/null <<EOF
+[Unit]
+Description=Tomcat 9 servlet container
+After=network.target
+
+[Service]
+Type=forking
+User=tomcat
+Group=tomcat
+Environment="JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto"
+Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true"
+Environment="CATALINA_BASE=/opt/tomcat/latest"
+Environment="CATALINA_HOME=/opt/tomcat/latest"
+Environment="CATALINA_PID=/opt/tomcat/latest/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+ExecStart=/opt/tomcat/latest/bin/startup.sh
+ExecStop=/opt/tomcat/latest/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Start and enable Tomcat service
+sudo systemctl daemon-reload
+sudo systemctl enable tomcat
+sudo systemctl start tomcat
+sudo systemctl status tomcat
+```
+
+### **🔧 Tomcat Service Management**
 
 <table>
 <tr>
@@ -381,27 +397,62 @@ kill <process_id>
 
 </table>
 
-### **🔍 Service Verification**
+### **🔍 Tomcat Configuration**
+
+#### **Configure Port (Change from 8080 to 8090)**
+
+**Ubuntu:**
 ```bash
-# Check if service is running
-sudo systemctl is-active tomcat9    # Ubuntu
-sudo systemctl is-active tomcat     # Amazon Linux
+# Edit server configuration
+sudo vim /var/lib/tomcat9/conf/server.xml
 
-# Check if service is enabled
-sudo systemctl is-enabled tomcat9   # Ubuntu
-sudo systemctl is-enabled tomcat    # Amazon Linux
-
-# Test Tomcat is responding
-curl -I http://localhost:8090
-
-# Check process
-ps aux | grep tomcat
-
-# Check port usage
-sudo netstat -tlnp | grep 8090
+# Find and change port from 8080 to 8090:
+# <Connector port="8090" protocol="HTTP/1.1"
+#            address="0.0.0.0"
+#            connectionTimeout="20000"
+#            redirectPort="8443" />
 ```
 
-</details>
+**Amazon Linux:**
+```bash
+# Edit server configuration
+sudo vim /opt/tomcat/latest/conf/server.xml
+
+# Find and change port from 8080 to 8090:
+# <Connector port="8090" protocol="HTTP/1.1"
+#            address="0.0.0.0"
+#            connectionTimeout="20000"
+#            redirectPort="8443" />
+```
+
+#### **Configure Tomcat Users**
+
+**Ubuntu:**
+```bash
+# Edit tomcat users file
+sudo vim /etc/tomcat9/tomcat-users.xml
+```
+
+**Amazon Linux:**
+```bash
+# Edit tomcat users file
+sudo vim /opt/tomcat/latest/conf/tomcat-users.xml
+```
+
+**Add these lines before `</tomcat-users>` (Both Systems):**
+```xml
+<role rolename="admin-gui,manager-gui,manager-script"/>
+<user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>
+```
+
+#### **Restart After Configuration**
+```bash
+# Ubuntu
+sudo systemctl restart tomcat9
+
+# Amazon Linux
+sudo systemctl restart tomcat
+```
 
 ---
 
