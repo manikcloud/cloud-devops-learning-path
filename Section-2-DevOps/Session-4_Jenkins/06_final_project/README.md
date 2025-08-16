@@ -18,17 +18,16 @@
 <div align="center">
 
 ### 🔗 **Project Repository**
-**Repository URL:** `https://github.com/manikcloud/Jenkins-cicd.git`  
-**Branch:** `8.1-addressbook`  
-**Application:** Address Book Web Application
+**Repository URL:** `https://github.com/manikcloud/cloud-devops-learning-path.git`  
+**Branch:** `main`  
+**Project Path:** `Section-2-DevOps/Session-4_Jenkins/06_final_project`
 
 </div>
 
 ```bash
 # Quick Start Commands
-git clone https://github.com/manikcloud/Jenkins-cicd.git
-cd Jenkins-cicd
-git checkout 8.1-addressbook
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/06_final_project
 ```
 
 ---
@@ -85,14 +84,14 @@ A modern web application built with Vaadin 7 and Java that demonstrates:
 ### **📦 Repository Setup**
 
 ```bash
-# Clone the Address Book application repository
-git clone https://github.com/manikcloud/Jenkins-cicd.git
+# Clone the cloud-devops-learning-path repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 
-# Navigate to project directory
-cd Jenkins-cicd
+# Navigate to final project directory
+cd cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/06_final_project
 
-# Switch to the address book branch
-git checkout 8.1-addressbook
+# View project contents
+ls -la
 ```
 
 ---
@@ -157,8 +156,9 @@ sudo systemctl status tomcat9
 
 ### **🔧 Complete Jenkinsfile**
 
-**Repository:** `https://github.com/manikcloud/Jenkins-cicd.git`  
-**Branch:** `8.1-addressbook`
+**Repository:** `https://github.com/manikcloud/cloud-devops-learning-path.git`  
+**Branch:** `main`  
+**Project Path:** `Section-2-DevOps/Session-4_Jenkins/06_final_project`
 
 ```groovy
 pipeline {
@@ -169,47 +169,68 @@ pipeline {
     stages {
         stage("Checkout") {   
             steps {               	 
-                git branch: '8.1-addressbook', url: 'https://github.com/manikcloud/Jenkins-cicd.git'        	 
+                git branch: 'main', url: 'https://github.com/manikcloud/cloud-devops-learning-path.git'        	 
             }    
+        }
+        stage('Navigate to Project') {
+            steps {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "pwd && ls -la"
+                }
+            }
         }
         stage('Maven Clean') {
             steps {
-                sh "mvn clean"  	 
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "mvn clean"
+                }
             }
         }
         stage('Maven Build') {
             steps {
-                sh "mvn compile"  	 
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "mvn compile"
+                }
             }
         }
         stage("Unit Test") {          	 
-            steps {  	 
-                sh "mvn test"          	 
+            steps {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "mvn test"
+                }
             }
         }
         stage("SonarQube Analysis") {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    withSonarQubeEnv('sonarqube-server') {
-                        sh "mvn verify sonar:sonar -Dsonar.host.url=http://3.82.130.168:9000 -Dsonar.login=\${username} -Dsonar.password=\${password}"
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    withCredentials([usernamePassword(credentialsId: 'sonarqube', passwordVariable: 'password', usernameVariable: 'username')]) {
+                        withSonarQubeEnv('sonarqube-server') {
+                            sh "mvn verify sonar:sonar -Dsonar.host.url=http://3.82.130.168:9000 -Dsonar.login=\${username} -Dsonar.password=\${password}"
+                        }
                     }
                 }
             }
         }
         stage("Maven Package") {
             steps {
-                sh "mvn package"
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    sh "mvn package"
+                }
             }
         }
         stage("Deploy On Server") {          	 
-            steps {  	 
-                deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: 'http://3.82.130.168:8090')], contextPath: '/addressbook', war: '**/target/*.war'         	 
+            steps {
+                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                    deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: 'http://3.82.130.168:8090')], contextPath: '/addressbook', war: '**/target/*.war'
+                }
             }
         }  	
     }
     post {
         always {
-            junit 'target/surefire-reports/*.xml'
+            dir('Section-2-DevOps/Session-4_Jenkins/06_final_project') {
+                junit 'target/surefire-reports/*.xml'
+            }
         }
         success {
             echo "App URL: http://3.82.130.168:8090/addressbook/"
@@ -277,18 +298,15 @@ pipeline {
 
 ```bash
 # Clone the repository
-git clone https://github.com/manikcloud/Jenkins-cicd.git
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 
-# Navigate to project directory
-cd Jenkins-cicd
-
-# Switch to the correct branch
-git checkout 8.1-addressbook
+# Navigate to final project directory
+cd cloud-devops-learning-path/Section-2-DevOps/Session-4_Jenkins/06_final_project
 
 # Clean and build the project
 mvn clean install
 
-# Run the application locally
+# Run the application locally (if Jetty plugin is configured)
 mvn jetty:run
 
 # Access application at http://localhost:8090
