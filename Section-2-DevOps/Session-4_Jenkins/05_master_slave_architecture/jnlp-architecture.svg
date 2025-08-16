@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="450" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#2c3e50">
+    Jenkins JNLP Architecture - Super Easy Setup!
+  </text>
+  
+  <!-- Jenkins Master -->
+  <rect x="100" y="80" width="180" height="100" rx="10" fill="#4a90e2" stroke="#357abd" stroke-width="2"/>
+  <text x="190" y="105" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="white">Jenkins Master</text>
+  <text x="190" y="125" text-anchor="middle" font-family="Arial" font-size="11" fill="white">98.86.230.111:8080</text>
+  <text x="190" y="140" text-anchor="middle" font-family="Arial" font-size="10" fill="white">• Provides agent.jar</text>
+  <text x="190" y="155" text-anchor="middle" font-family="Arial" font-size="10" fill="white">• Accepts JNLP connections</text>
+  <text x="190" y="170" text-anchor="middle" font-family="Arial" font-size="10" fill="white">• No SSH needed!</text>
+  
+  <!-- JNLP Slave -->
+  <rect x="520" y="80" width="180" height="100" rx="10" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+  <text x="610" y="105" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="white">JNLP Slave</text>
+  <text x="610" y="125" text-anchor="middle" font-family="Arial" font-size="11" fill="white">Any Machine</text>
+  <text x="610" y="140" text-anchor="middle" font-family="Arial" font-size="10" fill="white">• Downloads agent.jar</text>
+  <text x="610" y="155" text-anchor="middle" font-family="Arial" font-size="10" fill="white">• Connects to master</text>
+  <text x="610" y="170" text-anchor="middle" font-family="Arial" font-size="10" fill="white">• Auto reconnects</text>
+  
+  <!-- JNLP Connection Arrow -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L10,3.5 z" fill="#e74c3c"/>
+    </marker>
+  </defs>
+  
+  <path d="M 510 130 L 290 130" stroke="#e74c3c" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <text x="400" y="120" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#e74c3c">JNLP Connection</text>
+  <text x="400" y="145" text-anchor="middle" font-family="Arial" font-size="10" fill="#e74c3c">Slave connects TO master</text>
+  
+  <!-- Setup Steps -->
+  <rect x="50" y="220" width="700" height="180" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="400" y="245" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#2c3e50">
+    Super Easy 3-Step Setup
+  </text>
+  
+  <!-- Step 1 -->
+  <rect x="80" y="260" width="200" height="80" rx="5" fill="#e3f2fd" stroke="#2196f3" stroke-width="1"/>
+  <text x="180" y="280" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1976d2">Step 1: Install Java</text>
+  <text x="180" y="295" text-anchor="middle" font-family="Arial" font-size="10" fill="#1976d2">sudo yum install java-17</text>
+  <text x="180" y="310" text-anchor="middle" font-family="Arial" font-size="10" fill="#1976d2">amazon-corretto -y</text>
+  <text x="180" y="325" text-anchor="middle" font-family="Arial" font-size="9" fill="#1976d2">Only requirement!</text>
+  
+  <!-- Step 2 -->
+  <rect x="300" y="260" width="200" height="80" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="400" y="280" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#f57c00">Step 2: Add Node</text>
+  <text x="400" y="295" text-anchor="middle" font-family="Arial" font-size="10" fill="#f57c00">Jenkins → Manage Nodes</text>
+  <text x="400" y="310" text-anchor="middle" font-family="Arial" font-size="10" fill="#f57c00">→ New Node → JNLP</text>
+  <text x="400" y="325" text-anchor="middle" font-family="Arial" font-size="9" fill="#f57c00">Get connection command</text>
+  
+  <!-- Step 3 -->
+  <rect x="520" y="260" width="200" height="80" rx="5" fill="#e8f5e8" stroke="#4caf50" stroke-width="1"/>
+  <text x="620" y="280" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#388e3c">Step 3: Connect</text>
+  <text x="620" y="295" text-anchor="middle" font-family="Arial" font-size="10" fill="#388e3c">Copy-paste command</text>
+  <text x="620" y="310" text-anchor="middle" font-family="Arial" font-size="10" fill="#388e3c">java -jar agent.jar...</text>
+  <text x="620" y="325" text-anchor="middle" font-family="Arial" font-size="9" fill="#388e3c">Done!</text>
+  
+  <!-- Advantages -->
+  <rect x="50" y="360" width="700" height="60" rx="8" fill="#f3e5f5" stroke="#9c27b0" stroke-width="1"/>
+  <text x="400" y="380" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#7b1fa2">
+    Why JNLP is Better
+  </text>
+  <text x="150" y="400" text-anchor="middle" font-family="Arial" font-size="11" fill="#7b1fa2">✅ No SSH Keys</text>
+  <text x="300" y="400" text-anchor="middle" font-family="Arial" font-size="11" fill="#7b1fa2">✅ No User Creation</text>
+  <text x="450" y="400" text-anchor="middle" font-family="Arial" font-size="11" fill="#7b1fa2">✅ Auto Reconnect</text>
+  <text x="600" y="400" text-anchor="middle" font-family="Arial" font-size="11" fill="#7b1fa2">✅ Firewall Friendly</text>
+  
+  <!-- Command Example -->
+  <text x="400" y="435" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c757d">
+    Command: java -jar agent.jar -jnlpUrl http://98.86.230.111:8080/computer/jnlp-slave-1/jenkins-agent.jnlp
+  </text>
+</svg>

@@ -6,7 +6,7 @@
 ![Linux](https://img.shields.io/badge/Linux-EC2-orange?style=for-the-badge&logo=linux&logoColor=white)
 ![Pipeline](https://img.shields.io/badge/Pipeline-Hello%20World-green?style=for-the-badge&logo=pipeline&logoColor=white)
 
-**🎯 Simple Setup | 🔄 Distributed Builds | 🚀 Hello World Pipeline**
+**🎯 Two Easy Approaches | 🔄 Distributed Builds | 🚀 Hello World Pipeline**
 
 </div>
 
@@ -14,13 +14,20 @@
 
 ## 🌟 Overview
 
-Learn Jenkins Master-Slave architecture with a **simple Hello World pipeline** running on two EC2 instances. This demonstrates how to distribute build workloads across multiple servers.
+Learn Jenkins Master-Slave architecture with **two different approaches** - choose what works best for you!
+
+### **📋 Two Setup Methods:**
+
+| Method | Difficulty | Best For | Setup Time |
+|--------|------------|----------|------------|
+| **[SSH Approach](README.md)** | ⭐⭐⭐ Moderate | Production | 10 minutes |
+| **[JNLP Approach](README-JNLP.md)** | ⭐⭐⭐⭐⭐ Super Easy | Development/Testing | 5 minutes |
 
 ### **🎯 What You'll Learn:**
 - **Master-Slave Setup** - Connect two EC2 instances
-- **Distributed Builds** - Run jobs on remote slave
+- **Distributed Builds** - Run jobs on remote nodes
 - **Simple Pipeline** - Hello World example
-- **SSH Connection** - Secure slave communication
+- **Connection Methods** - SSH vs JNLP comparison
 
 ---
 

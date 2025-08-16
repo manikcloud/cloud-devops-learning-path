@@ -1,0 +1,157 @@
+pipeline {
+    agent {
+        label 'jnlp'
+    }
+    // Pipeline runs on any slave node with 'jnlp' label
+    
+    stages {
+        stage('Hello from JNLP Slave') {
+            steps {
+                script {
+                    echo "🎉 Hello World from JNLP Jenkins Slave!"
+                    echo "Running on: ${env.NODE_NAME}"
+                    echo "Workspace: ${env.WORKSPACE}"
+                    echo "Build Number: ${env.BUILD_NUMBER}"
+                    echo "Job Name: ${env.JOB_NAME}"
+                    echo "Connection Type: JNLP (No SSH keys needed!)"
+                }
+            }
+        }
+        // First stage: Display basic information about the JNLP slave
+        
+        stage('JNLP Connection Info') {
+            steps {
+                echo "JNLP Slave Connection Details:"
+                sh 'echo "=== HOSTNAME ==="'
+                sh 'hostname'
+                sh 'echo "=== USER ==="'
+                sh 'whoami'
+                sh 'echo "=== CURRENT DIRECTORY ==="'
+                sh 'pwd'
+                sh 'echo "=== DATE AND TIME ==="'
+                sh 'date'
+                sh 'echo "=== JAVA VERSION ==="'
+                sh 'java -version'
+                sh 'echo "=== JNLP AGENT PROCESS ==="'
+                sh 'ps aux | grep agent.jar | grep -v grep || echo "Agent process not visible in ps"'
+            }
+        }
+        // Second stage: Show JNLP connection and system details
+        
+        stage('Simple Commands') {
+            steps {
+                echo "Executing commands on JNLP slave..."
+                sh 'echo "This command is running on JNLP slave - no SSH setup needed!"'
+                sh 'echo "=== DIRECTORY LISTING ==="'
+                sh 'ls -la'
+                sh 'echo "=== DISK USAGE ==="'
+                sh 'df -h'
+                sh 'echo "=== MEMORY USAGE ==="'
+                sh 'free -m'
+                sh 'echo "=== NETWORK CONNECTIONS ==="'
+                sh 'netstat -an | grep 8080 || ss -an | grep 8080 || echo "Connection info not available"'
+            }
+        }
+        // Third stage: Execute basic commands on JNLP slave
+        
+        stage('JNLP Test File') {
+            steps {
+                echo "Creating test file on JNLP slave..."
+                sh '''
+                echo "=== CREATING JNLP TEST FILE ==="
+                echo "Hello from JNLP Jenkins Slave!" > jnlp-hello.txt
+                echo "Generated on: $(date)" >> jnlp-hello.txt
+                echo "Hostname: $(hostname)" >> jnlp-hello.txt
+                echo "User: $(whoami)" >> jnlp-hello.txt
+                echo "Working Directory: $(pwd)" >> jnlp-hello.txt
+                echo "Connection Type: JNLP (Java Network Launch Protocol)" >> jnlp-hello.txt
+                echo "Advantages: No SSH keys, auto-reconnect, firewall friendly" >> jnlp-hello.txt
+                echo ""
+                echo "=== FILE CONTENTS ==="
+                cat jnlp-hello.txt
+                echo ""
+                echo "=== FILE CREATED SUCCESSFULLY ==="
+                ls -la jnlp-hello.txt
+                '''
+            }
+        }
+        // Fourth stage: Create and display JNLP test file
+        
+        stage('JNLP Advantages Demo') {
+            steps {
+                echo "Demonstrating JNLP advantages..."
+                sh '''
+                echo "=== JNLP BENEFITS DEMONSTRATION ==="
+                echo "1. No SSH Key Management:"
+                echo "   - No key generation needed"
+                echo "   - No key copying between servers"
+                echo "   - No permission issues with keys"
+                echo ""
+                echo "2. Firewall Friendly:"
+                echo "   - Slave connects TO master (outbound only)"
+                echo "   - No inbound ports needed on slave"
+                echo "   - Works behind NAT/firewalls"
+                echo ""
+                echo "3. Auto Reconnection:"
+                echo "   - Automatically reconnects if disconnected"
+                echo "   - No manual intervention needed"
+                echo "   - Resilient to network issues"
+                echo ""
+                echo "4. Simple Setup:"
+                echo "   - Just install Java and run one command"
+                echo "   - No user creation or complex configuration"
+                echo "   - Perfect for development and testing"
+                '''
+            }
+        }
+        // Fifth stage: Demonstrate JNLP advantages
+        
+        stage('Cleanup') {
+            steps {
+                echo "Cleaning up test files..."
+                sh '''
+                if [ -f jnlp-hello.txt ]; then
+                    echo "Removing jnlp-hello.txt"
+                    rm jnlp-hello.txt
+                    echo "Cleanup completed"
+                else
+                    echo "No files to clean up"
+                fi
+                '''
+            }
+        }
+        // Sixth stage: Clean up created files
+    }
+    
+    post {
+        success {
+            script {
+                echo "✅ SUCCESS: JNLP Hello World pipeline completed!"
+                echo "Pipeline executed on JNLP slave: ${env.NODE_NAME}"
+                echo "JNLP connection is much easier than SSH setup!"
+                echo "Perfect for development and testing environments!"
+                echo "Total build time: ${currentBuild.durationString}"
+            }
+        }
+        // Success block: Displays success message with JNLP benefits
+        
+        failure {
+            script {
+                echo "❌ FAILURE: Pipeline failed on JNLP slave"
+                echo "Failed on node: ${env.NODE_NAME}"
+                echo "Check Jenkins master connectivity and Java installation"
+            }
+        }
+        // Failure block: Displays error message with JNLP troubleshooting hints
+        
+        always {
+            echo "🏁 JNLP Pipeline execution completed on ${env.NODE_NAME}"
+            echo "JNLP slaves are perfect for:"
+            echo "  • Development environments"
+            echo "  • Quick testing setups"
+            echo "  • When SSH is too complex"
+            echo "  • Temporary worker nodes"
+        }
+        // Always block: Runs regardless of success or failure
+    }
+}
