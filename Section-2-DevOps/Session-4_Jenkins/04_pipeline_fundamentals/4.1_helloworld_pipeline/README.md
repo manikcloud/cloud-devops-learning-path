@@ -40,6 +40,8 @@ Learn Jenkins Pipeline basics with a simple Maven project build. This is a strai
 In the Pipeline section, select "Pipeline script" and enter:
 
 ```groovy
+// GitHub Repository: https://github.com/manikcloud/cloud-devops-learning-path/tree/main/Section-2-DevOps/Session-4_Jenkins/04_pipeline_fundamentals/4.1_helloworld_pipeline
+
 pipeline {
     agent any
     tools {
@@ -60,7 +62,7 @@ pipeline {
 
         stage('Build and Test Maven Project') {
             steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.2_frees_tyle_maven/my-app') {
+                dir('Section-2-DevOps/Session-4_Jenkins/04_pipeline_fundamentals/4.1_helloworld_pipeline/my-app') {
                     sh "pwd && ls -l"
                     sh "mvn clean"
                     sh "mvn package"
@@ -110,11 +112,11 @@ drwxr-xr-x 4 jenkins jenkins 4096 Aug 16 10:30 Section-2-DevOps
 [Pipeline] stage
 [Pipeline] { (Build and Test Maven Project)
 [Pipeline] dir
-Running in /var/lib/jenkins/workspace/HelloWorld-Pipeline/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.2_frees_tyle_maven/my-app
+Running in /var/lib/jenkins/workspace/HelloWorld-Pipeline/Section-2-DevOps/Session-4_Jenkins/04_pipeline_fundamentals/4.1_helloworld_pipeline/my-app
 [Pipeline] {
 [Pipeline] sh
 + pwd
-/var/lib/jenkins/workspace/HelloWorld-Pipeline/Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.2_frees_tyle_maven/my-app
+/var/lib/jenkins/workspace/HelloWorld-Pipeline/Section-2-DevOps/Session-4_Jenkins/04_pipeline_fundamentals/4.1_helloworld_pipeline/my-app
 + ls -l
 total 8
 -rw-r--r-- 1 jenkins jenkins 1234 Aug 16 10:30 pom.xml
