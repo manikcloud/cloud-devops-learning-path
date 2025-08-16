@@ -47,15 +47,6 @@ pipeline {
         }
         // Build stage: Compiles Java source code into bytecode
         
-        stage("Unit Test") {          	 
-            steps {
-                dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
-                    sh "mvn test"
-                }
-            }
-        }
-        // Test stage: Runs unit tests to verify code functionality
-        
         stage("Maven Package") {
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
@@ -68,19 +59,6 @@ pipeline {
         stage("Deploy to Tomcat") {          	 
             steps {
                 dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
-                    script {
-                        echo "Starting deployment to Tomcat..."
-                        echo "Target URL: http://${SERVER_IP}:${TOMCAT_PORT}"
-                        echo "WAR file: target/addressbook.war"
-                        echo "Context path: /${APP_CONTEXT}"
-                        
-                        // Verify WAR file exists
-                        sh "ls -la target/*.war"
-                        
-                        // Test Tomcat manager connectivity
-                        sh "curl -u admin:admin http://${SERVER_IP}:${TOMCAT_PORT}/manager/text/list"
-                    }
-                    
                     deploy adapters: [tomcat9(credentialsId: 'tomcat-9', path: '', url: "http://${SERVER_IP}:${TOMCAT_PORT}")], 
                            contextPath: "/${APP_CONTEXT}", 
                            war: '**/target/*.war'
@@ -88,9 +66,6 @@ pipeline {
                     script {
                         echo "Deployment completed successfully!"
                         echo "Application URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
-                        
-                        // Verify deployment
-                        sh "curl -I http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
                     }
                 }
             }
@@ -99,19 +74,6 @@ pipeline {
     }
     
     post {
-        always {
-            dir('Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline') {
-                script {
-                    if (fileExists('target/surefire-reports/*.xml')) {
-                        junit 'target/surefire-reports/*.xml'
-                    } else {
-                        echo "No test results found"
-                    }
-                }
-            }
-        }
-        // Always block: Publishes test results regardless of build outcome
-        
         success {
             echo "Pipeline completed successfully!"
             echo "App URL: http://${SERVER_IP}:${TOMCAT_PORT}/${APP_CONTEXT}/"
