@@ -790,6 +790,14 @@ http://YOUR_SERVER_IP:8080
 
 ---
 
+## 🏗️ Architecture Overview
+
+![Architecture Diagram](./architecture-overview.svg)
+
+*Complete CI/CD Pipeline Architecture showing the flow from developer code changes to live application deployment*
+
+---
+
 ## 🎯 Success Metrics & Validation
 
 ### **✅ Phase 1: Manual Deployment Success Criteria**
