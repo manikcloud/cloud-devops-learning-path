@@ -31,6 +31,8 @@ pipeline {
                 sh 'date'
                 sh 'echo "=== JAVA VERSION ==="'
                 sh 'java -version'
+                sh 'echo "=== GIT VERSION ==="'
+                sh 'git --version'
             }
         }
         // Second stage: Display system information

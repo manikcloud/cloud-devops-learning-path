@@ -59,11 +59,15 @@
 # Update system
 sudo yum update -y
 
-# Install Java (only requirement!)
+# Install Java (required for Jenkins agent)
 sudo yum install java-17-amazon-corretto -y
 
-# Verify Java
+# Install Git (required for SCM operations)
+sudo yum install git -y
+
+# Verify installations
 java -version
+git --version
 
 # Create workspace (any user can do this)
 mkdir -p ~/jenkins-workspace
@@ -281,11 +285,12 @@ curl -I http://98.86.230.111:8080
 
 #### **Java Issues:**
 ```bash
-# Ensure Java is installed
+# Ensure Java and Git are installed
 java -version
+git --version
 
 # If not installed:
-sudo yum install java-17-amazon-corretto -y
+sudo yum install java-17-amazon-corretto git -y
 ```
 
 #### **Wrong Secret Key:**
@@ -346,8 +351,8 @@ ls -la ~/jenkins-workspace
 
 ### **Slave Setup:**
 ```bash
-# 1. Install Java
-sudo yum install java-17-amazon-corretto -y
+# 1. Install Java and Git
+sudo yum install java-17-amazon-corretto git -y
 
 # 2. Create workspace
 mkdir -p ~/jenkins-workspace && cd ~/jenkins-workspace
