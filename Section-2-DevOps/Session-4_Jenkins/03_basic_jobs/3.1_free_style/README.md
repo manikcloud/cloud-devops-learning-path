@@ -83,17 +83,14 @@ Build Environment:
 ```
 
 #### **Step 4: Add Build Steps**
-**Build Step 1: Navigate to Java Directory**
+**Build Step: Navigate to Java Directory and Compile**
 ```bash
 # Navigate to the HelloWorld directory
 cd Section-2-DevOps/Session-4_Jenkins/03_basic_jobs/3.1_free_style/hello-world
 
 # List files to verify location
 ls -la
-```
 
-**Build Step 2: Compile and Run Java Application**
-```bash
 # Compile the Java program
 echo "🔨 Compiling HelloWorld.java..."
 javac HelloWorld.java
@@ -106,10 +103,6 @@ else
     echo "❌ Compilation failed!"
     exit 1
 fi
-
-# Run the Java program
-echo "🚀 Running HelloWorld application..."
-java HelloWorld
 
 echo "🎉 Build completed successfully!"
 ```
@@ -168,10 +161,6 @@ drwxr-xr-x 3 jenkins jenkins 4096 Aug 15 10:30 ..
 + ls -la HelloWorld.java HelloWorld.class
 -rw-r--r-- 1 jenkins jenkins 430 Aug 15 10:30 HelloWorld.class
 -rw-r--r-- 1 jenkins jenkins 137 Aug 15 10:30 HelloWorld.java
-+ echo '🚀 Running HelloWorld application...'
-🚀 Running HelloWorld application...
-+ java HelloWorld
-Hello, World from varun on Aug 10  !!!
 + echo '🎉 Build completed successfully!'
 🎉 Build completed successfully!
 Archiving artifacts
@@ -200,7 +189,7 @@ Finished: SUCCESS
 <tr>
 <td><strong>🏗️ Build Execution</strong></td>
 <td>Executes configured build steps</td>
-<td>• Navigates to Java directory<br>• Compiles Java source<br>• Runs application</td>
+<td>• Navigates to Java directory<br>• Compiles Java source<br>• Verifies compilation success</td>
 </tr>
 
 <tr>
