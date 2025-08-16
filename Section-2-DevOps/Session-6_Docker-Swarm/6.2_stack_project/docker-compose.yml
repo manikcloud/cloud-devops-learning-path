@@ -2,18 +2,18 @@ version: '3.8'
 
 services:
   web:
-    image: nginx:alpine
+    image: stackdemo
     ports:
-      - "8080:80"
+      - "8000:8000"
     deploy:
       replicas: 3
     networks:
       - webnet
+    depends_on:
+      - redis
 
-  db:
-    image: mariadb:10.6
-    environment:
-      MARIADB_ROOT_PASSWORD: password123
+  redis:
+    image: redis:alpine
     deploy:
       replicas: 1
     networks:
