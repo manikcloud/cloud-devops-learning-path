@@ -27,7 +27,7 @@ docker rm addressbook 2>/dev/null
 
 # Run new container
 echo "Starting new container..."
-docker run -d -p 8090:8080 --name addressbook addressbook-app
+docker run -d -p 9090:8080 --name addressbook addressbook-app
 if [ $? -ne 0 ]; then
     echo "Failed to start container!"
     exit 1
@@ -38,8 +38,8 @@ echo "Waiting for application to start..."
 sleep 5
 
 # Test application
-if curl -s http://localhost:8090/addressbook/ > /dev/null; then
-    echo "Success! Application is running at http://localhost:8090/addressbook/"
+if curl -s http://localhost:9090/addressbook/ > /dev/null; then
+    echo "Success! Application is running at http://localhost:9090/addressbook/"
 else
     echo "Application may still be starting. Check with: docker logs addressbook"
 fi

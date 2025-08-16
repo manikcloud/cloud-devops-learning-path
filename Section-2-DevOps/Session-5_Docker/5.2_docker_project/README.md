@@ -29,10 +29,10 @@ mvn clean package
 docker build -t addressbook-app .
 
 # 5. Run container
-docker run -d -p 8090:8080 --name addressbook addressbook-app
+docker run -d -p 9090:8080 --name addressbook addressbook-app
 
 # 6. Access application
-# Open: http://localhost:8090/addressbook/
+# Open: http://localhost:9090/addressbook/
 ```
 
 ### **Or Use Script**
@@ -79,7 +79,7 @@ CMD ["catalina.sh", "run"]
 ```bash
 mvn clean package
 docker build -t addressbook-app .
-docker run -d -p 8090:8080 --name addressbook addressbook-app
+docker run -d -p 9090:8080 --name addressbook addressbook-app
 ```
 
 ### **Check Status**
@@ -94,7 +94,7 @@ docker logs addressbook # View logs
 mvn clean package
 docker build -t addressbook-app .
 docker stop addressbook && docker rm addressbook
-docker run -d -p 8090:8080 --name addressbook addressbook-app
+docker run -d -p 9090:8080 --name addressbook addressbook-app
 ```
 
 ---
@@ -109,7 +109,7 @@ docker logs addressbook
 **Application not accessible:**
 ```bash
 docker ps | grep addressbook
-curl http://localhost:8090/addressbook/
+curl http://localhost:9090/addressbook/
 ```
 
 **Build fails:**
@@ -133,7 +133,7 @@ ls target/addressbook.war
 ```
 
 ### **URLs**
-- **Application:** http://localhost:8090/addressbook/
+- **Application:** http://localhost:9090/addressbook/
 - **Repository:** https://github.com/manikcloud/cloud-devops-learning-path
 
 ---
