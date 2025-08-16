@@ -269,6 +269,9 @@ sudo chown -RH tomcat: /opt/tomcat/latest
    - Maven Integration Plugin
    - Deploy to Container Plugin
    - JUnit Plugin
+  
+   - <img width="1215" height="313" alt="image" src="https://github.com/user-attachments/assets/8a5f724d-37e1-4414-8aad-08823317b325" />
+
 
 ### **🔑 Credentials Configuration**
 ```yaml
