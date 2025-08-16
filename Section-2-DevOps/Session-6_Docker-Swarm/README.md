@@ -38,16 +38,20 @@ Docker Swarm is Docker's built-in orchestration tool that manages multiple conta
 ```
 
 ### **Security Group Rules**
-Add these rules to both EC2 security groups:
+Create one Security Group and add these rules:
 ```
-Type: SSH, Port: 22, Source: Your IP
-Type: HTTP, Port: 80, Source: 0.0.0.0/0
-Type: Custom TCP, Port: 8080, Source: 0.0.0.0/0
-Type: Custom TCP, Port: 2377, Source: Security Group ID
-Type: Custom TCP, Port: 7946, Source: Security Group ID  
-Type: Custom UDP, Port: 7946, Source: Security Group ID
-Type: Custom UDP, Port: 4789, Source: Security Group ID
+# Inbound Rules:
+Type: All Traffic, Protocol: All, Port: All, Source: Your IP Address
+Type: All Traffic, Protocol: All, Port: All, Source: Security Group ID (self-reference)
+
+# Outbound Rules:
+Type: All Traffic, Protocol: All, Port: All, Destination: 0.0.0.0/0
 ```
+
+**Simple Setup:**
+- **Your IP Access** - Full access from your location
+- **Inter-EC2 Communication** - All traffic between EC2 instances in same SG
+- **Internet Access** - Outbound traffic allowed
 
 ### **Docker Installation (Both EC2s)**
 ```bash
