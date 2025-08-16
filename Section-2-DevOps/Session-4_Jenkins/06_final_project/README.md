@@ -679,6 +679,7 @@ curl -u admin:admin -T target/addressbook.war \
    - **Maven Integration Plugin** - For Maven builds
    - **Deploy to Container Plugin** - For Tomcat deployment
    - **JUnit Plugin** - For test reporting
+   - **Blue Ocean** (Plugin ID: blueocean) - For modern pipeline visualization
 
 3. **Install Plugins:**
    - Check the boxes for required plugins:
@@ -687,8 +688,14 @@ curl -u admin:admin -T target/addressbook.war \
      - ✅ **Maven Integration Plugin**
      - ✅ **Deploy to Container Plugin**
      - ✅ **JUnit Plugin**
+     - ✅ **Blue Ocean** (blueocean)
    - Click `Install without restart`
    - Wait for installation to complete
+
+4. **Access Blue Ocean (Optional):**
+   - After installation, you'll see "Open Blue Ocean" link in Jenkins sidebar
+   - Blue Ocean provides modern pipeline visualization and editing
+   - Access via: `http://YOUR_SERVER_IP:8080/blue`
 
 ---
 
