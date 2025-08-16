@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  addressbook:
+    build: .
+    container_name: addressbook-app
+    ports:
+      - "8090:8080"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms256m
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
