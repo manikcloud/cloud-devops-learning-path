@@ -118,6 +118,9 @@ curl http://localhost:8080
 # Username: testuser, Password: test123
 
 # Or register new users through the web interface
+
+# View database users for validation:
+# http://localhost:8080/users.php
 ```
 
 ### **View Stack Info**
@@ -180,9 +183,14 @@ docker stack ls
 ├── docker-compose.yml     # Stack definition (PHP + MySQL)
 ├── init.sql              # Database initialization script
 ├── app/                  # PHP application files
-│   └── index.php        # Login application
+│   ├── index.php        # Login application
+│   └── users.php        # Database validation page
 └── README.md            # This guide
 ```
+
+### **Application Pages:**
+- **http://localhost:8080/** - Login/Register page
+- **http://localhost:8080/users.php** - Database users validation page
 
 ### **Sample Users:**
 - **Username:** admin, **Password:** admin123

@@ -156,6 +156,7 @@
             <p><strong>Container:</strong> <?php echo gethostname(); ?></p>
             <p><strong>Server:</strong> <?php echo $_SERVER['SERVER_NAME']; ?></p>
             <p>This app demonstrates Docker Stack with PHP + MySQL</p>
+            <p><a href="users.php" style="color: #FFD700;">👥 View Database Users</a></p>
         </div>
     </div>
 </body>
