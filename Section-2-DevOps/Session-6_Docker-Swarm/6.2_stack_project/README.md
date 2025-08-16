@@ -77,11 +77,17 @@ docker swarm init
 docker node ls
 ```
 
-### **Step 3: Build and Deploy Stack**
+### **Step 3: Build Custom Image**
 ```bash
 # Build PHP image with MySQL support
 docker build -t php-mysql-app .
 
+# Verify image is built
+docker images | grep php-mysql-app
+```
+
+### **Step 4: Deploy Stack**
+```bash
 # Deploy PHP + MySQL stack
 docker stack deploy -c docker-compose.yml loginapp
 
@@ -89,7 +95,7 @@ docker stack deploy -c docker-compose.yml loginapp
 docker stack ls
 ```
 
-### **Step 4: Check Services**
+### **Step 5: Check Services**
 ```bash
 # List stack services
 docker stack services loginapp
@@ -99,7 +105,7 @@ docker service ps loginapp_web
 docker service ps loginapp_db
 ```
 
-### **Step 5: Test Application**
+### **Step 6: Test Application**
 ```bash
 # Wait for services to be ready (30-60 seconds)
 sleep 60

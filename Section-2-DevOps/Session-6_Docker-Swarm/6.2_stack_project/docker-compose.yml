@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    build: .
+    image: php-mysql-app
     ports:
       - "8080:80"
     depends_on:
