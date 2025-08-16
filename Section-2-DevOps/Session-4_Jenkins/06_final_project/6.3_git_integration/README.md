@@ -207,20 +207,30 @@ This version includes a **visual indicator** to easily verify webhook deployment
 
 ```java
 // File: src/main/java/com/mankikdemo/tutorial/addressbook/AddressbookUI.java
-// Line added for visual confirmation:
-mainLayout.addStyleName("v-app-background-blue"); // Blue background for 6.3 version
+// CSS injection for visual confirmation:
+getPage().getStyles().add(".v-ui { background-color: #e3f2fd !important; }");
 ```
 
-**Visual Differences:**
-- **6.2 Pipeline Version:** White background
-- **6.3 Git Integration Version:** Blue background
-- **Easy Verification:** Instantly see which version is deployed
+**How to See the Visual Change:**
+1. **Access the application:** `http://98.86.230.111:8090/addressbook/`
+2. **Click "Registration" button** 
+3. **Notice the light blue background** - this confirms 6.3 version is deployed
 
-**Color Options (modify the one line):**
+**Visual Differences:**
+- **6.2 Pipeline Version:** White background (no color change)
+- **6.3 Git Integration Version:** Light blue background when Registration form opens
+- **Easy Verification:** Instantly confirm webhook deployment worked
+
+**Color Customization Options:**
 ```java
-mainLayout.addStyleName("v-app-background-blue");   // Blue background
-mainLayout.addStyleName("v-app-background-green");  // Green background  
-mainLayout.addStyleName("v-app-background-red");    // Red background
+// Light Blue (current)
+getPage().getStyles().add(".v-ui { background-color: #e3f2fd !important; }");
+
+// Light Green  
+getPage().getStyles().add(".v-ui { background-color: #e8f5e8 !important; }");
+
+// Light Red
+getPage().getStyles().add(".v-ui { background-color: #ffebee !important; }");
 ```
 
 #### **Step 9: Test Webhook Integration**
