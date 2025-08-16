@@ -77,8 +77,11 @@ docker swarm init
 docker node ls
 ```
 
-### **Step 3: Deploy Stack**
+### **Step 3: Build and Deploy Stack**
 ```bash
+# Build PHP image with MySQL support
+docker build -t php-mysql-app .
+
 # Deploy PHP + MySQL stack
 docker stack deploy -c docker-compose.yml loginapp
 
@@ -181,6 +184,7 @@ docker stack ls
 ```
 6.2_stack_project/
 ├── docker-compose.yml     # Stack definition (PHP + MySQL)
+├── Dockerfile            # Custom PHP image with MySQL support
 ├── init.sql              # Database initialization script
 ├── app/                  # PHP application files
 │   ├── index.php        # Login application
