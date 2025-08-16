@@ -161,11 +161,16 @@ You'll work with a **production-ready Address Book web application**, transformi
 │   ├── pom.xml                  # Maven project configuration
 │   ├── build.xml                # Ant build configuration
 │   └── README.md                # Manual deployment guide
-└── 6.2_pipeline/                # Phase 2: Pipeline Automation
+├── 6.2_pipeline/                # Phase 2: Pipeline Automation
+│   ├── src/                     # Same application source
+│   ├── pom.xml                  # Same Maven configuration
+│   ├── Jenkinsfile              # Pipeline as code
+│   └── README.md                # Pipeline automation guide
+└── 6.3_git_integration/         # Phase 3: Git Webhook Integration
     ├── src/                     # Same application source
     ├── pom.xml                  # Same Maven configuration
-    ├── Jenkinsfile              # Pipeline as code
-    └── README.md                # Pipeline automation guide
+    ├── Jenkinsfile              # Webhook-enabled pipeline
+    └── README.md                # Git integration guide
 ```
 
 ### **🎓 Learning Progression**
@@ -184,6 +189,11 @@ You'll work with a **production-ready Address Book web application**, transformi
 - **Duration:** 60-90 minutes
 - **Focus:** Automating manual processes with Jenkins
 - **Skills:** Pipeline development, SCM integration, automated deployment, monitoring
+
+#### **Phase 3: Git Webhook Integration** → [6.3_git_integration/](./6.3_git_integration/)
+- **Duration:** 45-60 minutes
+- **Focus:** Automatic pipeline triggering with GitHub webhooks
+- **Skills:** Webhook configuration, Git integration, event-driven CI/CD, production workflows
 
 ---
 
@@ -637,7 +647,8 @@ http://YOUR_SERVER_IP:8080
 
 **Step 1:** Complete infrastructure setup (this README)  
 **Step 2:** Master manual deployment → [6.1_manual/](./6.1_manual/)  
-**Step 3:** Automate with pipelines → [6.2_pipeline/](./6.2_pipeline/)
+**Step 3:** Automate with pipelines → [6.2_pipeline/](./6.2_pipeline/)  
+**Step 4:** Git integration with webhooks → [6.3_git_integration/](./6.3_git_integration/)
 
 </div>
 
