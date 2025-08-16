@@ -8,7 +8,7 @@
 
 **🎯 Automatic Pipeline Triggering | 🔄 Real-time CI/CD | 🚀 Production-Ready Workflow**
 
-</div>
+</div> 
 
 ---
 
