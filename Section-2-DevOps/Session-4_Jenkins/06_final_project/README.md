@@ -537,7 +537,44 @@ sudo cat /etc/tomcat9/tomcat-users.xml
 sudo systemctl restart tomcat9
 ```
 
-#### **Issue: Manager Access Works But Jenkins Deployment Fails**
+#### **Issue: 403 Access Denied During Jenkins Deployment**
+**Error:** `HTTP request failed, response code: 403, response message: null`
+
+**Root Cause:** Tomcat Manager restricts access by IP address by default
+
+**Solution for Amazon Linux:**
+```bash
+# 1. Edit manager context.xml to allow Jenkins access
+sudo vim /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+
+# 2. Comment out or modify the Valve restriction
+# Find this line:
+# <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" />
+
+# 3. Replace with (allows all IPs):
+# <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow=".*" />
+
+# OR comment it out completely:
+# <!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" /> -->
+
+# 4. Also edit host-manager if it exists
+sudo vim /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
+# Apply same changes
+
+# 5. Restart Tomcat
+sudo systemctl restart tomcat
+
+# 6. Verify manager is accessible
+curl -u admin:admin http://98.86.230.111:8090/manager/text/list
+```
+
+**Solution for Ubuntu:**
+```bash
+# Same steps but different paths:
+sudo vim /var/lib/tomcat9/webapps/manager/META-INF/context.xml
+sudo vim /var/lib/tomcat9/webapps/host-manager/META-INF/context.xml
+sudo systemctl restart tomcat9
+```
 **When curl works but Jenkins pipeline fails:**
 
 **Check Jenkins Deployment Configuration:**
@@ -569,6 +606,33 @@ curl -u admin:admin -T target/addressbook.war \
 
 # 4. Check Tomcat logs for deployment errors
 sudo tail -f /opt/tomcat/latest/logs/catalina.out
+```
+
+#### **Issue: Manager Access Works But Jenkins Deployment Still Fails**
+**When curl works but Jenkins pipeline fails:**
+
+**Check Jenkins Deployment Configuration:**
+```yaml
+# Verify in Jenkins pipeline:
+deploy adapters: [tomcat9(
+    credentialsId: 'tomcat-9',     # Must match exactly
+    path: '',                      # Leave empty
+    url: "http://98.86.230.111:8090"  # Your server IP
+)], 
+contextPath: "/addressbook",       # Application context
+war: '**/target/*.war'            # WAR file pattern
+```
+
+**Additional Debug Steps:**
+```bash
+# 1. Check Jenkins credentials
+# Go to: Manage Jenkins → Manage Credentials
+# Verify: ID = 'tomcat-9', Username = 'admin', Password = 'admin'
+
+# 2. Test deployment manually from Jenkins server
+cd /var/lib/jenkins/workspace/AddressBook-Pipeline/Section-2-DevOps/Session-4_Jenkins/06_final_project/6.2_pipeline
+curl -u admin:admin -T target/addressbook.war \
+"http://98.86.230.111:8090/manager/text/deploy?path=/addressbook&update=true"
 ```
 
 ---
