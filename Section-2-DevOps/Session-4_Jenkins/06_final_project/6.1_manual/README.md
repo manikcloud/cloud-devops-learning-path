@@ -33,7 +33,7 @@ ls -la target/addressbook.war
 
 ### **Step 3: Deploy to Tomcat**
 
-#### **For Ubuntu:**
+
 ```bash
 # Copy WAR to Tomcat webapps
 sudo cp target/addressbook.war /var/lib/tomcat9/webapps/
@@ -42,13 +42,6 @@ sudo cp target/addressbook.war /var/lib/tomcat9/webapps/
 ls -la /var/lib/tomcat9/webapps/
 ```
 
-#### **For Amazon Linux:**
-```bash
-# Copy WAR to Tomcat webapps
-sudo cp target/addressbook.war /opt/tomcat/latest/webapps/
-
-# Check deployment
-ls -la /opt/tomcat/latest/webapps/
 ```
 
 ### **Step 4: Wait for Auto-Deployment**
@@ -57,12 +50,10 @@ ls -la /opt/tomcat/latest/webapps/
 sleep 30
 
 # Check if application directory is created
-# Ubuntu:
+
 ls -la /var/lib/tomcat9/webapps/addressbook/
 
-# Amazon Linux:
-ls -la /opt/tomcat/latest/webapps/addressbook/
-```
+
 
 ### **Step 5: Access Application**
 ```bash
