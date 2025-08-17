@@ -329,6 +329,7 @@ sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
 cd /tmp && wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.108/bin/apache-tomcat-9.0.108.tar.gz
 
 # Extract and configure
+sudo mkdir -p /opt/tomcat
 sudo tar xf apache-tomcat-9.0.108.tar.gz -C /opt/tomcat
 sudo ln -s /opt/tomcat/apache-tomcat-9.0.108 /opt/tomcat/latest
 sudo chown -RH tomcat: /opt/tomcat/latest
