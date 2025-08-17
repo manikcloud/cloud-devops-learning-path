@@ -22,6 +22,28 @@ This module covers the complete installation and initial configuration of Jenkin
 - ✅ Set up user authentication and authorization
 - ✅ Configure system settings and global tools
 
+### **🔒 Security Group Prerequisites**
+
+Before installing Jenkins, configure your EC2 Security Group:
+
+**Inbound Rules:**
+```
+Type: All Traffic, Protocol: All, Port: All, Source: Your IP Address
+Type: All Traffic, Protocol: All, Port: All, Source: Security Group ID (self-reference)
+Type: Custom TCP, Port: 8080, Protocol: TCP, Source: 0.0.0.0/0
+```
+
+**Outbound Rules:**
+```
+Type: All Traffic, Protocol: All, Port: All, Destination: 0.0.0.0/0
+```
+
+**Why These Rules:**
+- **Your IP Access** - SSH and web access from your location
+- **Self-Reference** - Communication between Jenkins master/slave nodes
+- **Port 8080 Public** - Jenkins web interface accessible globally
+- **Outbound All** - Jenkins can download plugins and dependencies
+
 ---
 
 ## 📚 Theory: Jenkins Installation & Security
@@ -415,6 +437,77 @@ Once Jenkins is installed and secured:
 2. **Configure Global Tools** - Set up JDK, Maven, Git paths
 3. **Create Test User** - Verify security configuration
 4. **Proceed to Module 03** - [Basic Jobs](../03_basic_jobs/README.md)
+
+---
+
+## 🚀 Fix Jenkins Slowness on AWS Free Tier
+
+### **Performance Optimization for t2.micro/t2.small Instances**
+
+If Jenkins is running slowly on AWS free tier, apply these optimizations:
+
+#### **1. Set Jenkins URL to localhost**
+
+Instead of using the long AWS hostname, configure Jenkins to use localhost:
+
+```bash
+# Navigate to Jenkins config directory
+cd /var/lib/jenkins/
+
+# Edit the Jenkins location configuration
+sudo nano jenkins.model.JenkinsLocationConfiguration.xml
+```
+
+**Change this:**
+```xml
+<jenkinsUrl>http://ec2-3-89-105-138.compute-1.amazonaws.com:8080/</jenkinsUrl>
+```
+
+**👉 To:**
+```xml
+<jenkinsUrl>http://localhost:8080/</jenkinsUrl>
+```
+
+**Save and restart Jenkins:**
+```bash
+sudo systemctl restart jenkins
+```
+
+#### **2. Additional Performance Optimizations**
+
+```bash
+# Increase Jenkins memory allocation
+sudo nano /etc/sysconfig/jenkins
+
+# Add these JVM options:
+JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx1024m -XX:+UseG1GC"
+
+# Restart Jenkins
+sudo systemctl restart jenkins
+```
+
+#### **3. Disable Unnecessary Plugins**
+
+Access Jenkins → Manage Jenkins → Manage Plugins → Installed
+Disable plugins you don't need to reduce memory usage.
+
+#### **4. Monitor System Resources**
+
+```bash
+# Check memory usage
+free -h
+
+# Check disk space
+df -h
+
+# Monitor Jenkins process
+top -p $(pgrep -f jenkins)
+```
+
+### **Expected Results:**
+- **Faster page loads** - UI responds quicker
+- **Reduced timeouts** - Less connection issues
+- **Better stability** - Fewer crashes on small instances
 
 ---
 
