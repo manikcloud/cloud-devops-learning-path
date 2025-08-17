@@ -405,9 +405,50 @@ You've joined an elite group of engineers who understand that **great software i
 
 ## 🔄 **Complete CI/CD Pipeline Flow**
 
-![CI/CD Pipeline Vertical](./cicd-pipeline-vertical.png)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    🚀 CI/CD PIPELINE FLOW                  │
+└─────────────────────────────────────────────────────────────┘
 
-*Vertical pipeline flow showing each automated step from developer code commit to live application deployment*
+    👨‍💻 DEVELOPER
+    │ Code Changes & Commit
+    │
+    ▼
+    📤 GIT PUSH  
+    │ Push to GitHub Repository
+    │
+    ▼
+    🔗 WEBHOOK TRIGGER
+    │ GitHub → Jenkins Notification  
+    │
+    ▼
+    ⚙️ JENKINS PIPELINE
+    │ Pipeline Execution Started
+    │
+    ▼
+    🔨 MAVEN BUILD
+    │ Compile, Package & Create WAR
+    │
+    ▼
+    🧪 AUTOMATED TESTS
+    │ Unit Tests & Quality Checks
+    │
+    ▼
+    🚀 DEPLOY TO TOMCAT
+    │ WAR Deployment & Server Restart
+    │
+    ▼
+    🌐 LIVE APPLICATION
+    │ Address Book Available to Users
+    │
+    ✅ COMPLETE!
+
+┌─────────────────────────────────────────────────────────────┐
+│  ⏱️  Total Time: ~90 seconds  |  🔄 Fully Automated        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+*Simple, clean pipeline flow showing each automated step from code commit to live deployment*
 
 ---
 
