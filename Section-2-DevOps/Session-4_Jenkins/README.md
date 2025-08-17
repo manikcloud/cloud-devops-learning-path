@@ -17,12 +17,6 @@
 
 This comprehensive Jenkins module covers the fundamentals of **Continuous Integration and Continuous Deployment** and integrations with other tools. By the end of this module, you will be able to create fully automated pipelines for production-ready applications.
 
-<div align="center">
-
-![DevOps Infinity Loop](./images/devops-infinity-loop.svg)
-
-</div>
-
 ### 🎯 **Learning Objectives**
 - ✅ Understand CI/CD concepts and Jenkins architecture
 - ✅ Install and configure Jenkins on AWS infrastructure
@@ -38,12 +32,6 @@ This comprehensive Jenkins module covers the fundamentals of **Continuous Integr
 ### 🔄 **What is Continuous Integration (CI)?**
 
 **Continuous Integration** is a development practice where developers integrate code into a shared repository frequently, preferably several times a day. Each integration is verified by an automated build and automated tests.
-
-<div align="center">
-
-![Jenkins CI/CD Pipeline](./images/jenkins-cicd-pipeline.svg)
-
-</div>
 
 #### **Key Benefits of CI:**
 - 🚀 **Early Bug Detection** - Issues are caught quickly
@@ -65,12 +53,6 @@ This comprehensive Jenkins module covers the fundamentals of **Continuous Integr
 ### 🏗️ **Jenkins Architecture**
 
 Jenkins follows a **Master-Slave architecture**:
-
-<div align="center">
-
-![Jenkins Architecture](./images/jenkins-architecture.svg)
-
-</div>
 
 #### **Jenkins Master:**
 - 📊 **Central Controller** - Manages the entire CI/CD process
@@ -97,12 +79,6 @@ Jenkins follows a **Master-Slave architecture**:
 - 🏗️ **Complex Workflows** - Support for parallel execution, conditions
 - 🚀 **Industry Standard** - Modern approach to CI/CD
 
-<div align="center">
-
-![Pipeline as Code](./images/pipeline-as-code.svg)
-
-</div>
-
 #### **3. Multi-branch Pipeline**
 - 🌿 **Branch-based** - Automatically creates pipelines for branches
 - 🔄 **Dynamic** - Pipelines created/deleted with branches
@@ -112,11 +88,7 @@ Jenkins follows a **Master-Slave architecture**:
 
 ## 🏗️ **AWS Infrastructure Design**
 
-<div align="center">
-
-![AWS Infrastructure](./images/aws-infrastructure.svg)
-
-</div>
+Our Jenkins setup uses AWS EC2 instances with proper security groups and networking configuration for optimal performance and security.
 
 ---
 

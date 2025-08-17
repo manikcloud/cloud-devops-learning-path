@@ -15,12 +15,6 @@
 
 This module introduces you to Jenkins Pipelines - the modern, code-based approach to defining CI/CD workflows. You'll learn to create, manage, and optimize pipelines using Jenkinsfiles.
 
-<div align="center">
-
-![Pipeline as Code](../images/pipeline-as-code.svg)
-
-</div>
-
 ### 🎯 **Learning Objectives**
 - ✅ Understand Pipeline as Code concepts
 - ✅ Create declarative and scripted pipelines

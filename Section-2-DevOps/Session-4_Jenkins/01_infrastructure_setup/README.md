@@ -76,11 +76,7 @@ Infrastructure as Code (IaC) is the practice of managing and provisioning comput
 
 ## 🏗️ **AWS Architecture Design**
 
-<div align="center">
-
-![AWS Infrastructure](../images/aws-infrastructure.svg)
-
-</div>
+Our Jenkins infrastructure uses AWS EC2 instances with proper security groups and networking.
 
 ### **Infrastructure Components:**
 
