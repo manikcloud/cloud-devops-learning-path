@@ -161,34 +161,6 @@ top -p $(pgrep -f jenkins)
 
 ---
 
-## 🛤️ Module Structure
-
-<table>
-<tr>
-<th width="10%">Project</th>
-<th width="30%">Name</th>
-<th width="40%">Description</th>
-<th width="20%">Skills</th>
-</tr>
-
-<tr>
-<td><strong>2.1</strong></td>
-<td><strong><a href="./2.1_install_jenkins">Install Jenkins</a></strong></td>
-<td>Install Jenkins on Amazon Linux 2 with proper configuration and plugin setup</td>
-<td>Jenkins Installation, System Configuration, Plugin Management</td>
-</tr>
-
-<tr>
-<td><strong>2.2</strong></td>
-<td><strong><a href="./2.2_enabling_security">Enable Security</a></strong></td>
-<td>Configure Jenkins security, user authentication, and authorization settings</td>
-<td>Security Configuration, User Management, Access Control</td>
-</tr>
-
-</table>
-
----
-
 ## 🔧 **Jenkins Installation Process**
 
 ### **Step-by-Step Installation:**
@@ -349,7 +321,14 @@ curl -I http://localhost:8080
 
 ---
 
-## 📊 Expected Outcomes
+<div align="center">
+
+### 🎯 **Jenkins Installation Complete!**
+*Your Jenkins server is ready for job creation and pipeline development.*
+
+**Next: [Module 03 - Basic Jobs](../03_basic_jobs/README.md)**
+
+</div>
 
 After completing this module, you will have:
 
