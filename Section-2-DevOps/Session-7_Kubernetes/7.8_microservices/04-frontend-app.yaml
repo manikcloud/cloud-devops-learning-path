@@ -1,0 +1,286 @@
+# Frontend React Application
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: ecommerce
+data:
+  nginx.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+        root /usr/share/nginx/html;
+        index index.html;
+        
+        # Handle React Router
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+        
+        # API proxy
+        location /api/ {
+            proxy_pass http://api-gateway-service:4000/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+        
+        # Health check
+        location /health {
+            access_log off;
+            return 200 "healthy\n";
+            add_header Content-Type text/plain;
+        }
+    }
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>E-commerce Microservices Demo</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                min-height: 100vh;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .header {
+                text-align: center;
+                padding: 40px 0;
+            }
+            .header h1 {
+                font-size: 3em;
+                margin-bottom: 10px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            }
+            .services {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+                margin: 40px 0;
+            }
+            .service-card {
+                background: rgba(255,255,255,0.1);
+                padding: 30px;
+                border-radius: 15px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+                transition: transform 0.3s ease;
+            }
+            .service-card:hover {
+                transform: translateY(-5px);
+            }
+            .service-card h3 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+                color: #ffd700;
+            }
+            .status {
+                display: inline-block;
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-size: 0.9em;
+                font-weight: bold;
+            }
+            .status.running {
+                background: #4caf50;
+                color: white;
+            }
+            .footer {
+                text-align: center;
+                padding: 40px 0;
+                border-top: 1px solid rgba(255,255,255,0.2);
+                margin-top: 40px;
+            }
+            .api-test {
+                background: rgba(255,255,255,0.1);
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px 0;
+            }
+            .api-test button {
+                background: #ffd700;
+                color: #333;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin: 5px;
+                font-weight: bold;
+            }
+            .api-test button:hover {
+                background: #ffed4e;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>🛒 E-commerce Microservices</h1>
+                <p>Complete Kubernetes microservices demonstration</p>
+                <div class="status running">All Services Running</div>
+            </div>
+            
+            <div class="services">
+                <div class="service-card">
+                    <h3>🌐 Frontend Service</h3>
+                    <p>React-based user interface</p>
+                    <p><strong>Status:</strong> <span class="status running">Running</span></p>
+                    <p><strong>Port:</strong> 80</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>🔧 API Gateway</h3>
+                    <p>Central API routing and authentication</p>
+                    <p><strong>Status:</strong> <span class="status running">Running</span></p>
+                    <p><strong>Port:</strong> 4000</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>📦 Product Service</h3>
+                    <p>Product catalog and inventory management</p>
+                    <p><strong>Status:</strong> <span class="status running">Running</span></p>
+                    <p><strong>Port:</strong> 3001</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>👤 User Service</h3>
+                    <p>User authentication and profile management</p>
+                    <p><strong>Status:</strong> <span class="status running">Running</span></p>
+                    <p><strong>Port:</strong> 3000</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>🛍️ Order Service</h3>
+                    <p>Order processing and cart management</p>
+                    <p><strong>Status:</strong> <span class="status running">Running</span></p>
+                    <p><strong>Port:</strong> 3002</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>💳 Payment Service</h3>
+                    <p>Payment processing and transaction handling</p>
+                    <p><strong>Status:</strong> <span class="status running">Running</span></p>
+                    <p><strong>Port:</strong> 3003</p>
+                </div>
+            </div>
+            
+            <div class="api-test">
+                <h3>🧪 API Testing</h3>
+                <p>Test the microservices APIs:</p>
+                <button onclick="testAPI('/api/health')">Health Check</button>
+                <button onclick="testAPI('/api/products')">Get Products</button>
+                <button onclick="testAPI('/api/users/health')">User Service</button>
+                <button onclick="testAPI('/api/orders/health')">Order Service</button>
+                <div id="api-result" style="margin-top: 15px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 5px; display: none;"></div>
+            </div>
+            
+            <div class="footer">
+                <p>🏆 Kubernetes Microservices Project</p>
+                <p>Demonstrating: Pods, Services, Deployments, Ingress, ConfigMaps, Secrets, and more!</p>
+            </div>
+        </div>
+        
+        <script>
+            async function testAPI(endpoint) {
+                const resultDiv = document.getElementById('api-result');
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = 'Testing ' + endpoint + '...';
+                
+                try {
+                    const response = await fetch(endpoint);
+                    const data = await response.text();
+                    resultDiv.innerHTML = `<strong>${endpoint}:</strong><br><pre>${data}</pre>`;
+                } catch (error) {
+                    resultDiv.innerHTML = `<strong>Error testing ${endpoint}:</strong><br>${error.message}`;
+                }
+            }
+            
+            // Auto-refresh status every 30 seconds
+            setInterval(() => {
+                testAPI('/api/health');
+            }, 30000);
+        </script>
+    </body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: ecommerce
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:1.21-alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+        - name: html-content
+          mountPath: /usr/share/nginx/html
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: frontend-config
+          items:
+          - key: nginx.conf
+            path: default.conf
+      - name: html-content
+        configMap:
+          name: frontend-config
+          items:
+          - key: index.html
+            path: index.html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: ecommerce
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP

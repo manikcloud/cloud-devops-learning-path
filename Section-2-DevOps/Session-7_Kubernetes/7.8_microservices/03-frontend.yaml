@@ -1,0 +1,350 @@
+# Simple Frontend for Todo App
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: todo-app
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>📝 Simple Todo App</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                color: white;
+            }
+            .container {
+                background: rgba(255,255,255,0.1);
+                padding: 30px;
+                border-radius: 15px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+            }
+            h1 {
+                text-align: center;
+                font-size: 2.5em;
+                margin-bottom: 30px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            }
+            .add-todo {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 30px;
+            }
+            input[type="text"] {
+                flex: 1;
+                padding: 15px;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                background: rgba(255,255,255,0.9);
+            }
+            button {
+                padding: 15px 25px;
+                border: none;
+                border-radius: 8px;
+                background: #ffd700;
+                color: #333;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            button:hover {
+                background: #ffed4e;
+            }
+            .todo-list {
+                list-style: none;
+                padding: 0;
+            }
+            .todo-item {
+                background: rgba(255,255,255,0.1);
+                margin: 10px 0;
+                padding: 15px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border: 1px solid rgba(255,255,255,0.2);
+            }
+            .todo-text {
+                flex: 1;
+                font-size: 16px;
+            }
+            .delete-btn {
+                background: #ff4757;
+                color: white;
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            .delete-btn:hover {
+                background: #ff3838;
+            }
+            .status {
+                text-align: center;
+                margin: 20px 0;
+                padding: 10px;
+                background: rgba(255,255,255,0.1);
+                border-radius: 8px;
+            }
+            .loading {
+                text-align: center;
+                font-style: italic;
+                color: #ffd700;
+            }
+            .error {
+                background: rgba(255,0,0,0.2);
+                color: #ffcccb;
+            }
+            .success {
+                background: rgba(0,255,0,0.2);
+                color: #90ee90;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>📝 Simple Todo App</h1>
+            <p style="text-align: center; margin-bottom: 30px;">
+                🏆 Final Kubernetes Project - You built this with microservices!
+            </p>
+            
+            <div class="add-todo">
+                <input type="text" id="todoInput" placeholder="What do you need to do?" maxlength="100">
+                <button onclick="addTodo()">Add Todo</button>
+            </div>
+            
+            <div id="status" class="status" style="display: none;"></div>
+            
+            <ul id="todoList" class="todo-list">
+                <li class="loading">Loading todos...</li>
+            </ul>
+        </div>
+
+        <script>
+            const API_BASE = '/api';
+            
+            // Load todos when page loads
+            document.addEventListener('DOMContentLoaded', loadTodos);
+            
+            // Add todo on Enter key
+            document.getElementById('todoInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTodo();
+                }
+            });
+            
+            async function loadTodos() {
+                try {
+                    showStatus('Loading todos...', 'loading');
+                    const response = await fetch(`${API_BASE}/todos`);
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const todos = await response.json();
+                    displayTodos(todos);
+                    hideStatus();
+                } catch (error) {
+                    console.error('Error loading todos:', error);
+                    showStatus('❌ Error loading todos. Is the API service running?', 'error');
+                    document.getElementById('todoList').innerHTML = '<li class="todo-item">No todos loaded</li>';
+                }
+            }
+            
+            async function addTodo() {
+                const input = document.getElementById('todoInput');
+                const text = input.value.trim();
+                
+                if (!text) {
+                    showStatus('⚠️ Please enter a todo!', 'error');
+                    return;
+                }
+                
+                try {
+                    showStatus('Adding todo...', 'loading');
+                    const response = await fetch(`${API_BASE}/todos`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ text: text })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    input.value = '';
+                    showStatus('✅ Todo added!', 'success');
+                    setTimeout(hideStatus, 2000);
+                    loadTodos();
+                } catch (error) {
+                    console.error('Error adding todo:', error);
+                    showStatus('❌ Error adding todo. Check API service.', 'error');
+                }
+            }
+            
+            async function deleteTodo(id) {
+                try {
+                    showStatus('Deleting todo...', 'loading');
+                    const response = await fetch(`${API_BASE}/todos/${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    showStatus('✅ Todo deleted!', 'success');
+                    setTimeout(hideStatus, 2000);
+                    loadTodos();
+                } catch (error) {
+                    console.error('Error deleting todo:', error);
+                    showStatus('❌ Error deleting todo.', 'error');
+                }
+            }
+            
+            function displayTodos(todos) {
+                const todoList = document.getElementById('todoList');
+                
+                if (todos.length === 0) {
+                    todoList.innerHTML = '<li class="todo-item">🎉 No todos! Add one above.</li>';
+                    return;
+                }
+                
+                todoList.innerHTML = todos.map(todo => `
+                    <li class="todo-item">
+                        <span class="todo-text">${escapeHtml(todo.text)}</span>
+                        <button class="delete-btn" onclick="deleteTodo(${todo.id})">Delete</button>
+                    </li>
+                `).join('');
+            }
+            
+            function showStatus(message, type) {
+                const status = document.getElementById('status');
+                status.textContent = message;
+                status.className = `status ${type}`;
+                status.style.display = 'block';
+            }
+            
+            function hideStatus() {
+                document.getElementById('status').style.display = 'none';
+            }
+            
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        </script>
+    </body>
+    </html>
+  
+  nginx.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+        root /usr/share/nginx/html;
+        index index.html;
+        
+        # Serve static files
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+        
+        # Proxy API requests to backend
+        location /api/ {
+            proxy_pass http://api-service:3000/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+        
+        # Health check
+        location /health {
+            access_log off;
+            return 200 "healthy\n";
+            add_header Content-Type text/plain;
+        }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: todo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:1.21-alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html-content
+          mountPath: /usr/share/nginx/html
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: html-content
+        configMap:
+          name: frontend-config
+          items:
+          - key: index.html
+            path: index.html
+      - name: nginx-config
+        configMap:
+          name: frontend-config
+          items:
+          - key: nginx.conf
+            path: default.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: todo-app
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 80

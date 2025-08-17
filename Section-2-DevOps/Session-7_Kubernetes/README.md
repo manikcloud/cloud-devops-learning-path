@@ -93,44 +93,44 @@ Master **Kubernetes container orchestration** for automating deployment, scaling
 </tr>
 
 <tr>
-<td><strong><a href="./7.3_pods_management/">7.3</a></strong></td>
+<td><strong><a href="./7.3_namespaces_quotas/">7.3</a></strong></td>
+<td><strong>Namespaces & Quotas</strong></td>
+<td>Organization, multi-tenancy, resource quotas, and RBAC basics</td>
+<td>2 hours</td>
+</tr>
+
+<tr>
+<td><strong><a href="./7.4_pods_management/">7.4</a></strong></td>
 <td><strong>Pods Management</strong></td>
 <td>Pod lifecycle, labels, selectors, and basic networking</td>
 <td>3 hours</td>
 </tr>
 
 <tr>
-<td><strong><a href="./7.4_deployments_scaling/">7.4</a></strong></td>
+<td><strong><a href="./7.5_deployments_scaling/">7.5</a></strong></td>
 <td><strong>Deployments & Scaling</strong></td>
 <td>Deployments, ReplicaSets, scaling strategies, and management</td>
 <td>3 hours</td>
 </tr>
 
 <tr>
-<td><strong><a href="./7.5_services_networking/">7.5</a></strong></td>
+<td><strong><a href="./7.6_services_networking/">7.6</a></strong></td>
 <td><strong>Services & Networking</strong></td>
 <td>Service types, networking, Ingress controllers, and connectivity</td>
 <td>3 hours</td>
 </tr>
 
 <tr>
-<td><strong><a href="./7.6_autoscaling_updates/">7.6</a></strong></td>
+<td><strong><a href="./7.7_autoscaling_updates/">7.7</a></strong></td>
 <td><strong>Auto-scaling & Updates</strong></td>
 <td>HPA, VPA, rolling updates, and deployment strategies</td>
 <td>3 hours</td>
 </tr>
 
 <tr>
-<td><strong><a href="./7.7_namespaces_quotas/">7.7</a></strong></td>
-<td><strong>Namespaces & Quotas</strong></td>
-<td>Multi-tenancy, resource quotas, RBAC, and organization</td>
-<td>2 hours</td>
-</tr>
-
-<tr>
 <td><strong><a href="./7.8_microservices/">7.8</a></strong> 🏆</td>
-<td><strong>Microservices Deployment</strong></td>
-<td>Complete production application with monitoring and patterns</td>
+<td><strong>Microservices Project</strong></td>
+<td>Complete e-commerce application with monitoring and best practices</td>
 <td>4 hours</td>
 </tr>
 
@@ -140,12 +140,12 @@ Master **Kubernetes container orchestration** for automating deployment, scaling
 
 1. **7.1 Cluster Setup** - You need a working cluster before anything else
 2. **7.2 Kubernetes Basics** - Understand what you're working with
-3. **7.3 Pods Management** - Master the fundamental building blocks
-4. **7.4 Deployments** - Learn to manage pods at scale
-5. **7.5 Services** - Connect and expose your applications
-6. **7.6 Auto-scaling** - Advanced deployment patterns
-7. **7.7 Namespaces** - Organization and multi-tenancy
-8. **7.8 Microservices** - Put it all together in production
+3. **7.3 Namespaces & Quotas** - Learn organization EARLY (before creating resources)
+4. **7.4 Pods Management** - Master the fundamental building blocks
+5. **7.5 Deployments** - Learn to manage pods at scale
+6. **7.6 Services** - Connect and expose your applications
+7. **7.7 Auto-scaling** - Advanced deployment patterns
+8. **7.8 Microservices** - Put it all together in a real project
 
 ---
 
