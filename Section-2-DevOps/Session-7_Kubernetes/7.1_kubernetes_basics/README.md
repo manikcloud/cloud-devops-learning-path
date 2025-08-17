@@ -83,58 +83,90 @@
 
 ---
 
-## 🛠️ Minikube Setup
+## 🛠️ k3s Setup (Recommended)
 
-### **Installation on Linux**
+### **Installation on Linux (Fastest & Easiest)**
 ```bash
-# Download and install Minikube
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
+# Install k3s with one command
+curl -sfL https://get.k3s.io | sh -
 
-# Start Minikube cluster
-minikube start --driver=docker
+# Setup kubectl access for regular user
+mkdir -p ~/.kube
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown $(id -u):$(id -g) ~/.kube/config
 
 # Verify installation
-minikube status
+kubectl get nodes
 kubectl cluster-info
 ```
 
 ### **Installation on macOS**
 ```bash
-# Using Homebrew
-brew install minikube
+# Install k3s using multipass (VM)
+brew install multipass
 
-# Start cluster
-minikube start
+# Create Ubuntu VM
+multipass launch --name k3s-vm --cpus 2 --mem 4G --disk 20G
+
+# Install k3s in VM
+multipass exec k3s-vm -- /bin/bash -c "curl -sfL https://get.k3s.io | sh -"
+
+# Get kubeconfig
+multipass exec k3s-vm -- sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/config
+
+# Update server IP in config
+VM_IP=$(multipass info k3s-vm | grep IPv4 | awk '{print $2}')
+sed -i '' "s/127.0.0.1/$VM_IP/g" ~/.kube/config
 
 # Verify
-minikube status
+kubectl get nodes
 ```
 
-### **Installation on Windows**
-```powershell
-# Using Chocolatey
-choco install minikube
+### **Installation on Windows (WSL2)**
+```bash
+# In WSL2 Ubuntu terminal
+curl -sfL https://get.k3s.io | sh -
 
-# Or download installer from GitHub releases
-# Start cluster
-minikube start --driver=hyperv
+# Setup kubectl access
+mkdir -p ~/.kube
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown $(id -u):$(id -g) ~/.kube/config
+
+# Verify
+kubectl get nodes
+```
+
+### **Why k3s for Learning?**
+- ✅ **30-second setup** - Fastest way to get Kubernetes running
+- ✅ **Lightweight** - Uses minimal resources (512MB RAM)
+- ✅ **Real Kubernetes** - 100% compatible API, not a simulation
+- ✅ **Built-in components** - Ingress, DNS, storage included
+- ✅ **Perfect for exercises** - All Session 7 exercises work flawlessly
+
+### **Quick Test**
+```bash
+# Test your k3s installation
+kubectl create deployment test --image=nginx
+kubectl get pods
+kubectl delete deployment test
 ```
 
 ---
 
 ## 📋 Essential kubectl Commands
 
+**Note**: All these commands work perfectly with k3s - no differences from other Kubernetes distributions!
+
 ### **Cluster Information**
 ```bash
 # Check cluster info
 kubectl cluster-info
 
-# Get cluster nodes
+# Get cluster nodes (should show your k3s node)
 kubectl get nodes
 
 # Describe a node
-kubectl describe node minikube
+kubectl describe node $(kubectl get nodes -o jsonpath='{.items[0].metadata.name}')
 
 # Check cluster version
 kubectl version
@@ -222,9 +254,18 @@ The exercises are designed to build your knowledge progressively:
 
 ### **Prerequisites**
 ```bash
-# Clone the repository
+# 1. Install k3s (if not already done)
+curl -sfL https://get.k3s.io | sh -
+mkdir -p ~/.kube
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown $(id -u):$(id -g) ~/.kube/config
+
+# 2. Clone the repository
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/7.1_kubernetes_basics
+
+# 3. Verify k3s is working
+kubectl get nodes
 ```
 
 ### **🎯 Use Case: Progressive Pod Learning**
