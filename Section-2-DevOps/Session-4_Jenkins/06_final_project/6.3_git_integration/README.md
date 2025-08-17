@@ -24,18 +24,6 @@
 
 ---
 
-## 🔄 CI/CD Pipeline Steps
-
-<div align="center">
-
-![CI/CD Pipeline Vertical](./cicd-pipeline-vertical.svg)
-
-</div>
-
-*Vertical pipeline flow showing each step from code commit to live deployment*
-
----
-
 ## 🌟 Overview
 
 This section demonstrates **enterprise-grade Git integration** with Jenkins using GitHub webhooks. You'll configure automatic pipeline triggering whenever code is pushed to your repository, creating a seamless continuous integration workflow that mirrors professional development environments.
@@ -412,6 +400,18 @@ You've joined an elite group of engineers who understand that **great software i
 - **Build resilient, scalable systems**
 
 **Keep building, keep automating, and keep pushing the boundaries of what's possible with DevOps!** 🚀
+
+---
+
+## 🔄 **Complete CI/CD Pipeline Flow**
+
+<div align="center">
+
+![CI/CD Pipeline Vertical](./cicd-pipeline-vertical.svg)
+
+</div>
+
+*Vertical pipeline flow showing each automated step from developer code commit to live application deployment*
 
 ---
 

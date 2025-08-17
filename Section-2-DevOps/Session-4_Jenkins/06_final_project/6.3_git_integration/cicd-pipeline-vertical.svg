@@ -43,12 +43,10 @@
     </linearGradient>
     
     <!-- Arrow marker -->
-    <defs>
-      <marker id="arrowhead" markerWidth="10" markerHeight="7" 
-              refX="9" refY="3.5" orient="auto">
-        <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
-      </marker>
-    </defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
   </defs>
   
   <!-- Background -->
@@ -65,7 +63,7 @@
     👨‍💻 DEVELOPER
   </text>
   <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
-    Code Changes & Commit
+    Code Changes &amp; Commit
   </text>
   
   <!-- Arrow 1 -->
@@ -113,7 +111,7 @@
     🔨 MAVEN BUILD
   </text>
   <text x="200" y="515" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
-    Compile, Package & Create WAR
+    Compile, Package &amp; Create WAR
   </text>
   
   <!-- Arrow 5 -->
@@ -125,7 +123,7 @@
     🧪 AUTOMATED TESTS
   </text>
   <text x="200" y="615" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
-    Unit Tests & Quality Checks
+    Unit Tests &amp; Quality Checks
   </text>
   
   <!-- Arrow 6 -->
@@ -137,7 +135,7 @@
     🚀 DEPLOY TO TOMCAT
   </text>
   <text x="200" y="715" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
-    WAR Deployment & Server Restart
+    WAR Deployment &amp; Server Restart
   </text>
   
   <!-- Arrow 7 -->
