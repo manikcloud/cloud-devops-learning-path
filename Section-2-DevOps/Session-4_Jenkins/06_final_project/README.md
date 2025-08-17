@@ -784,9 +784,9 @@ http://YOUR_SERVER_IP:8080
 2. **Build Environment:** Should show Maven tool available
 3. **Build Steps:** Should show "Deploy war/ear to a container" option
 4. **Delete test job** after verification
-  Install automatically: ✅
-  Version: Latest stable (3.9.x)
-```
+
+**Install automatically:** ✅  
+**Version:** Latest stable (3.9.x)
 
 ---
 
@@ -794,9 +794,60 @@ http://YOUR_SERVER_IP:8080
 
 ![Architecture Diagram](./architecture-overview.svg)
 
-*Complete CI/CD Pipeline Architecture showing the flow from developer code changes to live application deployment*
+---
+
+## 🎯 **Project Modules**
+
+<table>
+<tr>
+<th width="20%">Module</th>
+<th width="40%">Description</th>
+<th width="40%">Skills Learned</th>
+</tr>
+
+<tr>
+<td><strong><a href="./6.1_manual/">6.1 Manual</a></strong></td>
+<td>Manual deployment of Address Book application using Jenkins freestyle jobs</td>
+<td>Manual deployment, Tomcat configuration, WAR file deployment</td>
+</tr>
+
+<tr>
+<td><strong><a href="./6.2_pipeline/">6.2 Pipeline</a></strong></td>
+<td>Automated pipeline deployment using Jenkinsfile and Pipeline as Code</td>
+<td>Pipeline scripting, automated deployment, code versioning</td>
+</tr>
+
+<tr>
+<td><strong><a href="./6.3_git_integration/">6.3 Git Integration</a></strong></td>
+<td>Complete CI/CD with GitHub webhooks and automated triggers</td>
+<td>Git integration, webhooks, automated CI/CD, production workflows</td>
+</tr>
+
+</table>
 
 ---
+
+## 🚀 **Getting Started**
+
+### **Choose Your Path:**
+
+[![Start Manual Deployment](https://img.shields.io/badge/Start-6.1%20Manual%20Deployment-blue?style=for-the-badge)](./6.1_manual/)
+
+[![Automate with Pipeline](https://img.shields.io/badge/Automate-6.2%20Pipeline-green?style=for-the-badge)](./6.2_pipeline/)
+
+[![Complete Integration](https://img.shields.io/badge/Complete-6.3%20Git%20Integration-orange?style=for-the-badge)](./6.3_git_integration/)
+
+---
+
+<div align="center">
+
+### 🎯 **Ready to Deploy Production Applications?**
+
+**Start with manual deployment and progress to fully automated CI/CD pipelines!**
+
+[🚀 Begin with Manual Deployment →](./6.1_manual/)
+
+</div>
 
 ## 🎯 Success Metrics & Validation
 
