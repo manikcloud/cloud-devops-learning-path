@@ -405,11 +405,7 @@ You've joined an elite group of engineers who understand that **great software i
 
 ## 🔄 **Complete CI/CD Pipeline Flow**
 
-<div align="center">
-
 ![CI/CD Pipeline Vertical](./cicd-pipeline-vertical.svg)
-
-</div>
 
 *Vertical pipeline flow showing each automated step from developer code commit to live application deployment*
 
