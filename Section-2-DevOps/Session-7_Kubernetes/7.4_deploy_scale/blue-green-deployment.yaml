@@ -1,0 +1,66 @@
+# Blue Version (Current Production)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-blue
+  labels:
+    app: myapp
+    version: blue
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: myapp
+        version: blue
+    spec:
+      containers:
+      - name: app
+        image: nginx:1.20
+        ports:
+        - containerPort: 80
+---
+# Green Version (New Release)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-green
+  labels:
+    app: myapp
+    version: green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+      version: green
+  template:
+    metadata:
+      labels:
+        app: myapp
+        version: green
+    spec:
+      containers:
+      - name: app
+        image: nginx:1.21
+        ports:
+        - containerPort: 80
+---
+# Service (Initially points to blue)
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    app: myapp
+    version: blue  # Switch to 'green' for deployment
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30100
+  type: NodePort
