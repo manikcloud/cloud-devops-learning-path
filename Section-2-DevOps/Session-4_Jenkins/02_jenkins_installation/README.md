@@ -141,6 +141,12 @@ top -p $(pgrep -f jenkins)
 
 ### **Jenkins Security Architecture**
 
+<div align="center">
+
+![Jenkins Architecture](../images/jenkins-architecture.svg)
+
+</div>
+
 Jenkins provides multiple authentication and authorization options for enterprise security:
 
 #### **Authentication Methods:**
