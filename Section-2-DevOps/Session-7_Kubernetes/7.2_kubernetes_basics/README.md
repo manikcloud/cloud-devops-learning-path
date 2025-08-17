@@ -228,44 +228,21 @@ kubectl delete service nginx
 
 ---
 
-## 📚 Learning Progression
 
-The exercises are designed to build your knowledge progressively:
-
-### **🔰 Beginner Level**
-1. **01-simple-pod.yaml** - Absolute basics: container in a pod
-2. **02-pod-with-name.yaml** - Proper naming conventions
-3. **03-pod-with-labels.yaml** - Labels for organization and selection
-
-### **🔶 Intermediate Level**
-4. **04-blue-pod.yaml** & **05-green-pod.yaml** - Blue-green deployment pattern
-5. **06-database-pod.yaml** - Environment variables and stateful services
-
-### **🔴 Advanced Level**
-6. **07-multi-container-pod.yaml** - Sidecar pattern and container communication
-7. **exercise-1-first-pod.yaml** - Production-ready pod with resource limits
-
-### **🛠️ Troubleshooting**
-8. **Broken pod exercise** - Real-world debugging skills
-
----
 
 ## 🧪 Hands-On Exercises
 
 ### **Prerequisites**
 ```bash
-# 1. Install k3s (if not already done)
-curl -sfL https://get.k3s.io | sh -
-mkdir -p ~/.kube
-sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-sudo chown $(id -u):$(id -g) ~/.kube/config
+# 1. Make sure you have a cluster running (from 7.1)
+kubectl get nodes  # Should show your cluster nodes
 
 # 2. Clone the repository
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/7.1_kubernetes_basics
+cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/7.2_kubernetes_basics
 
-# 3. Verify k3s is working
-kubectl get nodes
+# 3. Verify cluster is working
+kubectl cluster-info
 ```
 
 ### **🎯 Use Case: Progressive Pod Learning**
@@ -387,46 +364,6 @@ kubectl exec -it multi-container -c nginx -- /bin/bash
 kubectl delete -f 07-multi-container-pod.yaml
 ```
 
-### **Exercise 7: Your Original First Pod (Enhanced)**
-```bash
-# Deploy your enhanced first pod
-kubectl apply -f exercise-1-first-pod.yaml
-
-# Check if pod is running
-kubectl get pods
-
-# See detailed information
-kubectl describe pod my-first-pod
-
-# Check pod logs
-kubectl logs my-first-pod
-
-# Access the pod (port forwarding)
-kubectl port-forward pod/my-first-pod 8080:80
-
-# Test in another terminal
-curl http://localhost:8080
-
-# Clean up
-kubectl delete -f exercise-1-first-pod.yaml
-```
-
-### **Exercise 8: Troubleshoot a Broken Pod**
-```bash
-# Try to create a pod with wrong image
-kubectl run broken-pod --image=nginx:wrong-tag
-
-# Check what happened
-kubectl get pods
-kubectl describe pod broken-pod
-
-# Fix it
-kubectl delete pod broken-pod
-kubectl run fixed-pod --image=nginx:1.21
-
-# Verify it works
-kubectl get pods
-kubectl logs fixed-pod
 ```
 
 ## 📝 Key Concepts
@@ -484,12 +421,12 @@ After completing this module, you will:
 
 ## 🚀 Next Steps
 
-Ready to move to production? Continue with:
+Ready to work with Pods? Continue with:
 
-**[7.2 - Cluster Setup on AWS →](../7.2_cluster_setup/)**
+**[7.3 - Pods Management →](../7.3_pods_management/)**
 
-Learn to deploy and manage Kubernetes clusters on AWS EKS for production workloads.
+Learn to create, manage, and troubleshoot Kubernetes pods - the fundamental building blocks.
 
 ---
 
-*Master the fundamentals before moving to production deployments!* ☸️
+*Understand the architecture before building applications!* ☸️

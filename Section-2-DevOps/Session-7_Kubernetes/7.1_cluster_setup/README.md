@@ -1,8 +1,19 @@
-# 🏗️ 7.2 Deploy Kube Cluster on AWS
+# 🏗️ 7.1 Kubernetes Cluster Setup
+
+<div align="center">
+
+![Kubernetes](https://img.shields.io/badge/Kubernetes-Cluster%20Setup-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
+![k3s](https://img.shields.io/badge/k3s-Lightweight%20K8s-green?style=for-the-badge&logo=kubernetes&logoColor=white)
+
+**🎯 First Step: Get Your Cluster Running | ⚡ k3s Recommended | 🚀 Production Ready**
+
+</div>
+
+---
 
 ## 🎯 Three Ways to Get Started
 
-### Option 1: k3s (Super Easy - Lightweight)
+### Option 1: k3s (Super Easy - Lightweight) ⭐ **RECOMMENDED**
 ### Option 2: Minikube (Easy - Local Learning)
 ### Option 3: AWS EKS (Real - Production Ready)
 
@@ -154,7 +165,7 @@ kubectl get nodes
 ```bash
 # Clone the repository
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/7.2_cluster_setup
+cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/7.1_cluster_setup
 ```
 
 ### **🎯 Use Case: Setup Development Kubernetes Environment**
@@ -272,8 +283,8 @@ eksctl delete cluster --name my-cluster --region us-west-2
 
 ## 🚀 Next Step
 
-Ready to learn about Pods and Services? Go to **[7.3 - Pods & Services](../7.3_pods_services/)**
+Ready to understand Kubernetes architecture? Go to **[7.2 - Kubernetes Basics](../7.2_kubernetes_basics/)**
 
 ---
 
-*Start simple, scale up!* 🏗️
+*First things first - get your cluster running!* 🏗️

@@ -68,7 +68,7 @@ Master **Kubernetes container orchestration** for automating deployment, scaling
 
 ---
 
-## 🛤️ Learning Path
+## 🛤️ Learning Path - Correct Sequence ⭐
 
 <table>
 <tr>
@@ -79,62 +79,73 @@ Master **Kubernetes container orchestration** for automating deployment, scaling
 </tr>
 
 <tr>
-<td><strong><a href="./7.1_kubernetes_basics/">7.1</a></strong></td>
+<td><strong><a href="./7.1_cluster_setup/">7.1</a></strong> ⭐</td>
+<td><strong>Cluster Setup</strong></td>
+<td>k3s, Minikube, AWS EKS - Get your cluster running FIRST</td>
+<td>2 hours</td>
+</tr>
+
+<tr>
+<td><strong><a href="./7.2_kubernetes_basics/">7.2</a></strong></td>
 <td><strong>Kubernetes Basics</strong></td>
 <td>Architecture, components, kubectl fundamentals, and core concepts</td>
 <td>3 hours</td>
 </tr>
 
 <tr>
-<td><strong><a href="./7.2_cluster_setup/">7.2</a></strong></td>
-<td><strong>Deploy Kube Cluster on AWS</strong></td>
-<td>EKS setup, Minikube installation, cluster configuration</td>
-<td>4 hours</td>
-</tr>
-
-<tr>
-<td><strong><a href="./7.3_pods_services/">7.3</a></strong></td>
-<td><strong>Kubernetes Architecture, Pods, Services</strong></td>
-<td>Pod lifecycle, service types, networking, and communication</td>
+<td><strong><a href="./7.3_pods_management/">7.3</a></strong></td>
+<td><strong>Pods Management</strong></td>
+<td>Pod lifecycle, labels, selectors, and basic networking</td>
 <td>3 hours</td>
 </tr>
 
 <tr>
-<td><strong><a href="./7.4_deploy_scale/">7.4</a></strong></td>
-<td><strong>Deploy and Scale on Kube</strong></td>
+<td><strong><a href="./7.4_deployments_scaling/">7.4</a></strong></td>
+<td><strong>Deployments & Scaling</strong></td>
 <td>Deployments, ReplicaSets, scaling strategies, and management</td>
 <td>3 hours</td>
 </tr>
 
 <tr>
-<td><strong><a href="./7.5_dns_discovery/">7.5</a></strong></td>
-<td><strong>DNS & Service Discovery</strong></td>
-<td>Service discovery, DNS resolution, Ingress controllers</td>
-<td>2 hours</td>
+<td><strong><a href="./7.5_services_networking/">7.5</a></strong></td>
+<td><strong>Services & Networking</strong></td>
+<td>Service types, networking, Ingress controllers, and connectivity</td>
+<td>3 hours</td>
 </tr>
 
 <tr>
 <td><strong><a href="./7.6_autoscaling_updates/">7.6</a></strong></td>
-<td><strong>Auto-scaling and Rolling Updates</strong></td>
+<td><strong>Auto-scaling & Updates</strong></td>
 <td>HPA, VPA, rolling updates, and deployment strategies</td>
 <td>3 hours</td>
 </tr>
 
 <tr>
 <td><strong><a href="./7.7_namespaces_quotas/">7.7</a></strong></td>
-<td><strong>Namespaces and Quotas</strong></td>
-<td>Resource management, RBAC, multi-tenancy, and governance</td>
+<td><strong>Namespaces & Quotas</strong></td>
+<td>Multi-tenancy, resource quotas, RBAC, and organization</td>
 <td>2 hours</td>
 </tr>
 
 <tr>
-<td><strong><a href="./7.8_microservices/">7.8</a></strong></td>
-<td><strong>Deploying Microservices on Kubernetes</strong></td>
-<td>Complete microservices deployment with monitoring and observability</td>
+<td><strong><a href="./7.8_microservices/">7.8</a></strong> 🏆</td>
+<td><strong>Microservices Deployment</strong></td>
+<td>Complete production application with monitoring and patterns</td>
 <td>4 hours</td>
 </tr>
 
 </table>
+
+### 🎯 **Why This Sequence?**
+
+1. **7.1 Cluster Setup** - You need a working cluster before anything else
+2. **7.2 Kubernetes Basics** - Understand what you're working with
+3. **7.3 Pods Management** - Master the fundamental building blocks
+4. **7.4 Deployments** - Learn to manage pods at scale
+5. **7.5 Services** - Connect and expose your applications
+6. **7.6 Auto-scaling** - Advanced deployment patterns
+7. **7.7 Namespaces** - Organization and multi-tenancy
+8. **7.8 Microservices** - Put it all together in production
 
 ---
 
