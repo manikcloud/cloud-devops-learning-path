@@ -130,24 +130,79 @@ kubectl get nodes
 
 ---
 
-## 🧪 Test Your Cluster
+## 🤔 Which Option Should You Choose?
 
-### Deploy a Simple App
+| Feature | k3s | Minikube | AWS EKS |
+|---------|-----|----------|---------|
+| **Setup Time** | 30 seconds | 2-3 minutes | 15-20 minutes |
+| **Resource Usage** | Very Low | Medium | High |
+| **Cost** | Free | Free | $0.10/hour + nodes |
+| **Best For** | Quick learning | Local development | Production |
+| **Real Kubernetes** | ✅ Yes | ✅ Yes | ✅ Yes |
+| **Multi-node** | ❌ Single node | ❌ Single node | ✅ Multi-node |
+
+### 🎯 **Recommendation:**
+- **New to Kubernetes?** Start with **k3s**
+- **Want full features?** Use **Minikube**  
+- **Production ready?** Go with **AWS EKS**
+
+---
+
+## 🧪 Hands-On Exercises
+
+### **Prerequisites**
 ```bash
-# Create deployment
-kubectl create deployment nginx --image=nginx
+# Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/7.2_cluster_setup
+```
 
-# Scale it
-kubectl scale deployment nginx --replicas=3
+### **🎯 Use Case: Setup Development Kubernetes Environment**
 
-# Check pods
+**Scenario**: Your team needs a local Kubernetes environment for developing and testing microservices before deploying to production.
+
+### **Exercise 1: Quick k3s Setup**
+```bash
+# Make script executable and run
+chmod +x k3s-setup.sh
+./k3s-setup.sh
+
+# Verify cluster is ready
+kubectl cluster-info
+kubectl get nodes -o wide
+```
+
+### **Exercise 2: Deploy Test Application**
+```bash
+# Deploy test web application
+kubectl apply -f test-deployment.yaml
+
+# Check deployment status
+kubectl get deployments
+kubectl get pods
+kubectl get services
+
+# Test the application
+curl http://localhost:30080
+
+# Scale the application
+kubectl scale deployment test-web-app --replicas=4
 kubectl get pods
 
-# Expose it (EKS only)
-kubectl expose deployment nginx --port=80 --type=LoadBalancer
+# Clean up
+kubectl delete -f test-deployment.yaml
+```
 
-# Get external IP (wait a few minutes)
-kubectl get services
+### **Exercise 3: Cluster Health Check**
+```bash
+# Check all system components
+kubectl get pods -n kube-system
+
+# Check cluster resources
+kubectl top nodes 2>/dev/null || echo "Metrics server not available"
+
+# Test DNS resolution
+kubectl run test-dns --image=busybox --rm -it -- nslookup kubernetes
 ```
 
 ---
@@ -171,24 +226,6 @@ kubectl logs deployment/nginx
 kubectl delete deployment nginx
 kubectl delete service nginx
 ```
-
----
-
-## 🤔 Which Option Should You Choose?
-
-| Feature | k3s | Minikube | AWS EKS |
-|---------|-----|----------|---------|
-| **Setup Time** | 30 seconds | 2-3 minutes | 15-20 minutes |
-| **Resource Usage** | Very Low | Medium | High |
-| **Cost** | Free | Free | $0.10/hour + nodes |
-| **Best For** | Quick learning | Local development | Production |
-| **Real Kubernetes** | ✅ Yes | ✅ Yes | ✅ Yes |
-| **Multi-node** | ❌ Single node | ❌ Single node | ✅ Multi-node |
-
-### 🎯 **Recommendation:**
-- **New to Kubernetes?** Start with **k3s**
-- **Want full features?** Use **Minikube**  
-- **Production ready?** Go with **AWS EKS**
 
 ---
 
@@ -225,6 +262,13 @@ eksctl delete cluster --name my-cluster --region us-west-2
 - ✅ Basic cluster management and testing
 - ✅ Deploy and test applications on all platforms
 - ✅ Choose the right option for your needs
+
+## ✅ Success Criteria
+- [ ] Cluster is running and accessible
+- [ ] Can deploy applications successfully
+- [ ] Services are accessible via NodePort
+- [ ] Can scale applications up and down
+- [ ] All system pods are healthy
 
 ## 🚀 Next Step
 
