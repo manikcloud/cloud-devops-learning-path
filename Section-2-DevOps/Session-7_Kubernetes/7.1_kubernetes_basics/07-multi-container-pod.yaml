@@ -1,0 +1,21 @@
+# Advanced: Multi-container pod (sidecar pattern)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-container
+  labels:
+    env: dev
+    tier: frontend
+    costcenter: devops
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21-alpine
+    ports:
+    - containerPort: 80
+  - name: alpine-sidecar
+    image: alpine:3.15
+    command:
+    - "sh"
+    - "-c"
+    - "while true; do wget -qO- localhost; sleep 5; done"

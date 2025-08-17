@@ -1,0 +1,19 @@
+# Database pod with environment variables
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres-database
+  labels:
+    tier: db-tier
+    app: database
+spec:
+  containers:
+  - name: postgres
+    image: postgres:13
+    env:
+    - name: POSTGRES_PASSWORD
+      value: "password123"
+    - name: POSTGRES_DB
+      value: "myapp"
+    ports:
+    - containerPort: 5432

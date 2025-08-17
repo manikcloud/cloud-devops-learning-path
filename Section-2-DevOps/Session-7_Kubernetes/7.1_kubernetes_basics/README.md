@@ -196,6 +196,28 @@ kubectl delete service nginx
 
 ---
 
+## 📚 Learning Progression
+
+The exercises are designed to build your knowledge progressively:
+
+### **🔰 Beginner Level**
+1. **01-simple-pod.yaml** - Absolute basics: container in a pod
+2. **02-pod-with-name.yaml** - Proper naming conventions
+3. **03-pod-with-labels.yaml** - Labels for organization and selection
+
+### **🔶 Intermediate Level**
+4. **04-blue-pod.yaml** & **05-green-pod.yaml** - Blue-green deployment pattern
+5. **06-database-pod.yaml** - Environment variables and stateful services
+
+### **🔴 Advanced Level**
+6. **07-multi-container-pod.yaml** - Sidecar pattern and container communication
+7. **exercise-1-first-pod.yaml** - Production-ready pod with resource limits
+
+### **🛠️ Troubleshooting**
+8. **Broken pod exercise** - Real-world debugging skills
+
+---
+
 ## 🧪 Hands-On Exercises
 
 ### **Prerequisites**
@@ -205,13 +227,128 @@ git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/7.1_kubernetes_basics
 ```
 
-### **🎯 Use Case: Deploy Your First Web Server**
+### **🎯 Use Case: Progressive Pod Learning**
 
-**Scenario**: You're a new DevOps engineer tasked with deploying a simple web server for the development team to test their applications.
+**Scenario**: You're learning Kubernetes step-by-step, starting from the simplest pod to advanced multi-container patterns.
 
-### **Exercise 1: Create Your First Pod**
+### **Exercise 1: Your First Simple Pod**
 ```bash
-# Apply the pod configuration
+# Start with the simplest possible pod
+kubectl apply -f 01-simple-pod.yaml
+
+# Check if it's running
+kubectl get pods
+
+# See what's inside
+kubectl describe pod simple-pod
+
+# Clean up
+kubectl delete -f 01-simple-pod.yaml
+```
+
+### **Exercise 2: Pod with Proper Naming**
+```bash
+# Deploy a properly named pod
+kubectl apply -f 02-pod-with-name.yaml
+
+# Check the pod
+kubectl get pods
+kubectl describe pod web-server
+
+# Clean up
+kubectl delete -f 02-pod-with-name.yaml
+```
+
+### **Exercise 3: Pod with Labels**
+```bash
+# Deploy pod with labels for organization
+kubectl apply -f 03-pod-with-labels.yaml
+
+# Check labels
+kubectl get pods --show-labels
+
+# Filter by labels
+kubectl get pods -l name=myapp
+
+# Port forward to test
+kubectl port-forward pod/myapp 8080:80
+
+# Test in another terminal
+curl http://localhost:8080
+
+# Clean up
+kubectl delete -f 03-pod-with-labels.yaml
+```
+
+### **Exercise 4: Blue-Green Pod Pattern**
+```bash
+# Deploy blue version
+kubectl apply -f 04-blue-pod.yaml
+
+# Deploy green version
+kubectl apply -f 05-green-pod.yaml
+
+# Check both pods
+kubectl get pods -l application=web-app
+
+# Check different colors
+kubectl get pods -l color=blue
+kubectl get pods -l color=green
+
+# Test both versions
+kubectl port-forward pod/blue-app 8081:80 &
+kubectl port-forward pod/green-app 8082:80 &
+
+# Test both
+curl http://localhost:8081  # Blue version
+curl http://localhost:8082  # Green version
+
+# Clean up
+kubectl delete -f 04-blue-pod.yaml
+kubectl delete -f 05-green-pod.yaml
+```
+
+### **Exercise 5: Database Pod with Environment Variables**
+```bash
+# Deploy database pod
+kubectl apply -f 06-database-pod.yaml
+
+# Check the pod
+kubectl get pods
+kubectl describe pod postgres-database
+
+# Check environment variables
+kubectl exec postgres-database -- env | grep POSTGRES
+
+# Connect to database (optional)
+kubectl exec -it postgres-database -- psql -U postgres -d myapp
+
+# Clean up
+kubectl delete -f 06-database-pod.yaml
+```
+
+### **Exercise 6: Advanced Multi-Container Pod**
+```bash
+# Deploy multi-container pod (sidecar pattern)
+kubectl apply -f 07-multi-container-pod.yaml
+
+# Check the pod (should show 2/2 containers ready)
+kubectl get pods
+
+# Check logs from both containers
+kubectl logs multi-container -c nginx
+kubectl logs multi-container -c alpine-sidecar
+
+# Execute into specific container
+kubectl exec -it multi-container -c nginx -- /bin/bash
+
+# Clean up
+kubectl delete -f 07-multi-container-pod.yaml
+```
+
+### **Exercise 7: Your Original First Pod (Enhanced)**
+```bash
+# Deploy your enhanced first pod
 kubectl apply -f exercise-1-first-pod.yaml
 
 # Check if pod is running
@@ -233,7 +370,7 @@ curl http://localhost:8080
 kubectl delete -f exercise-1-first-pod.yaml
 ```
 
-### **Exercise 2: Troubleshoot a Broken Pod**
+### **Exercise 8: Troubleshoot a Broken Pod**
 ```bash
 # Try to create a pod with wrong image
 kubectl run broken-pod --image=nginx:wrong-tag
@@ -293,10 +430,15 @@ After completing this module, you will:
 ---
 
 ## ✅ Success Criteria
-- [ ] Pod created successfully
-- [ ] Pod shows "Running" status
-- [ ] Can access web server via port-forward
-- [ ] Can troubleshoot and fix issues
+- [ ] Simple pod created and running
+- [ ] Pod with labels deployed successfully
+- [ ] Can filter pods using label selectors
+- [ ] Blue-green pod pattern demonstrated
+- [ ] Database pod with environment variables working
+- [ ] Multi-container pod (sidecar pattern) running
+- [ ] Can access pods via port-forward
+- [ ] Can troubleshoot and fix broken pods
+- [ ] Understand pod lifecycle and states
 - [ ] Clean up resources properly
 
 ## 🚀 Next Steps
