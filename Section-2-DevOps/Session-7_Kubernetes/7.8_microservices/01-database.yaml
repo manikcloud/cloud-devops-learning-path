@@ -1,42 +1,21 @@
-# Simple PostgreSQL Database for Todo App
-apiVersion: v1
-kind: Secret
-metadata:
-  name: db-secret
-  namespace: todo-app
-type: Opaque
-data:
-  password: dG9kb2FwcDEyMw==  # todoapp123 in base64
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: db-storage
-  namespace: todo-app
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
+# Simple Database for Todo App
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgresql
+  name: database
   namespace: todo-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgresql
+      app: database
   template:
     metadata:
       labels:
-        app: postgresql
+        app: database
     spec:
       containers:
-      - name: postgresql
+      - name: postgres
         image: postgres:13
         ports:
         - containerPort: 5432
@@ -46,35 +25,16 @@ spec:
         - name: POSTGRES_USER
           value: postgres
         - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: password
-        - name: PGDATA
-          value: /var/lib/postgresql/data/pgdata
-        volumeMounts:
-        - name: db-storage
-          mountPath: /var/lib/postgresql/data
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
-      volumes:
-      - name: db-storage
-        persistentVolumeClaim:
-          claimName: db-storage
+          value: password123
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql-service
+  name: database-service
   namespace: todo-app
 spec:
   selector:
-    app: postgresql
+    app: database
   ports:
   - port: 5432
     targetPort: 5432

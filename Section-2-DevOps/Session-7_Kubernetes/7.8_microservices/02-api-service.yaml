@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: api-config
+  name: api-code
   namespace: todo-app
 data:
   server.js: |
@@ -11,92 +11,63 @@ data:
     const cors = require('cors');
     
     const app = express();
-    const port = 3000;
-    
-    // Middleware
     app.use(cors());
     app.use(express.json());
     
     // Database connection
     const pool = new Pool({
-      host: 'postgresql-service',
+      host: 'database-service',
       port: 5432,
       database: 'todoapp',
       user: 'postgres',
-      password: 'todoapp123'
+      password: 'password123'
     });
     
-    // Initialize database
-    async function initDB() {
-      try {
-        await pool.query(`
-          CREATE TABLE IF NOT EXISTS todos (
-            id SERIAL PRIMARY KEY,
-            text TEXT NOT NULL,
-            completed BOOLEAN DEFAULT FALSE,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          )
-        `);
-        console.log('Database initialized');
-      } catch (err) {
-        console.error('Database init error:', err);
-      }
-    }
+    // Create table if not exists
+    pool.query(`
+      CREATE TABLE IF NOT EXISTS todos (
+        id SERIAL PRIMARY KEY,
+        text TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `).catch(console.error);
     
     // Routes
-    app.get('/health', (req, res) => {
-      res.json({ status: 'healthy', service: 'todo-api' });
-    });
+    app.get('/health', (req, res) => res.json({ status: 'ok' }));
     
-    // Get all todos
     app.get('/todos', async (req, res) => {
       try {
         const result = await pool.query('SELECT * FROM todos ORDER BY created_at DESC');
         res.json(result.rows);
       } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Database error' });
+        res.status(500).json({ error: err.message });
       }
     });
     
-    // Add new todo
     app.post('/todos', async (req, res) => {
       try {
         const { text } = req.body;
-        const result = await pool.query(
-          'INSERT INTO todos (text) VALUES ($1) RETURNING *',
-          [text]
-        );
+        const result = await pool.query('INSERT INTO todos (text) VALUES ($1) RETURNING *', [text]);
         res.json(result.rows[0]);
       } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Database error' });
+        res.status(500).json({ error: err.message });
       }
     });
     
-    // Delete todo
     app.delete('/todos/:id', async (req, res) => {
       try {
-        const { id } = req.params;
-        await pool.query('DELETE FROM todos WHERE id = $1', [id]);
-        res.json({ message: 'Todo deleted' });
+        await pool.query('DELETE FROM todos WHERE id = $1', [req.params.id]);
+        res.json({ message: 'deleted' });
       } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Database error' });
+        res.status(500).json({ error: err.message });
       }
     });
     
-    // Start server
-    app.listen(port, () => {
-      console.log(`Todo API running on port ${port}`);
-      initDB();
-    });
+    app.listen(3000, () => console.log('API running on port 3000'));
   
   package.json: |
     {
       "name": "todo-api",
-      "version": "1.0.0",
-      "main": "server.js",
       "dependencies": {
         "express": "^4.18.0",
         "pg": "^8.8.0",
@@ -113,7 +84,7 @@ metadata:
   name: api-service
   namespace: todo-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: api-service
@@ -123,39 +94,19 @@ spec:
         app: api-service
     spec:
       containers:
-      - name: api-service
+      - name: api
         image: node:16-alpine
         ports:
         - containerPort: 3000
         workingDir: /app
-        command: ["/bin/sh"]
-        args: ["-c", "npm install && npm start"]
+        command: ["/bin/sh", "-c", "npm install && npm start"]
         volumeMounts:
-        - name: app-code
+        - name: code
           mountPath: /app
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 3000
-          initialDelaySeconds: 10
-          periodSeconds: 5
       volumes:
-      - name: app-code
+      - name: code
         configMap:
-          name: api-config
+          name: api-code
 ---
 apiVersion: v1
 kind: Service
