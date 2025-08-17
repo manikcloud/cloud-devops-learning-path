@@ -16,6 +16,10 @@ if ! kubectl get pods -n ingress-nginx | grep -q "ingress-nginx-controller"; the
     kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=300s
 fi
 
+# Create ConfigMaps from app files
+echo "📁 Creating ConfigMaps from app files..."
+./create-configmaps.sh
+
 # Deploy database
 echo "🗄️ Deploying database..."
 kubectl apply -f 01-database.yaml
@@ -45,8 +49,14 @@ echo ""
 echo "🎉 Todo App is ready!"
 echo "🌍 Access at: http://localhost (or your server IP)"
 echo ""
+echo "📁 Project structure:"
+echo "  app/frontend/ - HTML, CSS, JavaScript files"
+echo "  app/api/ - Node.js server code"
+echo "  *.yaml - Kubernetes deployment files"
+echo ""
 echo "🧪 Test commands:"
 echo "  kubectl get all -n todo-app"
+echo "  kubectl get configmaps -n todo-app"
 echo "  curl http://localhost"
 echo ""
 echo "🧹 To remove: kubectl delete namespace todo-app"
