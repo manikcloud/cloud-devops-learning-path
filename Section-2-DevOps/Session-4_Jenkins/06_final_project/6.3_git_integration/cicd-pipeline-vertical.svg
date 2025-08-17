@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="800" viewBox="0 0 400 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="devGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2E7D32;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="gitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9800;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F57C00;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="webhookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9C27B0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6A1B9A;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="jenkinsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1565C0;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="buildGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF5722;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D84315;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="testGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#607D8B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#37474F;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="deployGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8BC34A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#558B2F;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="liveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00838F;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Arrow marker -->
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+              refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+      </marker>
+    </defs>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="800" fill="#f8f9fa" stroke="#e9ecef" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="200" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2c3e50">
+    CI/CD Pipeline Flow
+  </text>
+  
+  <!-- Step 1: Developer -->
+  <rect x="50" y="70" width="300" height="60" rx="10" fill="url(#devGradient)" stroke="#2E7D32" stroke-width="2"/>
+  <text x="200" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    👨‍💻 DEVELOPER
+  </text>
+  <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Code Changes & Commit
+  </text>
+  
+  <!-- Arrow 1 -->
+  <line x1="200" y1="130" x2="200" y2="160" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 2: Git Push -->
+  <rect x="50" y="170" width="300" height="60" rx="10" fill="url(#gitGradient)" stroke="#F57C00" stroke-width="2"/>
+  <text x="200" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    📤 GIT PUSH
+  </text>
+  <text x="200" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Push to GitHub Repository
+  </text>
+  
+  <!-- Arrow 2 -->
+  <line x1="200" y1="230" x2="200" y2="260" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 3: Webhook Trigger -->
+  <rect x="50" y="270" width="300" height="60" rx="10" fill="url(#webhookGradient)" stroke="#6A1B9A" stroke-width="2"/>
+  <text x="200" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    🔗 WEBHOOK TRIGGER
+  </text>
+  <text x="200" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    GitHub → Jenkins Notification
+  </text>
+  
+  <!-- Arrow 3 -->
+  <line x1="200" y1="330" x2="200" y2="360" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 4: Jenkins Pipeline -->
+  <rect x="50" y="370" width="300" height="60" rx="10" fill="url(#jenkinsGradient)" stroke="#1565C0" stroke-width="2"/>
+  <text x="200" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    ⚙️ JENKINS PIPELINE
+  </text>
+  <text x="200" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Pipeline Execution Started
+  </text>
+  
+  <!-- Arrow 4 -->
+  <line x1="200" y1="430" x2="200" y2="460" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 5: Maven Build -->
+  <rect x="50" y="470" width="300" height="60" rx="10" fill="url(#buildGradient)" stroke="#D84315" stroke-width="2"/>
+  <text x="200" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    🔨 MAVEN BUILD
+  </text>
+  <text x="200" y="515" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Compile, Package & Create WAR
+  </text>
+  
+  <!-- Arrow 5 -->
+  <line x1="200" y1="530" x2="200" y2="560" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 6: Automated Tests -->
+  <rect x="50" y="570" width="300" height="60" rx="10" fill="url(#testGradient)" stroke="#37474F" stroke-width="2"/>
+  <text x="200" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    🧪 AUTOMATED TESTS
+  </text>
+  <text x="200" y="615" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Unit Tests & Quality Checks
+  </text>
+  
+  <!-- Arrow 6 -->
+  <line x1="200" y1="630" x2="200" y2="660" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 7: Deploy to Tomcat -->
+  <rect x="50" y="670" width="300" height="60" rx="10" fill="url(#deployGradient)" stroke="#558B2F" stroke-width="2"/>
+  <text x="200" y="695" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    🚀 DEPLOY TO TOMCAT
+  </text>
+  <text x="200" y="715" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    WAR Deployment & Server Restart
+  </text>
+  
+  <!-- Arrow 7 -->
+  <line x1="200" y1="730" x2="200" y2="760" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 8: Live Application -->
+  <rect x="50" y="770" width="300" height="60" rx="10" fill="url(#liveGradient)" stroke="#00838F" stroke-width="2"/>
+  <text x="200" y="795" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    🌐 LIVE APPLICATION
+  </text>
+  <text x="200" y="815" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">
+    Address Book Available to Users
+  </text>
+  
+  <!-- Side annotations -->
+  <text x="20" y="400" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666" transform="rotate(-90 20 400)">
+    AUTOMATED
+  </text>
+  
+  <text x="380" y="400" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666" transform="rotate(90 380 400)">
+    CONTINUOUS
+  </text>
+  
+  <!-- Time indicators -->
+  <circle cx="30" cy="100" r="8" fill="#4CAF50"/>
+  <text x="30" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">0s</text>
+  
+  <circle cx="30" cy="200" r="8" fill="#FF9800"/>
+  <text x="30" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">5s</text>
+  
+  <circle cx="30" cy="300" r="8" fill="#9C27B0"/>
+  <text x="30" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">10s</text>
+  
+  <circle cx="30" cy="400" r="8" fill="#2196F3"/>
+  <text x="30" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">15s</text>
+  
+  <circle cx="30" cy="500" r="8" fill="#FF5722"/>
+  <text x="30" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">45s</text>
+  
+  <circle cx="30" cy="600" r="8" fill="#607D8B"/>
+  <text x="30" y="605" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">60s</text>
+  
+  <circle cx="30" cy="700" r="8" fill="#8BC34A"/>
+  <text x="30" y="705" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">90s</text>
+  
+  <circle cx="30" cy="800" r="8" fill="#00BCD4"/>
+  <text x="30" y="805" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">✓</text>
+</svg>

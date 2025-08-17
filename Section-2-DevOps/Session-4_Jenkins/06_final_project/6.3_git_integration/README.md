@@ -14,9 +14,25 @@
 
 ## 🚀 Real DevOps in Action - Automated Workflow
 
+<div align="center">
+
 ![Git Integration Workflow](./git-integration-workflow.svg)
 
+</div>
+
 *Complete webhook automation workflow showing the magic of continuous deployment*
+
+---
+
+## 🔄 CI/CD Pipeline Steps
+
+<div align="center">
+
+![CI/CD Pipeline Vertical](./cicd-pipeline-vertical.svg)
+
+</div>
+
+*Vertical pipeline flow showing each step from code commit to live deployment*
 
 ---
 
