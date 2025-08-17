@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 Simple Todo App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Simple Todo App</h1>
+        <p class="subtitle">🏆 Built with Kubernetes Microservices!</p>
+        
+        <div class="add-todo">
+            <input type="text" id="todoInput" placeholder="What do you need to do?" maxlength="100">
+            <button onclick="addTodo()">Add Todo</button>
+        </div>
+        
+        <div id="status" class="status" style="display: none;"></div>
+        <div id="todos" class="todos-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
