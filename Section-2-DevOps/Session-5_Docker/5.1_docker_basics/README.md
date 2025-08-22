@@ -2,68 +2,47 @@
 
 ## 🔄 Docker Container Lifecycle
 
-<div align="center">
+### 📚 **Theory: Understanding Docker Lifecycle**
 
-### 📊 **Complete Docker Lifecycle Flow**
-*From image creation to container termination*
+Docker containers go through several states during their lifetime:
 
-</div>
+1. **Image Creation**: Build from Dockerfile or pull from registry
+2. **Container Creation**: Create container from image (not running yet)
+3. **Running State**: Container is actively executing processes
+4. **Stopped State**: Container exists but processes are stopped
+5. **Removal**: Container is completely deleted
+
+**Key Concepts:**
+- **Images are immutable** - they don't change once built
+- **Containers are ephemeral** - they can be created, stopped, and destroyed
+- **Data persistence** requires volumes or bind mounts
+- **One process per container** is the best practice
+
+### 📊 **Simple Lifecycle Flow**
 
 ```mermaid
-graph TD
-    A[📝 Dockerfile] --> B[🔨 docker build]
-    B --> C[📦 Docker Image]
+graph LR
+    A[Dockerfile] --> B[Image]
+    B --> C[Container Created]
+    C --> D[Running]
+    D --> E[Stopped]
+    E --> F[Removed]
+    E --> D
     
-    C --> D[🚀 docker run]
-    D --> E[🟢 Running Container]
-    
-    E --> F{Container State}
-    
-    F -->|docker stop| G[⏸️ Stopped Container]
-    F -->|docker pause| H[⏸️ Paused Container]
-    F -->|docker kill| I[💀 Killed Container]
-    F -->|Process Exit| J[🔴 Exited Container]
-    
-    G -->|docker start| E
-    G -->|docker rm| K[🗑️ Removed]
-    
-    H -->|docker unpause| E
-    H -->|docker stop| G
-    
-    I -->|docker rm| K
-    J -->|docker start| E
-    J -->|docker rm| K
-    
-    E -->|docker exec| L[🔧 Execute Commands]
-    L --> E
-    
-    E -->|docker logs| M[📋 View Logs]
-    M --> E
-    
-    C -->|docker push| N[☁️ Registry]
-    N -->|docker pull| C
-    
-    style A fill:#e1f5fe
-    style C fill:#f3e5f5
-    style E fill:#e8f5e8
-    style G fill:#fff3e0
-    style K fill:#ffebee
-    style N fill:#e0f2f1
+    style B fill:#e3f2fd
+    style D fill:#e8f5e8
+    style E fill:#fff3e0
 ```
 
-### 🎯 **Lifecycle Commands Quick Reference**
+### 🎯 **Essential Commands**
 
-| Phase | Command | Description |
-|-------|---------|-------------|
-| **Build** | `docker build -t myapp .` | Create image from Dockerfile |
-| **Run** | `docker run -d --name mycontainer myapp` | Create and start container |
-| **Stop** | `docker stop mycontainer` | Gracefully stop container |
-| **Start** | `docker start mycontainer` | Restart stopped container |
-| **Pause** | `docker pause mycontainer` | Pause all processes |
-| **Unpause** | `docker unpause mycontainer` | Resume paused container |
-| **Kill** | `docker kill mycontainer` | Force stop container |
-| **Remove** | `docker rm mycontainer` | Delete stopped container |
-| **Inspect** | `docker inspect mycontainer` | View container details |
+| Command | Purpose |
+|---------|---------|
+| `docker build -t name .` | Build image |
+| `docker run name` | Create & start container |
+| `docker stop container` | Stop container |
+| `docker start container` | Restart stopped container |
+| `docker rm container` | Remove container |
 
 ---
 
