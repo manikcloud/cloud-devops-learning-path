@@ -58,12 +58,82 @@ This module will help you **master the core fundamentals of continuous deploymen
 
 ### ✅ **How Docker Solves These Problems**
 
+#### **Traditional vs Docker Deployment**
+
+```mermaid
+graph TB
+    subgraph "❌ Traditional Deployment Problems"
+        T1[Developer Laptop<br/>Python 3.8, Node 14]
+        T2[Testing Server<br/>Python 3.7, Node 12]
+        T3[Staging Server<br/>Python 3.9, Node 16]
+        T4[Production Server<br/>Python 3.6, Node 10]
+        
+        T1 --> T2
+        T2 --> T3
+        T3 --> T4
+        
+        T2 -.->|❌ Version Mismatch| E1[Deployment Fails]
+        T3 -.->|❌ Config Issues| E2[App Crashes]
+        T4 -.->|❌ Dependency Hell| E3[Runtime Errors]
+    end
+    
+    subgraph "✅ Docker Deployment Solution"
+        D1[📦 Docker Container<br/>App + Python 3.8 + Node 14]
+        
+        D1 --> D2[👨‍💻 Developer]
+        D1 --> D3[🧪 Testing]
+        D1 --> D4[🎭 Staging]
+        D1 --> D5[🚀 Production]
+        
+        D2 -.->|✅ Same Environment| S1[Works Perfectly]
+        D3 -.->|✅ Same Environment| S2[Tests Pass]
+        D4 -.->|✅ Same Environment| S3[Staging Success]
+        D5 -.->|✅ Same Environment| S4[Production Ready]
+    end
+    
+    style T1 fill:#ffebee
+    style T2 fill:#ffebee
+    style T3 fill:#ffebee
+    style T4 fill:#ffebee
+    style D1 fill:#e8f5e8
+    style D2 fill:#e8f5e8
+    style D3 fill:#e8f5e8
+    style D4 fill:#e8f5e8
+    style D5 fill:#e8f5e8
+```
+
 #### **Consistency Across Environments**
+
+```mermaid
+graph LR
+    A[👨‍💻 Developer Laptop] --> B[🧪 Testing Environment]
+    B --> C[🎭 Staging Environment] 
+    C --> D[🚀 Production Environment]
+    
+    A --> A1[📦 Same Container]
+    B --> B1[📦 Same Container]
+    C --> C1[📦 Same Container]
+    D --> D1[📦 Same Container]
+    
+    A1 -.-> B1
+    B1 -.-> C1
+    C1 -.-> D1
+    
+    style A fill:#e3f2fd
+    style B fill:#f3e5f5
+    style C fill:#fff3e0
+    style D fill:#e8f5e8
+    style A1 fill:#bbdefb
+    style B1 fill:#bbdefb
+    style C1 fill:#bbdefb
+    style D1 fill:#bbdefb
 ```
-Developer Laptop → Testing → Staging → Production
-        ↓              ↓         ↓          ↓
-   Same Container → Same Container → Same Container → Same Container
-```
+
+**Key Benefits:**
+- ✅ **Same behavior** across all environments
+- ✅ **No surprises** during deployment
+- ✅ **Faster debugging** - issues are reproducible
+- ✅ **Confident releases** - what works in dev works in prod
 
 #### **Resource Efficiency**
 - **Containers share OS kernel** (vs VMs that need separate OS)
