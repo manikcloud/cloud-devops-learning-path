@@ -1,0 +1,38 @@
+# Example Terraform Variables File
+# Copy this file to terraform.tfvars and customize the values
+
+# AWS Configuration
+region      = "us-east-1"
+environment = "dev"
+
+# EC2 Configuration
+instance_type = "t2.micro"
+
+# Database Configuration
+db_password           = "SecurePassword123!"
+db_allocated_storage  = 20
+backup_retention_period = 7
+
+# Auto Scaling Configuration
+min_size         = 2
+max_size         = 6
+desired_capacity = 3
+
+# Security Configuration
+allowed_cidr_blocks = [
+  "10.0.0.0/8",     # Private networks
+  "172.16.0.0/12",  # Private networks
+  "192.168.0.0/16", # Private networks
+  "0.0.0.0/0"       # All traffic (use with caution)
+]
+
+# Resource Protection
+enable_deletion_protection = false
+
+# Additional Tags
+tags = {
+  Project     = "terraform-learning"
+  Owner       = "devops-team"
+  CostCenter  = "engineering"
+  Backup      = "daily"
+}
