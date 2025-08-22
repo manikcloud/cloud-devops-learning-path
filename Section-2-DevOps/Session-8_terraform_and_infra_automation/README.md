@@ -40,15 +40,10 @@ Before Infrastructure as Code (IaC) tools like Terraform, infrastructure managem
 - 🔴 **Scaling Challenges** - Difficult to replicate environments consistently
 
 #### **Traditional Approaches & Limitations:**
-```
-Traditional Infrastructure Management:
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Manual Setup  │ -> │  Configuration  │ -> │   Maintenance   │
-│   • GUI Clicks  │    │   • Drift       │    │   • Errors      │
-│   • SSH Commands │    │   • Inconsist.  │    │   • Downtime    │
-│   • Scripts      │    │   • No Tracking │    │   • Manual Fix  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
+**Manual Setup** → **Configuration Issues** → **Maintenance Problems**
+- GUI Clicks → Configuration Drift → Human Errors
+- SSH Commands → Inconsistencies → System Downtime  
+- Custom Scripts → No Tracking → Manual Fixes
 
 ### 🚀 **Terraform: The Solution**
 
@@ -77,42 +72,23 @@ Terraform is an open-source Infrastructure as Code (IaC) tool created by HashiCo
 
 ## 🏗️ **Terraform Architecture**
 
-### **Core Components Architecture:**
+### **Core Components:**
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    TERRAFORM ARCHITECTURE                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
-│  │    User     │    │ Terraform   │    │     Providers       │  │
-│  │             │    │    Core     │    │                     │  │
-│  │ ┌─────────┐ │    │             │    │ ┌─────┐ ┌─────────┐ │  │
-│  │ │ .tf     │ │───▶│ ┌─────────┐ │───▶│ │ AWS │ │ Azure   │ │  │
-│  │ │ files   │ │    │ │ Plan    │ │    │ └─────┘ └─────────┘ │  │
-│  │ └─────────┘ │    │ │ Engine  │ │    │ ┌─────┐ ┌─────────┐ │  │
-│  │             │    │ └─────────┘ │    │ │ GCP │ │ Others  │ │  │
-│  │ ┌─────────┐ │    │             │    │ └─────┘ └─────────┘ │  │
-│  │ │ State   │ │◀───│ ┌─────────┐ │    │                     │  │
-│  │ │ Backend │ │    │ │ State   │ │    └─────────────────────┘  │
-│  │ └─────────┘ │    │ │ Manager │ │                             │
-│  └─────────────┘    │ └─────────┘ │                             │
-│                     └─────────────┘                             │
-└─────────────────────────────────────────────────────────────────┘
-```
+**User** → **Terraform Core** → **Cloud Providers**
+
+1. **Configuration Files (.tf)** - Define desired infrastructure
+2. **Terraform Core** - Plan and execution engine  
+3. **State Management** - Track real vs desired state
+4. **Providers** - Interface with cloud APIs (AWS, Azure, GCP)
 
 ### **Terraform Workflow:**
 
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│    WRITE    │───▶│    PLAN     │───▶│    APPLY    │───▶│   DESTROY   │
-│             │    │             │    │             │    │             │
-│ • .tf files │    │ • terraform │    │ • terraform │    │ • terraform │
-│ • Variables │    │   plan      │    │   apply     │    │   destroy   │
-│ • Resources │    │ • Preview   │    │ • Execute   │    │ • Cleanup   │
-│ • Modules   │    │   changes   │    │   changes   │    │   resources │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
-```
+**WRITE** → **PLAN** → **APPLY** → **DESTROY**
+
+1. **Write** - Create .tf configuration files
+2. **Plan** - Preview changes with `terraform plan`
+3. **Apply** - Execute changes with `terraform apply`  
+4. **Destroy** - Clean up with `terraform destroy`
 
 ---
 
@@ -252,30 +228,33 @@ Deploy and manage AWS infrastructure using Terraform automation.
 - ✅ Set up CI/CD pipeline integration
 
 ### **Project Architecture:**
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     PROJECT ARCHITECTURE                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
-│  │   VPC       │    │   Compute   │    │      Storage        │  │
-│  │             │    │             │    │                     │  │
-│  │ • Subnets   │    │ • EC2       │    │ • S3 Buckets        │  │
-│  │ • Route     │    │ • Auto      │    │ • EBS Volumes       │  │
-│  │   Tables    │    │   Scaling   │    │ • EFS               │  │
-│  │ • Security  │    │ • Load      │    │                     │  │
-│  │   Groups    │    │   Balancer  │    │                     │  │
-│  └─────────────┘    └─────────────┘    └─────────────────────┘  │
-│                                                                 │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │
-│  │  Database   │    │ Monitoring  │    │     Security        │  │
-│  │             │    │             │    │                     │  │
-│  │ • RDS       │    │ • CloudWatch│    │ • IAM Roles         │  │
-│  │ • DynamoDB  │    │ • Alarms    │    │ • Policies          │  │
-│  │ • ElastiCache│   │ • Dashboards│    │ • KMS Keys          │  │
-│  └─────────────┘    └─────────────┘    └─────────────────────┘  │
-└─────────────────────────────────────────────────────────────────┘
-```
+
+**Infrastructure Components:**
+
+**Networking Layer:**
+- VPC with public/private subnets
+- Route tables and security groups
+- Internet and NAT gateways
+
+**Compute Layer:**  
+- EC2 instances with Auto Scaling
+- Application Load Balancer
+- Launch templates and configurations
+
+**Storage Layer:**
+- S3 buckets for static content
+- EBS volumes for persistent storage
+- EFS for shared file systems
+
+**Database Layer:**
+- RDS for relational databases
+- DynamoDB for NoSQL needs
+- ElastiCache for caching
+
+**Security & Monitoring:**
+- IAM roles and policies
+- KMS for encryption
+- CloudWatch for monitoring and alarms
 
 ### **Deliverables:**
 - [ ] **Terraform Configuration Files** - Complete .tf files with proper structure
@@ -335,29 +314,13 @@ aws configure
 
 ## 📁 Module Structure
 
-```
-Session-8_terraform_and_infra_automation/
-├── README.md                          # This comprehensive guide
-├── 01_introduction/                   # IaC fundamentals
-│   ├── README.md
-│   └── examples/
-├── 02_installation_workflows/         # Terraform setup
-│   ├── README.md
-│   └── exercises/
-├── 03_configuration_management/       # HCL and modules
-│   ├── README.md
-│   └── labs/
-├── 04_provisioning_deployments/      # AWS provisioning
-│   ├── README.md
-│   └── projects/
-└── term_project_7/                   # Final project
-    ├── README.md
-    ├── main.tf
-    ├── variables.tf
-    ├── outputs.tf
-    ├── modules/
-    └── environments/
-```
+**Session-8_terraform_and_infra_automation/**
+- **README.md** - This comprehensive guide
+- **01_introduction/** - IaC fundamentals and examples
+- **02_installation_workflows/** - Terraform setup and exercises  
+- **03_configuration_management/** - HCL syntax and labs
+- **04_provisioning_deployments/** - AWS provisioning projects
+- **term_project_7/** - Final project with modules and environments
 
 ---
 
