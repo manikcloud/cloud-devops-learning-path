@@ -135,6 +135,69 @@ graph LR
 - ✅ **Faster debugging** - issues are reproducible
 - ✅ **Confident releases** - what works in dev works in prod
 
+### 🆚 **Virtual Machines vs Docker Containers**
+
+#### **Comparison Table**
+
+| Feature | Virtual Machines | Docker Containers |
+|---------|------------------|-------------------|
+| **Startup Time** | 30-60 seconds | 1-3 seconds |
+| **Memory Usage** | 1-4 GB | 10-100 MB |
+| **Disk Space** | 10-100 GB | 100 MB - 1 GB |
+| **OS Required** | Full OS per VM | Shared host OS |
+| **Isolation** | Complete | Process level |
+| **Performance** | Slower | Near native |
+| **Resource Usage** | Heavy | Lightweight |
+
+#### **Architecture Comparison**
+
+```mermaid
+graph TB
+    subgraph "🖥️ Virtual Machines"
+        VM1[Hardware]
+        VM2[Host OS]
+        VM3[Hypervisor]
+        VM4[Guest OS 1]
+        VM5[Guest OS 2]
+        VM6[App 1]
+        VM7[App 2]
+        
+        VM1 --> VM2
+        VM2 --> VM3
+        VM3 --> VM4
+        VM3 --> VM5
+        VM4 --> VM6
+        VM5 --> VM7
+    end
+    
+    subgraph "🐳 Docker Containers"
+        D1[Hardware]
+        D2[Host OS]
+        D3[Docker Engine]
+        D4[Container 1]
+        D5[Container 2]
+        D6[App 1]
+        D7[App 2]
+        
+        D1 --> D2
+        D2 --> D3
+        D3 --> D4
+        D3 --> D5
+        D4 --> D6
+        D5 --> D7
+    end
+    
+    style VM4 fill:#ffcdd2
+    style VM5 fill:#ffcdd2
+    style D4 fill:#c8e6c9
+    style D5 fill:#c8e6c9
+```
+
+**Key Differences:**
+- **VMs**: Each has its own complete operating system
+- **Containers**: Share the host operating system kernel
+- **Result**: Containers are much lighter and faster
+
 #### **Resource Efficiency**
 - **Containers share OS kernel** (vs VMs that need separate OS)
 - **Lightweight**: MBs instead of GBs
