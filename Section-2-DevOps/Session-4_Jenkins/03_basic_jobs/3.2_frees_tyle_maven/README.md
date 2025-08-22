@@ -586,6 +586,95 @@ After completing this project, you will have mastered:
 
 ---
 
+## ❓ Maven Q&A - Common Interview Questions
+
+<div align="center">
+
+### 🎯 **Essential Maven Knowledge**
+*Master these concepts for interviews and real-world projects*
+
+</div>
+
+### **Q: What is the difference between `mvn clean package` and `mvn clean install`?**
+
+**Answer:**
+
+Both commands compile your code, run tests, and create JAR/WAR files in the `target/` folder.
+
+**The key difference:**
+
+**`mvn clean package`:**
+- ✅ Builds artifacts only in `target/` folder
+- ❌ Other projects on your machine **cannot** use these artifacts
+
+**`mvn clean install`:**
+- ✅ Builds artifacts in `target/` folder **AND** copies them to `~/.m2/repository/`
+- ✅ Other projects on your machine **can** use these artifacts as dependencies
+
+**When to use:**
+- 📦 Use `package` for simple builds and testing
+- 🔧 Use `install` when other local projects need to depend on this artifact
+
+**Example:**
+If Project B depends on Project A:
+- After `mvn package` on Project A → Project B build **fails** ❌
+- After `mvn install` on Project A → Project B build **succeeds** ✅
+
+> 💡 **Pro Tip:** The local repository (`~/.m2/repository/`) is like a shared library where all your local projects can find each other's built artifacts.
+
+### **Q: What are the main Maven lifecycle phases?**
+
+**Answer:**
+
+Maven has three built-in build lifecycles:
+
+**Default Lifecycle (most common):**
+1. `validate` - Validate project structure
+2. `compile` - Compile source code
+3. `test` - Run unit tests
+4. `package` - Create JAR/WAR files
+5. `verify` - Run integration tests
+6. `install` - Install to local repository
+7. `deploy` - Copy to remote repository
+
+**Clean Lifecycle:**
+- `clean` - Remove target directory and compiled artifacts
+
+**Site Lifecycle:**
+- `site` - Generate project documentation
+
+> 📝 **Remember:** When you run a phase, all previous phases execute automatically!
+
+### **Q: What is the purpose of the `pom.xml` file?**
+
+**Answer:**
+
+The `pom.xml` (Project Object Model) is Maven's configuration file that defines:
+
+- 📋 **Project Information** - groupId, artifactId, version
+- 📦 **Dependencies** - External libraries your project needs
+- 🔧 **Build Configuration** - Plugins, goals, and build settings
+- 🎯 **Project Properties** - Java version, encoding, etc.
+
+**Key sections:**
+```xml
+<project>
+    <groupId>com.example</groupId>      <!-- Organization -->
+    <artifactId>my-app</artifactId>     <!-- Project name -->
+    <version>1.0-SNAPSHOT</version>     <!-- Project version -->
+    
+    <dependencies>                      <!-- External libraries -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+</project>
+```
+
+---
+
 ## ➡️ Next Steps
 
 <div align="center">
