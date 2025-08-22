@@ -12,6 +12,24 @@
 
 ---
 
+## 📑 Table of Contents
+
+1. [📖 Module Overview](#-module-overview)
+2. [📚 Docker Theory & Fundamentals](#-docker-theory--fundamentals)
+   - [🏛️ History & Founder](#️-docker-history--founder)
+   - [❌ Problems Before Docker](#-problems-before-docker)
+   - [✅ How Docker Solves Problems](#-how-docker-solves-these-problems)
+   - [🆚 VM vs Docker Comparison](#-virtual-machines-vs-docker-containers)
+   - [🏗️ Docker Architecture](#️-docker-architecture)
+   - [⚡ Key Features](#-docker-key-features)
+3. [🐳 Learning Journey](#-docker-learning-journey)
+4. [📁 Module Structure](#-module-structure)
+5. [🔧 Docker Installation](#-docker-installation)
+6. [🚀 Hands-On Projects](#-hands-on-projects)
+7. [🎯 Learning Outcomes](#-learning-outcomes)
+
+---
+
 ## 📖 Module Overview
 
 This module will help you **master the core fundamentals of continuous deployment using Docker**. We will simplify and accelerate cloud native application development and start your containerization journey.
@@ -58,51 +76,7 @@ This module will help you **master the core fundamentals of continuous deploymen
 
 ### ✅ **How Docker Solves These Problems**
 
-#### **Traditional vs Docker Deployment**
-
-```mermaid
-graph TB
-    subgraph "❌ Traditional Deployment Problems"
-        T1[Developer Laptop<br/>Python 3.8, Node 14]
-        T2[Testing Server<br/>Python 3.7, Node 12]
-        T3[Staging Server<br/>Python 3.9, Node 16]
-        T4[Production Server<br/>Python 3.6, Node 10]
-        
-        T1 --> T2
-        T2 --> T3
-        T3 --> T4
-        
-        T2 -.->|❌ Version Mismatch| E1[Deployment Fails]
-        T3 -.->|❌ Config Issues| E2[App Crashes]
-        T4 -.->|❌ Dependency Hell| E3[Runtime Errors]
-    end
-    
-    subgraph "✅ Docker Deployment Solution"
-        D1[📦 Docker Container<br/>App + Python 3.8 + Node 14]
-        
-        D1 --> D2[👨‍💻 Developer]
-        D1 --> D3[🧪 Testing]
-        D1 --> D4[🎭 Staging]
-        D1 --> D5[🚀 Production]
-        
-        D2 -.->|✅ Same Environment| S1[Works Perfectly]
-        D3 -.->|✅ Same Environment| S2[Tests Pass]
-        D4 -.->|✅ Same Environment| S3[Staging Success]
-        D5 -.->|✅ Same Environment| S4[Production Ready]
-    end
-    
-    style T1 fill:#ffebee
-    style T2 fill:#ffebee
-    style T3 fill:#ffebee
-    style T4 fill:#ffebee
-    style D1 fill:#e8f5e8
-    style D2 fill:#e8f5e8
-    style D3 fill:#e8f5e8
-    style D4 fill:#e8f5e8
-    style D5 fill:#e8f5e8
-```
-
-#### **Consistency Across Environments**
+#### **Environment Consistency**
 
 ```mermaid
 graph LR
@@ -198,18 +172,6 @@ graph TD
 - **Containers**: Share the host operating system kernel
 - **Result**: Containers are much lighter and faster
 
-#### **Resource Efficiency**
-- **Containers share OS kernel** (vs VMs that need separate OS)
-- **Lightweight**: MBs instead of GBs
-- **Fast startup**: Seconds instead of minutes
-- **Better resource utilization**
-
-#### **Simplified Deployment**
-- **Package once, run anywhere**
-- **Version control for applications**
-- **Easy rollbacks and updates**
-- **Automated deployment pipelines**
-
 ### 🏗️ **Docker Architecture**
 
 ```
@@ -254,43 +216,17 @@ graph TD
 
 ### ⚡ **Docker Key Features**
 
-#### **🚀 Lightning Fast Startup**
-| Technology | Startup Time | Memory Usage |
-|------------|--------------|--------------|
-| **Virtual Machine** | 30-60 seconds | 1-4 GB |
-| **Docker Container** | 1-3 seconds | 10-100 MB |
+#### **🚀 Performance Benefits**
+- **Lightning fast startup**: 1-3 seconds vs 30-60 seconds (VMs)
+- **Lightweight**: 10-100 MB vs 1-4 GB (VMs)
+- **Better resource utilization**: Higher application density
 
-#### **📦 Portability**
+#### **📦 Portability & Consistency**
 - **Write once, run anywhere**
 - Same container runs on laptop, server, cloud
 - No environment-specific modifications needed
 
-#### **🔧 Easy Management**
-```bash
-# Start application stack in seconds
-docker-compose up
-
-# Scale application instantly  
-docker-compose scale web=5
-
-# Update with zero downtime
-docker-compose rolling-update
-```
-
-#### **💰 Cost Efficiency**
-- **Higher density**: Run more applications per server
-- **Reduced infrastructure costs**
-- **Faster development cycles**
-- **Automated scaling**
-
-#### **🔒 Isolation & Security**
-- Applications run in isolated environments
-- Resource limits and controls
-- Separate network namespaces
-- Process isolation
-
-### 🎯 **Why Docker Became Popular**
-
+#### **🎯 Why Docker Became Popular**
 1. **Developer Productivity**: Faster development and testing
 2. **DevOps Integration**: Perfect fit for CI/CD pipelines  
 3. **Microservices**: Ideal for microservice architecture
@@ -322,13 +258,7 @@ docker-compose rolling-update
 │ • docker ps     │    │ • Maven Integration │    │ • Public Registry   │
 │ • docker logs   │    │ • Production Ready  │    │ • Team Collaboration│
 └─────────────────┘    └─────────────────────┘    └─────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  🎯 Outcome: Container Expert | 📦 Production Skills | 🚀 Cloud Native Ready │
-└─────────────────────────────────────────────────────────────────────────────┘
 ```
-
-*Progressive learning path from Docker basics to production-ready containerization*
 
 ---
 
@@ -341,8 +271,6 @@ docker-compose rolling-update
 - **[Address Book Application](./5.2_docker_project/README.md)** - Complete containerization project
 - **[Dockerfile](./5.2_docker_project/Dockerfile)** - Container definition
 - **[Build Script](./5.2_docker_project/simple-build.sh)** - Automated build and deployment
-- **[Maven Configuration](./5.2_docker_project/pom.xml)** - Java project configuration
-- **[Source Code](./5.2_docker_project/src/)** - Java application source
 
 ### **[5.3 Docker Registry](./5.3_docker_registry/)**
 - **[Docker Hub Guide](./5.3_docker_registry/README.md)** - Push images to Docker Hub
@@ -369,47 +297,11 @@ sudo usermod -aG docker $USER
 # Verify installation
 docker --version
 docker run hello-world
-
-# Note: Log out and log back in for group changes to take effect
 ```
 
 ### **Ubuntu/Debian**
 ```bash
-# Update system
-sudo apt update
-
-# Install prerequisites
-sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
-
-# Add Docker GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-# Add Docker repository
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-# Update package index
-sudo apt update
-
-# Install Docker
-sudo apt install docker-ce docker-ce-cli containerd.io -y
-
-# Start Docker service
-sudo systemctl start docker
-sudo systemctl enable docker
-
-# Add user to docker group
-sudo usermod -aG docker $USER
-
-# Verify installation
-docker --version
-docker run hello-world
-
-# Note: Log out and log back in for group changes to take effect
-```
-
-### **Quick Installation (Alternative)**
-```bash
-# Universal installer script (works on most Linux distributions)
+# Quick installation
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
@@ -424,52 +316,6 @@ sudo systemctl enable docker
 docker --version
 docker run hello-world
 ```
-
----
-
-## 📚 Learning Topics
-
-### **🔧 Installation and Configuration**
-- Docker installation on different platforms
-- Docker daemon configuration
-- Basic Docker commands and CLI usage
-- Docker system management
-
-### **📦 Managing Containers**
-- Container lifecycle management
-- Running and stopping containers
-- Container logs and monitoring
-- Resource management and limits
-
-### **🌐 Node Networking**
-- Docker networking concepts
-- Bridge, host, and overlay networks
-- Container-to-container communication
-- Port mapping and exposure
-
-### **🏗️ Build Process in Docker**
-- Understanding Docker build context
-- Layer caching and optimization
-- Multi-stage builds
-- Build arguments and environment variables
-
-### **📝 Writing Dockerfiles and Docker Compose**
-- Dockerfile syntax and best practices
-- Creating efficient Docker images
-- Docker Compose file structure
-- Multi-container application orchestration
-
-### **🖼️ Managing Local Images and Customization**
-- Image management commands
-- Tagging and versioning images
-- Image cleanup and optimization
-- Custom image creation
-
-### **🏪 Docker Registry and Private Registry**
-- Understanding Docker Hub
-- Pushing and pulling images
-- Setting up private registries
-- Image security and scanning
 
 ---
 
@@ -490,7 +336,6 @@ docker run hello-world
 - Push images to Docker Hub
 - Share containerized applications
 - Pull and run images from registry
-- Learn image tagging and versioning
 
 ---
 
@@ -502,7 +347,6 @@ By the end of this module, you will:
 - ✅ **Install and configure** Docker on your system
 - ✅ **Create and manage** Docker containers effectively
 - ✅ **Build custom images** using Dockerfiles
-- ✅ **Deploy multi-container** applications with Docker Compose
 - ✅ **Work with registries** for image distribution
 - ✅ **Apply best practices** for container security and optimization
 
@@ -520,95 +364,6 @@ By the end of this module, you will:
 - Basic Linux command line skills
 - Understanding of web applications
 - Familiarity with text editors
-- Basic networking concepts
-
----
-
-## 🛠️ Tools and Technologies
-
-### **Core Tools:**
-- **Docker Engine** - Container runtime
-- **Docker CLI** - Command line interface
-- **Docker Compose** - Multi-container orchestration
-- **Docker Hub** - Public registry
-
-### **Development Tools:**
-- **VS Code** - Code editor with Docker extension
-- **Git** - Version control
-- **Text Editor** - For Dockerfile creation
-
----
-
-## 🎯 Learning Path
-
-### **Week 1: [Docker Fundamentals](./5.1_docker_basics/)**
-- Container concepts and benefits
-- Docker installation and setup
-- Basic container operations
-- Image management
-
-### **Week 2: [Building Images](./5.2_docker_project/)**
-- Dockerfile creation
-- Build process optimization
-- Custom image development
-- Best practices
-
-### **Week 3: [Registry Operations](./5.3_docker_registry/)**
-- Docker Hub operations
-- Image distribution
-- Tagging and versioning
-- Public and private repositories
-
----
-
-## 🎉 Getting Started
-
-### **Quick Start Commands:**
-```bash
-# Install Docker (Ubuntu/Debian)
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-
-# Verify installation
-docker --version
-docker run hello-world
-
-# Basic container operations
-docker ps
-docker images
-docker pull nginx
-docker run -d -p 8080:80 nginx
-```
-
-### **First Dockerfile:**
-```dockerfile
-FROM node:16-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
-```
-
----
-
-## 🏆 Success Metrics
-
-### **Module Completion Indicators:**
-- ✅ Docker installed and running
-- ✅ Successfully run multiple containers
-- ✅ Built custom Docker images
-- ✅ Created Docker Compose applications
-- ✅ Pushed images to registry
-- ✅ Demonstrated container networking
-
-### **Practical Skills Gained:**
-- Container lifecycle management
-- Image creation and optimization
-- Multi-container orchestration
-- Registry operations
-- Troubleshooting containers
 
 ---
 
