@@ -1,5 +1,72 @@
 # 🐳 Docker Basics - Commands & Networking
 
+## 🔄 Docker Container Lifecycle
+
+<div align="center">
+
+### 📊 **Complete Docker Lifecycle Flow**
+*From image creation to container termination*
+
+</div>
+
+```mermaid
+graph TD
+    A[📝 Dockerfile] --> B[🔨 docker build]
+    B --> C[📦 Docker Image]
+    
+    C --> D[🚀 docker run]
+    D --> E[🟢 Running Container]
+    
+    E --> F{Container State}
+    
+    F -->|docker stop| G[⏸️ Stopped Container]
+    F -->|docker pause| H[⏸️ Paused Container]
+    F -->|docker kill| I[💀 Killed Container]
+    F -->|Process Exit| J[🔴 Exited Container]
+    
+    G -->|docker start| E
+    G -->|docker rm| K[🗑️ Removed]
+    
+    H -->|docker unpause| E
+    H -->|docker stop| G
+    
+    I -->|docker rm| K
+    J -->|docker start| E
+    J -->|docker rm| K
+    
+    E -->|docker exec| L[🔧 Execute Commands]
+    L --> E
+    
+    E -->|docker logs| M[📋 View Logs]
+    M --> E
+    
+    C -->|docker push| N[☁️ Registry]
+    N -->|docker pull| C
+    
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style E fill:#e8f5e8
+    style G fill:#fff3e0
+    style K fill:#ffebee
+    style N fill:#e0f2f1
+```
+
+### 🎯 **Lifecycle Commands Quick Reference**
+
+| Phase | Command | Description |
+|-------|---------|-------------|
+| **Build** | `docker build -t myapp .` | Create image from Dockerfile |
+| **Run** | `docker run -d --name mycontainer myapp` | Create and start container |
+| **Stop** | `docker stop mycontainer` | Gracefully stop container |
+| **Start** | `docker start mycontainer` | Restart stopped container |
+| **Pause** | `docker pause mycontainer` | Pause all processes |
+| **Unpause** | `docker unpause mycontainer` | Resume paused container |
+| **Kill** | `docker kill mycontainer` | Force stop container |
+| **Remove** | `docker rm mycontainer` | Delete stopped container |
+| **Inspect** | `docker inspect mycontainer` | View container details |
+
+---
+
 ## 📋 Essential Docker Commands
 
 ### **Container Management**
