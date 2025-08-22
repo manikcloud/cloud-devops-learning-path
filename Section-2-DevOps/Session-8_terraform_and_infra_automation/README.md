@@ -104,18 +104,17 @@ resource "aws_instance" "web" {
 ### **1. Introduction to Infrastructure as Code**
 - IaC fundamentals and benefits
 - Terraform vs other tools
+- Infrastructure challenges and solutions
 
 ### **2. Terraform Installation & Workflows**
 - Installation and setup
 - CLI commands and usage
+- Core Terraform workflow
 
-### **3. Configuration Management & Orchestration**
-- HCL syntax and structure
-- Variables and modules
-
-### **4. Provisioning and Deployments**
+### **3. Provisioning and Deployments**
 - AWS provider configuration
 - Resource provisioning
+- State management
 
 ---
 
@@ -214,15 +213,13 @@ sudo apt update && sudo apt install terraform
 graph TD
     A[Session-8_terraform_and_infra_automation] --> B[01_introduction]
     A --> C[02_installation_workflows]
-    A --> D[03_configuration_management]
-    A --> E[04_provisioning_deployments]
-    A --> F[term_project_7]
+    A --> D[04_provisioning_deployments]
+    A --> E[term_project_7]
     
     B --> B1[IaC fundamentals]
-    C --> C1[Terraform setup]
-    D --> D1[HCL syntax & modules]
-    E --> E1[AWS provisioning]
-    F --> F1[Final project]
+    C --> C1[Terraform setup & workflows]
+    D --> D1[AWS provisioning & deployment]
+    E --> E1[Final project]
 ```
 
 ---
