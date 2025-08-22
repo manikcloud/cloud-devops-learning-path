@@ -152,11 +152,11 @@ graph LR
 #### **Architecture Comparison**
 
 ```mermaid
-graph TB
+graph TD
     subgraph "🖥️ Virtual Machines"
         VM1[Hardware]
-        VM2[Host OS]
-        VM3[Hypervisor]
+        VM2[Host Operating System]
+        VM3[Hypervisor VMware/VirtualBox]
         VM4[Guest OS 1]
         VM5[Guest OS 2]
         VM6[App 1]
@@ -172,7 +172,7 @@ graph TB
     
     subgraph "🐳 Docker Containers"
         D1[Hardware]
-        D2[Host OS]
+        D2[Host Operating System]
         D3[Docker Engine]
         D4[Container 1]
         D5[Container 2]
