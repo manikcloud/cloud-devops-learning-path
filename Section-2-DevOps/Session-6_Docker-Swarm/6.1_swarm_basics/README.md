@@ -171,12 +171,16 @@ curl http://localhost:8090
 
 ## 🎯 **Interactive Features Testing**
 
-### **Load Balancing Test:**
+### **Browser Test - See Container IDs:**
 ```bash
-# Test multiple requests to see load balancing
+# 1. Open in browser: http://<your-server-ip>:8090
+# 2. Refresh the page multiple times
+# 3. Notice different Container IDs appear - this proves load balancing!
+
+# Or test with curl to see container IDs:
 for i in {1..10}; do 
   echo "Request $i:"
-  curl -s http://localhost:8080 | grep -o '[a-f0-9]\{12\}'
+  curl -s http://localhost:8090 | grep -o '[a-f0-9]\{12\}'
 done
 
 # You should see different container IDs, proving load balancing works
@@ -278,8 +282,8 @@ EXPOSE 80
 ```
 
 **index.html:**
-- Interactive web page with color-changing buttons
-- Shows container information
+- Simple web page showing container ID and hostname
+- Displays current timestamp for each request
 - Demonstrates load balancing across replicas
 
 ---
