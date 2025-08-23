@@ -31,6 +31,25 @@ graph LR
 
 ---
 
+## 📥 Get the Setup Files
+
+### **Step 0: Clone Repository & Navigate**
+```bash
+# Clone the repository (if you haven't already)
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+
+# Navigate to Kubernetes setup directory
+cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/01-setup
+
+# Make setup script executable
+chmod +x quick-setup.sh
+
+# Run the automated setup
+./quick-setup.sh
+```
+
+---
+
 ## 🚀 Super Quick Install
 
 ### **Step 1: Install k3s (1 minute)**
