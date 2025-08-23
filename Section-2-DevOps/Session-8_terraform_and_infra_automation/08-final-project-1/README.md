@@ -32,7 +32,19 @@ graph TB
 
 ## 🚀 **Quick Deploy**
 
-### **Step 1: Verify SSH Key**
+### **Step 1: Navigate to Final Project 1**
+```bash
+# Navigate to the final project 1 directory
+cd ../08-final-project-1
+
+# Or from the repository root:
+# cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/08-final-project-1
+
+# Check the files
+ls -la
+```
+
+### **Step 2: Verify SSH Key**
 ```bash
 # Check your SSH key exists
 ls ~/.ssh/id_rsa.pub
@@ -41,14 +53,14 @@ ls ~/.ssh/id_rsa.pub
 # ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa
 ```
 
-### **Step 2: Deploy**
+### **Step 3: Deploy**
 ```bash
 terraform init
 terraform apply
 # Type 'yes'
 ```
 
-### **Step 3: Test**
+### **Step 4: Test**
 ```bash
 # Get website URL
 terraform output website_url

@@ -29,7 +29,20 @@ graph TB
 
 ## 🚀 **Step-by-Step Walkthrough**
 
-### **Step 1: Understand the Code**
+### **Step 1: Navigate to EC2 Example**
+
+```bash
+# Navigate to the EC2 example directory
+cd ../06-ec2-instance-example
+
+# Or from the repository root:
+# cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/06-ec2-instance-example
+
+# Check the files
+ls -la
+```
+
+### **Step 2: Understand the Code**
 
 **Security Group (Firewall):**
 ```hcl
@@ -71,7 +84,7 @@ resource "aws_instance" "web_server" {
 }
 ```
 
-### **Step 2: Deploy**
+### **Step 3: Deploy**
 
 ```bash
 # Initialize
@@ -102,7 +115,7 @@ public_ip = "54.123.45.67"
 website_url = "http://54.123.45.67"
 ```
 
-### **Step 3: Test Your Web Server**
+### **Step 4: Test Your Web Server**
 
 ```bash
 # Get the website URL

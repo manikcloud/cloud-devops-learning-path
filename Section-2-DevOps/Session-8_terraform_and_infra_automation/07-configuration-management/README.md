@@ -78,7 +78,19 @@ user_data = templatefile("${path.module}/user-data.sh", {
 
 ## 🚀 **Step-by-Step**
 
-### **Step 1: Set Up Variables**
+### **Step 1: Navigate to Configuration Management Example**
+```bash
+# Navigate to the configuration management directory
+cd ../07-configuration-management
+
+# Or from the repository root:
+# cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/07-configuration-management
+
+# Check the files
+ls -la
+```
+
+### **Step 2: Set Up Variables**
 ```bash
 # Copy example file
 cp terraform.tfvars.example terraform.tfvars
@@ -87,14 +99,14 @@ cp terraform.tfvars.example terraform.tfvars
 nano terraform.tfvars
 ```
 
-### **Step 2: Deploy**
+### **Step 3: Deploy**
 ```bash
 terraform init
 terraform plan
 terraform apply
 ```
 
-### **Step 3: Test Different Configurations**
+### **Step 4: Test Different Configurations**
 Edit `terraform.tfvars`:
 ```hcl
 project_name  = "my-cool-app"

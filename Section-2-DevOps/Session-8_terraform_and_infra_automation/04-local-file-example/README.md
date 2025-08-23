@@ -130,12 +130,15 @@ EOT
 ### **Step 1: Set Up the Project**
 
 ```bash
-# Create project directory
-mkdir terraform-local-example
-cd terraform-local-example
+# If you haven't cloned the repository yet
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/04-local-file-example
 
-# Copy the main.tf file (or create it)
-# The file is already provided in this module
+# Or if you already have the repository
+cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/04-local-file-example
+
+# The main.tf file is already provided in this directory
+ls -la
 ```
 
 ### **Step 2: Initialize Terraform**

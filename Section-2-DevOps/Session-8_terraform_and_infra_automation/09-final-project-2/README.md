@@ -35,14 +35,26 @@ graph TB
 
 ## 🚀 **Deploy the Ultimate Stack**
 
-### **One Command Deploy**
+### **Step 1: Navigate to Final Project 2**
+```bash
+# Navigate to the final project 2 directory
+cd ../09-final-project-2
+
+# Or from the repository root:
+# cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/09-final-project-2
+
+# Check the files
+ls -la
+```
+
+### **Step 2: One Command Deploy**
 ```bash
 terraform init
 terraform apply
 # Type 'yes' and wait ~3-4 minutes
 ```
 
-### **Access Your Application**
+### **Step 3: Access Your Application**
 ```bash
 # Get the application URL
 terraform output application_url

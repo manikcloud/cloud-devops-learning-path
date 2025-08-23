@@ -44,7 +44,20 @@ aws sts get-caller-identity
 
 ## 🚀 **Step-by-Step Walkthrough**
 
-### **Step 1: Understand the Code**
+### **Step 1: Navigate to S3 Example**
+
+```bash
+# Navigate to the S3 example directory
+cd ../05-s3-bucket-example
+
+# Or from the repository root:
+# cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/05-s3-bucket-example
+
+# Check the files
+ls -la
+```
+
+### **Step 2: Understand the Code**
 
 **main.tf breakdown:**
 ```hcl
@@ -71,7 +84,7 @@ resource "aws_s3_object" "hello_file" {
 }
 ```
 
-### **Step 2: Initialize and Plan**
+### **Step 3: Initialize and Plan**
 
 ```bash
 # Initialize
@@ -91,7 +104,7 @@ Changes to Outputs:
   + uploaded_file = "hello.txt"
 ```
 
-### **Step 3: Apply**
+### **Step 4: Apply**
 
 ```bash
 terraform apply
@@ -115,7 +128,7 @@ bucket_arn = "arn:aws:s3:::my-terraform-bucket-a1b2c3d4"
 uploaded_file = "hello.txt"
 ```
 
-### **Step 4: Verify in AWS Console**
+### **Step 5: Verify in AWS Console**
 
 1. Go to AWS Console → S3
 2. Find your bucket (name from output)

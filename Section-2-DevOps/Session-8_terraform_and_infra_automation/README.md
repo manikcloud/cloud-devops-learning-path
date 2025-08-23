@@ -209,6 +209,10 @@ terraform-90min-course/
 
 ### **Quick Setup**
 ```bash
+# Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation
+
 # Verify prerequisites
 terraform version
 aws sts get-caller-identity
