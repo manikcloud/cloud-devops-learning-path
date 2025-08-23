@@ -120,6 +120,36 @@ graph LR
 
 ---
 
+## 📚 **What is Docker Stack?**
+
+### **Simple Explanation:**
+Docker Stack is like a recipe that tells Docker Swarm how to run multiple containers together as one application.
+
+**Think of it like this:**
+- 🍕 **Single Container** = One pizza slice
+- 📦 **Docker Stack** = Complete pizza with multiple slices working together
+
+### **Why Use Docker Stack?**
+- ✅ **Multiple Services**: Run web app + database together
+- ✅ **Easy Management**: One command to start/stop everything
+- ✅ **Load Balancing**: Automatically spreads traffic across containers
+- ✅ **Service Discovery**: Containers can find each other by name
+
+### **Our Project Goal:**
+Build a simple web application that:
+1. **Shows a webpage** with a visit counter
+2. **Counts visits** using a Redis database
+3. **Runs multiple copies** of the web app for load balancing
+4. **Demonstrates** how containers talk to each other
+
+**What You'll Learn:**
+- How to define multiple services in one file
+- How containers communicate with each other
+- How Docker Swarm manages multiple containers
+- How to test and verify your application works
+
+---
+
 ## 🚀 **Step-by-Step Deployment**
 
 ### **Prerequisites:**
@@ -147,6 +177,10 @@ ls -la
 
 ### **Step 2: Build Flask Application**
 
+**What we're doing:** Creating a Docker image from our Flask web application code.
+
+**Why this step:** Docker needs to package our Python code into an image before it can run containers.
+
 ```bash
 # Build the Flask app image
 docker build -t stackdemo .
@@ -160,6 +194,10 @@ docker images | grep stackdemo
 
 ### **Step 3: Deploy Complete Stack**
 
+**What we're doing:** Starting both Flask web app and Redis database together as one stack.
+
+**Why this step:** This creates our complete application with all services running and connected.
+
 ```bash
 # Deploy Flask + Redis stack
 docker stack deploy -c docker-compose.yml mystack
@@ -170,6 +208,10 @@ sleep 45
 ```
 
 ### **Step 4: Verify Stack Deployment**
+
+**What we're doing:** Checking that our Flask app and Redis database are running correctly.
+
+**Why this step:** We need to confirm all services started successfully before testing the application.
 
 ```bash
 # Check stack status
@@ -189,6 +231,10 @@ docker stack services mystack
 ```
 
 ### **Step 5: Test Application Functionality**
+
+**What we're doing:** Testing that our web app can count visits and store data in Redis.
+
+**Why this step:** This proves that Flask and Redis are communicating correctly and our application works.
 
 ```bash
 # Test visit counter (first visit)
