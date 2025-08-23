@@ -48,7 +48,7 @@ resource "aws_security_group" "web_sg" {
 
 # EC2 instance
 resource "aws_instance" "web_server" {
-  ami           = "ami-0c02fb55956c7d316"
+  ami           = "ami-0bbc328167dee8f3c"
   instance_type = "t2.micro"
   key_name      = aws_key_pair.web_key.key_name
   

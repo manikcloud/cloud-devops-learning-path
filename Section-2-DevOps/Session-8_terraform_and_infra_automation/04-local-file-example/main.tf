@@ -188,7 +188,7 @@ output "script_permissions" {
 output "creation_info" {
   description = "Information about when resources were created"
   value = {
-    terraform_version = "Terraform ${terraform.version}"
+    terraform_workspace = terraform.workspace
     creation_time     = timestamp()
     working_directory = path.module
   }
