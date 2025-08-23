@@ -22,30 +22,6 @@ By the end of this session, you'll master:
 
 ---
 
-## 🚀 **Quick Start Guide**
-
-### **Prerequisites:**
-- AWS CLI configured with credentials
-- Terraform installed on your system
-- Basic understanding of cloud concepts
-
-### **5-Minute Setup:**
-```bash
-# 1. Clone the repository
-git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-
-# 2. Navigate to Terraform session
-cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation
-
-# 3. Check Terraform installation
-terraform version
-
-# 4. Start with installation guide
-cd 02_installation_workflows
-```
-
----
-
 ## 📚 **What is Terraform?**
 
 ### **Simple Explanation:**
@@ -84,9 +60,76 @@ graph LR
 
 ---
 
-## 🏗️ **How Terraform Works**
+## 📖 **Terraform History & Evolution**
 
-### **Terraform Workflow:**
+### **Timeline:**
+- **2014** - Terraform created by **Mitchell Hashimoto** at HashiCorp
+- **2015** - First stable release (v0.1.0) with basic AWS support
+- **2016** - Multi-provider support added (Azure, GCP, VMware)
+- **2017** - Terraform Enterprise launched for teams
+- **2018** - HCL 2.0 introduced with improved syntax
+- **2019** - Terraform Cloud launched (SaaS offering)
+- **2020** - Terraform 0.13 with provider registry
+- **2021** - Terraform 1.0 released (stable API guarantee)
+- **2023** - Terraform 1.5+ with advanced state management
+
+### **Key Milestones:**
+- **50+ Million Downloads** - Most popular IaC tool
+- **3000+ Providers** - Support for virtually every cloud service
+- **100,000+ Organizations** - Using Terraform in production
+- **Open Source** - Apache 2.0 license with active community
+
+### **Founders & Vision:**
+- **Mitchell Hashimoto** - Co-founder of HashiCorp, creator of Vagrant, Consul
+- **Armon Dadgar** - Co-founder, focus on distributed systems
+- **Vision:** "Infrastructure as Code for everyone, everywhere"
+
+---
+
+## 🏗️ **Terraform Architecture**
+
+### **Core Components:**
+
+```mermaid
+graph TB
+    subgraph "Terraform Core"
+        A[Terraform CLI]
+        B[Configuration Parser]
+        C[State Manager]
+        D[Plan Engine]
+        E[Apply Engine]
+    end
+    
+    subgraph "Providers"
+        F[AWS Provider]
+        G[Azure Provider]
+        H[GCP Provider]
+        I[Kubernetes Provider]
+    end
+    
+    subgraph "State Backend"
+        J[Local State]
+        K[Remote State]
+        L[S3 Backend]
+        M[Terraform Cloud]
+    end
+    
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    E --> G
+    E --> H
+    E --> I
+    
+    C --> J
+    C --> K
+    C --> L
+    C --> M
+```
+
+### **How Terraform Works:**
 
 ```mermaid
 graph LR
@@ -99,17 +142,71 @@ graph LR
     E --> F
 ```
 
-### **Example Configuration:**
-```hcl
-# Simple EC2 instance
-resource "aws_instance" "web" {
-  ami           = "ami-0c02fb55956c7d316"
-  instance_type = "t3.micro"
-  
-  tags = {
-    Name = "MyWebServer"
-  }
-}
+### **Terraform Workflow Deep Dive:**
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant TF as Terraform Core
+    participant Provider as AWS Provider
+    participant AWS as AWS API
+    participant State as State Backend
+    
+    User->>TF: terraform init
+    TF->>Provider: Download provider
+    Provider-->>TF: Provider ready
+    
+    User->>TF: terraform plan
+    TF->>State: Read current state
+    State-->>TF: Current resources
+    TF->>Provider: Plan changes
+    Provider->>AWS: Query existing resources
+    AWS-->>Provider: Resource details
+    Provider-->>TF: Execution plan
+    TF-->>User: Show planned changes
+    
+    User->>TF: terraform apply
+    TF->>Provider: Execute changes
+    Provider->>AWS: Create/Update/Delete resources
+    AWS-->>Provider: Operation results
+    Provider-->>TF: Results
+    TF->>State: Update state
+    State-->>TF: State updated
+    TF-->>User: Apply complete
+```
+
+### **Architecture Components:**
+
+| Component | Purpose | Example |
+|-----------|---------|---------|
+| **Terraform Core** | Main engine that processes configurations | CLI, plan/apply logic |
+| **Providers** | Plugins that interact with APIs | AWS, Azure, GCP providers |
+| **State** | Tracks real-world resource mapping | terraform.tfstate file |
+| **Configuration** | HCL files defining desired infrastructure | main.tf, variables.tf |
+| **Modules** | Reusable infrastructure components | VPC module, web server module |
+
+---
+
+## 🚀 **Quick Start Guide**
+
+### **Prerequisites:**
+- AWS CLI configured with credentials
+- Terraform installed on your system
+- Basic understanding of cloud concepts
+
+### **5-Minute Setup:**
+```bash
+# 1. Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+
+# 2. Navigate to Terraform session
+cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation
+
+# 3. Check Terraform installation
+terraform version
+
+# 4. Start with installation guide
+cd 02_installation_workflows
 ```
 
 ---
@@ -151,9 +248,11 @@ terraform import aws_instance.example i-1234567890abcdef0
 
 ---
 
-## 🛠️ **Install Terraform on Amazon Linux**
+## 🛠️ **Install Terraform**
 
-### **Method 1: Using HashiCorp Repository (Recommended)**
+### **Install on Amazon Linux**
+
+#### **Method 1: Using HashiCorp Repository (Recommended)**
 ```bash
 # Update system packages
 sudo yum update -y
@@ -171,7 +270,7 @@ sudo yum install terraform -y
 terraform version
 ```
 
-### **Method 2: Manual Installation**
+#### **Method 2: Manual Installation**
 ```bash
 # Download latest Terraform (check https://releases.hashicorp.com/terraform/ for latest version)
 TERRAFORM_VERSION="1.6.6"
@@ -196,7 +295,7 @@ terraform version
 rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 ```
 
-### **Method 3: Using tfenv (Terraform Version Manager)**
+#### **Method 3: Using tfenv (Terraform Version Manager)**
 ```bash
 # Install git if not available
 sudo yum install git -y
@@ -216,12 +315,46 @@ tfenv use latest
 terraform version
 ```
 
+### **Install on Ubuntu/Linux**
+
+#### **Method 1: Using HashiCorp Repository (Recommended)**
+```bash
+# Download and install Terraform
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform
+
+# Verify installation
+terraform version
+```
+
+#### **Method 2: Manual Installation**
+```bash
+# Download latest Terraform
+TERRAFORM_VERSION="1.6.6"
+wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# Extract and install
+unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+sudo mv terraform /usr/local/bin/
+sudo chmod +x /usr/local/bin/terraform
+
+# Verify installation
+terraform version
+
+# Clean up
+rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+```
+
 ### **Configure AWS CLI:**
 ```bash
-# Install AWS CLI v2 on Amazon Linux
+# Install AWS CLI v2 (Amazon Linux)
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
+
+# Install AWS CLI (Ubuntu)
+sudo apt install awscli
 
 # Configure credentials
 aws configure
@@ -255,6 +388,8 @@ ls -la
 | **Community** | 🌟 Large | 📊 Medium | 📈 Growing | ❌ None |
 | **Speed** | ⚡ Fast | 📊 Medium | ⚡ Fast | 🐌 Slow |
 | **Version Control** | ✅ Yes | ✅ Yes | ✅ Yes | ❌ No |
+| **Founded** | 2014 | 2011 | 2017 | N/A |
+| **Language** | HCL | JSON/YAML | Multiple | N/A |
 
 ### **When to Choose Terraform:**
 - ✅ Multi-cloud or cloud-agnostic infrastructure
@@ -270,7 +405,8 @@ ls -la
 By completing this module, you'll be able to:
 
 ### **Technical Skills:**
-- [ ] Install and configure Terraform on Amazon Linux
+- [ ] Install and configure Terraform on Amazon Linux/Ubuntu
+- [ ] Understand Terraform architecture and components
 - [ ] Write Terraform configurations in HCL
 - [ ] Provision AWS resources automatically
 - [ ] Manage infrastructure state effectively
