@@ -114,90 +114,6 @@ resource "aws_instance" "web" {
 
 ---
 
-## 📁 **Learning Path Structure**
-
-### **Progressive Learning Journey:**
-
-```mermaid
-graph TD
-    A[02_installation_workflows] --> B[03_configuration_management]
-    B --> C[04_provisioning_deployments]
-    C --> D[term_project_7]
-    
-    A1[• Install Terraform<br/>• Basic Commands<br/>• First Resources] --> A
-    B1[• HCL Syntax<br/>• Variables & Outputs<br/>• Modules] --> B
-    C1[• AWS Provider<br/>• Real Resources<br/>• Best Practices] --> C
-    D1[• Complete Project<br/>• Multi-Service App<br/>• Production Ready] --> D
-```
-
-### **Module Structure:**
-```
-Session-8_terraform_and_infra_automation/
-├── README.md                           # This guide
-├── 02_installation_workflows/          # Start here - Terraform basics
-│   ├── README.md                      # Installation and first steps
-│   ├── main.tf                        # Basic EC2 example
-│   └── setup.sh                       # Installation script
-├── 03_configuration_management/        # Advanced concepts
-│   ├── README.md                      # Variables and modules
-│   ├── variables.tf                   # Variable definitions
-│   ├── outputs.tf                     # Output configurations
-│   └── modules/                       # Reusable modules
-├── 04_provisioning_deployments/       # Real AWS resources
-│   ├── README.md                      # Production deployment
-│   ├── vpc.tf                         # VPC configuration
-│   ├── ec2.tf                         # EC2 instances
-│   └── security.tf                    # Security groups
-└── term_project_7/                    # Final project
-    ├── README.md                      # Complete application
-    ├── main.tf                        # Main configuration
-    ├── variables.tf                   # Project variables
-    ├── outputs.tf                     # Project outputs
-    └── modules/                       # Custom modules
-```
-
----
-
-## 🎯 **Learning Journey**
-
-### **🚀 Step 1: [Installation & Workflows](./02_installation_workflows/)**
-**What you'll learn:** Terraform basics and first resources
-- Install Terraform on your system
-- Understand Terraform commands and workflow
-- Create your first AWS resources
-- Learn plan, apply, and destroy lifecycle
-
-**Time:** 30-45 minutes
-
-### **⚙️ Step 2: [Configuration Management](./03_configuration_management/)**
-**What you'll learn:** Advanced Terraform concepts
-- Master HCL syntax and structure
-- Use variables and outputs effectively
-- Create reusable modules
-- Organize complex configurations
-
-**Time:** 45-60 minutes
-
-### **🏗️ Step 3: [Provisioning & Deployments](./04_provisioning_deployments/)**
-**What you'll learn:** Real-world AWS infrastructure
-- Deploy VPC with subnets and security groups
-- Launch EC2 instances with proper configuration
-- Implement security best practices
-- Manage infrastructure lifecycle
-
-**Time:** 60-90 minutes
-
-### **🎯 Step 4: [Term Project 7](./term_project_7/)**
-**What you'll build:** Complete multi-service application
-- Deploy web application with database
-- Implement load balancing and auto-scaling
-- Set up monitoring and logging
-- Production-ready infrastructure
-
-**Time:** 2-3 hours
-
----
-
 ## ⚡ **Essential Commands**
 
 ### **Basic Workflow:**
@@ -235,14 +151,66 @@ terraform import aws_instance.example i-1234567890abcdef0
 
 ---
 
-## 🛠️ **Prerequisites Setup**
+## 🛠️ **Install Terraform on Amazon Linux**
 
-### **Install Terraform (Ubuntu/Linux):**
+### **Method 1: Using HashiCorp Repository (Recommended)**
 ```bash
-# Download and install Terraform
-wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update && sudo apt install terraform
+# Update system packages
+sudo yum update -y
+
+# Install required packages
+sudo yum install -y yum-utils
+
+# Add HashiCorp repository
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+
+# Install Terraform
+sudo yum install terraform -y
+
+# Verify installation
+terraform version
+```
+
+### **Method 2: Manual Installation**
+```bash
+# Download latest Terraform (check https://releases.hashicorp.com/terraform/ for latest version)
+TERRAFORM_VERSION="1.6.6"
+wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# Install unzip if not available
+sudo yum install unzip -y
+
+# Extract Terraform
+unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# Move to system PATH
+sudo mv terraform /usr/local/bin/
+
+# Make executable
+sudo chmod +x /usr/local/bin/terraform
+
+# Verify installation
+terraform version
+
+# Clean up
+rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+```
+
+### **Method 3: Using tfenv (Terraform Version Manager)**
+```bash
+# Install git if not available
+sudo yum install git -y
+
+# Clone tfenv
+git clone https://github.com/tfutils/tfenv.git ~/.tfenv
+
+# Add to PATH
+echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+# Install latest Terraform
+tfenv install latest
+tfenv use latest
 
 # Verify installation
 terraform version
@@ -250,8 +218,10 @@ terraform version
 
 ### **Configure AWS CLI:**
 ```bash
-# Install AWS CLI (if not installed)
-sudo apt install awscli
+# Install AWS CLI v2 on Amazon Linux
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 
 # Configure credentials
 aws configure
@@ -300,7 +270,7 @@ ls -la
 By completing this module, you'll be able to:
 
 ### **Technical Skills:**
-- [ ] Install and configure Terraform
+- [ ] Install and configure Terraform on Amazon Linux
 - [ ] Write Terraform configurations in HCL
 - [ ] Provision AWS resources automatically
 - [ ] Manage infrastructure state effectively
@@ -319,11 +289,11 @@ By completing this module, you'll be able to:
 ## 🎉 **Ready to Start?**
 
 ### **Next Steps:**
-1. **Ensure prerequisites** are installed (Terraform, AWS CLI)
-2. **Clone the repository** and navigate to Session 8
-3. **Start with [Installation & Workflows](./02_installation_workflows/)** - Learn the basics
-4. **Progress through each module** at your own pace
-5. **Complete Term Project 7** for hands-on experience
+1. **Install Terraform** using one of the methods above
+2. **Configure AWS CLI** with your credentials
+3. **Clone the repository** and navigate to Session 8
+4. **Start with [Installation & Workflows](./02_installation_workflows/)** - Learn the basics
+5. **Progress through each module** at your own pace
 
 ### **Getting Help:**
 - Check each module's README for detailed instructions
