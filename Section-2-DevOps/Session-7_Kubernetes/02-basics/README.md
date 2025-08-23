@@ -11,6 +11,22 @@
 
 ---
 
+## 📥 Get Started
+
+### **Clone Repository & Navigate**
+```bash
+# Clone the repository (if you haven't already)
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+
+# Navigate to the basics directory
+cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/02-basics
+
+# List all the YAML files we'll be using
+ls -la *.yaml
+```
+
+---
+
 ## 🎯 What We'll Learn
 
 ```mermaid
