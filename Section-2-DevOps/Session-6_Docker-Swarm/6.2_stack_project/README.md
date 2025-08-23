@@ -270,6 +270,11 @@ done
 ```
 
 ### **Service Discovery Test:**
+
+**What we're doing:** Testing if Flask containers can find and talk to Redis by name.
+
+**Why this matters:** In Docker Stack, containers use service names (like "redis") instead of IP addresses to communicate.
+
 ```bash
 # Test from any web container - Method 1
 docker exec -it $(docker ps -q --filter name=mystack_web | head -1) sh
@@ -304,7 +309,16 @@ curl http://localhost:8000
 
 ## 🔧 **Stack Management Operations**
 
+**What this section covers:** How to manage your running stack - scale up/down, update, and clean up.
+
+**Why learn this:** In real applications, you need to adjust resources and maintain your services.
+
 ### **Scaling Services:**
+
+**What we're doing:** Changing the number of Flask containers running.
+
+**Why useful:** More containers = handle more users, fewer containers = save resources.
+
 ```bash
 # Scale Flask web service to 5 replicas
 docker service scale mystack_web=5
@@ -348,7 +362,17 @@ docker stats $(docker ps -q -f name=mystack)
 
 ## 📋 **Docker Compose Configuration**
 
+**What this is:** The "recipe file" that tells Docker how to run our Flask + Redis application.
+
+**Why important:** This file defines how many containers to run, which ports to use, and how services connect.
+
 ### **Stack Definition (docker-compose.yml):**
+
+**What each part does:**
+- **services:** Lists our Flask web app and Redis database
+- **replicas:** How many copies of each service to run
+- **ports:** Which port users access our app on
+- **networks:** How containers talk to each other
 ```yaml
 version: '3.8'
 
@@ -405,7 +429,17 @@ networks:
 
 ### **Application Code Overview:**
 
+**What this section shows:** The actual Python code that creates our web application.
+
+**Why look at this:** Understanding the code helps you see how Flask connects to Redis and counts visits.
+
 **app.py - Flask Application:**
+
+**What this code does:**
+- **Creates a web server** that responds to browser requests
+- **Connects to Redis** database to store the visit counter
+- **Increments counter** each time someone visits the page
+- **Returns message** showing how many times the page was visited
 ```python
 from flask import Flask
 from redis import Redis
