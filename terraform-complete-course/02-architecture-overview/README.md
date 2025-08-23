@@ -29,7 +29,7 @@ By the end of this module, you'll understand:
 graph TB
     subgraph "User Interface"
         A[Terraform CLI]
-        B[Configuration Files<br/>(.tf files)]
+        B["Configuration Files (.tf files)"]
     end
     
     subgraph "Terraform Core"
@@ -45,7 +45,7 @@ graph TB
         I[Azure Provider]
         J[GCP Provider]
         K[Kubernetes Provider]
-        L[3000+ Other Providers]
+        L["3000+ Other Providers"]
     end
     
     subgraph "Infrastructure"
@@ -58,7 +58,7 @@ graph TB
     
     subgraph "State Storage"
         R[Local State]
-        S[Remote State<br/>(S3, Terraform Cloud)]
+        S["Remote State (S3, Terraform Cloud)"]
     end
     
     A --> C
@@ -172,8 +172,8 @@ Compares desired state (configuration) with current state to create execution pl
 
 ```mermaid
 graph LR
-    A[Current State<br/>(terraform.tfstate)] --> C[Plan Engine]
-    B[Desired State<br/>(.tf files)] --> C
+    A["Current State (terraform.tfstate)"] --> C[Plan Engine]
+    B["Desired State (.tf files)"] --> C
     C --> D[Execution Plan]
     
     D --> E[Resources to Create]
@@ -210,15 +210,15 @@ graph TB
     end
     
     subgraph "Official Providers"
-        B[AWS Provider<br/>hashicorp/aws]
-        C[Azure Provider<br/>hashicorp/azurerm]
-        D[GCP Provider<br/>hashicorp/google]
+        B["AWS Provider (hashicorp/aws)"]
+        C["Azure Provider (hashicorp/azurerm)"]
+        D["GCP Provider (hashicorp/google)"]
     end
     
     subgraph "Partner Providers"
-        E[Kubernetes<br/>hashicorp/kubernetes]
-        F[Datadog<br/>datadog/datadog]
-        G[MongoDB<br/>mongodb/mongodbatlas]
+        E["Kubernetes (hashicorp/kubernetes)"]
+        F["Datadog (datadog/datadog)"]
+        G["MongoDB (mongodb/mongodbatlas)"]
     end
     
     subgraph "Community Providers"
@@ -281,15 +281,23 @@ State is Terraform's way of tracking which real-world resources correspond to yo
 ```mermaid
 graph TB
     subgraph "Configuration (.tf files)"
-        A[resource "aws_instance" "web" {<br/>  ami = "ami-12345"<br/>  instance_type = "t2.micro"<br/>}]
+        A["resource aws_instance web {
+          ami = ami-12345
+          instance_type = t2.micro
+        }"]
     end
     
     subgraph "State File (terraform.tfstate)"
-        B[{<br/>  "resources": [{<br/>    "type": "aws_instance",<br/>    "name": "web",<br/>    "instances": [{<br/>      "attributes": {<br/>        "id": "i-1234567890abcdef0",<br/>        "ami": "ami-12345",<br/>        "instance_type": "t2.micro"<br/>      }<br/>    }]<br/>  }]<br/>}]
+        B["JSON state data with
+        resource mappings and
+        current infrastructure state"]
     end
     
     subgraph "Real Infrastructure"
-        C[EC2 Instance<br/>ID: i-1234567890abcdef0<br/>AMI: ami-12345<br/>Type: t2.micro]
+        C["EC2 Instance
+        ID: i-1234567890abcdef0
+        AMI: ami-12345
+        Type: t2.micro"]
     end
     
     A -.->|"Desired State"| B
@@ -306,7 +314,7 @@ graph TB
 ```mermaid
 graph TB
     subgraph "Local State"
-        A[terraform.tfstate<br/>📁 Local File]
+        A["terraform.tfstate (Local File)"]
         A1[✅ Simple setup]
         A2[❌ No collaboration]
         A3[❌ No locking]
@@ -314,13 +322,13 @@ graph TB
     end
     
     subgraph "Remote State"
-        B[S3 + DynamoDB<br/>☁️ AWS Backend]
+        B["S3 + DynamoDB (AWS Backend)"]
         B1[✅ Team collaboration]
         B2[✅ State locking]
         B3[✅ Encryption]
         B4[✅ Versioning]
         
-        C[Terraform Cloud<br/>🌐 SaaS Backend]
+        C["Terraform Cloud (SaaS Backend)"]
         C1[✅ Managed service]
         C2[✅ UI interface]
         C3[✅ Policy enforcement]
