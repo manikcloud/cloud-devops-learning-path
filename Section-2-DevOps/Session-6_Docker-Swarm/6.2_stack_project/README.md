@@ -225,11 +225,18 @@ done
 
 ### **Service Discovery Test:**
 ```bash
-# Check if Flask can reach Redis by hostname
-docker exec -it $(docker ps -q -f name=mystack_web) ping redis
+# Test from any web container - Method 1
+docker exec -it $(docker ps -q --filter name=mystack_web | head -1) sh
+
+# Then inside the container:
+ping redis
+nslookup redis
+
+# Alternative - Direct command test
+docker exec -it $(docker ps -q --filter name=mystack_web | head -1) ping redis
 
 # Test Redis connectivity from Flask container
-docker exec -it $(docker ps -q -f name=mystack_web) nc -zv redis 6379
+docker exec -it $(docker ps -q --filter name=mystack_web | head -1) nc -zv redis 6379
 ```
 
 ### **High Availability Test:**
