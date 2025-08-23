@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Scaling](https://img.shields.io/badge/Scaling-Growth%20%26%20Updates-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Time](https://img.shields.io/badge/Time-15%20minutes-green?style=for-the-badge&logo=clock&logoColor=white)
+![Advanced](https://img.shields.io/badge/Advanced-Concepts-green?style=for-the-badge&logo=chart-line&logoColor=white)
 
 **🎯 Scale Applications | 🔄 Zero-Downtime Updates | 📈 Handle Growth**
 

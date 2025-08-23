@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Deployments](https://img.shields.io/badge/Deployments-Pod%20Management-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Time](https://img.shields.io/badge/Time-20%20minutes-green?style=for-the-badge&logo=clock&logoColor=white)
+![Practical](https://img.shields.io/badge/Practical-Experience-green?style=for-the-badge&logo=tools&logoColor=white)
 
 **🎯 Manage Multiple Pods | 📈 Scale Applications | 🔄 Handle Failures**
 

@@ -49,12 +49,12 @@ graph TD
     E --> F[5️⃣ Scale & Update]
     F --> G[6️⃣ Build Project]
     
-    B --> B1[Install k3s<br/>5 minutes]
-    C --> C1[Pods & Services<br/>30 minutes]
-    D --> D1[Deployments<br/>20 minutes]
-    E --> E1[Networking<br/>20 minutes]
-    F --> F1[Scaling<br/>15 minutes]
-    G --> G1[Todo App<br/>30 minutes]
+    B --> B1[Install k3s<br/>Quick setup]
+    C --> C1[Pods & Services<br/>Core concepts]
+    D --> D1[Deployments<br/>Managing apps]
+    E --> E1[Networking<br/>Connecting services]
+    F --> F1[Scaling<br/>Growth & updates]
+    G --> G1[Todo App<br/>Complete project]
     
     style A fill:#e1f5fe
     style G fill:#c8e6c9
@@ -66,7 +66,7 @@ graph TD
     style G1 fill:#fff3e0
 ```
 
-**Total Time: ~2 hours** ⏱️
+**Complete Learning Path** 📚
 
 ---
 
@@ -77,49 +77,49 @@ graph TD
 <th width="10%">Step</th>
 <th width="25%">Topic</th>
 <th width="45%">What You'll Learn</th>
-<th width="20%">Time</th>
+<th width="20%">Focus</th>
 </tr>
 
 <tr>
 <td><strong><a href="./01-setup/">1️⃣</a></strong></td>
 <td><strong>Cluster Setup</strong></td>
 <td>Install k3s, verify it works, run first pod</td>
-<td>5 min</td>
+<td>Quick start</td>
 </tr>
 
 <tr>
 <td><strong><a href="./02-basics/">2️⃣</a></strong></td>
 <td><strong>Kubernetes Basics</strong></td>
 <td>Pods, Services, Labels - the building blocks</td>
-<td>30 min</td>
+<td>Hands-on</td>
 </tr>
 
 <tr>
 <td><strong><a href="./03-deployments/">3️⃣</a></strong></td>
 <td><strong>Deploy Applications</strong></td>
 <td>Deployments, ReplicaSets, managing multiple pods</td>
-<td>20 min</td>
+<td>Practical</td>
 </tr>
 
 <tr>
 <td><strong><a href="./04-networking/">4️⃣</a></strong></td>
 <td><strong>Connect Applications</strong></td>
 <td>Services, networking, how apps talk to each other</td>
-<td>20 min</td>
+<td>Interactive</td>
 </tr>
 
 <tr>
 <td><strong><a href="./05-scaling/">5️⃣</a></strong></td>
 <td><strong>Scale & Update</strong></td>
 <td>Scaling up/down, rolling updates, zero downtime</td>
-<td>15 min</td>
+<td>Advanced</td>
 </tr>
 
 <tr>
 <td><strong><a href="./06-project/">6️⃣</a></strong></td>
 <td><strong>Simple Project</strong></td>
 <td>Build a complete Todo app with database</td>
-<td>30 min</td>
+<td>Project</td>
 </tr>
 
 </table>

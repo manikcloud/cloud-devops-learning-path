@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Basics](https://img.shields.io/badge/Basics-Pods%20%26%20Services-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Time](https://img.shields.io/badge/Time-30%20minutes-green?style=for-the-badge&logo=clock&logoColor=white)
+![Hands-On](https://img.shields.io/badge/Hands--On-Learning-green?style=for-the-badge&logo=tools&logoColor=white)
 
 **🎯 Learn Pods | 🌐 Understand Services | 🏷️ Use Labels**
 

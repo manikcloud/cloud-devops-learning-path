@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Project](https://img.shields.io/badge/Project-Todo%20Application-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Time](https://img.shields.io/badge/Time-30%20minutes-green?style=for-the-badge&logo=clock&logoColor=white)
+![Project](https://img.shields.io/badge/Complete-Project-green?style=for-the-badge&logo=rocket&logoColor=white)
 
 **🎯 Complete Application | 🗄️ Database Integration | 🌐 Full Stack**
 

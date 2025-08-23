@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Setup](https://img.shields.io/badge/Setup-k3s-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Time](https://img.shields.io/badge/Time-5%20minutes-green?style=for-the-badge&logo=clock&logoColor=white)
+![Quick](https://img.shields.io/badge/Quick-Setup-green?style=for-the-badge&logo=rocket&logoColor=white)
 
 **🎯 Install k3s | ✅ Verify Setup | 🚀 Run First Pod**
 
@@ -27,7 +27,7 @@ graph LR
     style E fill:#c8e6c9
 ```
 
-**Time needed: 5 minutes** ⏱️
+**Quick and Easy Setup** 🚀
 
 ---
 

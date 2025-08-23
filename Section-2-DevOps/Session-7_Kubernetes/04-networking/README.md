@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Networking](https://img.shields.io/badge/Networking-Services%20%26%20Communication-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Time](https://img.shields.io/badge/Time-20%20minutes-green?style=for-the-badge&logo=clock&logoColor=white)
+![Interactive](https://img.shields.io/badge/Interactive-Learning-green?style=for-the-badge&logo=network-wired&logoColor=white)
 
 **🎯 Connect Apps | 🌐 Service Discovery | ⚖️ Load Balancing**
 

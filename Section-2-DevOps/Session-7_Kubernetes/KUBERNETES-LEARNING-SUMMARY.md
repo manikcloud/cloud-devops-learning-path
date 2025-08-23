@@ -48,16 +48,16 @@ graph TD
 
 ---
 
-## 📚 Learning Journey (2 Hours Total)
+## 📚 Learning Journey (Progressive Path)
 
-| Step | Topic | Time | What Students Learn |
-|------|-------|------|-------------------|
-| **1️⃣** | Setup | 5 min | Install k3s, verify cluster |
-| **2️⃣** | Basics | 30 min | Pods, Services, Labels, kubectl |
-| **3️⃣** | Deployments | 20 min | Managing multiple pods, scaling |
-| **4️⃣** | Networking | 20 min | Service discovery, communication |
-| **5️⃣** | Scaling | 15 min | Updates, rollbacks, health checks |
-| **6️⃣** | Project | 30 min | Complete Todo application |
+| Step | Topic | Focus | What Students Learn |
+|------|-------|-------|---------------------|
+| **1️⃣** | Setup | Quick start | Install k3s, verify cluster |
+| **2️⃣** | Basics | Hands-on | Pods, Services, Labels, kubectl |
+| **3️⃣** | Deployments | Practical | Managing multiple pods, scaling |
+| **4️⃣** | Networking | Interactive | Service discovery, communication |
+| **5️⃣** | Scaling | Advanced | Updates, rollbacks, health checks |
+| **6️⃣** | Project | Complete | Complete Todo application |
 
 ---
 
