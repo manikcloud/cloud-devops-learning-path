@@ -196,40 +196,6 @@ Session-6_Docker-Swarm/
 
 ---
 
-## 🛠️ **Prerequisites Setup**
-
-### **EC2 Instance Requirements:**
-- **Instance Type:** t2.micro (free tier eligible)
-- **AMI:** Amazon Linux 2
-- **Count:** 2 instances (1 manager, 1 worker)
-
-### **Security Group Configuration:**
-```bash
-# Create Security Group with these rules:
-Type: All Traffic, Source: Your IP Address
-Type: All Traffic, Source: Security Group ID (self-reference)
-```
-
-### **Docker Installation (Run on Both EC2s):**
-```bash
-# Update system
-sudo yum update -y
-
-# Install Docker
-sudo yum install docker -y
-
-# Start Docker service
-sudo systemctl start docker
-sudo systemctl enable docker
-
-# Add user to docker group
-sudo usermod -aG docker $USER
-
-# Log out and log back in for changes to take effect
-```
-
----
-
 ## 🎯 **Learning Journey**
 
 ### **🚀 Start Here: [6.1 Swarm Basics](./6.1_swarm_basics/)**
