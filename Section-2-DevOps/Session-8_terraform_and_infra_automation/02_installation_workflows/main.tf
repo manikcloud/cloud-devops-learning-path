@@ -1,7 +1,9 @@
-# Simple EC2 Website Deployment with Terraform
-# This creates an EC2 instance with Nginx and a custom website
+# Terraform Configuration for Basic Web Server
+# This creates an EC2 instance with Apache web server
 
+# Configure the AWS Provider
 terraform {
+  required_version = ">= 1.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -12,10 +14,10 @@ terraform {
 
 # Configure AWS Provider
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
 
-# Get the latest Amazon Linux 2 AMI
+# Data source to get the latest Amazon Linux 2 AMI
 data "aws_ami" "amazon_linux" {
   most_recent = true
   owners      = ["amazon"]
@@ -24,31 +26,32 @@ data "aws_ami" "amazon_linux" {
     name   = "name"
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
-# Get default VPC
-data "aws_vpc" "default" {
-  default = true
-}
-
-# Create Security Group for web access
+# Create a security group for the web server
 resource "aws_security_group" "web_sg" {
-  name        = "terraform-web-sg"
-  description = "Security group for web server"
-  vpc_id      = data.aws_vpc.default.id
+  name_prefix = "terraform-web-sg"
+  description = "Security group for Terraform web server"
 
-  # Allow SSH
+  # Allow HTTP traffic
   ingress {
-    from_port   = 22
-    to_port     = 22
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Allow HTTP
+  # Allow SSH traffic (optional, for debugging)
   ingress {
-    from_port   = 80
-    to_port     = 80
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -62,52 +65,110 @@ resource "aws_security_group" "web_sg" {
   }
 
   tags = {
-    Name = "terraform-web-sg"
+    Name        = "terraform-web-sg"
+    Environment = "learning"
+    Project     = "terraform-basics"
   }
 }
 
-# Create EC2 Instance
+# Create EC2 instance
 resource "aws_instance" "web_server" {
   ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = "t2.micro"
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.web_sg.id]
-  
+  key_name              = var.key_pair_name
+
+  # User data script to install and configure Apache
   user_data = <<-EOF
-    #!/bin/bash
-    yum update -y
-    amazon-linux-extras install nginx1 -y
-    systemctl start nginx
-    systemctl enable nginx
-    
-    # Create simple website
-    cat > /var/www/html/index.html << 'HTML'
-    <html>
-    <head><title>Hello World - Terraform</title></head>
-    <body style="font-family: Arial; text-align: center; padding: 50px;">
-        <h1>Hello World!</h1>
-        <p>This website is deployed using Terraform by Varun Sir - AWS Ambassador & Cloud Expert</p>
-        <p>Infrastructure as Code in action! 🚀</p>
-    </body>
-    </html>
+              #!/bin/bash
+              yum update -y
+              yum install -y httpd
+              systemctl start httpd
+              systemctl enable httpd
+              
+              # Create a simple HTML page
+              cat > /var/www/html/index.html << 'HTML'
+              <!DOCTYPE html>
+              <html>
+              <head>
+                  <title>Terraform Web Server</title>
+                  <style>
+                      body {
+                          font-family: Arial, sans-serif;
+                          max-width: 800px;
+                          margin: 50px auto;
+                          padding: 20px;
+                          background-color: #f4f4f4;
+                      }
+                      .container {
+                          background: white;
+                          padding: 30px;
+                          border-radius: 10px;
+                          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                      }
+                      h1 {
+                          color: #623CE4;
+                          text-align: center;
+                      }
+                      .info {
+                          background: #e7f3ff;
+                          padding: 15px;
+                          border-left: 4px solid #2196F3;
+                          margin: 20px 0;
+                      }
+                  </style>
+              </head>
+              <body>
+                  <div class="container">
+                      <h1>🏗️ Hello from Terraform!</h1>
+                      
+                      <div class="info">
+                          <h3>Infrastructure as Code Success!</h3>
+                          <p><strong>Instance ID:</strong> $(curl -s http://169.254.169.254/latest/meta-data/instance-id)</p>
+                          <p><strong>Availability Zone:</strong> $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)</p>
+                          <p><strong>Instance Type:</strong> $(curl -s http://169.254.169.254/latest/meta-data/instance-type)</p>
+                      </div>
+                      
+                      <h3>What was created:</h3>
+                      <ul>
+                          <li>✅ EC2 Instance with Apache web server</li>
+                          <li>✅ Security Group with HTTP and SSH access</li>
+                          <li>✅ Automated web server configuration</li>
+                          <li>✅ This custom HTML page</li>
+                      </ul>
+                      
+                      <h3>Terraform Commands Used:</h3>
+                      <pre><code>terraform init
+terraform plan
+terraform apply
+terraform show</code></pre>
+                      
+                      <p><em>This infrastructure was created entirely with code!</em></p>
+                  </div>
+              </body>
+              </html>
 HTML
-    
-    # Set permissions and restart nginx
-    chown nginx:nginx /var/www/html/index.html
-    systemctl restart nginx
-  EOF
+              EOF
 
   tags = {
-    Name = "terraform-web-server"
+    Name        = "terraform-web-server"
+    Environment = "learning"
+    Project     = "terraform-basics"
+    CreatedBy   = "terraform"
   }
 }
 
-# Output the public IP and website URL
-output "public_ip" {
-  description = "Public IP address of the web server"
-  value       = aws_instance.web_server.public_ip
-}
+# Create an Elastic IP (optional, for static IP)
+resource "aws_eip" "web_eip" {
+  instance = aws_instance.web_server.id
+  domain   = "vpc"
 
-output "website_url" {
-  description = "URL to access the website"
-  value       = "http://${aws_instance.web_server.public_ip}"
+  tags = {
+    Name        = "terraform-web-eip"
+    Environment = "learning"
+    Project     = "terraform-basics"
+  }
+
+  # Ensure the instance is created before the EIP
+  depends_on = [aws_instance.web_server]
 }
