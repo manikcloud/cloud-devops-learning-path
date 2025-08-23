@@ -18,11 +18,23 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .container-info {
+            background-color: rgba(0,0,0,0.2);
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>🐝 Docker Swarm Hello World</h1>
     <p>This page is served by Docker Swarm!</p>
+    
+    <div class="container-info">
+        <h3>Container Information:</h3>
+        <p><strong>Container ID:</strong> <span id="hostname">Loading...</span></p>
+        <p><strong>Server Time:</strong> <span id="timestamp"></span></p>
+    </div>
     
     <h3>Change Background Color:</h3>
     <button onclick="changeColor('#3498db')" style="background-color: #3498db; color: white;">Blue</button>
@@ -34,6 +46,15 @@
         function changeColor(color) {
             document.body.style.backgroundColor = color;
         }
+        
+        // Display timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Try to get hostname (this won't work in browser, but will show in curl)
+        document.getElementById('hostname').textContent = window.location.hostname || 'Unknown';
     </script>
+    
+    <!-- Hidden container info for curl testing -->
+    <div style="display: none;" id="container-id">CONTAINER_HOSTNAME_PLACEHOLDER</div>
 </body>
 </html>
