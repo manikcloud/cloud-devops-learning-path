@@ -1,11 +1,11 @@
-# 2️⃣ Kubernetes Basics - Building Blocks
+# 2️⃣ Kubernetes Basics - Writing Pod Files Step by Step
 
 <div align="center">
 
-![Basics](https://img.shields.io/badge/Basics-Pods%20%26%20Services-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Hands-On](https://img.shields.io/badge/Hands--On-Learning-green?style=for-the-badge&logo=tools&logoColor=white)
+![Basics](https://img.shields.io/badge/Basics-Pods%20%26%20Labels-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Hands-On](https://img.shields.io/badge/Hands--On-YAML%20Writing-green?style=for-the-badge&logo=tools&logoColor=white)
 
-**🎯 Learn Pods | 🌐 Understand Services | 🏷️ Use Labels**
+**🎯 Learn Pod YAML | 🏷️ Add Labels | 📝 Build Complexity Step by Step**
 
 </div>
 
@@ -15,177 +15,517 @@
 
 ```mermaid
 graph TD
-    A[📦 Pods<br/>Containers that run your app] --> B[🏷️ Labels<br/>Tags to organize pods]
-    B --> C[🌐 Services<br/>Ways to access pods]
-    C --> D[🔍 kubectl<br/>Commands to manage everything]
+    A[📝 Step 1: Simple Pod<br/>Basic YAML structure] --> B[🏷️ Step 2: Add Labels<br/>Organize your pods]
+    B --> C[🌈 Step 3: Environment Variables<br/>Configure your apps]
+    C --> D[💾 Step 4: Resource Limits<br/>Control CPU & Memory]
+    D --> E[🔄 Step 5: Multi-Container<br/>Advanced patterns]
     
     style A fill:#e1f5fe
     style B fill:#fff3e0
     style C fill:#e8f5e8
     style D fill:#f3e5f5
+    style E fill:#fce4ec
 ```
 
-**By the end, you'll understand the 3 core Kubernetes concepts!**
+**By the end, you'll write pod YAML files like a pro!**
 
 ---
 
-## 📦 Understanding Pods
+## 📝 Step 1: Your First Simple Pod
 
-### **What is a Pod?**
-Think of a Pod as a **wrapper around your container**:
+Let's start with the absolute basics - a simple pod with just the essentials:
 
-```mermaid
-graph TB
-    subgraph "📦 Pod (Wrapper)"
-        subgraph "🐳 Container"
-            APP[🚀 Your App<br/>nginx, node.js, etc.]
-        end
-        IP[🌐 IP Address<br/>10.42.0.5]
-        STORAGE[💾 Shared Storage<br/>Files, logs, etc.]
-    end
-    
-    style APP fill:#e1f5fe
-    style IP fill:#e8f5e8
-    style STORAGE fill:#fff3e0
+### **01-simple-pod.yaml**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21
+    ports:
+    - containerPort: 80
 ```
 
-**Key Points:**
-- 📦 **Pod** = Smallest unit in Kubernetes
-- 🐳 **Usually 1 container per pod** (but can be more)
-- 🌐 **Each pod gets its own IP address**
-- 💾 **Containers in a pod share storage and network**
+**What each line means:**
+- `apiVersion: v1` - Which Kubernetes API version to use
+- `kind: Pod` - What type of resource we're creating
+- `metadata.name` - The name of our pod
+- `spec.containers` - List of containers in this pod
+- `name: nginx` - Name of the container
+- `image: nginx:1.21` - Which Docker image to use
+- `containerPort: 80` - Which port the app listens on
 
-### **Pod Lifecycle**
-```mermaid
-graph LR
-    A[⏳ Pending<br/>Being created] --> B[🏃 Running<br/>Working normally]
-    B --> C[✅ Succeeded<br/>Finished successfully]
-    B --> D[❌ Failed<br/>Something went wrong]
-    B --> E[❓ Unknown<br/>Can't determine status]
-    
-    style A fill:#fff3e0
-    style B fill:#e8f5e8
-    style C fill:#c8e6c9
-    style D fill:#ffcdd2
-    style E fill:#f3e5f5
-```
-
----
-
-## 🧪 Hands-On: Your First Pod
-
-### **Exercise 1: Create a Simple Pod**
+### **Try it out:**
 ```bash
-# Create your first pod
-k run my-first-pod --image=nginx
+# Create the pod
+k apply -f 01-simple-pod.yaml
 
 # Check if it's running
 k get pods
 
-# You should see:
-# NAME           READY   STATUS    RESTARTS   AGE
-# my-first-pod   1/1     Running   0          30s
-```
+# See more details
+k describe pod simple-pod
 
-### **Exercise 2: Explore the Pod**
-```bash
-# Get detailed information
-k describe pod my-first-pod
-
-# Check the logs
-k logs my-first-pod
-
-# Get the pod's IP address
-k get pod my-first-pod -o wide
-```
-
-### **Exercise 3: Access the Pod**
-```bash
-# Execute commands inside the pod
-k exec -it my-first-pod -- /bin/bash
-
-# Inside the pod, try:
-# whoami
-# hostname
-# cat /etc/nginx/nginx.conf
-# exit
-
-# Port forward to access from your computer
-k port-forward my-first-pod 8080:80
-
-# Open another terminal and test:
-# curl http://localhost:8080
-```
-
-### **Exercise 4: Clean Up**
-```bash
-# Delete the pod
-k delete pod my-first-pod
-
-# Verify it's gone
-k get pods
+# Clean up
+k delete pod simple-pod
 ```
 
 ---
 
-## 🏷️ Understanding Labels
+## 🏷️ Step 2: Adding Labels for Organization
 
-### **What are Labels?**
-Labels are **tags** you put on pods to organize them:
+Now let's add labels to organize our pods better:
 
-```mermaid
-graph TB
-    subgraph "🏷️ Labels (Tags)"
-        L1[app: web]
-        L2[version: v1.0]
-        L3[environment: dev]
-    end
-    
-    subgraph "📦 Pods"
-        P1[Pod 1<br/>app: web<br/>version: v1.0<br/>env: dev]
-        P2[Pod 2<br/>app: web<br/>version: v1.0<br/>env: dev]
-        P3[Pod 3<br/>app: api<br/>version: v2.0<br/>env: prod]
-    end
-    
-    L1 --> P1
-    L1 --> P2
-    L2 --> P1
-    L2 --> P2
-    L3 --> P1
-    L3 --> P2
-    
-    style P1 fill:#e1f5fe
-    style P2 fill:#e1f5fe
-    style P3 fill:#fff3e0
+### **02-pod-with-labels.yaml**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+  labels:
+    app: nginx
+    version: v1.0
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:1.21
+    ports:
+    - containerPort: 80
+      name: http
 ```
 
-**Why Use Labels?**
-- 🔍 **Find pods easily** - "Show me all web pods"
-- 🎯 **Group related pods** - "All version 1.0 pods"
-- 🌐 **Services use labels** - "Send traffic to app=web pods"
+**What's new:**
+- `labels:` - Key-value pairs to organize pods
+- `app: nginx` - What application this is
+- `version: v1.0` - Which version
+- `name: http` - Named the port for clarity
 
-### **Exercise 5: Working with Labels**
+### **Try it out:**
 ```bash
-# Create pod with labels
-k run web-pod --image=nginx --labels="app=web,version=v1.0,env=dev"
+# Create the pod
+k apply -f 02-pod-with-labels.yaml
 
 # See the labels
 k get pods --show-labels
 
-# Filter by labels
-k get pods -l app=web
-k get pods -l version=v1.0
-k get pods -l app=web,env=dev
-
-# Add a label to existing pod
-k label pod web-pod team=frontend
-
-# Remove a label
-k label pod web-pod team-
+# Filter by label
+k get pods -l app=nginx
 
 # Clean up
-k delete pod web-pod
+k delete pod web-server
 ```
+
+---
+
+## 🏷️ Step 3: More Complex Labels
+
+Let's add more labels for better organization:
+
+### **03-pod-with-more-labels.yaml**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    name: myapp
+    environment: development
+    tier: frontend
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21
+    ports:
+    - containerPort: 80
+```
+
+**What's new:**
+- `environment: development` - Which environment (dev, staging, prod)
+- `tier: frontend` - Which tier of the application
+
+### **Try it out:**
+```bash
+# Create the pod
+k apply -f 03-pod-with-more-labels.yaml
+
+# Filter by different labels
+k get pods -l environment=development
+k get pods -l tier=frontend
+k get pods -l environment=development,tier=frontend
+
+# Clean up
+k delete pod myapp
+```
+
+---
+
+## 🌈 Step 4: Using Custom Images with Environment Variables
+
+Now let's use a custom image and add environment variables:
+
+### **04-blue-pod.yaml**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: blue-app
+  labels:
+    application: web-app
+    color: blue
+    version: v1.0
+spec:
+  containers:
+  - name: httpd
+    image: varunmanik/httpd:blue
+    ports:
+    - containerPort: 80
+    env:
+    - name: VERSION
+      value: "Blue-v1.0"
+```
+
+**What's new:**
+- `image: varunmanik/httpd:blue` - Custom image with blue theme
+- `env:` - Environment variables section
+- `name: VERSION` - Environment variable name
+- `value: "Blue-v1.0"` - Environment variable value
+
+### **05-green-pod.yaml**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: green-app
+  labels:
+    application: web-app
+    color: green
+    version: v2.0
+spec:
+  containers:
+  - name: httpd
+    image: varunmanik/httpd:green
+    ports:
+    - containerPort: 80
+    env:
+    - name: VERSION
+      value: "Green-v2.0"
+```
+
+### **Try it out:**
+```bash
+# Create both pods
+k apply -f 04-blue-pod.yaml
+k apply -f 05-green-pod.yaml
+
+# Check they're running
+k get pods -l application=web-app
+
+# Check environment variables
+k exec blue-app -- env | grep VERSION
+k exec green-app -- env | grep VERSION
+
+# Access the apps (if you have services set up)
+k port-forward blue-app 8080:80 &
+curl http://localhost:8080
+
+# Clean up
+k delete pod blue-app green-app
+```
+
+---
+
+## 💾 Step 5: Adding Resource Limits
+
+Let's add resource limits to control CPU and memory usage:
+
+### **06-pod-with-resources.yaml**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+  labels:
+    app: web
+    tier: frontend
+    environment: development
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21
+    ports:
+    - containerPort: 80
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+```
+
+**What's new:**
+- `resources:` - Resource management section
+- `requests:` - Minimum resources needed
+- `limits:` - Maximum resources allowed
+- `memory: "64Mi"` - 64 Megabytes of RAM
+- `cpu: "250m"` - 0.25 CPU cores (250 millicores)
+
+### **Try it out:**
+```bash
+# Create the pod
+k apply -f 06-pod-with-resources.yaml
+
+# Check resource usage
+k top pod web-server
+
+# See resource limits in description
+k describe pod web-server | grep -A 10 "Limits"
+
+# Clean up
+k delete pod web-server
+```
+
+---
+
+## 🗄️ Step 6: Database Pod with Multiple Environment Variables
+
+Let's create a database pod with multiple environment variables:
+
+### **07-database-pod.yaml**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres-database
+  labels:
+    app: database
+    tier: backend
+spec:
+  containers:
+  - name: postgres
+    image: postgres:13
+    ports:
+    - containerPort: 5432
+    env:
+    - name: POSTGRES_DB
+      value: "myapp"
+    - name: POSTGRES_USER
+      value: "postgres"
+    - name: POSTGRES_PASSWORD
+      value: "password123"
+```
+
+**What's new:**
+- Multiple environment variables for database configuration
+- Different port (5432 for PostgreSQL)
+- Backend tier label
+
+### **Try it out:**
+```bash
+# Create the database pod
+k apply -f 07-database-pod.yaml
+
+# Check it's running
+k get pods -l tier=backend
+
+# Check the database is ready
+k logs postgres-database
+
+# Connect to database (optional)
+k exec -it postgres-database -- psql -U postgres -d myapp
+
+# Clean up
+k delete pod postgres-database
+```
+
+---
+
+## 🔄 Step 7: Multi-Container Pod (Advanced)
+
+Finally, let's create a pod with multiple containers:
+
+### **08-multi-container-pod.yaml**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-container
+  labels:
+    app: multi-container-example
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21
+    ports:
+    - containerPort: 80
+  - name: alpine-sidecar
+    image: alpine:3.14
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do echo 'Sidecar is running'; sleep 30; done"]
+```
+
+**What's new:**
+- Two containers in one pod
+- `command:` - Override the default command
+- `args:` - Arguments for the command
+- Sidecar pattern (helper container)
+
+### **Try it out:**
+```bash
+# Create the multi-container pod
+k apply -f 08-multi-container-pod.yaml
+
+# Check both containers are running
+k get pod multi-container
+
+# Check logs from each container
+k logs multi-container -c nginx
+k logs multi-container -c alpine-sidecar
+
+# Execute into specific container
+k exec -it multi-container -c nginx -- /bin/bash
+
+# Clean up
+k delete pod multi-container
+```
+
+---
+
+## 🛠️ Hands-On Exercise: Build Your Own Pod
+
+Now it's your turn! Create a pod step by step:
+
+### **Exercise 1: Start Simple**
+```bash
+# Create a file called my-pod.yaml
+# Start with this template:
+```
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-first-pod
+spec:
+  containers:
+  - name: web
+    image: varunmanik/httpd:blue
+    ports:
+    - containerPort: 80
+```
+
+### **Exercise 2: Add Labels**
+Add these labels to your pod:
+- `app: my-web-app`
+- `environment: learning`
+- `created-by: [your-name]`
+
+### **Exercise 3: Add Environment Variables**
+Add these environment variables:
+- `APP_NAME: "My Learning App"`
+- `VERSION: "1.0"`
+
+### **Exercise 4: Add Resource Limits**
+Add resource requests and limits:
+- Request: 128Mi memory, 250m CPU
+- Limit: 256Mi memory, 500m CPU
+
+### **Final Solution:**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-first-pod
+  labels:
+    app: my-web-app
+    environment: learning
+    created-by: student
+spec:
+  containers:
+  - name: web
+    image: varunmanik/httpd:blue
+    ports:
+    - containerPort: 80
+    env:
+    - name: APP_NAME
+      value: "My Learning App"
+    - name: VERSION
+      value: "1.0"
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+```
+
+---
+
+## 📋 YAML Writing Tips
+
+### **Common Mistakes to Avoid:**
+```yaml
+# ❌ Wrong indentation
+apiVersion: v1
+kind: Pod
+metadata:
+name: bad-pod  # Should be indented
+
+# ✅ Correct indentation
+apiVersion: v1
+kind: Pod
+metadata:
+  name: good-pod
+```
+
+### **YAML Rules:**
+- **Indentation matters** - Use 2 spaces, not tabs
+- **Colons need spaces** - `name: value` not `name:value`
+- **Lists use dashes** - Each item starts with `-`
+- **Quotes for strings** - Use quotes for values with spaces
+
+### **Validation Commands:**
+```bash
+# Check YAML syntax
+k apply --dry-run=client -f my-pod.yaml
+
+# Validate without creating
+k apply --dry-run=server -f my-pod.yaml
+
+# Explain pod structure
+k explain pod.spec.containers
+```
+
+---
+
+## 🔍 Understanding Pod Lifecycle
+
+```mermaid
+graph LR
+    A[📝 YAML Created] --> B[⏳ Pending<br/>Scheduling]
+    B --> C[🔄 ContainerCreating<br/>Pulling image]
+    C --> D[✅ Running<br/>All containers started]
+    D --> E[🏁 Succeeded<br/>Completed successfully]
+    D --> F[❌ Failed<br/>Error occurred]
+    
+    style A fill:#e3f2fd
+    style B fill:#fff3e0
+    style C fill:#e8f5e8
+    style D fill:#c8e6c9
+    style E fill:#e1f5fe
+    style F fill:#ffebee
+```
+
+### **Pod States:**
+- **Pending** - Waiting to be scheduled
+- **ContainerCreating** - Pulling images and starting
+- **Running** - All containers are running
+- **Succeeded** - All containers completed successfully
+- **Failed** - One or more containers failed
 
 ---
 
@@ -193,23 +533,27 @@ k delete pod web-pod
 
 You're ready to move on when you can:
 
-- [ ] ✅ Create and delete pods
-- [ ] ✅ Use labels to organize pods
-- [ ] ✅ Select pods using label selectors
-- [ ] ✅ Understand pod lifecycle and states
-- [ ] ✅ View pod logs and execute commands
+- [ ] ✅ Write a basic pod YAML file from scratch
+- [ ] ✅ Add meaningful labels to organize pods
+- [ ] ✅ Set environment variables for configuration
+- [ ] ✅ Define resource requests and limits
+- [ ] ✅ Create multi-container pods
+- [ ] ✅ Understand pod lifecycle states
+- [ ] ✅ Debug YAML syntax errors
 
 ---
 
 ## 🚀 Next Steps
 
-**Congratulations!** 🎉 You now understand Kubernetes basics!
+**Congratulations!** 🎉 You can now write pod YAML files!
 
 ### **What You Learned:**
-- ✅ **Pods** - The basic unit of Kubernetes
+- ✅ **YAML Structure** - How Kubernetes YAML files work
+- ✅ **Pod Basics** - Essential pod components
 - ✅ **Labels** - How to organize and tag resources
-- ✅ **Selectors** - How to find and filter resources
-- ✅ **kubectl** - Essential commands for pod management
+- ✅ **Environment Variables** - How to configure applications
+- ✅ **Resource Management** - How to control CPU and memory
+- ✅ **Multi-Container Pods** - Advanced pod patterns
 
 ### **Ready for More?**
 - **[→ Services: Connect to Your Pods](./services/)** - Learn how to expose and access pods
@@ -217,4 +561,4 @@ You're ready to move on when you can:
 
 ---
 
-*Great job! You've mastered the building blocks of Kubernetes.* 🚀
+*Great job! You've mastered writing pod YAML files step by step.* 🚀
