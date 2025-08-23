@@ -1,0 +1,18 @@
+# S3 Bucket Configuration Example
+# Copy this file to terraform.tfvars and customize the values
+
+# AWS Configuration
+aws_region = "us-east-1"
+
+# Bucket Configuration
+bucket_prefix = "terraform-learning"
+environment   = "dev"
+project_name  = "s3-basics"
+
+# Features
+enable_versioning = false
+
+# Note: Bucket names must be globally unique
+# The configuration will add a random suffix to ensure uniqueness
+# 
+# Example final bucket name: terraform-learning-abc12345

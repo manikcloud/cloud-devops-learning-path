@@ -1,0 +1,26 @@
+# Terraform Variables Example File
+# Copy this file to terraform.tfvars and customize the values
+
+# AWS Configuration
+aws_region = "us-east-1"
+
+# EC2 Configuration
+instance_type = "t3.micro"  # Free tier eligible
+
+# Optional: SSH Key Pair
+# Uncomment and set to your key pair name if you want SSH access
+# key_pair_name = "my-key-pair"
+
+# Project Configuration
+environment  = "learning"
+project_name = "terraform-basics"
+
+# Note: To use a different instance type, change the value above
+# Available options: t3.micro, t3.small, t3.medium, t2.micro, t2.small, t2.medium
+# 
+# To create an SSH key pair:
+# 1. Go to AWS Console > EC2 > Key Pairs
+# 2. Create a new key pair
+# 3. Download the .pem file
+# 4. Set key_pair_name to the name of your key pair
+# 5. Use chmod 400 ~/.ssh/your-key.pem to set proper permissions
