@@ -12,6 +12,58 @@
 
 ---
 
+## 📚 **Docker Images - Simple Theory**
+
+### **What is a Docker Image?**
+A Docker image is like a **blueprint** or **template** that contains everything needed to run an application:
+- Application code
+- Runtime environment  
+- System libraries
+- Dependencies
+- Configuration files
+
+### **How Docker Images Work:**
+
+```mermaid
+graph LR
+    A[Dockerfile] --> B[Docker Image]
+    B --> C[Docker Container]
+    
+    A1[Recipe/Instructions] --> A
+    B1[Template/Blueprint] --> B  
+    C1[Running Application] --> C
+```
+
+**Think of it like:**
+- **Dockerfile** = Recipe (instructions)
+- **Docker Image** = Cake mix (ready template)
+- **Docker Container** = Baked cake (running application)
+
+---
+
+## 📖 **Docker Keywords Explained**
+
+| Keyword | What it Does | Simple Example |
+|---------|-------------|----------------|
+| **FROM** | Choose base image | `FROM tomcat:9.0` = Start with Tomcat server |
+| **COPY** | Copy files into image | `COPY app.war /webapps/` = Put your app in server |
+| **RUN** | Execute commands during build | `RUN apt-get update` = Install software |
+| **EXPOSE** | Tell which port to use | `EXPOSE 8080` = App runs on port 8080 |
+| **CMD** | Default command when container starts | `CMD ["java", "-jar", "app.jar"]` = Start the app |
+| **WORKDIR** | Set working directory | `WORKDIR /app` = Go to /app folder |
+| **ENV** | Set environment variables | `ENV JAVA_HOME=/usr/lib/jvm/java` = Set Java path |
+| **ADD** | Copy files (with extra features) | `ADD file.tar.gz /app/` = Copy and extract |
+| **ENTRYPOINT** | Main command (cannot be overridden) | `ENTRYPOINT ["java"]` = Always run Java |
+| **VOLUME** | Create mount point for data | `VOLUME /data` = Persistent storage |
+
+### **Most Common Keywords (80% of Dockerfiles):**
+1. **FROM** - Base image
+2. **COPY** - Copy your files  
+3. **EXPOSE** - Port number
+4. **CMD** - Start command
+
+---
+
 ## 🐳 Docker Containerization Workflow
 
 ```
