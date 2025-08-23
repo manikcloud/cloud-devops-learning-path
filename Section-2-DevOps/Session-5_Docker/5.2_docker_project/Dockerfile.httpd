@@ -1,0 +1,11 @@
+# Simple Apache HTTP Server Docker Example
+FROM httpd:2.4
+
+# Copy custom HTML files to Apache document root
+COPY src/main/webapp/ /usr/local/apache2/htdocs/
+
+# Expose port 80 for web traffic
+EXPOSE 80
+
+# Apache starts automatically with the base image
+# No CMD needed - httpd:2.4 image handles this

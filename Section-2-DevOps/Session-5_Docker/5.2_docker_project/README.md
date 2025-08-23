@@ -64,6 +64,48 @@ graph LR
 
 ---
 
+## 🌐 **Bonus: Apache HTTPD Example**
+
+### **Simple Web Server with Docker:**
+
+```dockerfile
+# Dockerfile.httpd - Simple Apache HTTP Server
+FROM httpd:2.4
+
+# Copy HTML files to Apache document root
+COPY index.html /usr/local/apache2/htdocs/
+
+# Expose port 80
+EXPOSE 80
+```
+
+### **Quick HTTPD Setup:**
+```bash
+# Build Apache image
+docker build -f Dockerfile.httpd -t my-httpd .
+
+# Run Apache container
+docker run -d -p 8080:80 --name my-apache my-httpd
+
+# Access at: http://localhost:8080
+```
+
+### **Or Use Script:**
+```bash
+chmod +x httpd-build.sh
+./httpd-build.sh
+```
+
+### **HTTPD vs Tomcat:**
+| Feature | HTTPD | Tomcat |
+|---------|-------|--------|
+| **Use Case** | Static websites | Java web apps |
+| **Size** | Smaller | Larger |
+| **Speed** | Faster for static | Better for Java |
+| **Complexity** | Simple | More features |
+
+---
+
 ## 🐳 Docker Containerization Workflow
 
 ```
@@ -220,8 +262,11 @@ ls target/addressbook.war
 5.2_docker_project/
 ├── src/                     # Java source code
 ├── pom.xml                  # Maven configuration
-├── Dockerfile               # Container definition
-├── simple-build.sh          # Automation script
+├── Dockerfile               # Tomcat container definition
+├── Dockerfile.httpd         # Apache HTTPD container definition
+├── index.html               # Simple HTML for HTTPD example
+├── simple-build.sh          # Tomcat automation script
+├── httpd-build.sh           # HTTPD automation script
 └── README.md               # This guide
 ```
 

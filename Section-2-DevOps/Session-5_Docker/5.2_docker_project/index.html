@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker HTTPD Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .docker-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐳 Docker HTTPD Example</h1>
+        
+        <div class="docker-info">
+            <h3>Apache HTTP Server running in Docker!</h3>
+            <p><strong>Base Image:</strong> httpd:2.4</p>
+            <p><strong>Port:</strong> 80</p>
+            <p><strong>Document Root:</strong> /usr/local/apache2/htdocs/</p>
+        </div>
+        
+        <h3>How to run this:</h3>
+        <pre><code># Build the image
+docker build -f Dockerfile.httpd -t my-httpd .
+
+# Run the container
+docker run -d -p 8080:80 --name my-apache my-httpd
+
+# Access at: http://localhost:8080</code></pre>
+        
+        <h3>Docker HTTPD Benefits:</h3>
+        <ul>
+            <li>✅ Lightweight web server</li>
+            <li>✅ Fast startup time</li>
+            <li>✅ Perfect for static websites</li>
+            <li>✅ Easy to configure</li>
+        </ul>
+    </div>
+</body>
+</html>
