@@ -37,7 +37,7 @@ docker swarm init
 docker swarm join --token SWMTKN-1-xxxxx <manager-ip>:2377
 
 # 3. Deploy Your First Service
-docker service create --name web --publish 8080:80 --replicas 3 nginx
+docker service create --name web --publish 8090:80 --replicas 3 nginx
 
 # 4. Check Status
 docker service ls
@@ -277,7 +277,7 @@ docker swarm leave --force
 ### **Service Management:**
 ```bash
 # Create service
-docker service create --name web --publish 8080:80 nginx
+docker service create --name web --publish 8090:80 nginx
 
 # List services
 docker service ls

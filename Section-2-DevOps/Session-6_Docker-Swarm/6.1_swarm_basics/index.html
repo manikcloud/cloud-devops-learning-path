@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Docker Swarm Hello World</title>
+    <title>Docker Swarm Demo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -9,52 +9,32 @@
             padding: 50px;
             background-color: #3498db;
             color: white;
+            font-size: 18px;
         }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .container-info {
-            background-color: rgba(0,0,0,0.2);
-            padding: 20px;
-            margin: 20px;
+        .container-box {
+            background-color: rgba(0,0,0,0.3);
+            padding: 30px;
+            margin: 30px auto;
             border-radius: 10px;
+            max-width: 600px;
         }
     </style>
 </head>
 <body>
-    <h1>🐝 Docker Swarm Hello World</h1>
-    <p>This page is served by Docker Swarm!</p>
+    <h1>🐝 Docker Swarm Load Balancer Demo</h1>
     
-    <div class="container-info">
-        <h3>Container Information:</h3>
-        <p><strong>Container ID:</strong> <span id="hostname">Loading...</span></p>
-        <p><strong>Server Time:</strong> <span id="timestamp"></span></p>
+    <div class="container-box">
+        <h2>Container Information</h2>
+        <p><strong>Container ID:</strong> CONTAINER_ID_PLACEHOLDER</p>
+        <p><strong>Hostname:</strong> HOSTNAME_PLACEHOLDER</p>
+        <p><strong>Time:</strong> <span id="time"></span></p>
     </div>
     
-    <h3>Change Background Color:</h3>
-    <button onclick="changeColor('#3498db')" style="background-color: #3498db; color: white;">Blue</button>
-    <button onclick="changeColor('#e74c3c')" style="background-color: #e74c3c; color: white;">Red</button>
-    <button onclick="changeColor('#2ecc71')" style="background-color: #2ecc71; color: white;">Green</button>
-    <button onclick="changeColor('#f39c12')" style="background-color: #f39c12; color: white;">Orange</button>
+    <p>Refresh this page to see different container IDs!</p>
+    <p>This proves Docker Swarm load balancing is working.</p>
 
     <script>
-        function changeColor(color) {
-            document.body.style.backgroundColor = color;
-        }
-        
-        // Display timestamp
-        document.getElementById('timestamp').textContent = new Date().toLocaleString();
-        
-        // Try to get hostname (this won't work in browser, but will show in curl)
-        document.getElementById('hostname').textContent = window.location.hostname || 'Unknown';
+        document.getElementById('time').textContent = new Date().toLocaleString();
     </script>
-    
-    <!-- Hidden container info for curl testing -->
-    <div style="display: none;" id="container-id">CONTAINER_HOSTNAME_PLACEHOLDER</div>
 </body>
 </html>
