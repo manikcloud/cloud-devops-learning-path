@@ -217,59 +217,13 @@ docker service ps web
 
 ---
 
-## 🔍 **Troubleshooting Guide**
-
-### **Common Issues:**
-
-#### **Worker Node Can't Join:**
-```bash
-# Check connectivity
-ping <manager-private-ip>
-
-# Verify Docker is running
-sudo systemctl status docker
-sudo systemctl start docker
-
-# Regenerate join token
-docker swarm join-token --rotate worker
-```
-
-#### **Service Not Starting:**
-```bash
-# Check service status
-docker service ps web
-
-# View service logs
-docker service logs web
-
-# Check node resources
-docker node ls
-free -h
-df -h
-```
-
-#### **Load Balancing Not Working:**
-```bash
-# Verify service is published correctly
-docker service inspect web | grep -A 5 "PublishedPorts"
-
-# Check if containers are running
-docker service ps web
-
-# Test from different nodes
-curl http://<manager-ip>:8090
-curl http://<worker-ip>:8090
-```
-
----
-
 ## 📁 **Project Files**
 
 ```
 6.1_swarm_basics/
-├── index.html              # Interactive HTML with color buttons
+├── index.html              # Simple web page showing container ID
 ├── Dockerfile              # Apache httpd container definition
-└── README.md              # This comprehensive guide
+└── README.md              # This guide
 ```
 
 ### **File Contents:**
