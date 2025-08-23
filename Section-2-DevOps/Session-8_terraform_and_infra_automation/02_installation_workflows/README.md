@@ -1,151 +1,105 @@
-# 🔧 02: Terraform Installation & Workflows
+# 🔧 02: Installation & First Resources
 
 <div align="center">
 
 ![Terraform Install](https://img.shields.io/badge/Terraform-Installation-623CE4?style=for-the-badge&logo=terraform&logoColor=white)
-![Workflows](https://img.shields.io/badge/Workflows-Basic-green?style=for-the-badge&logo=terraform&logoColor=white)
+![Hands On](https://img.shields.io/badge/Hands_On-Practice-green?style=for-the-badge&logo=terraform&logoColor=white)
 
-**🎯 Install Terraform | 🚀 Learn Basic Commands | 📊 Create First Resources**
+**🎯 Install & Configure | 🚀 Deploy First EC2 | 📊 Learn by Doing**
 
 </div>
 
 ---
 
-## 📋 **What You'll Learn**
+## 📋 **What You'll Build**
 
-- ✅ **Install Terraform** on your system
-- ✅ **Master basic commands** and workflow
-- ✅ **Create your first AWS resources** with code
-- ✅ **Understand Terraform lifecycle** (plan, apply, destroy)
+A complete EC2 web server deployment including:
+- ✅ **EC2 Instance** with Nginx web server
+- ✅ **Security Group** with proper access controls
+- ✅ **Elastic IP** for consistent access
+- ✅ **Custom HTML** page showing infrastructure details
 
 ---
 
-## 🚀 **Quick Start**
+## 🛠️ **Prerequisites Setup**
 
-### **Clone and Setup:**
+### **Step 1: Install Terraform**
+
+#### **Amazon Linux:**
 ```bash
-# 1. Clone repository
-git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+# Add HashiCorp repository
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 
-# 2. Navigate to this section
-cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/02_installation_workflows
-
-# 3. Run installation script
-chmod +x setup.sh
-./setup.sh
-
-# 4. Verify installation
+# Install Terraform
+sudo yum install terraform -y
 terraform version
 ```
 
----
-
-## 🛠️ **Installation Guide**
-
-### **Automated Installation (Recommended):**
+#### **Ubuntu/Linux:**
 ```bash
-# Use the provided setup script
-./setup.sh
-```
-
-### **Manual Installation:**
-
-#### **Ubuntu/Debian:**
-```bash
-# Add HashiCorp GPG key
-wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-
 # Add HashiCorp repository
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 
-# Update and install
-sudo apt update
-sudo apt install terraform
-
-# Verify installation
+# Install Terraform
+sudo apt update && sudo apt install terraform
 terraform version
 ```
 
 #### **macOS:**
 ```bash
-# Using Homebrew
 brew tap hashicorp/tap
 brew install hashicorp/tap/terraform
-
-# Verify installation
 terraform version
 ```
 
-#### **Windows:**
-```powershell
-# Using Chocolatey
-choco install terraform
+### **Step 2: Configure AWS CLI**
 
-# Verify installation
-terraform version
-```
-
----
-
-## ⚙️ **AWS Configuration**
-
-### **Configure AWS CLI:**
+#### **Install AWS CLI:**
 ```bash
-# Install AWS CLI (if not installed)
-sudo apt install awscli  # Ubuntu
-brew install awscli      # macOS
+# Amazon Linux / Ubuntu
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 
-# Configure credentials
+# macOS
+brew install awscli
+```
+
+#### **Configure Credentials:**
+```bash
 aws configure
-
-# Enter your credentials:
-# AWS Access Key ID: [Your Access Key]
-# AWS Secret Access Key: [Your Secret Key]
-# Default region name: us-east-1
-# Default output format: json
+# Enter: Access Key ID, Secret Access Key, Region (us-east-1), Output format (json)
 
 # Verify configuration
 aws sts get-caller-identity
 ```
 
-### **Alternative: Environment Variables:**
+### **Step 3: Clone Repository**
 ```bash
-# Set environment variables (alternative to aws configure)
-export AWS_ACCESS_KEY_ID="your-access-key"
-export AWS_SECRET_ACCESS_KEY="your-secret-key"
-export AWS_DEFAULT_REGION="us-east-1"
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation/02_installation_workflows
 ```
 
 ---
 
-## 🎯 **Your First Terraform Project**
-
-### **Project Structure:**
-```
-02_installation_workflows/
-├── README.md           # This guide
-├── setup.sh           # Installation script
-├── main.tf            # Main Terraform configuration
-├── variables.tf       # Variable definitions
-├── outputs.tf         # Output definitions
-└── terraform.tfvars   # Variable values
-```
+## 🚀 **Hands-On Deployment**
 
 ### **Step 1: Initialize Terraform**
 ```bash
-# Initialize Terraform (downloads providers)
+# Initialize Terraform (downloads AWS provider)
 terraform init
 
-# Expected output:
-# Terraform has been successfully initialized!
+# Expected output: "Terraform has been successfully initialized!"
 ```
 
 ### **Step 2: Review Configuration**
 ```bash
-# Check the main.tf file
+# Check the main configuration
 cat main.tf
 
-# Validate configuration
+# Validate syntax
 terraform validate
 
 # Format code (optional)
@@ -157,302 +111,243 @@ terraform fmt
 # Create execution plan
 terraform plan
 
-# Expected output shows:
-# + aws_instance.web_server will be created
-# + aws_security_group.web_sg will be created
+# Expected output shows resources to be created:
+# + aws_instance.web_server
+# + aws_security_group.web_sg  
+# + aws_eip.web_eip
 ```
 
-### **Step 4: Apply Configuration**
+### **Step 4: Deploy Infrastructure**
 ```bash
 # Apply the configuration
 terraform apply
 
 # Type 'yes' when prompted
-# Wait for resources to be created (2-3 minutes)
+# Wait 2-3 minutes for deployment
 ```
 
-### **Step 5: Verify Resources**
+### **Step 5: Access Your Web Server**
 ```bash
-# Check created resources
-terraform show
-
-# List all resources
-terraform state list
-
-# Get outputs
-terraform output
-```
-
-### **Step 6: Test Your Web Server**
-```bash
-# Get the public IP from outputs
+# Get the public IP
 PUBLIC_IP=$(terraform output -raw instance_public_ip)
+echo "Your website: http://$PUBLIC_IP"
 
 # Test the web server
 curl http://$PUBLIC_IP
 
-# Expected: "Hello from Terraform!"
+# Or open in browser: http://[PUBLIC_IP]
 ```
 
 ---
 
-## 📊 **Understanding the Configuration**
+## 📊 **Understanding Your Infrastructure**
 
-### **Main Configuration (main.tf):**
-The main.tf file creates:
-- **EC2 Instance** - A simple web server
-- **Security Group** - Allows HTTP and SSH access
-- **User Data Script** - Installs and starts Apache
+### **What Was Created:**
 
-### **Variables (variables.tf):**
-Defines configurable parameters:
+| Resource | Purpose | Configuration |
+|----------|---------|---------------|
+| **EC2 Instance** | Virtual server | t3.micro, Amazon Linux 2 |
+| **Security Group** | Firewall rules | HTTP (80), SSH (22) access |
+| **Elastic IP** | Static IP address | Consistent public access |
+| **User Data Script** | Server setup | Installs and configures Nginx |
+
+### **Key Configuration Files:**
+
+#### **main.tf - Main Infrastructure:**
+- AWS provider configuration
+- EC2 instance with automated Nginx setup
+- Security group with HTTP/SSH access
+- Elastic IP for consistent access
+
+#### **variables.tf - Input Parameters:**
+- AWS region (default: us-east-1)
 - Instance type (default: t3.micro)
-- Region (default: us-east-1)
-- Key pair name (optional)
+- Environment and project tags
 
-### **Outputs (outputs.tf):**
-Displays useful information:
-- Instance public IP
-- Instance ID
-- Security group ID
+#### **outputs.tf - Important Information:**
+- Instance public IP address
+- Website URL for easy access
+- SSH connection command
 
----
-
-## 🔄 **Terraform Workflow**
-
-### **The Terraform Lifecycle:**
-
-```mermaid
-graph LR
-    A[Write Code] --> B[terraform init]
-    B --> C[terraform plan]
-    C --> D[Review Changes]
-    D --> E[terraform apply]
-    E --> F[Infrastructure Ready]
-    
-    F --> G[Make Changes]
-    G --> C
-    
-    F --> H[terraform destroy]
-    H --> I[Resources Removed]
-```
-
-### **Essential Commands:**
-
-#### **Initialization:**
-```bash
-# Initialize working directory
-terraform init
-
-# Upgrade providers
-terraform init -upgrade
-```
-
-#### **Planning:**
-```bash
-# Create execution plan
-terraform plan
-
-# Save plan to file
-terraform plan -out=tfplan
-
-# Plan with specific variables
-terraform plan -var="instance_type=t3.small"
-```
-
-#### **Applying:**
-```bash
-# Apply configuration
-terraform apply
-
-# Apply saved plan
-terraform apply tfplan
-
-# Apply with auto-approve
-terraform apply -auto-approve
-```
-
-#### **Inspection:**
-```bash
-# Show current state
-terraform show
-
-# List resources
-terraform state list
-
-# Show specific resource
-terraform state show aws_instance.web_server
-
-# Get outputs
-terraform output
-terraform output instance_public_ip
-```
-
-#### **Cleanup:**
-```bash
-# Destroy all resources
-terraform destroy
-
-# Destroy specific resource
-terraform destroy -target=aws_instance.web_server
-```
-
----
-
-## 🔍 **Troubleshooting**
-
-### **Common Issues:**
-
-#### **Authentication Errors:**
-```bash
-# Error: No valid credential sources found
-# Solution: Configure AWS credentials
-aws configure
-
-# Or set environment variables
-export AWS_ACCESS_KEY_ID="your-key"
-export AWS_SECRET_ACCESS_KEY="your-secret"
-```
-
-#### **Permission Errors:**
-```bash
-# Error: UnauthorizedOperation
-# Solution: Ensure your AWS user has necessary permissions:
-# - EC2FullAccess (for learning)
-# - Or specific permissions for EC2, VPC, Security Groups
-```
-
-#### **Region Issues:**
-```bash
-# Error: InvalidAMIID.NotFound
-# Solution: Check if AMI exists in your region
-aws ec2 describe-images --image-ids ami-0c02fb55956c7d316 --region us-east-1
-```
-
-#### **State Lock Issues:**
-```bash
-# Error: Error acquiring the state lock
-# Solution: Force unlock (use carefully)
-terraform force-unlock <lock-id>
-```
-
-### **Debugging Commands:**
-```bash
-# Enable debug logging
-export TF_LOG=DEBUG
-terraform plan
-
-# Check Terraform version
-terraform version
-
-# Validate configuration
-terraform validate
-
-# Check provider versions
-terraform providers
-```
+#### **terraform.tfvars - Configuration Values:**
+- Customizable deployment settings
+- Environment-specific values
 
 ---
 
 ## 🧪 **Hands-On Exercises**
 
-### **Exercise 1: Modify Instance Type**
+### **Exercise 1: Modify the Website**
+```bash
+# 1. Edit main.tf and change the HTML content in user_data
+# 2. Plan and apply changes
+terraform plan
+terraform apply
+
+# 3. Refresh your browser to see changes
+```
+
+### **Exercise 2: Change Instance Type**
 ```bash
 # 1. Edit terraform.tfvars
 echo 'instance_type = "t3.small"' >> terraform.tfvars
 
-# 2. Plan the change
-terraform plan
-
-# 3. Apply the change
-terraform apply
-```
-
-### **Exercise 2: Add Tags**
-```bash
-# 1. Edit main.tf to add more tags
-# 2. Plan and apply changes
+# 2. Apply changes
 terraform plan
 terraform apply
 ```
 
-### **Exercise 3: Multiple Instances**
+### **Exercise 3: Add Custom Tags**
 ```bash
-# 1. Modify main.tf to create 2 instances
-# 2. Use count parameter
-# 3. Apply changes
-terraform apply
+# 1. Edit variables.tf to add more tag options
+# 2. Update main.tf to use new tags
+# 3. Apply changes to see updated resource tags
 ```
 
 ---
 
-## 📁 **File Contents**
+## 🔄 **Terraform Workflow Practice**
 
-### **setup.sh - Installation Script:**
-Automated script that:
-- Detects your operating system
-- Installs Terraform using appropriate method
-- Verifies installation
-- Checks AWS CLI configuration
-
-### **main.tf - Main Configuration:**
-Creates:
-- AWS provider configuration
-- Security group with HTTP/SSH access
-- EC2 instance with Apache web server
-- User data script for web server setup
-
-### **variables.tf - Variable Definitions:**
-Defines:
-- Instance type variable
-- Region variable
-- Key pair variable (optional)
-
-### **outputs.tf - Output Values:**
-Outputs:
-- Instance public IP address
-- Instance ID
-- Security group ID
-
-### **terraform.tfvars - Variable Values:**
-Sets:
-- Default instance type
-- Region preference
-- Any custom values
-
----
-
-## 🎓 **Learning Outcomes**
-
-After completing this section, you will:
-
-### **Technical Skills:**
-- ✅ Install Terraform on any system
-- ✅ Configure AWS provider and credentials
-- ✅ Write basic Terraform configurations
-- ✅ Use variables and outputs effectively
-- ✅ Understand Terraform state management
-
-### **Practical Knowledge:**
-- ✅ Plan infrastructure changes safely
-- ✅ Apply and destroy resources
-- ✅ Troubleshoot common issues
-- ✅ Use Terraform CLI effectively
-
----
-
-## 🧹 **Cleanup**
-
+### **Essential Commands:**
 ```bash
-# Destroy all resources
+# View current state
+terraform show
+
+# List all resources
+terraform state list
+
+# Get specific output
+terraform output instance_public_ip
+
+# View execution plan without applying
+terraform plan -out=tfplan
+
+# Apply saved plan
+terraform apply tfplan
+```
+
+### **State Management:**
+```bash
+# Refresh state from real infrastructure
+terraform refresh
+
+# Import existing resource (if needed)
+terraform import aws_instance.example i-1234567890abcdef0
+
+# Show resource details
+terraform state show aws_instance.web_server
+```
+
+---
+
+## 🔍 **Troubleshooting Guide**
+
+### **Common Issues:**
+
+#### **Authentication Errors:**
+```bash
+# Check AWS configuration
+aws configure list
+aws sts get-caller-identity
+
+# Verify credentials are working
+aws ec2 describe-regions
+```
+
+#### **Permission Issues:**
+```bash
+# Ensure your AWS user has these permissions:
+# - EC2FullAccess (for learning)
+# - Or specific: ec2:*, vpc:*, iam:PassRole
+```
+
+#### **Instance Not Accessible:**
+```bash
+# Check security group
+aws ec2 describe-security-groups --group-ids $(terraform output -raw security_group_id)
+
+# Verify instance is running
+aws ec2 describe-instances --instance-ids $(terraform output -raw instance_id)
+
+# Test connectivity
+curl -I http://$(terraform output -raw instance_public_ip)
+```
+
+#### **Terraform State Issues:**
+```bash
+# If state is corrupted
+terraform refresh
+
+# Force unlock if needed (use carefully)
+terraform force-unlock <lock-id>
+```
+
+---
+
+## 📈 **Monitoring Your Deployment**
+
+### **Check Instance Status:**
+```bash
+# Via Terraform
+terraform show | grep -A 5 "aws_instance"
+
+# Via AWS CLI
+aws ec2 describe-instances --instance-ids $(terraform output -raw instance_id)
+```
+
+### **View Logs:**
+```bash
+# SSH into instance (if key pair configured)
+ssh -i ~/.ssh/your-key.pem ec2-user@$(terraform output -raw instance_public_ip)
+
+# Check nginx status
+sudo systemctl status nginx
+
+# View nginx logs
+sudo tail -f /var/log/nginx/access.log
+```
+
+---
+
+## 🧹 **Cleanup (Important!)**
+
+### **Destroy Infrastructure:**
+```bash
+# Remove all resources
 terraform destroy
 
 # Confirm with 'yes'
-# Wait for resources to be destroyed
+# Wait for all resources to be deleted
 
 # Verify cleanup
 aws ec2 describe-instances --filters "Name=tag:Name,Values=terraform-web-server"
 ```
+
+### **Clean Local Files:**
+```bash
+# Remove Terraform state files (optional)
+rm -f terraform.tfstate*
+rm -f .terraform.lock.hcl
+rm -rf .terraform/
+```
+
+---
+
+## 🎓 **What You Learned**
+
+### **Technical Skills:**
+- ✅ Terraform installation and configuration
+- ✅ AWS provider setup and authentication
+- ✅ Infrastructure planning and deployment
+- ✅ Resource management and state handling
+- ✅ Troubleshooting common issues
+
+### **Best Practices:**
+- ✅ Always run `terraform plan` before `apply`
+- ✅ Use version control for Terraform configurations
+- ✅ Clean up resources to avoid unnecessary costs
+- ✅ Use meaningful names and tags for resources
+- ✅ Validate configurations before deployment
 
 ---
 
@@ -462,6 +357,6 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=terraform-web-server"
 
 **Next: [03 Configuration Management](../03_configuration_management/README.md)**
 
-*Learn variables, modules, and advanced Terraform features!*
+*Learn variables, modules, and advanced Terraform patterns!*
 
 </div>

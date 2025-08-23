@@ -187,197 +187,6 @@ sequenceDiagram
 
 ---
 
-## 🚀 **Quick Start Guide**
-
-### **Prerequisites:**
-- AWS CLI configured with credentials
-- Terraform installed on your system
-- Basic understanding of cloud concepts
-
-### **5-Minute Setup:**
-```bash
-# 1. Clone the repository
-git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-
-# 2. Navigate to Terraform session
-cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation
-
-# 3. Check Terraform installation
-terraform version
-
-# 4. Start with installation guide
-cd 02_installation_workflows
-```
-
----
-
-## ⚡ **Essential Commands**
-
-### **Basic Workflow:**
-```bash
-# Initialize Terraform
-terraform init
-
-# Plan changes
-terraform plan
-
-# Apply changes
-terraform apply
-
-# Destroy resources
-terraform destroy
-```
-
-### **Useful Commands:**
-```bash
-# Format code
-terraform fmt
-
-# Validate configuration
-terraform validate
-
-# Show current state
-terraform show
-
-# List resources
-terraform state list
-
-# Import existing resources
-terraform import aws_instance.example i-1234567890abcdef0
-```
-
----
-
-## 🛠️ **Install Terraform**
-
-### **Install on Amazon Linux**
-
-#### **Method 1: Using HashiCorp Repository (Recommended)**
-```bash
-# Update system packages
-sudo yum update -y
-
-# Install required packages
-sudo yum install -y yum-utils
-
-# Add HashiCorp repository
-sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-
-# Install Terraform
-sudo yum install terraform -y
-
-# Verify installation
-terraform version
-```
-
-#### **Method 2: Manual Installation**
-```bash
-# Download latest Terraform (check https://releases.hashicorp.com/terraform/ for latest version)
-TERRAFORM_VERSION="1.6.6"
-wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-
-# Install unzip if not available
-sudo yum install unzip -y
-
-# Extract Terraform
-unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-
-# Move to system PATH
-sudo mv terraform /usr/local/bin/
-
-# Make executable
-sudo chmod +x /usr/local/bin/terraform
-
-# Verify installation
-terraform version
-
-# Clean up
-rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-```
-
-#### **Method 3: Using tfenv (Terraform Version Manager)**
-```bash
-# Install git if not available
-sudo yum install git -y
-
-# Clone tfenv
-git clone https://github.com/tfutils/tfenv.git ~/.tfenv
-
-# Add to PATH
-echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-
-# Install latest Terraform
-tfenv install latest
-tfenv use latest
-
-# Verify installation
-terraform version
-```
-
-### **Install on Ubuntu/Linux**
-
-#### **Method 1: Using HashiCorp Repository (Recommended)**
-```bash
-# Download and install Terraform
-wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update && sudo apt install terraform
-
-# Verify installation
-terraform version
-```
-
-#### **Method 2: Manual Installation**
-```bash
-# Download latest Terraform
-TERRAFORM_VERSION="1.6.6"
-wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-
-# Extract and install
-unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-sudo mv terraform /usr/local/bin/
-sudo chmod +x /usr/local/bin/terraform
-
-# Verify installation
-terraform version
-
-# Clean up
-rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-```
-
-### **Configure AWS CLI:**
-```bash
-# Install AWS CLI v2 (Amazon Linux)
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-
-# Install AWS CLI (Ubuntu)
-sudo apt install awscli
-
-# Configure credentials
-aws configure
-# Enter: Access Key ID, Secret Access Key, Region (us-east-1), Output format (json)
-
-# Verify configuration
-aws sts get-caller-identity
-```
-
-### **Clone Repository:**
-```bash
-# Clone the learning repository
-git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-
-# Navigate to Terraform session
-cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_automation
-
-# Check structure
-ls -la
-```
-
----
-
 ## 🆚 **Terraform vs Alternatives**
 
 | Feature | Terraform | CloudFormation | Pulumi | Manual Setup |
@@ -400,12 +209,59 @@ ls -la
 
 ---
 
+## 🎯 **Learning Path**
+
+### **📁 Module Structure:**
+```
+Session-8_terraform_and_infra_automation/
+├── README.md                    # This overview guide
+├── 02_installation_workflows/   # Hands-on: Install & First Resources
+├── 03_configuration_management/ # Advanced: Variables & Modules  
+├── 04_provisioning_deployments/ # Production: Real AWS Infrastructure
+└── term_project_7/             # Final: Complete Multi-Service App
+```
+
+### **🚀 Recommended Learning Flow:**
+
+1. **[02 Installation & Workflows](./02_installation_workflows/)** - Start here for hands-on practice
+2. **[03 Configuration Management](./03_configuration_management/)** - Learn advanced concepts
+3. **[04 Provisioning & Deployments](./04_provisioning_deployments/)** - Build production infrastructure
+4. **[Term Project 7](./term_project_7/)** - Complete integrated project
+
+---
+
+## ⚡ **Essential Commands Reference**
+
+### **Basic Workflow:**
+```bash
+terraform init      # Initialize project
+terraform plan      # Preview changes
+terraform apply     # Apply changes
+terraform destroy   # Delete resources
+```
+
+### **State Management:**
+```bash
+terraform show      # Show current state
+terraform state list    # List resources
+terraform output    # Show outputs
+terraform refresh   # Update state
+```
+
+### **Code Quality:**
+```bash
+terraform fmt       # Format code
+terraform validate  # Check syntax
+terraform graph     # Visualize dependencies
+```
+
+---
+
 ## 📊 **Success Criteria**
 
 By completing this module, you'll be able to:
 
 ### **Technical Skills:**
-- [ ] Install and configure Terraform on Amazon Linux/Ubuntu
 - [ ] Understand Terraform architecture and components
 - [ ] Write Terraform configurations in HCL
 - [ ] Provision AWS resources automatically
@@ -422,29 +278,12 @@ By completing this module, you'll be able to:
 
 ---
 
-## 🎉 **Ready to Start?**
-
-### **Next Steps:**
-1. **Install Terraform** using one of the methods above
-2. **Configure AWS CLI** with your credentials
-3. **Clone the repository** and navigate to Session 8
-4. **Start with [Installation & Workflows](./02_installation_workflows/)** - Learn the basics
-5. **Progress through each module** at your own pace
-
-### **Getting Help:**
-- Check each module's README for detailed instructions
-- All code examples are in separate files for easy testing
-- Each section includes troubleshooting guides
-- Follow the progressive learning path for best results
-
----
-
 <div align="center">
 
-### 🚀 **Start Your Infrastructure Automation Journey**
+### 🚀 **Ready to Get Hands-On?**
 
-**Begin Here: [02 Installation & Workflows](./02_installation_workflows/README.md)**
+**Start Here: [02 Installation & Workflows](./02_installation_workflows/README.md)**
 
-*Transform your infrastructure management with Terraform!*
+*From theory to practice - build your first infrastructure with code!*
 
 </div>
