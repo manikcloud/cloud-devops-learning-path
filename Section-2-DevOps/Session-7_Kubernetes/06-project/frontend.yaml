@@ -1,0 +1,223 @@
+# React Frontend for Todo App
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-frontend
+  labels:
+    app: todo-frontend
+    project: todo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-frontend
+  template:
+    metadata:
+      labels:
+        app: todo-frontend
+        project: todo-app
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: frontend-content
+          mountPath: /usr/share/nginx/html
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: frontend-content
+        configMap:
+          name: frontend-content
+      - name: nginx-config
+        configMap:
+          name: frontend-nginx-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-content
+  labels:
+    app: todo-frontend
+    project: todo-app
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Todo App - Kubernetes Demo</title>
+        <style>
+            body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+            .header { text-align: center; color: #333; }
+            .todo-form { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+            .todo-list { margin: 20px 0; }
+            .todo-item { padding: 10px; margin: 5px 0; border: 1px solid #eee; border-radius: 3px; }
+            .completed { text-decoration: line-through; color: #888; }
+            input[type="text"] { width: 70%; padding: 8px; margin-right: 10px; }
+            button { padding: 8px 15px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+            button:hover { background: #0056b3; }
+            .status { margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 5px; }
+            .kubernetes-info { background: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>🚀 Todo App on Kubernetes</h1>
+            <p>A simple todo application demonstrating Kubernetes concepts</p>
+        </div>
+        
+        <div class="kubernetes-info">
+            <h3>🎯 Kubernetes Features Demonstrated:</h3>
+            <ul>
+                <li>✅ Multi-service architecture (Frontend + API + Database)</li>
+                <li>✅ Service discovery and networking</li>
+                <li>✅ Scaling and load balancing</li>
+                <li>✅ Health checks and self-healing</li>
+                <li>✅ Rolling updates and rollbacks</li>
+            </ul>
+        </div>
+        
+        <div class="todo-form">
+            <h3>Add New Todo</h3>
+            <input type="text" id="todoInput" placeholder="Enter a new todo..." />
+            <button onclick="addTodo()">Add Todo</button>
+        </div>
+        
+        <div class="todo-list">
+            <h3>Your Todos</h3>
+            <div id="todos">
+                <div class="todo-item">
+                    <input type="checkbox" onchange="toggleTodo(1)"> 
+                    <span>Learn Kubernetes basics</span>
+                    <button onclick="deleteTodo(1)" style="float: right; background: #dc3545;">Delete</button>
+                </div>
+                <div class="todo-item">
+                    <input type="checkbox" checked onchange="toggleTodo(2)"> 
+                    <span class="completed">Deploy application on Kubernetes</span>
+                    <button onclick="deleteTodo(2)" style="float: right; background: #dc3545;">Delete</button>
+                </div>
+                <div class="todo-item">
+                    <input type="checkbox" onchange="toggleTodo(3)"> 
+                    <span>Scale application to handle more users</span>
+                    <button onclick="deleteTodo(3)" style="float: right; background: #dc3545;">Delete</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status">
+            <h3>📊 Application Status</h3>
+            <p><strong>Frontend:</strong> <span id="frontendStatus">✅ Running</span></p>
+            <p><strong>API:</strong> <span id="apiStatus">⏳ Checking...</span></p>
+            <p><strong>Database:</strong> <span id="dbStatus">⏳ Checking...</span></p>
+        </div>
+        
+        <div class="kubernetes-info">
+            <h3>🔧 Try These Commands:</h3>
+            <pre>
+    # Check all components
+    kubectl get all -l project=todo-app
+    
+    # Scale frontend
+    kubectl scale deployment todo-frontend --replicas=3
+    
+    # Update API
+    kubectl set image deployment/todo-api api=nginx:1.21
+    
+    # Check logs
+    kubectl logs -l app=todo-api
+            </pre>
+        </div>
+        
+        <script>
+            // Simple JavaScript for demo purposes
+            function addTodo() {
+                const input = document.getElementById('todoInput');
+                if (input.value.trim()) {
+                    alert('Todo added: ' + input.value + '\n(In a real app, this would call the API)');
+                    input.value = '';
+                }
+            }
+            
+            function toggleTodo(id) {
+                alert('Todo ' + id + ' toggled\n(In a real app, this would call the API)');
+            }
+            
+            function deleteTodo(id) {
+                if (confirm('Delete this todo?')) {
+                    alert('Todo ' + id + ' deleted\n(In a real app, this would call the API)');
+                }
+            }
+            
+            // Check API status
+            function checkApiStatus() {
+                fetch('/api/health')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('apiStatus').innerHTML = '✅ Connected';
+                    })
+                    .catch(error => {
+                        document.getElementById('apiStatus').innerHTML = '❌ Disconnected';
+                    });
+            }
+            
+            // Check status on load
+            setTimeout(checkApiStatus, 1000);
+        </script>
+    </body>
+    </html>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-nginx-config
+  labels:
+    app: todo-frontend
+    project: todo-app
+data:
+  default.conf: |
+    server {
+        listen 80;
+        location / {
+            root /usr/share/nginx/html;
+            index index.html;
+            try_files $uri $uri/ /index.html;
+        }
+        location /api/ {
+            proxy_pass http://todo-api:3000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-frontend
+  labels:
+    app: todo-frontend
+    project: todo-app
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+  selector:
+    app: todo-frontend
