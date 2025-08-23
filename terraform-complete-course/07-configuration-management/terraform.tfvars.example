@@ -1,0 +1,8 @@
+# Example terraform.tfvars file
+# Copy this to terraform.tfvars and customize
+
+aws_region    = "us-west-2"
+project_name  = "my-web-app"
+environment   = "dev"
+instance_type = "t2.micro"
+enable_ssh    = true

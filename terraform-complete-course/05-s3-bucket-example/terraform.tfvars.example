@@ -1,0 +1,35 @@
+# ============================================================================
+# EXAMPLE TERRAFORM VARIABLES FILE
+# Copy this file to terraform.tfvars and customize the values
+# ============================================================================
+
+# AWS Region - Choose the region closest to you or your users
+aws_region = "us-west-2"  # Options: us-east-1, us-west-2, eu-west-1, ap-southeast-1, etc.
+
+# Environment - Helps organize resources and apply appropriate configurations
+environment = "dev"  # Options: dev, staging, prod
+
+# Bucket prefix - Will be combined with random suffix for global uniqueness
+bucket_prefix = "my-terraform-demo"  # Must be lowercase, 3-50 characters
+
+# Enable versioning - Keeps multiple versions of objects
+enable_versioning = true  # Options: true, false
+
+# Additional tags - Add custom tags to all resources
+additional_tags = {
+  Owner       = "your-name"
+  Project     = "terraform-learning"
+  CostCenter  = "education"
+  Department  = "engineering"
+}
+
+# ============================================================================
+# USAGE INSTRUCTIONS:
+# 
+# 1. Copy this file: cp terraform.tfvars.example terraform.tfvars
+# 2. Edit terraform.tfvars with your preferred values
+# 3. Run: terraform plan -var-file="terraform.tfvars"
+# 4. Apply: terraform apply -var-file="terraform.tfvars"
+#
+# Note: terraform.tfvars is automatically loaded by Terraform
+# ============================================================================
