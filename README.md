@@ -257,6 +257,9 @@ git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 # Navigate to the project directory
 cd cloud-devops-learning-path
 
+# Clone Kubernetes setup materials
+git clone https://github.com/manikcloud/cloud-devops-learning-path/tree/main/Section-2-DevOps/Session-7_Kubernetes/01-setup
+
 # Navigate to Kubernetes setup directory
 cd Section-2-DevOps/Session-7_Kubernetes/01-setup
 
