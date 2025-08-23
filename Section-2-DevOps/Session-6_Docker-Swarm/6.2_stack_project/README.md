@@ -135,6 +135,21 @@ Docker Stack is like a recipe that tells Docker Swarm how to run multiple contai
 - ✅ **Load Balancing**: Automatically spreads traffic across containers
 - ✅ **Service Discovery**: Containers can find each other by name
 
+### **🔄 Docker Stack vs Docker Service - Simple Comparison:**
+
+| Feature | Docker Service | Docker Stack |
+|---------|---------------|--------------|
+| **What it manages** | Single service (like just Flask) | Multiple services (Flask + Redis) |
+| **Command to create** | `docker service create` | `docker stack deploy` |
+| **Configuration** | Command line options | YAML file (docker-compose.yml) |
+| **Best for** | Simple single-container apps | Complex multi-container apps |
+| **Example** | Just a web server | Web server + database + cache |
+| **Management** | Manage each service separately | Manage all services together |
+
+**Simple analogy:**
+- **Docker Service** = Managing one employee
+- **Docker Stack** = Managing an entire team that works together
+
 ### **Our Project Goal:**
 Build a simple web application that:
 1. **Shows a webpage** with a visit counter
