@@ -346,65 +346,6 @@ networks:
 
 ---
 
-## 🔍 **Troubleshooting Guide**
-
-### **Services Not Starting:**
-```bash
-# Check service status
-docker stack services mystack
-
-# If replicas show 0/3 or 0/1:
-docker service logs mystack_web
-docker service logs mystack_redis
-
-# Check node resources
-docker node ls
-free -h
-df -h
-```
-
-### **Application Not Accessible:**
-```bash
-# Verify port binding
-docker service inspect mystack_web | grep -A 5 "PublishedPorts"
-
-# Check if services are running
-docker service ps mystack_web
-docker service ps mystack_redis
-
-# Test internal connectivity
-docker exec -it $(docker ps -q -f name=mystack_web) curl http://localhost:8000
-```
-
-### **Counter Not Incrementing:**
-```bash
-# Check Redis connectivity
-docker service logs mystack_redis
-
-# Test Redis from Flask container
-docker exec -it $(docker ps -q -f name=mystack_web) redis-cli -h redis ping
-
-# Verify network connectivity
-docker network ls | grep mystack
-docker network inspect mystack_webnet
-```
-
-### **Performance Issues:**
-```bash
-# Check resource usage
-docker stats
-
-# Monitor service performance
-docker service ps mystack_web
-docker service ps mystack_redis
-
-# Check system resources
-top
-iostat 1 5
-```
-
----
-
 ## 📁 **Project Structure**
 
 ```
@@ -413,7 +354,7 @@ iostat 1 5
 ├── requirements.txt      # Python dependencies (flask==2.0.1, redis==3.5.3)
 ├── Dockerfile           # Multi-stage Flask container build
 ├── docker-compose.yml   # Complete stack definition
-└── README.md           # This comprehensive guide
+└── README.md           # This guide
 ```
 
 ### **Application Code Overview:**
