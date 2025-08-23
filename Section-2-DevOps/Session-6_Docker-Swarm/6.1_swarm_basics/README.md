@@ -38,7 +38,7 @@ graph TB
         end
         
         subgraph "Load Balancer"
-            LB[Built-in Load Balancer<br/>Port 8090]
+            LB[Built-in Load Balancer<br/>Port 9090]
         end
         
         M1 --> S1
@@ -136,7 +136,7 @@ docker images | grep hello-swarm
 # Deploy service with 3 replicas
 docker service create \
   --name web \
-  --publish 8090:80 \
+  --publish 9090:80 \
   --replicas 3 \
   hello-swarm
 
@@ -161,9 +161,9 @@ docker service ps web
 
 ```bash
 # Test with curl
-curl http://localhost:8090
+curl http://localhost:9090
 
-# Or open in browser: http://<manager-public-ip>:8090
+# Or open in browser: http://<manager-public-ip>:9090
 # You should see an interactive page with color-changing buttons
 ```
 
@@ -173,14 +173,14 @@ curl http://localhost:8090
 
 ### **Browser Test - See Container IDs:**
 ```bash
-# 1. Open in browser: http://<your-server-ip>:8090
+# 1. Open in browser: http://<your-server-ip>:9090
 # 2. Refresh the page multiple times
 # 3. Notice different Container IDs appear - this proves load balancing!
 
 # Or test with curl to see container IDs:
 for i in {1..10}; do 
   echo "Request $i:"
-  curl -s http://localhost:8090 | grep -o '[a-f0-9]\{12\}'
+  curl -s http://localhost:9090 | grep -o '[a-f0-9]\{12\}'
 done
 
 # You should see different container IDs, proving load balancing works
