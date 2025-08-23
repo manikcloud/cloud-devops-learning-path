@@ -1,298 +1,489 @@
-# 🐝 Docker Stack Project - Flask + Redis Demo
+# 🐝 6.2 Docker Stack Project - Flask + Redis Demo
 
-## 📖 What is Docker Stack?
+<div align="center">
 
-Docker Stack deploys multiple services together using a single docker-compose.yml file in Docker Swarm mode.
+![Docker Stack](https://img.shields.io/badge/Docker-Stack-blue?style=for-the-badge&logo=docker&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-Web_App-green?style=for-the-badge&logo=flask&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-Database-red?style=for-the-badge&logo=redis&logoColor=white)
 
-**Stack = Multiple Services Working Together**
+**🎯 Multi-Service Stack | 🚀 Flask + Redis | 📊 Production Deployment**
 
-This demo shows a Flask web app that counts visits using Redis database.
-
----
-
-## 🏗️ Stack Architecture Overview
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                        🐝 DOCKER STACK ARCHITECTURE                        │
-└─────────────────────────────────────────────────────────────────────────────┘
-
-                            🌐 External Traffic
-                                    │
-                                    │ Port 8000
-                                    ▼
-                        ┌─────────────────────────┐
-                        │    🔄 LOAD BALANCER     │
-                        │   (Built-in Swarm)     │
-                        └─────────────────────────┘
-                                    │
-                    ┌───────────────┼───────────────┐
-                    │               │               │
-                    ▼               ▼               ▼
-            ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-            │ 🐍 Flask-1  │ │ 🐍 Flask-2  │ │ 🐍 Flask-3  │
-            │   Web App   │ │   Web App   │ │   Web App   │
-            │ Port: 8000  │ │ Port: 8000  │ │ Port: 8000  │
-            └─────────────┘ └─────────────┘ └─────────────┘
-                    │               │               │
-                    └───────────────┼───────────────┘
-                                    │
-                            📡 Overlay Network
-                            (webnet - encrypted)
-                                    │
-                                    ▼
-                        ┌─────────────────────────┐
-                        │    🗄️ REDIS DATABASE    │
-                        │     (Single Instance)   │
-                        │   • Visit Counter       │
-                        │   • In-Memory Storage   │
-                        │   • Persistent Data     │
-                        └─────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                            📋 SERVICE DETAILS                              │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  🐍 Web Service (mystack_web):                                             │
-│     • Image: stackdemo (custom Flask app)                                  │
-│     • Replicas: 3 (High Availability)                                      │
-│     • Port: 8000:8000 (External access)                                    │
-│     • Network: webnet (Overlay)                                            │
-│     • Dependencies: redis                                                   │
-│                                                                             │
-│  🗄️ Redis Service (mystack_redis):                                         │
-│     • Image: redis:alpine (Official Redis)                                 │
-│     • Replicas: 1 (Single instance)                                        │
-│     • Network: webnet (Overlay)                                            │
-│     • Storage: In-memory + persistence                                     │
-└─────────────────────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  🎯 Benefits: Load Balancing | 🔄 Auto-Scaling | 🛡️ High Availability      │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
-
-*Complete Docker Stack showing Flask web application with Redis backend and built-in load balancing*
+</div>
 
 ---
 
-## 🚀 Step-by-Step Guide
+## 📋 **What You'll Build**
 
-### **Step 1: Prerequisites**
+A production-ready multi-service application featuring:
+- ✅ **Flask web application** with visit counter
+- ✅ **Redis database** for data persistence
+- ✅ **Load balancing** across multiple Flask replicas
+- ✅ **Service discovery** and inter-service communication
+- ✅ **Overlay networking** for secure communication
+
+---
+
+## 🏗️ **Stack Architecture**
+
+### **Complete Application Flow:**
+
+```mermaid
+graph TB
+    subgraph "🌐 External Access"
+        U[User Browser<br/>Port 8000]
+    end
+    
+    subgraph "🐝 Docker Swarm Cluster"
+        subgraph "Load Balancer"
+            LB[Swarm Load Balancer<br/>Port 8000]
+        end
+        
+        subgraph "Flask Web Service (3 replicas)"
+            F1[Flask App 1<br/>Container]
+            F2[Flask App 2<br/>Container]
+            F3[Flask App 3<br/>Container]
+        end
+        
+        subgraph "Redis Database Service"
+            R1[Redis Database<br/>Single Instance]
+        end
+        
+        subgraph "Overlay Network (webnet)"
+            N1[Encrypted Communication]
+        end
+    end
+    
+    U --> LB
+    LB --> F1
+    LB --> F2
+    LB --> F3
+    
+    F1 -.->|redis:6379| R1
+    F2 -.->|redis:6379| R1
+    F3 -.->|redis:6379| R1
+    
+    F1 --- N1
+    F2 --- N1
+    F3 --- N1
+    R1 --- N1
+```
+
+### **Service Communication Flow:**
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant LoadBalancer
+    participant Flask1
+    participant Flask2
+    participant Flask3
+    participant Redis
+    
+    User->>LoadBalancer: GET /
+    LoadBalancer->>Flask1: Route request
+    Flask1->>Redis: GET visit_count
+    Redis-->>Flask1: Return count: 5
+    Flask1->>Redis: INCR visit_count
+    Redis-->>Flask1: New count: 6
+    Flask1-->>LoadBalancer: "Hello World! I have been seen 6 times."
+    LoadBalancer-->>User: Response
+    
+    Note over Flask1,Flask3: All Flask replicas share same Redis data
+    Note over Redis: Persistent visit counter across all requests
+```
+
+### **Docker Stack Components:**
+
+```mermaid
+graph LR
+    subgraph "Docker Stack: mystack"
+        subgraph "Services"
+            WS[Web Service<br/>mystack_web]
+            RS[Redis Service<br/>mystack_redis]
+        end
+        
+        subgraph "Networks"
+            ON[Overlay Network<br/>webnet]
+        end
+        
+        subgraph "Images"
+            SI[stackdemo<br/>Custom Flask]
+            RI[redis:alpine<br/>Official Redis]
+        end
+    end
+    
+    WS --> SI
+    RS --> RI
+    WS --- ON
+    RS --- ON
+```
+
+---
+
+## 🚀 **Step-by-Step Deployment**
+
+### **Prerequisites:**
 ```bash
-# Ensure Docker is installed and running
-docker --version
-
-# Initialize Docker Swarm (if not already done)
+# Ensure Docker Swarm is initialized
 docker swarm init
 
 # Verify swarm mode
 docker node ls
 ```
 
-### **Step 2: Clone Repository**
+### **Step 1: Get Project Files**
+
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 
-# Navigate to project directory
+# Navigate to stack project
 cd cloud-devops-learning-path/Section-2-DevOps/Session-6_Docker-Swarm/6.2_stack_project
 
-# List project files
+# Check project structure
 ls -la
+# Expected: app.py, requirements.txt, Dockerfile, docker-compose.yml, README.md
 ```
 
-### **Step 3: Build Flask Application Image**
+### **Step 2: Build Flask Application**
+
 ```bash
 # Build the Flask app image
 docker build -t stackdemo .
 
-# Verify image is created
+# Verify image creation
 docker images | grep stackdemo
+
+# Expected output:
+# stackdemo    latest    abc123def456    2 minutes ago    200MB
 ```
 
-### **Step 4: Deploy the Stack**
+### **Step 3: Deploy Complete Stack**
+
 ```bash
-# Deploy the complete stack (Flask + Redis)
+# Deploy Flask + Redis stack
 docker stack deploy -c docker-compose.yml mystack
 
-# Wait for deployment (30-60 seconds)
-sleep 30
+# Wait for services to start (30-60 seconds)
+echo "Waiting for services to start..."
+sleep 45
 ```
 
-### **Step 5: Verify Deployment**
+### **Step 4: Verify Stack Deployment**
+
 ```bash
 # Check stack status
 docker stack ls
 
-# Check services in the stack
+# Expected output:
+# NAME      SERVICES   ORCHESTRATOR
+# mystack   2          Swarm
+
+# Check individual services
 docker stack services mystack
 
-# Check individual service containers
-docker service ps mystack_web
-docker service ps mystack_redis
+# Expected output:
+# ID        NAME           MODE         REPLICAS   IMAGE           PORTS
+# abc123    mystack_redis  replicated   1/1        redis:alpine    
+# def456    mystack_web    replicated   3/3        stackdemo       *:8000->8000/tcp
 ```
 
-### **Step 6: Test the Application**
+### **Step 5: Test Application Functionality**
+
 ```bash
-# Test the visit counter (should show: Hello World! I have been seen 1 times.)
+# Test visit counter (first visit)
 curl http://localhost:8000
+# Expected: "Hello World! I have been seen 1 times."
 
 # Test again (counter should increment)
 curl http://localhost:8000
+# Expected: "Hello World! I have been seen 2 times."
 
-# Test multiple times to see counter increase
-for i in {1..5}; do curl http://localhost:8000; done
+# Test multiple times to verify persistence
+for i in {1..5}; do 
+  echo "Visit $i: $(curl -s http://localhost:8000)"
+done
 ```
 
 ---
 
-## 🎯 Expected Application Outcomes
+## 📊 **Application Testing & Verification**
 
-### **✅ Successful Deployment Indicators:**
-
-#### **1. Stack Status:**
+### **Load Balancing Test:**
 ```bash
-$ docker stack ls
-NAME      SERVICES   ORCHESTRATOR
-mystack   2          Swarm
+# Test load balancing across Flask replicas
+echo "Testing load balancing..."
+for i in {1..10}; do
+  response=$(curl -s http://localhost:8000)
+  echo "Request $i: $response"
+  sleep 1
+done
+
+# All requests should increment the same counter (shared Redis data)
+# Traffic should be distributed across 3 Flask containers
 ```
 
-#### **2. Service Status:**
+### **Service Discovery Test:**
 ```bash
-$ docker stack services mystack
-ID             NAME           MODE         REPLICAS   IMAGE           PORTS
-abc123def456   mystack_redis  replicated   1/1        redis:alpine    
-xyz789uvw012   mystack_web    replicated   3/3        stackdemo       *:8000->8000/tcp
+# Check if Flask can reach Redis by hostname
+docker exec -it $(docker ps -q -f name=mystack_web) ping redis
+
+# Test Redis connectivity from Flask container
+docker exec -it $(docker ps -q -f name=mystack_web) nc -zv redis 6379
 ```
 
-#### **3. Application Response:**
+### **High Availability Test:**
 ```bash
-$ curl http://localhost:8000
-Hello World! I have been seen 1 times.
+# Remove one Flask container (simulate failure)
+flask_container=$(docker ps -q -f name=mystack_web | head -1)
+docker container rm -f $flask_container
 
-$ curl http://localhost:8000
-Hello World! I have been seen 2 times.
+# Check if Swarm recreates the container
+sleep 10
+docker service ps mystack_web
 
-$ curl http://localhost:8000
-Hello World! I have been seen 3 times.
+# Test if application still works
+curl http://localhost:8000
+# Should still work with remaining containers
 ```
-
-### **🔍 What Each Test Demonstrates:**
-
-#### **Service Communication:**
-- Flask app successfully connects to Redis using hostname `redis`
-- Data persists across requests (counter increments)
-
-#### **Load Balancing:**
-- 3 Flask replicas handle requests
-- Traffic distributed across containers
-- All replicas share same Redis data
-
-#### **High Availability:**
-- If one Flask container fails, others continue serving
-- Redis maintains state across Flask container restarts
 
 ---
 
-## 🔧 Stack Management Commands
+## 🔧 **Stack Management Operations**
 
 ### **Scaling Services:**
 ```bash
-# Scale web service to 5 replicas
+# Scale Flask web service to 5 replicas
 docker service scale mystack_web=5
 
 # Verify scaling
 docker service ps mystack_web
 
-# Test load balancing with more replicas
-for i in {1..10}; do curl http://localhost:8000; done
+# Test with increased load
+for i in {1..20}; do curl -s http://localhost:8000 & done
+wait
 ```
 
-### **Monitoring:**
+### **Service Updates:**
 ```bash
-# View service logs
+# Update Flask service (zero-downtime deployment)
+docker service update --image stackdemo:v2 mystack_web
+
+# Monitor update progress
+docker service ps mystack_web
+
+# Rollback if needed
+docker service rollback mystack_web
+```
+
+### **Monitoring & Logs:**
+```bash
+# View Flask service logs
 docker service logs mystack_web
+
+# View Redis service logs
 docker service logs mystack_redis
 
-# Monitor real-time logs
+# Follow logs in real-time
 docker service logs -f mystack_web
-```
 
-### **Cleanup:**
-```bash
-# Remove the entire stack
-docker stack rm mystack
-
-# Verify removal
-docker stack ls
-
-# Remove the custom image (optional)
-docker rmi stackdemo
+# Check service resource usage
+docker stats $(docker ps -q -f name=mystack)
 ```
 
 ---
 
-## 📋 Troubleshooting
+## 📋 **Docker Compose Configuration**
 
-### **Common Issues & Solutions:**
+### **Stack Definition (docker-compose.yml):**
+```yaml
+version: '3.8'
 
-#### **Services not starting (0/1 or 0/3 replicas):**
+services:
+  redis:
+    image: redis:alpine
+    networks:
+      - webnet
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
+  web:
+    image: stackdemo
+    depends_on:
+      - redis
+    ports:
+      - "8000:8000"
+    networks:
+      - webnet
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  webnet:
+    driver: overlay
+```
+
+### **Key Configuration Features:**
+- **Overlay Network:** Secure multi-host networking
+- **Service Dependencies:** Web service waits for Redis
+- **Placement Constraints:** Redis runs on manager node
+- **Update Strategy:** Rolling updates with zero downtime
+- **Restart Policy:** Automatic recovery on failure
+
+---
+
+## 🔍 **Troubleshooting Guide**
+
+### **Services Not Starting:**
 ```bash
-# Check service logs for errors
+# Check service status
+docker stack services mystack
+
+# If replicas show 0/3 or 0/1:
 docker service logs mystack_web
 docker service logs mystack_redis
 
 # Check node resources
 docker node ls
 free -h
+df -h
 ```
 
-#### **Application not accessible:**
+### **Application Not Accessible:**
 ```bash
-# Verify services are running
-docker stack services mystack
+# Verify port binding
+docker service inspect mystack_web | grep -A 5 "PublishedPorts"
 
-# Check if ports are bound
-netstat -tlnp | grep 8000
+# Check if services are running
+docker service ps mystack_web
+docker service ps mystack_redis
 
-# Test from inside swarm network
-docker exec -it $(docker ps -q -f name=mystack_web) curl http://redis:6379
+# Test internal connectivity
+docker exec -it $(docker ps -q -f name=mystack_web) curl http://localhost:8000
 ```
 
-#### **Counter not incrementing:**
+### **Counter Not Incrementing:**
 ```bash
 # Check Redis connectivity
 docker service logs mystack_redis
 
+# Test Redis from Flask container
+docker exec -it $(docker ps -q -f name=mystack_web) redis-cli -h redis ping
+
 # Verify network connectivity
 docker network ls | grep mystack
+docker network inspect mystack_webnet
+```
+
+### **Performance Issues:**
+```bash
+# Check resource usage
+docker stats
+
+# Monitor service performance
+docker service ps mystack_web
+docker service ps mystack_redis
+
+# Check system resources
+top
+iostat 1 5
 ```
 
 ---
 
-## 📁 Project Structure
+## 📁 **Project Structure**
 
 ```
 6.2_stack_project/
-├── app.py                # Flask application with Redis counter
-├── requirements.txt      # Python dependencies (flask, redis)
-├── Dockerfile           # Flask container definition
-├── docker-compose.yml   # Stack definition (Flask + Redis)
+├── app.py                # Flask application with Redis integration
+├── requirements.txt      # Python dependencies (flask==2.0.1, redis==3.5.3)
+├── Dockerfile           # Multi-stage Flask container build
+├── docker-compose.yml   # Complete stack definition
 └── README.md           # This comprehensive guide
+```
+
+### **Application Code Overview:**
+
+**app.py - Flask Application:**
+```python
+from flask import Flask
+from redis import Redis
+import os
+
+app = Flask(__name__)
+redis = Redis(host='redis', port=6379)
+
+@app.route('/')
+def hello():
+    count = redis.incr('hits')
+    return f'Hello World! I have been seen {count} times.\n'
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000, debug=True)
+```
+
+**Key Features:**
+- Connects to Redis using service name `redis`
+- Increments visit counter on each request
+- Returns formatted response with visit count
+
+---
+
+## 🎓 **Learning Outcomes**
+
+### **Technical Skills Mastered:**
+- ✅ **Multi-Service Deployment** - Deploy interconnected services
+- ✅ **Service Discovery** - Container communication by service name
+- ✅ **Overlay Networking** - Secure multi-host container networking
+- ✅ **Load Balancing** - Distribute traffic across service replicas
+- ✅ **Data Persistence** - Maintain state across container restarts
+- ✅ **Rolling Updates** - Zero-downtime application updates
+
+### **Production Concepts:**
+- ✅ **Stack Management** - Manage multi-service applications as units
+- ✅ **Service Dependencies** - Handle service startup order
+- ✅ **High Availability** - Design fault-tolerant applications
+- ✅ **Monitoring & Logging** - Track application health and performance
+
+---
+
+## 🧹 **Cleanup**
+
+```bash
+# Remove the entire stack
+docker stack rm mystack
+
+# Verify stack removal
+docker stack ls
+
+# Remove custom images (optional)
+docker rmi stackdemo
+
+# Remove unused networks
+docker network prune -f
+
+# Verify cleanup
+docker service ls
+docker network ls
 ```
 
 ---
 
-## 🎓 Learning Outcomes
+<div align="center">
 
-After completing this demo, you will understand:
+### 🎯 **Congratulations!**
 
-- **Docker Stack Deployment** - How to deploy multi-service applications
-- **Service Discovery** - How containers communicate by service name
-- **Load Balancing** - How traffic distributes across replicas
-- **Data Persistence** - How services share data through databases
-- **Container Orchestration** - Managing multiple containers as a unit
+You've successfully deployed a production-ready multi-service application using Docker Stack!
 
----
+**Next Steps:** Explore Kubernetes or advanced Docker Swarm features
 
-*Complete Flask + Redis Docker Stack demonstration!* 🚀
+*Master container orchestration with real-world applications!*
+
+</div>

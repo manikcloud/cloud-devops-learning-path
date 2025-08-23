@@ -1,147 +1,388 @@
-# 🐝 Docker Swarm Basics & Project
+# 🐝 6.1 Docker Swarm Basics & Web Project
 
-## 📋 Essential Commands
+<div align="center">
 
-### **Initialize Swarm (Multi-Node)**
-```bash
-# On Manager Node (EC2-1)
-docker swarm init
+![Docker Swarm](https://img.shields.io/badge/Docker-Swarm_Basics-blue?style=for-the-badge&logo=docker&logoColor=white)
+![Web Project](https://img.shields.io/badge/Project-Interactive_Web-green?style=for-the-badge&logo=html5&logoColor=white)
 
-# Get worker join token
-docker swarm join-token worker
+**🎯 Learn Swarm Fundamentals | 🚀 Build Interactive Web App | 📊 Multi-Node Deployment**
 
-# On Worker Node (EC2-2) - use token from above
-docker swarm join --token <token> <manager-private-ip>:2377
+</div>
 
-# Verify nodes (on manager)
-docker node ls
+---
+
+## 📋 **What You'll Build**
+
+An interactive color-changing web application deployed across multiple Docker Swarm nodes with:
+- ✅ **Multi-node cluster** setup
+- ✅ **Load balancing** across replicas
+- ✅ **Service scaling** capabilities
+- ✅ **Interactive web interface** with color buttons
+
+---
+
+## 🏗️ **Project Architecture**
+
+### **Swarm Cluster Setup:**
+
+```mermaid
+graph TB
+    subgraph "🐝 Docker Swarm Cluster"
+        subgraph "Manager Node (EC2-1)"
+            M1[Manager<br/>🎯 Controls Cluster]
+            S1[Service: hello-swarm<br/>Replicas: 3]
+        end
+        
+        subgraph "Worker Node (EC2-2)"
+            W1[Worker<br/>🔧 Runs Tasks]
+        end
+        
+        subgraph "Load Balancer"
+            LB[Built-in Load Balancer<br/>Port 8080]
+        end
+        
+        M1 --> S1
+        M1 -.->|Orchestrates| W1
+        S1 --> LB
+        LB --> C1[Container 1]
+        LB --> C2[Container 2] 
+        LB --> C3[Container 3]
+    end
+    
+    U[User Browser] --> LB
 ```
 
-### **Service Management**
-```bash
-# Create service
-docker service create --name web --publish 8080:80 --replicas 3 nginx
+### **Service Distribution:**
 
-# List services
-docker service ls
-
-# Check service details
-docker service ps web
-
-# Scale service
-docker service scale web=5
-
-# Update service
-docker service update --image nginx:alpine web
-
-# Remove service
-docker service rm web
+```mermaid
+graph LR
+    subgraph "Service Deployment Flow"
+        A[docker service create] --> B[Swarm Manager]
+        B --> C[Task Scheduler]
+        C --> D[Node Selection]
+        D --> E[Container Creation]
+        
+        E --> F[Manager Node<br/>Container 1]
+        E --> G[Manager Node<br/>Container 2]
+        E --> H[Worker Node<br/>Container 3]
+    end
 ```
 
 ---
 
-## 🚀 Simple Web Project
+## 🚀 **Step-by-Step Guide**
 
-### **Step 1: Clone Repository**
+### **Prerequisites Setup:**
 ```bash
-# Clone the repository
+# Ensure you have 2 EC2 instances with Docker installed
+# Security Group: Allow all traffic between instances
+```
+
+### **Step 1: Initialize Swarm Cluster**
+
+**On Manager Node (EC2-1):**
+```bash
+# Initialize swarm
+docker swarm init
+
+# Get worker join token (save this output)
+docker swarm join-token worker
+```
+
+**On Worker Node (EC2-2):**
+```bash
+# Join the swarm (use token from above)
+docker swarm join --token SWMTKN-1-xxxxx <manager-private-ip>:2377
+```
+
+**Verify Cluster (on Manager):**
+```bash
+# Check nodes
+docker node ls
+
+# Expected output:
+# ID            HOSTNAME   STATUS    AVAILABILITY   MANAGER STATUS
+# abc123*       manager    Ready     Active         Leader
+# def456        worker     Ready     Active
+```
+
+### **Step 2: Get Project Files**
+
+```bash
+# Clone repository
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 
 # Navigate to project
 cd cloud-devops-learning-path/Section-2-DevOps/Session-6_Docker-Swarm/6.1_swarm_basics
 
-# Check files
+# Check project files
 ls -la
+# Expected: index.html, Dockerfile, README.md
 ```
 
-### **Step 2: Build Docker Image**
+### **Step 3: Build Application Image**
+
 ```bash
-# Build image
+# Build the interactive web app image
 docker build -t hello-swarm .
 
-# Verify image
+# Verify image creation
 docker images | grep hello-swarm
 ```
 
-### **Step 3: Initialize Swarm**
-```bash
-# Initialize swarm
-docker swarm init
+### **Step 4: Deploy Service Across Cluster**
 
-# Check nodes
-docker node ls
-```
-
-### **Step 4: Deploy Service**
 ```bash
 # Deploy service with 3 replicas
-docker service create --name web --publish 8080:80 --replicas 3 hello-swarm
+docker service create \
+  --name web \
+  --publish 8080:80 \
+  --replicas 3 \
+  hello-swarm
 
-# Check service
+# Check service status
 docker service ls
-docker service ps web
 ```
 
-### **Step 5: Test Application**
+### **Step 5: Verify Deployment**
+
+```bash
+# Check service details
+docker service ps web
+
+# Expected output shows containers distributed across nodes:
+# ID       NAME    IMAGE        NODE      DESIRED STATE   CURRENT STATE
+# abc123   web.1   hello-swarm  manager   Running         Running 1 minute ago
+# def456   web.2   hello-swarm  worker    Running         Running 1 minute ago
+# ghi789   web.3   hello-swarm  manager   Running         Running 1 minute ago
+```
+
+### **Step 6: Test Interactive Application**
+
 ```bash
 # Test with curl
 curl http://localhost:8080
 
-# Or open in browser: http://localhost:8080
+# Or open in browser: http://<manager-public-ip>:8080
+# You should see an interactive page with color-changing buttons
 ```
 
-### **Step 6: Scale and Test**
+---
+
+## 🎯 **Interactive Features Testing**
+
+### **Load Balancing Test:**
 ```bash
-# Scale up
+# Test multiple requests to see load balancing
+for i in {1..10}; do 
+  echo "Request $i:"
+  curl -s http://localhost:8080 | grep -o "Container ID: [a-z0-9]*"
+done
+
+# You should see different container IDs, proving load balancing works
+```
+
+### **Scaling Test:**
+```bash
+# Scale up to 5 replicas
 docker service scale web=5
 
 # Check distribution
 docker service ps web
 
-# Test load balancing
-for i in {1..10}; do curl -s http://localhost:8080 | grep "Docker Swarm"; done
+# Scale down to 2 replicas
+docker service scale web=2
+
+# Verify scaling
+docker service ps web
+```
+
+### **High Availability Test:**
+```bash
+# Find a container ID
+docker service ps web
+
+# Remove a container (simulate failure)
+docker container rm -f <container-id>
+
+# Check if Swarm recreates it automatically
+docker service ps web
+
+# The service should maintain desired replica count
 ```
 
 ---
 
-## 🔍 Troubleshooting
+## 📊 **Essential Swarm Commands**
 
+### **Cluster Management:**
 ```bash
-# If join fails:
+# Initialize swarm
+docker swarm init
+
+# Join as worker
+docker swarm join --token <token> <manager-ip>:2377
+
+# List nodes
+docker node ls
+
+# Leave swarm
+docker swarm leave --force
+```
+
+### **Service Management:**
+```bash
+# Create service
+docker service create --name <name> --publish <port>:<port> --replicas <count> <image>
+
+# List services
+docker service ls
+
+# Service details
+docker service ps <service-name>
+
+# Scale service
+docker service scale <service-name>=<replica-count>
+
+# Update service
+docker service update --image <new-image> <service-name>
+
+# Remove service
+docker service rm <service-name>
+```
+
+### **Monitoring Commands:**
+```bash
+# Service logs
+docker service logs <service-name>
+
+# Real-time logs
+docker service logs -f <service-name>
+
+# Node information
+docker node inspect <node-id>
+
+# Service inspection
+docker service inspect <service-name>
+```
+
+---
+
+## 🔍 **Troubleshooting Guide**
+
+### **Common Issues:**
+
+#### **Worker Node Can't Join:**
+```bash
+# Check connectivity
 ping <manager-private-ip>
+
+# Verify Docker is running
 sudo systemctl status docker
 sudo systemctl start docker
 
-# Regenerate token if needed
+# Regenerate join token
 docker swarm join-token --rotate worker
 ```
 
+#### **Service Not Starting:**
+```bash
+# Check service status
+docker service ps web
+
+# View service logs
+docker service logs web
+
+# Check node resources
+docker node ls
+free -h
+df -h
+```
+
+#### **Load Balancing Not Working:**
+```bash
+# Verify service is published correctly
+docker service inspect web | grep -A 5 "PublishedPorts"
+
+# Check if containers are running
+docker service ps web
+
+# Test from different nodes
+curl http://<manager-ip>:8080
+curl http://<worker-ip>:8080
+```
+
 ---
 
-*Simple Docker Swarm with interactive web app!* 🚀
-
----
-
-## 📁 Project Files
+## 📁 **Project Files**
 
 ```
 6.1_swarm_basics/
-├── index.html              # Simple HTML with color buttons
-├── Dockerfile              # Apache httpd container
-└── README.md              # This guide
+├── index.html              # Interactive HTML with color buttons
+├── Dockerfile              # Apache httpd container definition
+└── README.md              # This comprehensive guide
 ```
+
+### **File Contents:**
+
+**Dockerfile:**
+```dockerfile
+FROM httpd:2.4
+COPY index.html /usr/local/apache2/htdocs/
+EXPOSE 80
+```
+
+**index.html:**
+- Interactive web page with color-changing buttons
+- Shows container information
+- Demonstrates load balancing across replicas
 
 ---
 
-## 🔧 Cleanup
+## 🎓 **Learning Outcomes**
+
+After completing this project, you will understand:
+
+### **Technical Skills:**
+- ✅ **Swarm Initialization** - Set up multi-node clusters
+- ✅ **Service Deployment** - Deploy applications across nodes
+- ✅ **Load Balancing** - Distribute traffic automatically
+- ✅ **Service Scaling** - Scale applications up and down
+- ✅ **High Availability** - Handle container failures gracefully
+
+### **Practical Knowledge:**
+- ✅ **Multi-node orchestration** concepts
+- ✅ **Container distribution** strategies
+- ✅ **Service discovery** mechanisms
+- ✅ **Cluster management** best practices
+
+---
+
+## 🧹 **Cleanup**
 
 ```bash
 # Remove service
 docker service rm web
 
-# Leave swarm mode
+# Leave swarm mode (on both nodes)
 docker swarm leave --force
 
-# Remove image
+# Remove custom image
 docker rmi hello-swarm
+
+# Verify cleanup
+docker service ls
+docker node ls
 ```
+
+---
+
+<div align="center">
+
+### 🎯 **Ready for Advanced Stacks?**
+
+**Next: [6.2 Stack Project](../6.2_stack_project/README.md)**
+
+*Build multi-service applications with Flask + Redis!*
+
+</div>
