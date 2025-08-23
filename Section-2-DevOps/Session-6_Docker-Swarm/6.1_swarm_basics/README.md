@@ -176,7 +176,7 @@ curl http://localhost:8090
 # Test multiple requests to see load balancing
 for i in {1..10}; do 
   echo "Request $i:"
-  curl -s http://localhost:8090 | grep -o '[a-f0-9]\{12\}'
+  curl -s http://localhost:8080 | grep -o '[a-f0-9]\{12\}'
 done
 
 # You should see different container IDs, proving load balancing works
