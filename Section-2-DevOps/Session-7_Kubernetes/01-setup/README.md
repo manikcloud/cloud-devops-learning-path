@@ -27,220 +27,43 @@ graph LR
     style E fill:#c8e6c9
 ```
 
-**Quick and Easy Setup** 🚀
-
 ---
 
-## 📥 Get the Setup Files
+## 🚀 Quick Setup (Recommended)
 
-### **Step 0: Clone Repository & Navigate**
+### **Option A: Automated Setup Script**
 ```bash
-# Clone the repository (if you haven't already)
+# Clone repository and navigate
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-
-# Navigate to Kubernetes setup directory
 cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/01-setup
 
-# Make setup script executable
+# Run automated setup
 chmod +x quick-setup.sh
-
-# Run the automated setup
 ./quick-setup.sh
 ```
 
----
-
-## 🚀 Super Quick Install
-
-### **Step 1: Install k3s (1 minute)**
+### **Option B: Manual Installation**
 ```bash
-# Install k3s (lightweight Kubernetes)
+# Install k3s
 curl -sfL https://get.k3s.io | sh -
 
-# Wait for it to finish...
-# You'll see: [INFO] systemd: Starting k3s
-```
-
-### **Step 2: Verify It Works (1 minute)**
-```bash
-# Check the cluster is running
+# Verify installation
 sudo k3s kubectl get nodes
+# Should show: Ready status
 
-# You should see something like:
-# NAME     STATUS   ROLES                  AGE   VERSION
-# ubuntu   Ready    control-plane,master   1m    v1.28.2+k3s1
-```
-
-### **Step 3: Run Your First App (1 minute)**
-```bash
-# Create your first deployment
+# Test with first app
 sudo k3s kubectl create deployment hello --image=nginx
-
-# Check it's running
 sudo k3s kubectl get pods
+# Should show: Running status
 
-# You should see:
-# NAME                     READY   STATUS    RESTARTS   AGE
-# hello-xxxxxxxxx-xxxxx    1/1     Running   0          30s
-```
-
-### **Step 4: Access Your App (1 minute)**
-```bash
-# Expose the app so you can access it
-sudo k3s kubectl expose deployment hello --port=80 --type=NodePort
-
-# Find the port it's running on
-sudo k3s kubectl get services
-
-# Test it works
-curl http://localhost:XXXXX  # Replace XXXXX with the port number
-```
-
-### **Step 5: Celebrate! 🎉**
-```bash
-# Clean up
+# Clean up test
 sudo k3s kubectl delete deployment hello
-sudo k3s kubectl delete service hello
-
-# You now have Kubernetes running!
 ```
 
 ---
 
-## 🔧 Detailed Setup (If Quick Install Didn't Work)
+## 🎯 Understanding k3s
 
-### **Prerequisites Check**
-```bash
-# Check you have curl
-curl --version
-
-# Check you have sudo access
-sudo whoami
-# Should return: root
-
-# Check system resources
-free -h
-# Should have at least 1GB RAM available
-```
-
-### **Manual k3s Installation**
-```bash
-# Download k3s binary
-curl -Lo k3s https://github.com/k3s-io/k3s/releases/latest/download/k3s
-chmod +x k3s
-sudo mv k3s /usr/local/bin/
-
-# Start k3s server
-sudo k3s server &
-
-# Wait 30 seconds for it to start
-sleep 30
-
-# Test it works
-sudo k3s kubectl get nodes
-```
-
-### **Alternative: Using Docker (If k3s doesn't work)**
-```bash
-# Install Docker if not already installed
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-
-# Run k3s in Docker
-docker run -d --name k3s-server --privileged \
-  -p 6443:6443 -p 80:80 -p 443:443 \
-  rancher/k3s:latest server
-
-# Wait for it to start
-sleep 30
-
-# Get kubeconfig
-docker cp k3s-server:/etc/rancher/k3s/k3s.yaml ~/.kube/config
-
-# Test
-kubectl get nodes
-```
-
----
-
-## ✅ Verification Steps
-
-### **1. Check Cluster Status**
-```bash
-# Node should be Ready
-sudo k3s kubectl get nodes
-
-# System pods should be running
-sudo k3s kubectl get pods -n kube-system
-```
-
-### **2. Check Resources**
-```bash
-# Should show available resources
-sudo k3s kubectl top nodes
-
-# If command fails, that's OK - metrics server might not be installed
-```
-
-### **3. Test Pod Creation**
-```bash
-# Create test pod
-sudo k3s kubectl run test --image=busybox --command -- sleep 3600
-
-# Check it's running
-sudo k3s kubectl get pods
-
-# Clean up
-sudo k3s kubectl delete pod test
-```
-
----
-
-## 🛠️ Make kubectl Easier to Use
-
-### **Option 1: Create Alias**
-```bash
-# Add to your ~/.bashrc or ~/.zshrc
-echo 'alias k="sudo k3s kubectl"' >> ~/.bashrc
-source ~/.bashrc
-
-# Now you can use 'k' instead of 'sudo k3s kubectl'
-k get nodes
-k get pods
-```
-
-### **Option 2: Copy kubeconfig**
-```bash
-# Copy k3s config to standard location
-mkdir -p ~/.kube
-sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-sudo chown $(whoami) ~/.kube/config
-
-# Now you can use kubectl directly (if installed)
-kubectl get nodes
-```
-
-### **Option 3: Install kubectl**
-```bash
-# Install kubectl
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-chmod +x kubectl
-sudo mv kubectl /usr/local/bin/
-
-# Copy config
-mkdir -p ~/.kube
-sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-sudo chown $(whoami) ~/.kube/config
-
-# Test
-kubectl get nodes
-```
-
----
-
-## 🎯 Understanding What You Just Did
-
-### **What is k3s?**
 ```mermaid
 graph TB
     subgraph "🖥️ Your Computer"
@@ -268,56 +91,78 @@ graph TB
     style DOCKER fill:#e1f5fe
 ```
 
-**k3s is:**
+**k3s is perfect for learning because it's:**
 - 🪶 **Lightweight** - Uses less memory than full Kubernetes
-- 🚀 **Fast** - Starts in seconds
+- 🚀 **Fast** - Starts in seconds, not minutes
 - 📦 **All-in-one** - Everything you need in one binary
-- 🎯 **Perfect for learning** - No complex setup
-
-### **What Happened When You Installed?**
-1. **Downloaded k3s binary** - The main Kubernetes program
-2. **Started API server** - Where you send commands
-3. **Started kubelet** - Runs your containers
-4. **Started containerd** - Container runtime (like Docker)
-5. **Created network** - So containers can talk to each other
+- 🎯 **Production-ready** - Used by many companies
 
 ---
 
-## 🧪 Quick Tests
+## 🛠️ Make kubectl Easier
 
-### **Test 1: Basic Functionality**
+Choose one option to simplify your commands:
+
+### **Option 1: Create Alias (Recommended)**
 ```bash
-# Create deployment
-sudo k3s kubectl create deployment test --image=nginx
+echo 'alias k="sudo k3s kubectl"' >> ~/.bashrc
+source ~/.bashrc
 
-# Wait for it to be ready
-sudo k3s kubectl wait --for=condition=available deployment/test
-
-# Check it's running
-sudo k3s kubectl get pods -l app=test
-
-# Clean up
-sudo k3s kubectl delete deployment test
+# Now use 'k' instead of 'sudo k3s kubectl'
+k get nodes
+k get pods
 ```
 
-### **Test 2: Networking**
+### **Option 2: Install kubectl + Copy Config**
 ```bash
-# Create service
+# Install kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+
+# Copy k3s config
+mkdir -p ~/.kube
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown $(whoami) ~/.kube/config
+
+# Test
+kubectl get nodes
+```
+
+---
+
+## ✅ Verification & Testing
+
+### **1. Cluster Health Check**
+```bash
+# Check node status
+sudo k3s kubectl get nodes
+# Should show: Ready
+
+# Check system pods
+sudo k3s kubectl get pods -n kube-system
+# Should show: Running status for all pods
+```
+
+### **2. Application Testing**
+```bash
+# Deploy nginx
 sudo k3s kubectl create deployment web --image=nginx
 sudo k3s kubectl expose deployment web --port=80 --type=NodePort
 
-# Get service details
+# Get service port
 sudo k3s kubectl get services
+# Note the NodePort (e.g., 30080)
 
-# Test connectivity (replace PORT with actual port)
-curl http://localhost:PORT
+# Test connectivity
+curl http://localhost:30080
+# Should return nginx welcome page
 
 # Clean up
 sudo k3s kubectl delete deployment web
 sudo k3s kubectl delete service web
 ```
 
-### **Test 3: Storage**
+### **3. Storage Testing**
 ```bash
 # Create pod with volume
 cat <<EOF | sudo k3s kubectl apply -f -
@@ -329,7 +174,7 @@ spec:
   containers:
   - name: test
     image: busybox
-    command: ['sh', '-c', 'echo "Hello World" > /data/hello.txt && sleep 3600']
+    command: ['sh', '-c', 'echo "Hello Kubernetes!" > /data/test.txt && sleep 3600']
     volumeMounts:
     - name: data
       mountPath: /data
@@ -338,11 +183,9 @@ spec:
     emptyDir: {}
 EOF
 
-# Check it's running
-sudo k3s kubectl get pod test-storage
-
-# Check the file was created
-sudo k3s kubectl exec test-storage -- cat /data/hello.txt
+# Verify file creation
+sudo k3s kubectl exec test-storage -- cat /data/test.txt
+# Should output: Hello Kubernetes!
 
 # Clean up
 sudo k3s kubectl delete pod test-storage
@@ -350,12 +193,39 @@ sudo k3s kubectl delete pod test-storage
 
 ---
 
+## 🔧 Alternative Installation (If Above Fails)
+
+### **Prerequisites Check**
+```bash
+# Verify requirements
+curl --version && echo "✅ curl installed"
+sudo whoami && echo "✅ sudo access"
+free -h | grep "Mem:" && echo "✅ Check RAM (need 1GB+)"
+```
+
+### **Docker-based Installation**
+```bash
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+
+# Run k3s in Docker
+docker run -d --name k3s-server --privileged \
+  -p 6443:6443 -p 80:80 -p 443:443 \
+  rancher/k3s:latest server
+
+# Wait and test
+sleep 30
+docker exec k3s-server k3s kubectl get nodes
+```
+
+---
+
 ## ✅ Success Criteria
 
-You're ready to move on when:
+You're ready for the next session when:
 
-- [ ] ✅ `sudo k3s kubectl get nodes` shows your node as "Ready"
-- [ ] ✅ You can create and delete pods
+- [ ] ✅ `sudo k3s kubectl get nodes` shows "Ready" status
+- [ ] ✅ You can create and delete deployments
 - [ ] ✅ You can access services via NodePort
 - [ ] ✅ You understand what k3s is and why we use it
 
@@ -363,19 +233,16 @@ You're ready to move on when:
 
 ## 🚀 Next Steps
 
-**Congratulations!** 🎉 You now have Kubernetes running on your machine!
+**Congratulations!** 🎉 You now have Kubernetes running!
 
 ### **What You Accomplished:**
 - ✅ Installed k3s (lightweight Kubernetes)
-- ✅ Verified the cluster is working
-- ✅ Ran your first containerized application
-- ✅ Learned basic kubectl commands
+- ✅ Verified cluster functionality
+- ✅ Deployed your first application
+- ✅ Tested networking and storage
 
 ### **Ready for More?**
-
 **[→ Next: Learn Kubernetes Basics](../02-basics/)**
-
-Learn about Pods, Services, and Labels - the building blocks of Kubernetes.
 
 ---
 
@@ -383,38 +250,34 @@ Learn about Pods, Services, and Labels - the building blocks of Kubernetes.
 
 ### **Essential Commands**
 ```bash
-# Check cluster
+# Cluster info
 sudo k3s kubectl get nodes
 sudo k3s kubectl cluster-info
 
-# Manage pods
+# Workload management
 sudo k3s kubectl get pods
-sudo k3s kubectl describe pod <name>
-sudo k3s kubectl logs <pod-name>
-
-# Manage deployments
-sudo k3s kubectl get deployments
 sudo k3s kubectl create deployment <name> --image=<image>
+sudo k3s kubectl expose deployment <name> --port=80 --type=NodePort
 sudo k3s kubectl delete deployment <name>
 
-# Manage services
-sudo k3s kubectl get services
-sudo k3s kubectl expose deployment <name> --port=80 --type=NodePort
-sudo k3s kubectl delete service <name>
+# Debugging
+sudo k3s kubectl describe pod <name>
+sudo k3s kubectl logs <pod-name>
+sudo k3s kubectl exec <pod-name> -- <command>
 ```
 
 ### **Useful Flags**
 ```bash
-# Watch resources change
+# Watch changes live
 sudo k3s kubectl get pods -w
 
-# Show more details
+# Detailed output
 sudo k3s kubectl get pods -o wide
 
 # All namespaces
 sudo k3s kubectl get pods --all-namespaces
 
-# Help for any command
+# Get help
 sudo k3s kubectl <command> --help
 ```
 
