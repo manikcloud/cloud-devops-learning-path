@@ -374,37 +374,43 @@ docker stats $(docker ps -q -f name=mystack)
 - **ports:** Which port users access our app on
 - **networks:** How containers talk to each other
 ```yaml
+# Docker Compose version - tells Docker which features to use
 version: '3.8'
 
+# Define all the services (containers) in our application
 services:
+  
+  # Redis database service
   redis:
-    image: redis:alpine
+    image: redis:alpine          # Use lightweight Redis image
     networks:
-      - webnet
+      - webnet                   # Connect to our custom network
     deploy:
-      replicas: 1
+      replicas: 1                # Run only 1 Redis container
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == manager]  # Run Redis on manager node
 
+  # Flask web application service  
   web:
-    image: stackdemo
+    image: stackdemo             # Use our custom Flask image
     depends_on:
-      - redis
+      - redis                    # Wait for Redis to start first
     ports:
-      - "8000:8000"
+      - "8000:8000"             # Map port 8000 from container to host
     networks:
-      - webnet
+      - webnet                   # Connect to same network as Redis
     deploy:
-      replicas: 3
+      replicas: 3                # Run 3 Flask containers for load balancing
       update_config:
-        parallelism: 1
-        delay: 10s
+        parallelism: 1           # Update 1 container at a time
+        delay: 10s               # Wait 10 seconds between updates
       restart_policy:
-        condition: on-failure
+        condition: on-failure    # Restart container if it crashes
 
+# Define custom networks for container communication
 networks:
   webnet:
-    driver: overlay
+    driver: overlay              # Overlay network spans multiple Docker nodes
 ```
 
 ### **Key Configuration Features:**
@@ -441,19 +447,35 @@ networks:
 - **Increments counter** each time someone visits the page
 - **Returns message** showing how many times the page was visited
 ```python
+# Import Flask web framework for creating web applications
 from flask import Flask
+# Import Redis client to connect to Redis database
 from redis import Redis
+# Import os module for environment variables (if needed)
 import os
 
+# Create Flask application instance
 app = Flask(__name__)
+
+# Connect to Redis database using service name 'redis'
+# In Docker Stack, containers can find each other by service name
 redis = Redis(host='redis', port=6379)
 
+# Define route for home page (when user visits /)
 @app.route('/')
 def hello():
+    # Increment visit counter in Redis and get new count
+    # 'hits' is the key name, incr() increases it by 1
     count = redis.incr('hits')
+    
+    # Return message showing current visit count
     return f'Hello World! I have been seen {count} times.\n'
 
+# Run the Flask application when script is executed directly
 if __name__ == "__main__":
+    # host="0.0.0.0" allows access from outside container
+    # port=8000 matches the port we expose in docker-compose.yml
+    # debug=True provides helpful error messages during development
     app.run(host="0.0.0.0", port=8000, debug=True)
 ```
 
