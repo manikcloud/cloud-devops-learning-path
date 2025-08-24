@@ -1,11 +1,11 @@
-# 3️⃣ Deployments - Managing Multiple Pods
+# 3️⃣ Deployment and Scaling - Managing Applications at Scale
 
 <div align="center">
 
 ![Deployments](https://img.shields.io/badge/Deployments-Pod%20Management-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Practical](https://img.shields.io/badge/Practical-Experience-green?style=for-the-badge&logo=tools&logoColor=white)
+![Scaling](https://img.shields.io/badge/Scaling-Growth%20%26%20Updates-green?style=for-the-badge&logo=chart-line&logoColor=white)
 
-**🎯 Manage Multiple Pods | 📈 Scale Applications | 🔄 Handle Failures**
+**🎯 Manage Multiple Pods | 📈 Scale Applications | 🔄 Zero-Downtime Updates**
 
 </div>
 
@@ -18,13 +18,17 @@ graph TD
     A[📦 Single Pod<br/>Can fail and disappear] --> B[🚀 Deployment<br/>Manages multiple pods]
     B --> C[📊 ReplicaSet<br/>Ensures desired number]
     C --> D[📈 Scaling<br/>Add/remove pods easily]
-    D --> E[🔄 Self-healing<br/>Replaces failed pods]
+    D --> E[🔄 Rolling Updates<br/>New versions safely]
+    E --> F[⏪ Rollbacks<br/>Fix problems quickly]
+    F --> G[🚀 Production Ready<br/>Reliable applications]
     
     style A fill:#ffcdd2
     style B fill:#e1f5fe
     style C fill:#fff3e0
     style D fill:#e8f5e8
-    style E fill:#c8e6c9
+    style E fill:#f3e5f5
+    style F fill:#e8f5e8
+    style G fill:#c8e6c9
 ```
 
 **Learn how to run applications reliably at scale!**
@@ -136,19 +140,7 @@ k get pods
 k get all -l app=web-app
 ```
 
-### **Exercise 2: Explore the Deployment**
-```bash
-# Get detailed information
-k describe deployment web-app
-
-# Check the deployment status
-k rollout status deployment/web-app
-
-# See the deployment in YAML format
-k get deployment web-app -o yaml
-```
-
-### **Exercise 3: Test Self-Healing**
+### **Exercise 2: Test Self-Healing**
 ```bash
 # Delete one pod and watch it get recreated
 k get pods -l app=web-app
@@ -166,7 +158,27 @@ k get pods -l app=web-app -w
 
 ## 📈 Scaling Applications
 
-### **Manual Scaling**
+### **Why Scale Applications?**
+```mermaid
+graph TB
+    subgraph "📊 Traffic Patterns"
+        A[🌅 Morning<br/>Low traffic<br/>2 pods enough]
+        B[🌞 Afternoon<br/>High traffic<br/>Need 5 pods]
+        C[🌙 Night<br/>Low traffic<br/>Back to 2 pods]
+    end
+    
+    style A fill:#e1f5fe
+    style B fill:#ffcdd2
+    style C fill:#e1f5fe
+```
+
+**Scaling Benefits:**
+- 💰 **Cost efficiency** - Use only what you need
+- 🚀 **Performance** - Handle more users
+- 🔄 **Reliability** - Spread load across pods
+- 📈 **Growth** - Adapt to changing demands
+
+### **Exercise 3: Manual Scaling**
 ```bash
 # Scale up to 5 replicas
 k scale deployment web-app --replicas=5
@@ -204,9 +216,92 @@ graph LR
 
 ---
 
+## 🔄 Rolling Updates
+
+### **What is a Rolling Update?**
+```mermaid
+graph TB
+    subgraph "🔄 Rolling Update Process"
+        A[Step 1<br/>3 pods v1.0] --> B[Step 2<br/>2 pods v1.0<br/>1 pod v2.0]
+        B --> C[Step 3<br/>1 pod v1.0<br/>2 pods v2.0]
+        C --> D[Step 4<br/>3 pods v2.0]
+    end
+    
+    style A fill:#fff3e0
+    style B fill:#e8f5e8
+    style C fill:#e8f5e8
+    style D fill:#c8e6c9
+```
+
+**Benefits:**
+- ✅ **Zero downtime** - App stays available
+- 🔄 **Gradual** - Problems affect fewer users
+- ⏪ **Reversible** - Easy to rollback
+- 📊 **Controlled** - You set the pace
+
+### **Exercise 4: Rolling Update**
+```bash
+# Check current image version
+k describe deployment web-app | grep Image
+
+# Update to new version
+k set image deployment/web-app nginx=nginx:1.21
+
+# Watch the rolling update
+k rollout status deployment/web-app
+
+# Check pods during update (in another terminal)
+k get pods -l app=web-app -w
+
+# Verify new image
+k describe deployment web-app | grep Image
+```
+
+---
+
+## ⏪ Rollbacks
+
+### **When Things Go Wrong**
+```mermaid
+graph LR
+    A[😊 v1.0<br/>Working fine] --> B[😱 v2.0<br/>Has bugs!]
+    B --> C[🚨 Users complaining]
+    C --> D[⏪ Rollback to v1.0]
+    D --> E[😊 Working again!]
+    
+    style A fill:#c8e6c9
+    style B fill:#ffcdd2
+    style C fill:#ffcdd2
+    style D fill:#fff3e0
+    style E fill:#c8e6c9
+```
+
+### **Exercise 5: Rollback Demo**
+```bash
+# Update to a "bad" version
+k set image deployment/web-app nginx=nginx:bad-version
+
+# Check what happens
+k get pods -l app=web-app
+
+# Check rollout history
+k rollout history deployment/web-app
+
+# Rollback to previous version
+k rollout undo deployment/web-app
+
+# Watch the rollback
+k rollout status deployment/web-app
+
+# Verify pods are healthy
+k get pods -l app=web-app
+```
+
+---
+
 ## 🧪 Practical Exercises
 
-### **Exercise 4: Load Balancing Test**
+### **Exercise 6: Load Balancing Test**
 ```bash
 # Create service for the deployment
 k expose deployment web-app --port=80 --type=NodePort
@@ -220,7 +315,7 @@ curl http://localhost:<PORT>
 # Each request might go to a different pod!
 ```
 
-### **Exercise 5: Blue-Green Deployment Pattern**
+### **Exercise 7: Blue-Green Deployment**
 ```bash
 # Create blue deployment
 k create deployment blue-app --image=varunmanik/httpd:blue --replicas=3
@@ -246,96 +341,49 @@ k delete deployment blue-app green-app
 k delete service web-service
 ```
 
-### **Exercise 6: Resource Limits**
+### **Exercise 8: Health Checks**
 ```bash
-# Create deployment with resource limits
+# Create deployment with health checks
 cat <<EOF | k apply -f -
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: resource-demo
+  name: healthy-app
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: resource-demo
+      app: healthy-app
   template:
     metadata:
       labels:
-        app: resource-demo
+        app: healthy-app
     spec:
       containers:
       - name: nginx
         image: nginx
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
 EOF
 
-# Check the deployment
-k describe deployment resource-demo
+# Check pod health
+k get pods -l app=healthy-app
+k describe pod -l app=healthy-app | grep -A 10 "Liveness\|Readiness"
 
 # Clean up
-k delete deployment resource-demo
-```
-
----
-
-## 🔄 Updates and Rollbacks
-
-### **Rolling Updates**
-```mermaid
-graph TB
-    subgraph "🔄 Rolling Update Process"
-        A[Old Version<br/>3 pods nginx:1.20] --> B[Mixed<br/>2 old + 1 new]
-        B --> C[Mixed<br/>1 old + 2 new]
-        C --> D[New Version<br/>3 pods nginx:1.21]
-    end
-    
-    style A fill:#fff3e0
-    style B fill:#e8f5e8
-    style C fill:#e8f5e8
-    style D fill:#c8e6c9
-```
-
-### **Exercise 7: Rolling Update**
-```bash
-# Check current image
-k describe deployment web-app | grep Image
-
-# Update to new version
-k set image deployment/web-app nginx=nginx:1.21
-
-# Watch the rolling update
-k rollout status deployment/web-app
-
-# Check rollout history
-k rollout history deployment/web-app
-
-# Check new image
-k describe deployment web-app | grep Image
-```
-
-### **Exercise 8: Rollback**
-```bash
-# Update to a "bad" version
-k set image deployment/web-app nginx=nginx:bad-version
-
-# Check what happens
-k get pods -l app=web-app
-
-# Rollback to previous version
-k rollout undo deployment/web-app
-
-# Check rollback status
-k rollout status deployment/web-app
-
-# Verify pods are healthy
-k get pods -l app=web-app
+k delete deployment healthy-app
 ```
 
 ---
@@ -407,54 +455,6 @@ rm my-deployment.yaml
 
 ---
 
-## 🔍 Essential Commands
-
-### **Deployment Management**
-```bash
-# Create deployment
-k create deployment <name> --image=<image> --replicas=<number>
-
-# List deployments
-k get deployments
-k get deploy                    # Short form
-
-# Deployment details
-k describe deployment <name>
-
-# Scale deployment
-k scale deployment <name> --replicas=<number>
-
-# Update image
-k set image deployment/<name> <container>=<new-image>
-
-# Check rollout status
-k rollout status deployment/<name>
-
-# Rollout history
-k rollout history deployment/<name>
-
-# Rollback
-k rollout undo deployment/<name>
-
-# Delete deployment
-k delete deployment <name>
-```
-
-### **ReplicaSet Management**
-```bash
-# List replicasets
-k get replicasets
-k get rs                        # Short form
-
-# ReplicaSet details
-k describe replicaset <name>
-
-# Note: Usually you don't manage ReplicaSets directly
-# Deployments manage them for you
-```
-
----
-
 ## 🎯 Understanding Deployment Strategies
 
 ### **Recreate Strategy**
@@ -522,7 +522,118 @@ k delete deployment strategy-demo
 
 ---
 
-## 🔍 Troubleshooting Deployments
+## 📊 Monitoring and Health Checks
+
+### **Health Check Types**
+```mermaid
+graph TB
+    subgraph "🏥 Health Check Types"
+        A[❤️ Liveness Probe<br/>Is the app alive?]
+        B[🚀 Readiness Probe<br/>Is the app ready?]
+        C[🔧 Startup Probe<br/>Has the app started?]
+    end
+    
+    A --> D[Restart if fails]
+    B --> E[Remove from service if fails]
+    C --> F[Wait before other checks]
+    
+    style A fill:#ffcdd2
+    style B fill:#fff3e0
+    style C fill:#e1f5fe
+    style D fill:#ffcdd2
+    style E fill:#fff3e0
+    style F fill:#e1f5fe
+```
+
+### **Exercise 11: Resource Limits**
+```bash
+# Create deployment with resource limits
+cat <<EOF | k apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: resource-demo
+  template:
+    metadata:
+      labels:
+        app: resource-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+EOF
+
+# Check the deployment
+k describe deployment resource-demo
+
+# Clean up
+k delete deployment resource-demo
+```
+
+---
+
+## 🔍 Essential Commands
+
+### **Deployment Management**
+```bash
+# Create deployment
+k create deployment <name> --image=<image> --replicas=<number>
+
+# List deployments
+k get deployments
+k get deploy                    # Short form
+
+# Deployment details
+k describe deployment <name>
+
+# Scale deployment
+k scale deployment <name> --replicas=<number>
+
+# Update image
+k set image deployment/<name> <container>=<new-image>
+
+# Check rollout status
+k rollout status deployment/<name>
+
+# Rollout history
+k rollout history deployment/<name>
+
+# Rollback
+k rollout undo deployment/<name>
+
+# Delete deployment
+k delete deployment <name>
+```
+
+### **Monitoring Commands**
+```bash
+# Check health
+k get pods
+k describe pod <name>
+
+# Check events
+k get events --sort-by=.metadata.creationTimestamp
+
+# Resource usage (if available)
+k top nodes
+k top pods
+```
+
+---
+
+## 🔍 Troubleshooting
 
 ### **Common Issues and Solutions**
 
@@ -566,6 +677,32 @@ k rollout undo deployment/<name>
 
 ---
 
+## 📝 Best Practices
+
+### **Scaling Best Practices**
+```mermaid
+graph TB
+    A[🎯 Start Small<br/>Begin with 2-3 replicas] --> B[📊 Monitor<br/>Watch CPU, memory, requests]
+    B --> C[📈 Scale Gradually<br/>Don't jump from 2 to 20]
+    C --> D[🧪 Test<br/>Verify app works at scale]
+    D --> E[🔄 Automate<br/>Use HPA when ready]
+    
+    style A fill:#e1f5fe
+    style B fill:#fff3e0
+    style C fill:#e8f5e8
+    style D fill:#f3e5f5
+    style E fill:#c8e6c9
+```
+
+### **Update Best Practices**
+- ✅ **Test updates** in development first
+- ✅ **Use health checks** to verify pod health
+- ✅ **Monitor during updates** for issues
+- ✅ **Have rollback plan** ready
+- ✅ **Update during low traffic** periods
+
+---
+
 ## ✅ Knowledge Check
 
 ### **Quiz Questions**
@@ -574,15 +711,15 @@ k rollout undo deployment/<name>
    - ReplicaSet ✅
    - Service ❌
 
-2. **What happens if you delete a pod from a deployment?**
-   - Pod stays deleted ❌
-   - New pod is created ✅
-   - Deployment fails ❌
+2. **What happens during a rolling update?**
+   - All pods replaced at once ❌
+   - Pods replaced gradually ✅
+   - Service goes down ❌
 
-3. **What's the default update strategy?**
-   - Recreate ❌
-   - RollingUpdate ✅
-   - BlueGreen ❌
+3. **How do you rollback a deployment?**
+   - Delete and recreate ❌
+   - kubectl rollout undo ✅
+   - Scale to 0 and back ❌
 
 ### **Practical Test**
 ```bash
@@ -604,25 +741,26 @@ You're ready for the next section when you can:
 - [ ] ✅ Scale deployments up and down
 - [ ] ✅ Understand the relationship between Deployments, ReplicaSets, and Pods
 - [ ] ✅ Perform rolling updates and rollbacks
+- [ ] ✅ Configure health checks for reliability
 - [ ] ✅ Troubleshoot deployment issues
-- [ ] ✅ Configure deployment strategies
 
 ---
 
 ## 🚀 Next Steps
 
-**Excellent work!** 🎉 You now know how to manage applications reliably in Kubernetes!
+**Excellent work!** 🎉 You now know how to manage applications reliably at scale!
 
 ### **What You Learned:**
 - ✅ **Deployments** - How to manage multiple pods reliably
 - ✅ **Scaling** - How to handle varying load
 - ✅ **Self-healing** - How Kubernetes keeps apps running
-- ✅ **Updates** - How to deploy new versions safely
+- ✅ **Rolling Updates** - How to deploy new versions safely
 - ✅ **Rollbacks** - How to recover from bad deployments
+- ✅ **Health Checks** - How to ensure application reliability
 
 ### **Ready for More?**
 
-**[→ Next: Connect Applications](../04-networking/)**
+**[→ Next: Connect Applications](../04-services-networking/)**
 
 Learn how to make your applications talk to each other using Services and networking.
 

@@ -229,6 +229,119 @@ k delete pod blue-app
 
 ---
 
+## ☁️ Step 3: LoadBalancer Service (AWS Cloud)
+
+For production applications, you want a proper cloud load balancer with an external IP address:
+
+### **03-loadbalancer-service.yaml**
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-loadbalancer
+  labels:
+    app: web
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "alb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-target-type: "ip"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    application: web-app
+    color: blue
+```
+
+**What's new:**
+- `type: LoadBalancer` - Creates cloud load balancer
+- `aws-load-balancer-type: "alb"` - Use Application Load Balancer
+- `internet-facing` - Accessible from internet
+- `target-type: "ip"` - Route directly to pod IPs
+
+### **How AWS LoadBalancer Works:**
+```mermaid
+graph TB
+    INTERNET[🌍 Internet] --> ALB[☁️ AWS ALB<br/>External IP: 52.1.2.3<br/>DNS: abc123.us-east-1.elb.amazonaws.com]
+    ALB --> SERVICE[🌐 LoadBalancer Service<br/>Port 80]
+    SERVICE --> POD1[📦 Pod 1<br/>10.42.0.5]
+    SERVICE --> POD2[📦 Pod 2<br/>10.42.0.6]
+    SERVICE --> POD3[📦 Pod 3<br/>10.42.0.7]
+    
+    style INTERNET fill:#e3f2fd
+    style ALB fill:#ff9800
+    style SERVICE fill:#e8f5e8
+    style POD1 fill:#e1f5fe
+    style POD2 fill:#e1f5fe
+    style POD3 fill:#e1f5fe
+```
+
+### **AWS LoadBalancer Benefits:**
+- 🌍 **External IP Address** - Real internet-accessible IP
+- 🔒 **SSL/TLS Termination** - Handle HTTPS certificates
+- 🎯 **Health Checks** - Only route to healthy pods
+- 📊 **CloudWatch Integration** - Monitoring and metrics
+- 🛡️ **Security Groups** - AWS firewall integration
+- ⚖️ **Advanced Load Balancing** - Multiple algorithms
+
+### **Try it out (AWS EC2 Required):**
+```bash
+# Prerequisites: Running on AWS EKS or EC2 with proper IAM roles
+
+# Create a pod that matches the selector
+k run blue-app --image=varunmanik/httpd:blue --labels="application=web-app,color=blue"
+
+# Create the LoadBalancer service
+k apply -f 03-loadbalancer-service.yaml
+
+# Check the service (this will take 2-3 minutes to provision)
+k get services
+
+# Wait for EXTERNAL-IP to show (not <pending>)
+k get services -w
+
+# Once you have external IP, test it
+# Example: curl http://abc123.us-east-1.elb.amazonaws.com
+
+# Check AWS Console to see the ALB created
+# Go to EC2 → Load Balancers to see your new ALB
+
+# Clean up (this will delete the AWS ALB)
+k delete service web-loadbalancer
+k delete pod blue-app
+```
+
+### **AWS LoadBalancer vs Other Types:**
+```mermaid
+graph TB
+    subgraph "🏠 ClusterIP"
+        A[Internal Only<br/>10.96.0.100<br/>Free]
+    end
+    
+    subgraph "🚪 NodePort"  
+        B[Node IP + Port<br/>192.168.1.10:30080<br/>Free]
+    end
+    
+    subgraph "☁️ LoadBalancer"
+        C[External IP + DNS<br/>abc123.us-east-1.elb.amazonaws.com<br/>AWS Charges Apply]
+    end
+    
+    style A fill:#e1f5fe
+    style B fill:#fff3e0
+    style C fill:#ff9800
+```
+
+**Cost Considerations:**
+- 💰 **ALB Cost**: ~$16/month + $0.008 per LCU-hour
+- 💰 **Data Transfer**: Standard AWS data transfer rates
+- 💰 **Health Checks**: Included in ALB cost
+- 💡 **Tip**: Delete LoadBalancer services when not needed to avoid charges
+
+---
+
 ## 🔧 Service Types Explained
 
 ```mermaid
@@ -265,6 +378,14 @@ graph TB
 - **Access:** External IP address from cloud provider
 - **Requires:** Cloud environment (AWS, GCP, Azure)
 - **Best for:** Production applications
+
+#### **☁️ LoadBalancer (Production Cloud)**
+- **Use for:** Production external access with enterprise features
+- **Access:** External IP address and DNS name from AWS
+- **Features:** SSL termination, health checks, CloudWatch integration
+- **Cost:** AWS charges apply (~$16/month + usage)
+- **Best for:** Production applications requiring high availability
+- **Requirements:** AWS EKS cluster or EC2 with proper IAM roles
 
 #### **🔗 ExternalName**
 - **Use for:** Integrating with external services
