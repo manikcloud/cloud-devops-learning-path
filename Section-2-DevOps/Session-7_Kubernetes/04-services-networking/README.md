@@ -705,41 +705,41 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🌍 Internet Traffic"
-        BROWSER[🌐 Web Browser<br/>https://myapp.com]
-        MOBILE[📱 Mobile App<br/>API calls]
-        API_CLIENT[🔧 API Client<br/>External integrations]
+    subgraph "Internet Traffic"
+        BROWSER[Web Browser - https://myapp.com]
+        MOBILE[Mobile App - API calls]
+        API_CLIENT[API Client - External integrations]
     end
     
-    subgraph "☁️ AWS Infrastructure"
-        subgraph "🌐 Route 53 (DNS)"
-            DNS[📛 DNS Resolution<br/>myapp.com → ALB IP]
+    subgraph "AWS Infrastructure"
+        subgraph "Route 53 DNS"
+            DNS[DNS Resolution - myapp.com to ALB IP]
         end
         
-        subgraph "🛡️ CloudFront (CDN) - Optional"
-            CDN[⚡ Content Delivery<br/>Global edge locations]
+        subgraph "CloudFront CDN - Optional"
+            CDN[Content Delivery - Global edge locations]
         end
         
-        subgraph "⚖️ Application Load Balancer"
-            ALB[☁️ AWS ALB<br/>• SSL Certificate<br/>• Health Checks<br/>• Access Logs<br/>• WAF Integration]
+        subgraph "Application Load Balancer"
+            ALB[AWS ALB - SSL Certificate, Health Checks, Access Logs, WAF Integration]
             
-            TARGET_GROUP[🎯 Target Group<br/>• Health Check: /health<br/>• Protocol: HTTP<br/>• Port: 80]
+            TARGET_GROUP[Target Group - Health Check: /health, Protocol: HTTP, Port: 80]
         end
         
-        subgraph "🔒 Security Groups"
-            SG[🛡️ Security Group<br/>• Port 80: 0.0.0.0/0<br/>• Port 443: 0.0.0.0/0]
+        subgraph "Security Groups"
+            SG[Security Group - Port 80: 0.0.0.0/0, Port 443: 0.0.0.0/0]
         end
     end
     
-    subgraph "☸️ Kubernetes Cluster (EKS)"
-        subgraph "🌐 LoadBalancer Service"
-            LB_SVC[☁️ LoadBalancer Service<br/>• Creates ALB<br/>• Manages Target Group<br/>• Updates Endpoints]
+    subgraph "Kubernetes Cluster EKS"
+        subgraph "LoadBalancer Service"
+            LB_SVC[LoadBalancer Service - Creates ALB, Manages Target Group, Updates Endpoints]
         end
         
-        subgraph "📦 Application Pods"
-            POD1[📦 Pod 1<br/>10.42.0.5:80<br/>Status: Healthy ✅]
-            POD2[📦 Pod 2<br/>10.42.0.6:80<br/>Status: Healthy ✅]
-            POD3[📦 Pod 3<br/>10.42.0.7:80<br/>Status: Unhealthy ❌]
+        subgraph "Application Pods"
+            POD1[Pod 1 - 10.42.0.5:80 - Status: Healthy]
+            POD2[Pod 2 - 10.42.0.6:80 - Status: Healthy]
+            POD3[Pod 3 - 10.42.0.7:80 - Status: Unhealthy]
         end
     end
     
@@ -795,19 +795,19 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "💰 AWS LoadBalancer Costs"
-        subgraph "🏷️ Fixed Costs (Monthly)"
-            ALB_FIXED[☁️ ALB Base Cost<br/>~$16.20/month<br/>($0.0225/hour)]
+    subgraph "AWS LoadBalancer Costs"
+        subgraph "Fixed Costs Monthly"
+            ALB_FIXED[ALB Base Cost - ~$16.20/month - $0.0225/hour]
         end
         
-        subgraph "📊 Variable Costs (Usage-based)"
-            LCU[📈 Load Balancer Capacity Units<br/>$0.008 per LCU-hour<br/>Based on traffic volume]
+        subgraph "Variable Costs Usage-based"
+            LCU[Load Balancer Capacity Units - $0.008 per LCU-hour - Based on traffic volume]
             
-            DATA[📡 Data Transfer<br/>$0.09/GB outbound<br/>Free inbound]
+            DATA[Data Transfer - $0.09/GB outbound - Free inbound]
         end
         
-        subgraph "💡 Cost Optimization Tips"
-            TIPS[💡 Save Money:<br/>• Delete unused LoadBalancers<br/>• Use during business hours only<br/>• Monitor LCU usage<br/>• Consider NodePort for dev]
+        subgraph "Cost Optimization Tips"
+            TIPS[Save Money: Delete unused LoadBalancers, Use during business hours only, Monitor LCU usage, Consider NodePort for dev]
         end
     end
     
@@ -995,24 +995,24 @@ Service Discovery is like having a **smart phone book** that updates automatical
 
 ```mermaid
 graph TB
-    subgraph "📞 Traditional Phone Book Problems"
-        OLD_BOOK[📖 Old Phone Book<br/>• John: 555-1234<br/>• Mary: 555-5678<br/>• Bob: 555-9012]
+    subgraph "Traditional Phone Book Problems"
+        OLD_BOOK[Old Phone Book - John: 555-1234, Mary: 555-5678, Bob: 555-9012]
         
-        PROBLEMS[❌ Problems:<br/>• Numbers change<br/>• People move<br/>• Book gets outdated<br/>• Hard to update]
+        PROBLEMS[Problems: Numbers change, People move, Book gets outdated, Hard to update]
         
         OLD_BOOK -.-> PROBLEMS
     end
     
-    subgraph "🤖 Kubernetes Service Discovery"
-        DNS_SERVER[🌐 CoreDNS<br/>Kubernetes DNS Server]
+    subgraph "Kubernetes Service Discovery"
+        DNS_SERVER[CoreDNS - Kubernetes DNS Server]
         
-        subgraph "📋 Automatic Updates"
-            SERVICE1[🌐 frontend-service<br/>→ 10.96.0.100]
-            SERVICE2[🌐 api-service<br/>→ 10.96.0.101]
-            SERVICE3[🌐 database-service<br/>→ 10.96.0.102]
+        subgraph "Automatic Updates"
+            SERVICE1[frontend-service - 10.96.0.100]
+            SERVICE2[api-service - 10.96.0.101]
+            SERVICE3[database-service - 10.96.0.102]
         end
         
-        APP[📱 Your App] --> DNS_SERVER
+        APP[Your App] --> DNS_SERVER
         DNS_SERVER --> SERVICE1
         DNS_SERVER --> SERVICE2
         DNS_SERVER --> SERVICE3
@@ -1037,24 +1037,24 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "📱 Your Application Pod"
-        APP[🚀 Frontend App<br/>Wants to call API]
+    subgraph "Your Application Pod"
+        APP[Frontend App - Wants to call API]
         
-        CODE[💻 Application Code:<br/>fetch('http://api-service/users')]
+        CODE[Application Code: fetch('http://api-service/users')]
     end
     
-    subgraph "🌐 DNS Resolution Process"
-        STEP1[1️⃣ DNS Query<br/>What IP is 'api-service'?]
-        STEP2[2️⃣ CoreDNS Lookup<br/>Checks service registry]
-        STEP3[3️⃣ IP Response<br/>Returns 10.96.0.101]
-        STEP4[4️⃣ HTTP Request<br/>Connects to 10.96.0.101:80]
+    subgraph "DNS Resolution Process"
+        STEP1[1. DNS Query - What IP is 'api-service'?]
+        STEP2[2. CoreDNS Lookup - Checks service registry]
+        STEP3[3. IP Response - Returns 10.96.0.101]
+        STEP4[4. HTTP Request - Connects to 10.96.0.101:80]
     end
     
-    subgraph "🎯 Target Service"
-        API_SERVICE[🌐 api-service<br/>ClusterIP: 10.96.0.101]
+    subgraph "Target Service"
+        API_SERVICE[api-service - ClusterIP: 10.96.0.101]
         
-        API_POD1[📦 API Pod 1<br/>10.42.0.5:8080]
-        API_POD2[📦 API Pod 2<br/>10.42.0.6:8080]
+        API_POD1[API Pod 1 - 10.42.0.5:8080]
+        API_POD2[API Pod 2 - 10.42.0.6:8080]
         
         API_SERVICE --> API_POD1
         API_SERVICE --> API_POD2
@@ -1089,26 +1089,26 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🎯 DNS Name Hierarchy"
-        subgraph "📝 Simple Names (Same Namespace)"
-            SIMPLE[🎯 api-service<br/>✅ Works within same namespace]
+    subgraph "DNS Name Hierarchy"
+        subgraph "Simple Names Same Namespace"
+            SIMPLE[api-service - Works within same namespace]
         end
         
-        subgraph "📝 Cross-Namespace Names"
-            CROSS[🎯 api-service.production<br/>✅ Works across namespaces]
+        subgraph "Cross-Namespace Names"
+            CROSS[api-service.production - Works across namespaces]
         end
         
-        subgraph "📝 Fully Qualified Names"
-            FULL[🎯 api-service.production.svc.cluster.local<br/>✅ Works everywhere, always]
+        subgraph "Fully Qualified Names"
+            FULL[api-service.production.svc.cluster.local - Works everywhere, always]
         end
     end
     
-    subgraph "🏢 Namespace Examples"
-        DEV_NS[📁 development namespace<br/>• frontend-service<br/>• api-service<br/>• db-service]
+    subgraph "Namespace Examples"
+        DEV_NS[development namespace - frontend-service, api-service, db-service]
         
-        PROD_NS[📁 production namespace<br/>• frontend-service<br/>• api-service<br/>• db-service]
+        PROD_NS[production namespace - frontend-service, api-service, db-service]
         
-        MONITOR_NS[📁 monitoring namespace<br/>• prometheus-service<br/>• grafana-service]
+        MONITOR_NS[monitoring namespace - prometheus-service, grafana-service]
     end
     
     SIMPLE --> DEV_NS
@@ -1132,22 +1132,22 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🔍 Service Discovery Methods"
-        subgraph "📛 DNS Names (Recommended)"
-            DNS_METHOD[🌐 DNS Resolution<br/>• Easy to use<br/>• Human readable<br/>• Automatic updates<br/>• Works everywhere]
+    subgraph "Service Discovery Methods"
+        subgraph "DNS Names Recommended"
+            DNS_METHOD[DNS Resolution - Easy to use, Human readable, Automatic updates, Works everywhere]
         end
         
-        subgraph "🌐 Environment Variables (Legacy)"
-            ENV_METHOD[📝 Environment Variables<br/>• API_SERVICE_HOST=10.96.0.101<br/>• API_SERVICE_PORT=80<br/>• Set at pod creation<br/>• Don't update automatically]
+        subgraph "Environment Variables Legacy"
+            ENV_METHOD[Environment Variables - API_SERVICE_HOST=10.96.0.101, API_SERVICE_PORT=80, Set at pod creation, Don't update automatically]
         end
         
-        subgraph "🔧 Service Mesh (Advanced)"
-            MESH_METHOD[🕸️ Service Mesh<br/>• Istio, Linkerd<br/>• Advanced routing<br/>• Security policies<br/>• Observability]
+        subgraph "Service Mesh Advanced"
+            MESH_METHOD[Service Mesh - Istio, Linkerd, Advanced routing, Security policies, Observability]
         end
     end
     
-    subgraph "📊 Comparison"
-        COMPARISON[📋 Which to Use?<br/>• DNS: 99% of cases ✅<br/>• Env Vars: Legacy apps ⚠️<br/>• Service Mesh: Complex apps 🚀]
+    subgraph "Comparison"
+        COMPARISON[Which to Use? DNS: 99% of cases, Env Vars: Legacy apps, Service Mesh: Complex apps]
     end
     
     DNS_METHOD --> COMPARISON
@@ -1164,27 +1164,27 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🌐 E-Commerce Application"
-        subgraph "🎨 Frontend Tier"
-            WEB[🌐 web-frontend<br/>React/Angular App]
+    subgraph "E-Commerce Application"
+        subgraph "Frontend Tier"
+            WEB[web-frontend - React/Angular App]
         end
         
-        subgraph "🔧 API Tier"
-            USER_API[🔧 user-service<br/>User management]
-            PRODUCT_API[🔧 product-service<br/>Product catalog]
-            ORDER_API[🔧 order-service<br/>Order processing]
-            PAYMENT_API[🔧 payment-service<br/>Payment processing]
+        subgraph "API Tier"
+            USER_API[user-service - User management]
+            PRODUCT_API[product-service - Product catalog]
+            ORDER_API[order-service - Order processing]
+            PAYMENT_API[payment-service - Payment processing]
         end
         
-        subgraph "🗄️ Data Tier"
-            USER_DB[🗄️ user-database<br/>PostgreSQL]
-            PRODUCT_DB[🗄️ product-database<br/>MongoDB]
-            ORDER_DB[🗄️ order-database<br/>PostgreSQL]
+        subgraph "Data Tier"
+            USER_DB[user-database - PostgreSQL]
+            PRODUCT_DB[product-database - MongoDB]
+            ORDER_DB[order-database - PostgreSQL]
         end
         
-        subgraph "📊 External Services"
-            REDIS[⚡ redis-cache<br/>Session storage]
-            ELASTIC[🔍 elasticsearch<br/>Search engine]
+        subgraph "External Services"
+            REDIS[redis-cache - Session storage]
+            ELASTIC[elasticsearch - Search engine]
         end
     end
     
