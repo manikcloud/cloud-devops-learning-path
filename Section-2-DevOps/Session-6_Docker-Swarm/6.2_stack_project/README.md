@@ -120,6 +120,51 @@ graph LR
 
 ---
 
+## 📚 **What is Docker Stack?**
+
+### **Simple Explanation:**
+Docker Stack is like a recipe that tells Docker Swarm how to run multiple containers together as one application.
+
+**Think of it like this:**
+- 🍕 **Single Container** = One pizza slice
+- 📦 **Docker Stack** = Complete pizza with multiple slices working together
+
+### **Why Use Docker Stack?**
+- ✅ **Multiple Services**: Run web app + database together
+- ✅ **Easy Management**: One command to start/stop everything
+- ✅ **Load Balancing**: Automatically spreads traffic across containers
+- ✅ **Service Discovery**: Containers can find each other by name
+
+### **🔄 Docker Stack vs Docker Service - Simple Comparison:**
+
+| Feature | Docker Service | Docker Stack |
+|---------|---------------|--------------|
+| **What it manages** | Single service (like just Flask) | Multiple services (Flask + Redis) |
+| **Command to create** | `docker service create` | `docker stack deploy` |
+| **Configuration** | Command line options | YAML file (docker-compose.yml) |
+| **Best for** | Simple single-container apps | Complex multi-container apps |
+| **Example** | Just a web server | Web server + database + cache |
+| **Management** | Manage each service separately | Manage all services together |
+
+**Simple analogy:**
+- **Docker Service** = Managing one employee
+- **Docker Stack** = Managing an entire team that works together
+
+### **Our Project Goal:**
+Build a simple web application that:
+1. **Shows a webpage** with a visit counter
+2. **Counts visits** using a Redis database
+3. **Runs multiple copies** of the web app for load balancing
+4. **Demonstrates** how containers talk to each other
+
+**What You'll Learn:**
+- How to define multiple services in one file
+- How containers communicate with each other
+- How Docker Swarm manages multiple containers
+- How to test and verify your application works
+
+---
+
 ## 🚀 **Step-by-Step Deployment**
 
 ### **Prerequisites:**
@@ -147,6 +192,10 @@ ls -la
 
 ### **Step 2: Build Flask Application**
 
+**What we're doing:** Creating a Docker image from our Flask web application code.
+
+**Why this step:** Docker needs to package our Python code into an image before it can run containers.
+
 ```bash
 # Build the Flask app image
 docker build -t stackdemo .
@@ -160,6 +209,10 @@ docker images | grep stackdemo
 
 ### **Step 3: Deploy Complete Stack**
 
+**What we're doing:** Starting both Flask web app and Redis database together as one stack.
+
+**Why this step:** This creates our complete application with all services running and connected.
+
 ```bash
 # Deploy Flask + Redis stack
 docker stack deploy -c docker-compose.yml mystack
@@ -170,6 +223,10 @@ sleep 45
 ```
 
 ### **Step 4: Verify Stack Deployment**
+
+**What we're doing:** Checking that our Flask app and Redis database are running correctly.
+
+**Why this step:** We need to confirm all services started successfully before testing the application.
 
 ```bash
 # Check stack status
@@ -189,6 +246,10 @@ docker stack services mystack
 ```
 
 ### **Step 5: Test Application Functionality**
+
+**What we're doing:** Testing that our web app can count visits and store data in Redis.
+
+**Why this step:** This proves that Flask and Redis are communicating correctly and our application works.
 
 ```bash
 # Test visit counter (first visit)
@@ -224,12 +285,24 @@ done
 ```
 
 ### **Service Discovery Test:**
+
+**What we're doing:** Testing if Flask containers can find and talk to Redis by name.
+
+**Why this matters:** In Docker Stack, containers use service names (like "redis") instead of IP addresses to communicate.
+
 ```bash
-# Check if Flask can reach Redis by hostname
-docker exec -it $(docker ps -q -f name=mystack_web) ping redis
+# Test from any web container - Method 1
+docker exec -it $(docker ps -q --filter name=mystack_web | head -1) sh
+
+# Then inside the container:
+ping redis
+nslookup redis
+
+# Alternative - Direct command test
+docker exec -it $(docker ps -q --filter name=mystack_web | head -1) ping redis
 
 # Test Redis connectivity from Flask container
-docker exec -it $(docker ps -q -f name=mystack_web) nc -zv redis 6379
+docker exec -it $(docker ps -q --filter name=mystack_web | head -1) nc -zv redis 6379
 ```
 
 ### **High Availability Test:**
@@ -251,7 +324,16 @@ curl http://localhost:8000
 
 ## 🔧 **Stack Management Operations**
 
+**What this section covers:** How to manage your running stack - scale up/down, update, and clean up.
+
+**Why learn this:** In real applications, you need to adjust resources and maintain your services.
+
 ### **Scaling Services:**
+
+**What we're doing:** Changing the number of Flask containers running.
+
+**Why useful:** More containers = handle more users, fewer containers = save resources.
+
 ```bash
 # Scale Flask web service to 5 replicas
 docker service scale mystack_web=5
@@ -295,39 +377,55 @@ docker stats $(docker ps -q -f name=mystack)
 
 ## 📋 **Docker Compose Configuration**
 
+**What this is:** The "recipe file" that tells Docker how to run our Flask + Redis application.
+
+**Why important:** This file defines how many containers to run, which ports to use, and how services connect.
+
 ### **Stack Definition (docker-compose.yml):**
+
+**What each part does:**
+- **services:** Lists our Flask web app and Redis database
+- **replicas:** How many copies of each service to run
+- **ports:** Which port users access our app on
+- **networks:** How containers talk to each other
 ```yaml
+# Docker Compose version - tells Docker which features to use
 version: '3.8'
 
+# Define all the services (containers) in our application
 services:
+  
+  # Redis database service
   redis:
-    image: redis:alpine
+    image: redis:alpine          # Use lightweight Redis image
     networks:
-      - webnet
+      - webnet                   # Connect to our custom network
     deploy:
-      replicas: 1
+      replicas: 1                # Run only 1 Redis container
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == manager]  # Run Redis on manager node
 
+  # Flask web application service  
   web:
-    image: stackdemo
+    image: stackdemo             # Use our custom Flask image
     depends_on:
-      - redis
+      - redis                    # Wait for Redis to start first
     ports:
-      - "8000:8000"
+      - "8000:8000"             # Map port 8000 from container to host
     networks:
-      - webnet
+      - webnet                   # Connect to same network as Redis
     deploy:
-      replicas: 3
+      replicas: 3                # Run 3 Flask containers for load balancing
       update_config:
-        parallelism: 1
-        delay: 10s
+        parallelism: 1           # Update 1 container at a time
+        delay: 10s               # Wait 10 seconds between updates
       restart_policy:
-        condition: on-failure
+        condition: on-failure    # Restart container if it crashes
 
+# Define custom networks for container communication
 networks:
   webnet:
-    driver: overlay
+    driver: overlay              # Overlay network spans multiple Docker nodes
 ```
 
 ### **Key Configuration Features:**
@@ -339,65 +437,6 @@ networks:
 
 ---
 
-## 🔍 **Troubleshooting Guide**
-
-### **Services Not Starting:**
-```bash
-# Check service status
-docker stack services mystack
-
-# If replicas show 0/3 or 0/1:
-docker service logs mystack_web
-docker service logs mystack_redis
-
-# Check node resources
-docker node ls
-free -h
-df -h
-```
-
-### **Application Not Accessible:**
-```bash
-# Verify port binding
-docker service inspect mystack_web | grep -A 5 "PublishedPorts"
-
-# Check if services are running
-docker service ps mystack_web
-docker service ps mystack_redis
-
-# Test internal connectivity
-docker exec -it $(docker ps -q -f name=mystack_web) curl http://localhost:8000
-```
-
-### **Counter Not Incrementing:**
-```bash
-# Check Redis connectivity
-docker service logs mystack_redis
-
-# Test Redis from Flask container
-docker exec -it $(docker ps -q -f name=mystack_web) redis-cli -h redis ping
-
-# Verify network connectivity
-docker network ls | grep mystack
-docker network inspect mystack_webnet
-```
-
-### **Performance Issues:**
-```bash
-# Check resource usage
-docker stats
-
-# Monitor service performance
-docker service ps mystack_web
-docker service ps mystack_redis
-
-# Check system resources
-top
-iostat 1 5
-```
-
----
-
 ## 📁 **Project Structure**
 
 ```
@@ -406,26 +445,52 @@ iostat 1 5
 ├── requirements.txt      # Python dependencies (flask==2.0.1, redis==3.5.3)
 ├── Dockerfile           # Multi-stage Flask container build
 ├── docker-compose.yml   # Complete stack definition
-└── README.md           # This comprehensive guide
+└── README.md           # This guide
 ```
 
 ### **Application Code Overview:**
 
+**What this section shows:** The actual Python code that creates our web application.
+
+**Why look at this:** Understanding the code helps you see how Flask connects to Redis and counts visits.
+
 **app.py - Flask Application:**
+
+**What this code does:**
+- **Creates a web server** that responds to browser requests
+- **Connects to Redis** database to store the visit counter
+- **Increments counter** each time someone visits the page
+- **Returns message** showing how many times the page was visited
 ```python
+# Import Flask web framework for creating web applications
 from flask import Flask
+# Import Redis client to connect to Redis database
 from redis import Redis
+# Import os module for environment variables (if needed)
 import os
 
+# Create Flask application instance
 app = Flask(__name__)
+
+# Connect to Redis database using service name 'redis'
+# In Docker Stack, containers can find each other by service name
 redis = Redis(host='redis', port=6379)
 
+# Define route for home page (when user visits /)
 @app.route('/')
 def hello():
+    # Increment visit counter in Redis and get new count
+    # 'hits' is the key name, incr() increases it by 1
     count = redis.incr('hits')
+    
+    # Return message showing current visit count
     return f'Hello World! I have been seen {count} times.\n'
 
+# Run the Flask application when script is executed directly
 if __name__ == "__main__":
+    # host="0.0.0.0" allows access from outside container
+    # port=8000 matches the port we expose in docker-compose.yml
+    # debug=True provides helpful error messages during development
     app.run(host="0.0.0.0", port=8000, debug=True)
 ```
 

@@ -1,0 +1,216 @@
+# PostgreSQL Database for Todo App
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-db
+  labels:
+    app: todo-db
+    project: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-db
+  template:
+    metadata:
+      labels:
+        app: todo-db
+        project: todo-app
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        env:
+        - name: POSTGRES_DB
+          value: todoapp
+        - name: POSTGRES_USER
+          value: todouser
+        - name: POSTGRES_PASSWORD
+          value: todopass
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - todouser
+            - -d
+            - todoapp
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - todouser
+            - -d
+            - todoapp
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: postgres-data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-db
+  labels:
+    app: todo-db
+    project: todo-app
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: todo-db
+---
+# Node.js API for Todo App
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-api
+  labels:
+    app: todo-api
+    project: todo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-api
+  template:
+    metadata:
+      labels:
+        app: todo-api
+        project: todo-app
+    spec:
+      containers:
+      - name: api
+        image: nginx:alpine  # Placeholder - in real app would be custom Node.js image
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_HOST
+          value: "todo-db"
+        - name: DB_USER
+          value: "todouser"
+        - name: DB_PASS
+          value: "todopass"
+        - name: DB_NAME
+          value: "todoapp"
+        - name: PORT
+          value: "80"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        # In a real app, this would run the Node.js server
+        # For demo purposes, we'll use nginx with custom config
+        volumeMounts:
+        - name: api-config
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: api-config
+        configMap:
+          name: api-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  labels:
+    app: todo-api
+    project: todo-app
+data:
+  default.conf: |
+    server {
+        listen 80;
+        location /health {
+            return 200 '{"status":"healthy","service":"todo-api"}';
+            add_header Content-Type application/json;
+        }
+        location /api/todos {
+            return 200 '[{"id":1,"title":"Learn Kubernetes","completed":false},{"id":2,"title":"Build Todo App","completed":true}]';
+            add_header Content-Type application/json;
+        }
+        location / {
+            return 200 '{"message":"Todo API","version":"1.0"}';
+            add_header Content-Type application/json;
+        }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-api
+  labels:
+    app: todo-api
+    project: todo-app
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    targetPort: 80
+    nodePort: 30081
+  selector:
+    app: todo-api
+---
+# React Frontend for Todo App - Fixed Port
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-frontend
+  labels:
+    app: todo-frontend
+    project: todo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-frontend
+  template:
+    metadata:
+      labels:
+        app: todo-frontend
+        project: todo-app
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-frontend
+  labels:
+    app: todo-frontend
+    project: todo-app
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30082
+  selector:
+    app: todo-frontend

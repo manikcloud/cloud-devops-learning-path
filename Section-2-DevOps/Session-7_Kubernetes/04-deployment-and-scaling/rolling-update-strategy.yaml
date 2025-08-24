@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strategy-demo
+  labels:
+    app: strategy-demo
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1         # Max pods that can be down
+      maxSurge: 1              # Max extra pods during update
+  selector:
+    matchLabels:
+      app: strategy-demo
+  template:
+    metadata:
+      labels:
+        app: strategy-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.20
+        ports:
+        - containerPort: 80

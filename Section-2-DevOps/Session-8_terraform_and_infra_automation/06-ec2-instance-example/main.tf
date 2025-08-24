@@ -46,7 +46,7 @@ resource "aws_security_group" "web_sg" {
 
 # Create EC2 instance
 resource "aws_instance" "web_server" {
-  ami           = "ami-0c02fb55956c7d316"  # Amazon Linux 2
+  ami           = "ami-0bbc328167dee8f3c"  # Amazon Linux 2 (latest)
   instance_type = "t2.micro"               # Free tier eligible
   
   # Attach security group

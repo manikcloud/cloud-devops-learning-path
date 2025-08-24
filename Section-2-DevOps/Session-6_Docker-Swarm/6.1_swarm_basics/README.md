@@ -38,7 +38,7 @@ graph TB
         end
         
         subgraph "Load Balancer"
-            LB[Built-in Load Balancer<br/>Port 8080]
+            LB[Built-in Load Balancer<br/>Port 9090]
         end
         
         M1 --> S1
@@ -164,7 +164,7 @@ docker images | grep hello-swarm
 # Deploy service with 3 replicas
 docker service create \
   --name web \
-  --publish 8080:80 \
+  --publish 9090:80 \
   --replicas 3 \
   hello-swarm
 
@@ -189,9 +189,9 @@ docker service ps web
 
 ```bash
 # Test with curl
-curl http://localhost:8080
+curl http://localhost:9090
 
-# Or open in browser: http://<manager-public-ip>:8080
+# Or open in browser: http://<manager-public-ip>:9090
 # You should see an interactive page with color-changing buttons
 ```
 
@@ -199,12 +199,16 @@ curl http://localhost:8080
 
 ## 🎯 **Interactive Features Testing**
 
-### **Load Balancing Test:**
+### **Browser Test - See Container IDs:**
 ```bash
-# Test multiple requests to see load balancing
+# 1. Open in browser: http://<your-server-ip>:9090
+# 2. Refresh the page multiple times
+# 3. Notice different Container IDs appear - this proves load balancing!
+
+# Or test with curl to see container IDs:
 for i in {1..10}; do 
   echo "Request $i:"
-  curl -s http://localhost:8080 | grep -o "Container ID: [a-z0-9]*"
+  curl -s http://localhost:9090 | grep -o '[a-f0-9]\{12\}'
 done
 
 # You should see different container IDs, proving load balancing works
@@ -241,114 +245,13 @@ docker service ps web
 
 ---
 
-## 📊 **Essential Swarm Commands**
-
-### **Cluster Management:**
-```bash
-# Initialize swarm
-docker swarm init
-
-# Join as worker
-docker swarm join --token <token> <manager-ip>:2377
-
-# List nodes
-docker node ls
-
-# Leave swarm
-docker swarm leave --force
-```
-
-### **Service Management:**
-```bash
-# Create service
-docker service create --name <name> --publish <port>:<port> --replicas <count> <image>
-
-# List services
-docker service ls
-
-# Service details
-docker service ps <service-name>
-
-# Scale service
-docker service scale <service-name>=<replica-count>
-
-# Update service
-docker service update --image <new-image> <service-name>
-
-# Remove service
-docker service rm <service-name>
-```
-
-### **Monitoring Commands:**
-```bash
-# Service logs
-docker service logs <service-name>
-
-# Real-time logs
-docker service logs -f <service-name>
-
-# Node information
-docker node inspect <node-id>
-
-# Service inspection
-docker service inspect <service-name>
-```
-
----
-
-## 🔍 **Troubleshooting Guide**
-
-### **Common Issues:**
-
-#### **Worker Node Can't Join:**
-```bash
-# Check connectivity
-ping <manager-private-ip>
-
-# Verify Docker is running
-sudo systemctl status docker
-sudo systemctl start docker
-
-# Regenerate join token
-docker swarm join-token --rotate worker
-```
-
-#### **Service Not Starting:**
-```bash
-# Check service status
-docker service ps web
-
-# View service logs
-docker service logs web
-
-# Check node resources
-docker node ls
-free -h
-df -h
-```
-
-#### **Load Balancing Not Working:**
-```bash
-# Verify service is published correctly
-docker service inspect web | grep -A 5 "PublishedPorts"
-
-# Check if containers are running
-docker service ps web
-
-# Test from different nodes
-curl http://<manager-ip>:8080
-curl http://<worker-ip>:8080
-```
-
----
-
 ## 📁 **Project Files**
 
 ```
 6.1_swarm_basics/
-├── index.html              # Interactive HTML with color buttons
+├── index.html              # Simple web page showing container ID
 ├── Dockerfile              # Apache httpd container definition
-└── README.md              # This comprehensive guide
+└── README.md              # This guide
 ```
 
 ### **File Contents:**
@@ -361,8 +264,8 @@ EXPOSE 80
 ```
 
 **index.html:**
-- Interactive web page with color-changing buttons
-- Shows container information
+- Simple web page showing container ID and hostname
+- Displays current timestamp for each request
 - Demonstrates load balancing across replicas
 
 ---
