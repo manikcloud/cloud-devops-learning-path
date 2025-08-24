@@ -572,7 +572,7 @@ You're ready to move on when you can:
 - ✅ **Multi-Container Pods** - Advanced pod patterns
 
 ### **Ready for More?**
-- **[→ Services: Connect to Your Pods](./services/)** - Learn how to expose and access pods
+- **[→ Services & Networking](../04-services-networking/)** - Learn how to expose and access pods
 - **[→ Next: Deployments](../03-deployments/)** - Scale and manage pods automatically
 
 ---

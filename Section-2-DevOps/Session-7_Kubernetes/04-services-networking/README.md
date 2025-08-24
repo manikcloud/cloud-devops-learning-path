@@ -310,9 +310,10 @@ You're ready to move on when you can:
 - ✅ **Blue-Green** - Service switching patterns
 
 ### **Ready for More?**
-- **[→ Back to Pods](../)** - Review pod concepts
-- **[→ Next: Deployments](../../03-deployments/)** - Scale and manage pods automatically
+- **[→ Back to Pods](../02-basics/)** - Review pod concepts
+- **[→ Advanced Networking](./networking-README.md)** - Deep dive into Kubernetes networking
+- **[→ Next: Scaling](../05-scaling/)** - Scale and manage pods automatically
 
 ---
 
-*Ready to learn about Deployments? Services make your pods accessible!* 🚀
+*Ready to learn about Scaling? Services make your pods accessible!* 🚀
