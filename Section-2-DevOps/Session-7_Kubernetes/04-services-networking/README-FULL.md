@@ -28,12 +28,12 @@ ls -la *.yaml
 
 ```mermaid
 graph TD
-    A[📝 Step 1: Write Service YAML<br/>ClusterIP & NodePort] --> B[🏠 Step 2: Internal Communication<br/>ClusterIP Services]
-    B --> C[🚪 Step 3: External Access<br/>NodePort Services]
-    C --> D[☁️ Step 4: Cloud LoadBalancer<br/>AWS ALB Integration]
-    D --> E[🔍 Step 5: Service Discovery<br/>Apps find each other]
-    E --> F[⚖️ Step 6: Load Balancing<br/>Traffic distribution]
-    F --> G[🌐 Step 7: Complete App<br/>Frontend + Backend + DB]
+    A[Step 1: Write Service YAML - ClusterIP and NodePort] --> B[Step 2: Internal Communication - ClusterIP Services]
+    B --> C[Step 3: External Access - NodePort Services]
+    C --> D[Step 4: Cloud LoadBalancer - AWS ALB Integration]
+    D --> E[Step 5: Service Discovery - Apps find each other]
+    E --> F[Step 6: Load Balancing - Traffic distribution]
+    F --> G[Step 7: Complete App - Frontend + Backend + DB]
     
     style A fill:#e1f5fe
     style B fill:#fff3e0
@@ -597,11 +597,11 @@ spec:
 ### **How NodePort Works:**
 ```mermaid
 graph TB
-    INTERNET[🌍 Internet/Your Computer] --> NODE[🖥️ Node<br/>Port 30080]
-    NODE --> SERVICE[🌐 NodePort Service<br/>Port 80]
-    SERVICE --> POD1[📦 Pod 1]
-    SERVICE --> POD2[📦 Pod 2]
-    SERVICE --> POD3[📦 Pod 3]
+    INTERNET[Internet/Your Computer] --> NODE[Node - Port 30080]
+    NODE --> SERVICE[NodePort Service - Port 80]
+    SERVICE --> POD1[Pod 1]
+    SERVICE --> POD2[Pod 2]
+    SERVICE --> POD3[Pod 3]
     
     style INTERNET fill:#e3f2fd
     style NODE fill:#fff3e0
@@ -858,11 +858,11 @@ spec:
 ### **How AWS LoadBalancer Works:**
 ```mermaid
 graph TB
-    INTERNET[🌍 Internet] --> ALB[☁️ AWS ALB<br/>External IP: 52.1.2.3<br/>DNS: abc123.us-east-1.elb.amazonaws.com]
-    ALB --> SERVICE[🌐 LoadBalancer Service<br/>Port 80]
-    SERVICE --> POD1[📦 Pod 1<br/>10.42.0.5]
-    SERVICE --> POD2[📦 Pod 2<br/>10.42.0.6]
-    SERVICE --> POD3[📦 Pod 3<br/>10.42.0.7]
+    INTERNET[Internet] --> ALB[AWS ALB - External IP: 52.1.2.3 - DNS: abc123.us-east-1.elb.amazonaws.com]
+    ALB --> SERVICE[LoadBalancer Service - Port 80]
+    SERVICE --> POD1[Pod 1 - 10.42.0.5]
+    SERVICE --> POD2[Pod 2 - 10.42.0.6]
+    SERVICE --> POD3[Pod 3 - 10.42.0.7]
     
     style INTERNET fill:#e3f2fd
     style ALB fill:#ff9800
@@ -939,11 +939,11 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🌐 Service Types"
-        A[🏠 ClusterIP<br/>Internal only<br/>Default type]
-        B[🚪 NodePort<br/>External access<br/>via node IP:port]
-        C[☁️ LoadBalancer<br/>Cloud load balancer<br/>External IP]
-        D[🔗 ExternalName<br/>DNS alias to external service]
+    subgraph "Service Types"
+        A[ClusterIP - Internal only - Default type]
+        B[NodePort - External access - via node IP:port]
+        C[LoadBalancer - Cloud load balancer - External IP]
+        D[ExternalName - DNS alias to external service]
     end
     
     style A fill:#e1f5fe
@@ -1223,13 +1223,13 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🔍 Service Discovery Methods"
-        A[📛 DNS Names<br/>my-service.default.svc.cluster.local]
-        B[📛 Short Names<br/>my-service (same namespace)]
-        C[🌐 Environment Variables<br/>MY_SERVICE_SERVICE_HOST]
+    subgraph "Service Discovery Methods"
+        A[DNS Names - my-service.default.svc.cluster.local]
+        B[Short Names - my-service (same namespace)]
+        C[Environment Variables - MY_SERVICE_SERVICE_HOST]
     end
     
-    subgraph "📦 Your App"
+    subgraph "Your App"
         APP[Application] --> A
         APP --> B
         APP --> C
@@ -1321,14 +1321,14 @@ Let's build a realistic 3-tier application with proper networking:
 
 ```mermaid
 graph TB
-    USER[👨‍💻 User] --> FRONTEND[🎨 Frontend<br/>Web UI]
-    FRONTEND --> API[🔧 API<br/>Business Logic]
-    API --> DB[🗄️ Database<br/>Data Storage]
+    USER[User] --> FRONTEND[Frontend - Web UI]
+    FRONTEND --> API[API - Business Logic]
+    API --> DB[Database - Data Storage]
     
-    subgraph "🌐 Services"
-        FSVC[Frontend Service<br/>NodePort 30080]
-        ASVC[API Service<br/>ClusterIP]
-        DSVC[Database Service<br/>ClusterIP]
+    subgraph "Services"
+        FSVC[Frontend Service - NodePort 30080]
+        ASVC[API Service - ClusterIP]
+        DSVC[Database Service - ClusterIP]
     end
     
     USER --> FSVC

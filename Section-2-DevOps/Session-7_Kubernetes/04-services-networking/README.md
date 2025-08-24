@@ -33,9 +33,9 @@ ls -la *.yaml
 
 ```mermaid
 graph TD
-    A[📚 Read Theory Below] --> B[📋 Follow INSTRUCTIONS.md]
-    B --> C[🔧 Practice with YAML files]
-    C --> D[🎯 Master Services & Networking]
+    A[Read Theory Below] --> B[Follow INSTRUCTIONS.md]
+    B --> C[Practice with YAML files]
+    C --> D[Master Services and Networking]
     
     style A fill:#e1f5fe
     style B fill:#fff3e0
