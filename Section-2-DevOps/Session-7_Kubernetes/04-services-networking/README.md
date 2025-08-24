@@ -522,6 +522,63 @@ graph TB
     style DSVC fill:#c8e6c9
 ```
 
+### **Exercise: Complete Application with AWS LoadBalancer**
+```bash
+# 1. Create Database (Internal only)
+k create deployment database --image=postgres:13
+k set env deployment/database POSTGRES_DB=myapp POSTGRES_USER=user POSTGRES_PASSWORD=password
+k expose deployment database --port=5432
+
+# 2. Create API (Internal only)
+k create deployment api --image=varunmanik/httpd:green --replicas=2
+k expose deployment api --port=80
+
+# 3. Create Frontend with AWS LoadBalancer (External access)
+k create deployment frontend --image=varunmanik/httpd:blue --replicas=3
+
+# Create LoadBalancer service for frontend
+cat <<EOF | k apply -f -
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-lb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "alb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-target-type: "ip"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: frontend
+EOF
+
+# 4. Wait for LoadBalancer to be ready (2-3 minutes)
+echo "Waiting for LoadBalancer to be ready..."
+k get services frontend-lb -w
+
+# 5. Once EXTERNAL-IP appears, test the application
+EXTERNAL_IP=$(k get service frontend-lb -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+echo "Application available at: http://$EXTERNAL_IP"
+
+# 6. Test internal communication
+k run test --image=busybox --rm -it -- /bin/sh
+# Inside the test pod:
+# wget -qO- http://api
+# nslookup database
+# exit
+
+# 7. Check AWS Console
+echo "Check AWS Console → EC2 → Load Balancers to see your ALB"
+
+# 8. Clean up when done (important to avoid AWS charges!)
+k delete service frontend-lb
+k delete deployment database api frontend
+k delete service database api
+```
+
 ### **Exercise: Complete Application**
 ```bash
 # 1. Create Database (Internal only)
@@ -683,6 +740,44 @@ netstat -tulpn | grep <port>
 k run test --image=busybox --rm -it -- wget -qO- http://<service-name>
 ```
 
+#### **🚨 LoadBalancer Stuck in Pending**
+```bash
+# Check if you're running on AWS EKS or have proper IAM roles
+k describe service <loadbalancer-service-name>
+
+# Check events for error messages
+k get events --sort-by=.metadata.creationTimestamp
+
+# Verify AWS Load Balancer Controller is installed
+k get pods -n kube-system | grep aws-load-balancer
+
+# Check service annotations are correct
+k describe service <service-name> | grep Annotations
+
+# Common issues:
+# - Not running on AWS EKS
+# - Missing IAM roles for load balancer controller
+# - Incorrect annotations
+# - Insufficient AWS permissions
+```
+
+#### **🚨 LoadBalancer Created but Not Accessible**
+```bash
+# Check if LoadBalancer has external IP
+k get service <service-name>
+
+# Check AWS Security Groups
+# Go to AWS Console → EC2 → Security Groups
+# Ensure port 80/443 is open from 0.0.0.0/0
+
+# Check target group health in AWS Console
+# Go to EC2 → Target Groups → Check health status
+
+# Verify pods are running and healthy
+k get pods -l app=<app-name>
+k describe pods -l app=<app-name>
+```
+
 #### **🚨 Load Balancing Not Working**
 ```bash
 # Check if multiple pods are running and ready
@@ -709,6 +804,12 @@ k expose deployment <name> --port=80 --type=NodePort
 
 # Create service with specific NodePort
 k expose deployment <name> --port=80 --type=NodePort --node-port=30080
+
+# Create LoadBalancer service (AWS)
+k expose deployment <name> --port=80 --type=LoadBalancer
+
+# Create LoadBalancer with annotations
+k annotate service <name> service.beta.kubernetes.io/aws-load-balancer-type=alb
 
 # Apply from YAML file
 k apply -f service.yaml
@@ -785,6 +886,31 @@ spec:
   - port: 80
     targetPort: 8080
     nodePort: 30080  # Optional, auto-assigned if not specified
+    protocol: TCP
+  selector:
+    app: my-app
+    tier: frontend
+```
+
+### **AWS LoadBalancer Service**
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-loadbalancer-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "alb"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    service.beta.kubernetes.io/aws-load-balancer-target-type: "ip"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:region:account:certificate/cert-id"  # Optional SSL
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  - port: 443      # Optional HTTPS
+    targetPort: 8080
     protocol: TCP
   selector:
     app: my-app
