@@ -70,6 +70,34 @@ graph LR
 
 ---
 
+## 🚀 **Getting Started**
+
+### **Prerequisites**
+- Docker installed and running
+- At least 2 EC2 instances (or local machines)
+- Basic understanding of Docker containers
+
+### **Setup Instructions**
+```bash
+# Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-6_Docker-Swarm/6.1_swarm_basics
+
+# Verify files are present
+ls -la
+# You should see: Dockerfile, index.html, README.md
+
+# Verify Docker is running
+docker --version
+docker info
+
+# Optional: Test the Dockerfile before proceeding
+chmod +x test-dockerfile.sh
+./test-dockerfile.sh
+```
+
+---
+
 ## 🚀 **Step-by-Step Guide**
 
 ### **Prerequisites Setup:**
@@ -355,6 +383,91 @@ After completing this project, you will understand:
 - ✅ **Container distribution** strategies
 - ✅ **Service discovery** mechanisms
 - ✅ **Cluster management** best practices
+
+---
+
+## 🔧 **Troubleshooting**
+
+### **Common Docker Build Issues:**
+
+#### **Issue 1: "COPY failed: no such file or directory"**
+```bash
+# Solution: Ensure you're in the correct directory
+pwd
+ls -la
+# You should see: Dockerfile, index.html, README.md
+
+# If files are missing, clone the repository:
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-6_Docker-Swarm/6.1_swarm_basics
+```
+
+#### **Issue 2: "Docker daemon not running"**
+```bash
+# Start Docker service
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Verify Docker is running
+docker info
+```
+
+#### **Issue 3: "Permission denied"**
+```bash
+# Add user to docker group
+sudo usermod -aG docker $USER
+
+# Logout and login again, or use:
+newgrp docker
+
+# Test without sudo
+docker ps
+```
+
+#### **Issue 4: "Port already in use"**
+```bash
+# Check what's using port 8080
+sudo netstat -tulpn | grep 8080
+
+# Kill the process or use a different port
+docker service create --name hello-swarm --publish 8081:80 --replicas 3 hello-swarm
+```
+
+#### **Issue 5: "Image build fails"**
+```bash
+# Clean build with no cache
+docker build --no-cache -t hello-swarm .
+
+# Check Docker space
+docker system df
+
+# Clean up if needed
+docker system prune -f
+```
+
+### **Swarm-Specific Issues:**
+
+#### **Issue 6: "This node is not a swarm manager"**
+```bash
+# Initialize swarm on current node
+docker swarm init
+
+# Or join existing swarm as manager
+docker swarm join-token manager
+```
+
+#### **Issue 7: "Service not accessible"**
+```bash
+# Check service status
+docker service ls
+docker service ps hello-swarm
+
+# Check if containers are running
+docker ps
+
+# Verify port mapping
+docker service inspect hello-swarm --pretty
+```
 
 ---
 
