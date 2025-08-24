@@ -1,11 +1,11 @@
-# 🌐 Understanding Services - Step by Step
+# 🌐 Services & Networking - Complete Guide
 
 <div align="center">
 
 ![Services](https://img.shields.io/badge/Services-Networking-blue?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Simple](https://img.shields.io/badge/Keep-Simple-green?style=for-the-badge&logo=check&logoColor=white)
+![Complete](https://img.shields.io/badge/Complete-Guide-green?style=for-the-badge&logo=check&logoColor=white)
 
-**🎯 Connect to Pods | 🌐 Expose Apps | ⚖️ Load Balance**
+**🎯 Connect to Pods | 🌐 Expose Apps | ⚖️ Load Balance | 🔍 Service Discovery**
 
 </div>
 
@@ -13,10 +13,10 @@
 
 ## 📥 Get Started
 
-### **Navigate to Services Directory**
+### **Navigate to Services & Networking Directory**
 ```bash
-# Navigate to the services directory
-cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/02-basics/services
+# Navigate to the services and networking directory
+cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/04-services-networking
 
 # List the service YAML files
 ls -la *.yaml
@@ -24,7 +24,29 @@ ls -la *.yaml
 
 ---
 
-## 🌐 What is a Service?
+## 🎯 What We'll Learn
+
+```mermaid
+graph TD
+    A[📝 Step 1: Write Service YAML<br/>ClusterIP & NodePort] --> B[🏠 Step 2: Internal Communication<br/>ClusterIP Services]
+    B --> C[🚪 Step 3: External Access<br/>NodePort Services]
+    C --> D[🔍 Step 4: Service Discovery<br/>Apps find each other]
+    D --> E[⚖️ Step 5: Load Balancing<br/>Traffic distribution]
+    E --> F[🌐 Step 6: Complete App<br/>Frontend + Backend + DB]
+    
+    style A fill:#e1f5fe
+    style B fill:#fff3e0
+    style C fill:#e8f5e8
+    style D fill:#f3e5f5
+    style E fill:#fce4ec
+    style F fill:#c8e6c9
+```
+
+**Build from simple services to complete multi-service applications!**
+
+---
+
+## 🌐 Understanding Services - The Foundation
 
 A Service is like a **phone number** for your pods:
 
@@ -46,10 +68,47 @@ graph TB
 - 📱 **Stable access** - Pods come and go, services stay
 - ⚖️ **Load balancing** - Spreads traffic across pods
 - 🔍 **Service discovery** - Find services by name
+- 🌐 **Networking** - Connect different parts of your application
 
 ---
 
-## 📝 Step 1: ClusterIP Service (Internal Only)
+## 🌐 How Kubernetes Networking Works
+
+### **Pod-to-Pod Communication**
+```mermaid
+graph TB
+    subgraph "🖥️ Node 1"
+        POD1[📦 Pod A<br/>IP: 10.42.0.5]
+        POD2[📦 Pod B<br/>IP: 10.42.0.6]
+    end
+    
+    subgraph "🖥️ Node 2"
+        POD3[📦 Pod C<br/>IP: 10.42.1.5]
+        POD4[📦 Pod D<br/>IP: 10.42.1.6]
+    end
+    
+    POD1 <--> POD2
+    POD1 <--> POD3
+    POD1 <--> POD4
+    POD2 <--> POD3
+    POD2 <--> POD4
+    POD3 <--> POD4
+    
+    style POD1 fill:#e1f5fe
+    style POD2 fill:#e1f5fe
+    style POD3 fill:#e1f5fe
+    style POD4 fill:#e1f5fe
+```
+
+**Key Networking Facts:**
+- 🌐 **Every pod gets its own IP address**
+- 🔗 **Pods can talk to any other pod directly**
+- 📱 **But pod IPs change when pods restart**
+- 🎯 **That's why we need Services for stable communication!**
+
+---
+
+## 📝 Step 1: Writing Your First Service YAML
 
 Let's start with the simplest service - ClusterIP for internal communication:
 
@@ -101,7 +160,7 @@ k delete pod web-pod
 
 ---
 
-## 📝 Step 2: NodePort Service (External Access)
+## 📝 Step 2: NodePort Service for External Access
 
 Now let's create a NodePort service for external access:
 
@@ -130,6 +189,23 @@ spec:
 - `nodePort: 30080` - Specific port on the node (30000-32767 range)
 - `selector:` - Matches pods with `application=web-app` and `color=blue`
 
+### **How NodePort Works:**
+```mermaid
+graph TB
+    INTERNET[🌍 Internet/Your Computer] --> NODE[🖥️ Node<br/>Port 30080]
+    NODE --> SERVICE[🌐 NodePort Service<br/>Port 80]
+    SERVICE --> POD1[📦 Pod 1]
+    SERVICE --> POD2[📦 Pod 2]
+    SERVICE --> POD3[📦 Pod 3]
+    
+    style INTERNET fill:#e3f2fd
+    style NODE fill:#fff3e0
+    style SERVICE fill:#e8f5e8
+    style POD1 fill:#e1f5fe
+    style POD2 fill:#e1f5fe
+    style POD3 fill:#e1f5fe
+```
+
 ### **Try it out:**
 ```bash
 # Create a pod that matches the selector
@@ -153,7 +229,7 @@ k delete pod blue-app
 
 ---
 
-## 🔧 Types of Services
+## 🔧 Service Types Explained
 
 ```mermaid
 graph TB
@@ -161,39 +237,104 @@ graph TB
         A[🏠 ClusterIP<br/>Internal only<br/>Default type]
         B[🚪 NodePort<br/>External access<br/>via node IP:port]
         C[☁️ LoadBalancer<br/>Cloud load balancer<br/>External IP]
+        D[🔗 ExternalName<br/>DNS alias to external service]
     end
     
     style A fill:#e1f5fe
     style B fill:#fff3e0
     style C fill:#e8f5e8
+    style D fill:#f3e5f5
 ```
 
-### **ClusterIP (Internal Only)**
-- Default service type
-- Only accessible within the cluster
-- Perfect for internal communication
+### **When to Use Each Type:**
 
-### **NodePort (External Access)**
-- Exposes service on each node's IP
-- Accessible from outside the cluster
-- Uses port range 30000-32767
+#### **🏠 ClusterIP (Internal Only)**
+- **Use for:** Internal microservices communication
+- **Access:** Only from within the cluster
+- **Perfect for:** APIs, databases, internal services
+- **Default type** - Most common
 
-### **LoadBalancer (Cloud)**
-- Creates external load balancer
-- Gets external IP address
-- Only works in cloud environments
+#### **🚪 NodePort (External Access)**
+- **Use for:** Simple external access, development, testing
+- **Access:** From outside the cluster via node IP:port
+- **Port range:** 30000-32767
+- **Good for:** Development environments
+
+#### **☁️ LoadBalancer (Cloud)**
+- **Use for:** Production external access
+- **Access:** External IP address from cloud provider
+- **Requires:** Cloud environment (AWS, GCP, Azure)
+- **Best for:** Production applications
+
+#### **🔗 ExternalName**
+- **Use for:** Integrating with external services
+- **Access:** DNS alias to external service
+- **No pods involved** - Just DNS mapping
 
 ---
 
-## 🛠️ Hands-On Exercise: Create Your Own Service
+## 🔍 Service Discovery - How Apps Find Each Other
 
-### **Exercise 1: Blue-Green Service Switching**
+```mermaid
+graph TB
+    subgraph "🔍 Service Discovery Methods"
+        A[📛 DNS Names<br/>my-service.default.svc.cluster.local]
+        B[📛 Short Names<br/>my-service (same namespace)]
+        C[🌐 Environment Variables<br/>MY_SERVICE_SERVICE_HOST]
+    end
+    
+    subgraph "📦 Your App"
+        APP[Application] --> A
+        APP --> B
+        APP --> C
+    end
+    
+    style A fill:#e8f5e8
+    style B fill:#c8e6c9
+    style C fill:#fff3e0
+    style APP fill:#e1f5fe
+```
+
+### **Exercise: Service Discovery in Action**
 ```bash
-# Step 1: Create blue and green pods
+# Create multiple services
+k create deployment frontend --image=varunmanik/httpd:blue --replicas=2
+k create deployment api --image=varunmanik/httpd:green --replicas=2
+k create deployment database --image=postgres:13 --replicas=1
+
+# Expose them as services
+k expose deployment frontend --port=80
+k expose deployment api --port=80
+k expose deployment database --port=5432
+
+# Test service discovery
+k run discovery-test --image=busybox --rm -it -- /bin/sh
+
+# Inside the pod, try these commands:
+# nslookup frontend
+# nslookup api
+# nslookup database
+# wget -qO- http://frontend
+# wget -qO- http://api
+# exit
+
+# Clean up
+k delete deployment frontend api database
+k delete service frontend api database
+```
+
+---
+
+## 🛠️ Hands-On Exercise: Blue-Green Service Switching
+
+This exercise shows how services can switch between different versions of your app:
+
+```bash
+# Step 1: Create blue and green versions
 k run blue-app --image=varunmanik/httpd:blue --labels="app=web,version=blue"
 k run green-app --image=varunmanik/httpd:green --labels="app=web,version=green"
 
-# Step 2: Create a service pointing to blue
+# Step 2: Create a service pointing to blue version
 cat <<EOF | k apply -f -
 apiVersion: v1
 kind: Service
@@ -212,12 +353,14 @@ EOF
 
 # Step 3: Test blue version
 curl http://localhost:30090
+# You should see the blue-themed page
 
-# Step 4: Switch to green
+# Step 4: Switch to green version
 k patch service web-switch -p '{"spec":{"selector":{"version":"green"}}}'
 
 # Step 5: Test green version
 curl http://localhost:30090
+# Now you should see the green-themed page!
 
 # Clean up
 k delete service web-switch
@@ -226,15 +369,225 @@ k delete pod blue-app green-app
 
 ---
 
-## 📋 Service Commands
+## 🧪 Building a Complete Multi-Service Application
+
+Let's build a realistic 3-tier application with proper networking:
+
+```mermaid
+graph TB
+    USER[👨‍💻 User] --> FRONTEND[🎨 Frontend<br/>Web UI]
+    FRONTEND --> API[🔧 API<br/>Business Logic]
+    API --> DB[🗄️ Database<br/>Data Storage]
+    
+    subgraph "🌐 Services"
+        FSVC[Frontend Service<br/>NodePort 30080]
+        ASVC[API Service<br/>ClusterIP]
+        DSVC[Database Service<br/>ClusterIP]
+    end
+    
+    USER --> FSVC
+    FSVC --> FRONTEND
+    FRONTEND --> ASVC
+    ASVC --> API
+    API --> DSVC
+    DSVC --> DB
+    
+    style USER fill:#e3f2fd
+    style FRONTEND fill:#e8f5e8
+    style API fill:#fff3e0
+    style DB fill:#f3e5f5
+    style FSVC fill:#c8e6c9
+    style ASVC fill:#c8e6c9
+    style DSVC fill:#c8e6c9
+```
+
+### **Exercise: Complete Application**
+```bash
+# 1. Create Database (Internal only)
+k create deployment database --image=postgres:13
+k set env deployment/database POSTGRES_DB=myapp POSTGRES_USER=user POSTGRES_PASSWORD=password
+k expose deployment database --port=5432
+
+# 2. Create API (Internal only)
+k create deployment api --image=varunmanik/httpd:green --replicas=2
+k expose deployment api --port=80
+
+# 3. Create Frontend (External access)
+k create deployment frontend --image=varunmanik/httpd:blue --replicas=3
+k expose deployment frontend --port=80 --type=NodePort
+
+# 4. Check everything is running
+k get all
+
+# 5. Test the application
+k get services
+# Access frontend via NodePort (e.g., http://localhost:30XXX)
+
+# 6. Test internal communication
+k run test --image=busybox --rm -it -- /bin/sh
+# Inside the test pod:
+# wget -qO- http://api
+# nslookup database
+# nslookup frontend
+# exit
+
+# 7. Clean up when done
+k delete deployment database api frontend
+k delete service database api frontend
+```
+
+---
+
+## ⚖️ Load Balancing in Action
+
+Services automatically load balance traffic across healthy pods:
+
+### **Exercise: See Load Balancing Work**
+```bash
+# Create deployment with multiple replicas
+k create deployment web --image=nginx --replicas=3
+
+# Customize each pod to show different responses
+k get pods -l app=web
+
+# For each pod, add a custom response
+for pod in $(k get pods -l app=web -o jsonpath='{.items[*].metadata.name}'); do
+  k exec $pod -- /bin/sh -c "echo 'Hello from $pod' > /usr/share/nginx/html/index.html"
+done
+
+# Create service
+k expose deployment web --port=80 --type=NodePort
+
+# Test load balancing (run multiple times)
+SERVICE_PORT=$(k get service web -o jsonpath='{.spec.ports[0].nodePort}')
+echo "Testing load balancing on port $SERVICE_PORT:"
+
+for i in {1..10}; do
+  echo "Request $i:"
+  curl -s http://localhost:$SERVICE_PORT
+  echo ""
+done
+
+# You should see responses from different pods!
+
+# Clean up
+k delete deployment web
+k delete service web
+```
+
+---
+
+## 🔧 Advanced Service Configuration
+
+### **Multi-Port Service Example**
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: multi-port-service
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    nodePort: 30080
+  - name: https
+    port: 443
+    targetPort: 8443
+    nodePort: 30443
+  selector:
+    app: web-app
+```
+
+### **Service with Session Affinity**
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: sticky-service
+spec:
+  type: ClusterIP
+  sessionAffinity: ClientIP  # Stick to same pod
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: web-app
+```
+
+---
+
+## 🔍 Troubleshooting Services & Networking
+
+### **Common Issues and Solutions**
+
+#### **🚨 Service Not Accessible**
+```bash
+# 1. Check service exists
+k get services
+
+# 2. Check service has endpoints
+k get endpoints <service-name>
+
+# 3. If no endpoints, check pod labels
+k get pods --show-labels
+k describe service <service-name>
+
+# 4. Verify selector matches pod labels
+```
+
+#### **🚨 DNS Not Working**
+```bash
+# Test DNS resolution
+k run dns-test --image=busybox --rm -it -- nslookup <service-name>
+
+# Check CoreDNS is running
+k get pods -n kube-system -l k8s-app=kube-dns
+
+# Check DNS configuration
+k get configmap coredns -n kube-system -o yaml
+```
+
+#### **🚨 NodePort Not Accessible**
+```bash
+# Check service type and port
+k get service <service-name>
+
+# Verify port is in valid range (30000-32767)
+# Check if port is already in use
+netstat -tulpn | grep <port>
+
+# Test from inside cluster first
+k run test --image=busybox --rm -it -- wget -qO- http://<service-name>
+```
+
+#### **🚨 Load Balancing Not Working**
+```bash
+# Check if multiple pods are running and ready
+k get pods -l app=<app-name>
+
+# Check service endpoints
+k get endpoints <service-name>
+
+# Verify all pods are healthy
+k describe pods -l app=<app-name>
+```
+
+---
+
+## 📋 Essential Service Commands
 
 ### **Create Services**
 ```bash
-# Create ClusterIP service
-k expose pod <pod-name> --port=80 --type=ClusterIP
+# Create ClusterIP service (default)
+k expose deployment <name> --port=80
 
 # Create NodePort service
-k expose pod <pod-name> --port=80 --type=NodePort
+k expose deployment <name> --port=80 --type=NodePort
+
+# Create service with specific NodePort
+k expose deployment <name> --port=80 --type=NodePort --node-port=30080
 
 # Apply from YAML file
 k apply -f service.yaml
@@ -252,6 +605,9 @@ k describe service <name>
 # Check service endpoints
 k get endpoints <service-name>
 
+# Edit service
+k edit service <name>
+
 # Delete service
 k delete service <name>
 ```
@@ -261,59 +617,185 @@ k delete service <name>
 # Test internal service
 k run test --image=busybox --rm -it -- wget -qO- http://<service-name>
 
-# Port forward for testing
+# Test DNS resolution
+k run test --image=busybox --rm -it -- nslookup <service-name>
+
+# Port forward for local testing
 k port-forward service/<service-name> 8080:80
 
-# Check service connectivity
+# Check service connectivity from pod
 k exec <pod-name> -- curl http://<service-name>
 ```
 
 ---
 
-## ✅ Key Takeaways
+## 📝 Service YAML Templates
 
-**Services are simple:**
-- 🎯 **Purpose** - Stable way to access pods
-- 🏷️ **Selection** - Use labels to find pods
-- 🌐 **Types** - ClusterIP (internal), NodePort (external)
-- ⚖️ **Load Balancing** - Automatic across healthy pods
+### **Basic ClusterIP Service**
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-clusterip-service
+  labels:
+    app: my-app
+spec:
+  type: ClusterIP  # Default, can be omitted
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: my-app
+    tier: backend
+```
 
-**Remember:**
-- Services don't create pods, they find them
-- Labels connect services to pods
-- Services provide stable DNS names
-- NodePort gives external access
+### **NodePort Service with Custom Port**
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nodeport-service
+  labels:
+    app: my-app
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30080  # Optional, auto-assigned if not specified
+    protocol: TCP
+  selector:
+    app: my-app
+    tier: frontend
+```
+
+### **Multi-Port Service**
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-multi-port-service
+spec:
+  type: NodePort
+  ports:
+  - name: web
+    port: 80
+    targetPort: 8080
+    nodePort: 30080
+  - name: api
+    port: 8080
+    targetPort: 8080
+    nodePort: 30081
+  selector:
+    app: my-app
+```
+
+---
+
+## ✅ Knowledge Check
+
+### **Quiz Questions**
+1. **Which service type allows external access?**
+   - ClusterIP ❌
+   - NodePort ✅
+   - Both ❌
+
+2. **How do pods find services?**
+   - IP addresses ❌
+   - DNS names ✅
+   - Port numbers ❌
+
+3. **What happens if a service selector doesn't match any pods?**
+   - Service fails ❌
+   - No endpoints, traffic goes nowhere ✅
+   - Kubernetes creates pods automatically ❌
+
+4. **What port range is used for NodePort services?**
+   - 1-1000 ❌
+   - 30000-32767 ✅
+   - 8000-9000 ❌
+
+### **Practical Test**
+```bash
+# Can you build this complete application?
+# 1. Database deployment (1 replica) with ClusterIP service
+# 2. API deployment (2 replicas) with ClusterIP service  
+# 3. Frontend deployment (3 replicas) with NodePort service
+# 4. Test that frontend can reach API
+# 5. Test that API can reach database
+# 6. Test external access to frontend
+# 7. Demonstrate load balancing across API pods
+```
 
 ---
 
 ## ✅ Success Criteria
 
-You're ready to move on when you can:
+You're ready for the next section when you can:
 
-- [ ] ✅ Write a basic service YAML file
-- [ ] ✅ Understand ClusterIP vs NodePort
-- [ ] ✅ Use selectors to connect services to pods
-- [ ] ✅ Test service connectivity
-- [ ] ✅ Switch services between different pods
+- [ ] ✅ Write service YAML files from scratch
+- [ ] ✅ Create ClusterIP services for internal communication
+- [ ] ✅ Create NodePort services for external access
+- [ ] ✅ Use service discovery to connect applications
+- [ ] ✅ Understand and demonstrate load balancing
+- [ ] ✅ Build complete multi-service applications
+- [ ] ✅ Troubleshoot common networking issues
+- [ ] ✅ Switch traffic between different app versions
 
 ---
 
 ## 🚀 Next Steps
 
-**Congratulations!** 🎉 You now understand services!
+**Fantastic!** 🎉 You now understand Kubernetes services and networking completely!
 
-### **What You Learned:**
-- ✅ **Service YAML** - How to write service files
-- ✅ **ClusterIP** - Internal service communication
-- ✅ **NodePort** - External service access
-- ✅ **Selectors** - How services find pods
-- ✅ **Blue-Green** - Service switching patterns
+### **What You Accomplished:**
+- ✅ **Service YAML Writing** - Created ClusterIP and NodePort services
+- ✅ **Internal Communication** - Connected apps within the cluster
+- ✅ **External Access** - Exposed apps to the outside world
+- ✅ **Service Discovery** - Apps finding each other by name
+- ✅ **Load Balancing** - Traffic distribution across multiple pods
+- ✅ **Multi-Service Apps** - Built complete 3-tier applications
+- ✅ **Blue-Green Switching** - Advanced deployment patterns
+- ✅ **Troubleshooting** - Diagnosed and fixed networking issues
 
 ### **Ready for More?**
 - **[→ Back to Pods](../02-basics/)** - Review pod concepts
-- **[→ Advanced Networking](./networking-README.md)** - Deep dive into Kubernetes networking
-- **[→ Next: Scaling](../05-scaling/)** - Scale and manage pods automatically
+- **[→ Next: Scaling](../05-scaling/)** - Scale applications and perform rolling updates
 
 ---
 
-*Ready to learn about Scaling? Services make your pods accessible!* 🚀
+## 📚 Quick Reference
+
+### **Service Discovery DNS Names**
+```bash
+# Same namespace
+<service-name>
+
+# Different namespace  
+<service-name>.<namespace>
+
+# Full DNS name
+<service-name>.<namespace>.svc.cluster.local
+```
+
+### **Port Mapping Explained**
+- **port**: Service port (what clients connect to)
+- **targetPort**: Pod port (where traffic actually goes)
+- **nodePort**: External port on nodes (for NodePort services)
+
+### **Common Service Patterns**
+```bash
+# Internal API service
+k expose deployment api --port=80 --type=ClusterIP
+
+# External web service
+k expose deployment web --port=80 --type=NodePort
+
+# Database service
+k expose deployment db --port=5432 --type=ClusterIP
+```
+
+---
+
+*Excellent work! Your applications can now communicate effectively and scale properly.* 🌐🚀
