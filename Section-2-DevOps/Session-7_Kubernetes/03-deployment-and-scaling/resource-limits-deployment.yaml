@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-demo
+  labels:
+    app: resource-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: resource-demo
+  template:
+    metadata:
+      labels:
+        app: resource-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          requests:              # Guaranteed resources
+            memory: "64Mi"
+            cpu: "250m"
+          limits:                # Maximum resources
+            memory: "128Mi"
+            cpu: "500m"

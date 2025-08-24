@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yaml-demo
+  labels:
+    app: yaml-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: yaml-demo
+  template:
+    metadata:
+      labels:
+        app: yaml-demo
+    spec:
+      containers:
+      - name: web
+        image: nginx
+        ports:
+        - containerPort: 80
