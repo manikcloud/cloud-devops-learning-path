@@ -55,22 +55,22 @@ Imagine you have a web application with multiple components:
 
 ```mermaid
 graph TB
-    subgraph "❌ Without Services - Problems"
-        FRONTEND1[🎨 Frontend Pod<br/>IP: 10.42.0.5]
-        API1[🔧 API Pod<br/>IP: 10.42.0.8]
-        DB1[🗄️ Database Pod<br/>IP: 10.42.0.12]
+    subgraph "Without Services - Problems"
+        FRONTEND1[Frontend Pod - IP: 10.42.0.5]
+        API1[API Pod - IP: 10.42.0.8]
+        DB1[Database Pod - IP: 10.42.0.12]
         
         FRONTEND1 -.->|Hard-coded IP| API1
         API1 -.->|Hard-coded IP| DB1
     end
     
-    subgraph "😱 What Happens When Pods Restart?"
-        FRONTEND2[🎨 Frontend Pod<br/>IP: 10.42.0.15 ❌ NEW IP!]
-        API2[🔧 API Pod<br/>IP: 10.42.0.22 ❌ NEW IP!]
-        DB2[🗄️ Database Pod<br/>IP: 10.42.0.31 ❌ NEW IP!]
+    subgraph "What Happens When Pods Restart?"
+        FRONTEND2[Frontend Pod - IP: 10.42.0.15 NEW IP!]
+        API2[API Pod - IP: 10.42.0.22 NEW IP!]
+        DB2[Database Pod - IP: 10.42.0.31 NEW IP!]
         
-        FRONTEND2 -.->|💥 Broken Connection| API2
-        API2 -.->|💥 Broken Connection| DB2
+        FRONTEND2 -.->|Broken Connection| API2
+        API2 -.->|Broken Connection| DB2
     end
     
     style FRONTEND1 fill:#ffebee
@@ -92,15 +92,15 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "✅ With Services - Stable & Reliable"
-        FRONTEND[🎨 Frontend Pods<br/>Multiple instances]
-        FRONTEND_SVC[🌐 Frontend Service<br/>Stable IP & DNS]
+    subgraph "With Services - Stable and Reliable"
+        FRONTEND[Frontend Pods - Multiple instances]
+        FRONTEND_SVC[Frontend Service - Stable IP and DNS]
         
-        API[🔧 API Pods<br/>Multiple instances]
-        API_SVC[🌐 API Service<br/>Stable IP & DNS]
+        API[API Pods - Multiple instances]
+        API_SVC[API Service - Stable IP and DNS]
         
-        DB[🗄️ Database Pod<br/>Single instance]
-        DB_SVC[🌐 Database Service<br/>Stable IP & DNS]
+        DB[Database Pod - Single instance]
+        DB_SVC[Database Service - Stable IP and DNS]
         
         FRONTEND --> API_SVC
         API_SVC --> API
@@ -134,14 +134,14 @@ Think of a Service as a **smart phone directory** for your applications:
 
 ```mermaid
 graph TB
-    USER[👨‍💻 User<br/>Wants to call "Pizza Shop"] --> DIRECTORY[📞 Phone Directory<br/>Pizza Shop = 555-PIZZA]
-    DIRECTORY --> PIZZA[🍕 Pizza Shop<br/>Actual phone: 555-PIZZA]
+    USER[User - Wants to call Pizza Shop] --> DIRECTORY[Phone Directory - Pizza Shop = 555-PIZZA]
+    DIRECTORY --> PIZZA[Pizza Shop - Actual phone: 555-PIZZA]
     
-    subgraph "🌐 In Kubernetes"
-        APP[📱 App<br/>Wants to call "api-service"] --> SERVICE[🌐 Service<br/>api-service = 10.96.0.100]
-        SERVICE --> POD1[📦 API Pod 1<br/>IP: 10.42.0.5]
-        SERVICE --> POD2[📦 API Pod 2<br/>IP: 10.42.0.6]
-        SERVICE --> POD3[📦 API Pod 3<br/>IP: 10.42.0.7]
+    subgraph "In Kubernetes"
+        APP[App - Wants to call api-service] --> SERVICE[Service - api-service = 10.96.0.100]
+        SERVICE --> POD1[API Pod 1 - IP: 10.42.0.5]
+        SERVICE --> POD2[API Pod 2 - IP: 10.42.0.6]
+        SERVICE --> POD3[API Pod 3 - IP: 10.42.0.7]
     end
     
     style USER fill:#e3f2fd
@@ -165,17 +165,17 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🏷️ Pods with Labels"
-        POD1[📦 Pod 1<br/>Labels:<br/>app=web<br/>version=v1<br/>tier=frontend]
-        POD2[📦 Pod 2<br/>Labels:<br/>app=web<br/>version=v1<br/>tier=frontend]
-        POD3[📦 Pod 3<br/>Labels:<br/>app=api<br/>version=v2<br/>tier=backend]
-        POD4[📦 Pod 4<br/>Labels:<br/>app=db<br/>version=v1<br/>tier=database]
+    subgraph "Pods with Labels"
+        POD1[Pod 1 - Labels: app=web, version=v1, tier=frontend]
+        POD2[Pod 2 - Labels: app=web, version=v1, tier=frontend]
+        POD3[Pod 3 - Labels: app=api, version=v2, tier=backend]
+        POD4[Pod 4 - Labels: app=db, version=v1, tier=database]
     end
     
-    subgraph "🌐 Services with Selectors"
-        SVC1[🌐 Web Service<br/>Selector:<br/>app=web<br/>tier=frontend]
-        SVC2[🌐 API Service<br/>Selector:<br/>app=api<br/>tier=backend]
-        SVC3[🌐 DB Service<br/>Selector:<br/>app=db]
+    subgraph "Services with Selectors"
+        SVC1[Web Service - Selector: app=web, tier=frontend]
+        SVC2[API Service - Selector: app=api, tier=backend]
+        SVC3[DB Service - Selector: app=db]
     end
     
     SVC1 --> POD1
@@ -207,24 +207,24 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🖥️ Node 1 (Worker)"
-        POD1[📦 Pod A<br/>IP: 10.42.0.5<br/>App: Frontend]
-        POD2[📦 Pod B<br/>IP: 10.42.0.6<br/>App: API]
-        BRIDGE1[🌉 Bridge Network<br/>10.42.0.0/24]
+    subgraph "Node 1 Worker"
+        POD1[Pod A - IP: 10.42.0.5 - App: Frontend]
+        POD2[Pod B - IP: 10.42.0.6 - App: API]
+        BRIDGE1[Bridge Network - 10.42.0.0/24]
         POD1 --- BRIDGE1
         POD2 --- BRIDGE1
     end
     
-    subgraph "🖥️ Node 2 (Worker)"
-        POD3[📦 Pod C<br/>IP: 10.42.1.5<br/>App: Database]
-        POD4[📦 Pod D<br/>IP: 10.42.1.6<br/>App: Cache]
-        BRIDGE2[🌉 Bridge Network<br/>10.42.1.0/24]
+    subgraph "Node 2 Worker"
+        POD3[Pod C - IP: 10.42.1.5 - App: Database]
+        POD4[Pod D - IP: 10.42.1.6 - App: Cache]
+        BRIDGE2[Bridge Network - 10.42.1.0/24]
         POD3 --- BRIDGE2
         POD4 --- BRIDGE2
     end
     
-    subgraph "🌐 Cluster Network"
-        OVERLAY[🌐 Overlay Network<br/>Connects all nodes]
+    subgraph "Cluster Network"
+        OVERLAY[Overlay Network - Connects all nodes]
     end
     
     BRIDGE1 --- OVERLAY
@@ -253,25 +253,25 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "⏰ Time: 9:00 AM"
-        POD1[📦 Frontend Pod<br/>IP: 10.42.0.5<br/>Status: Running ✅]
-        POD2[📦 API Pod<br/>IP: 10.42.0.8<br/>Status: Running ✅]
+    subgraph "Time: 9:00 AM"
+        POD1[Frontend Pod - IP: 10.42.0.5 - Status: Running]
+        POD2[API Pod - IP: 10.42.0.8 - Status: Running]
         
         POD1 -->|Calls API| POD2
     end
     
-    subgraph "⏰ Time: 9:15 AM - Pod Crashes"
-        POD1B[📦 Frontend Pod<br/>IP: 10.42.0.5<br/>Status: Running ✅]
-        POD2B[📦 API Pod<br/>IP: 10.42.0.8<br/>Status: Crashed ❌]
+    subgraph "Time: 9:15 AM - Pod Crashes"
+        POD1B[Frontend Pod - IP: 10.42.0.5 - Status: Running]
+        POD2B[API Pod - IP: 10.42.0.8 - Status: Crashed]
         
-        POD1B -.->|💥 Connection Failed| POD2B
+        POD1B -.->|Connection Failed| POD2B
     end
     
-    subgraph "⏰ Time: 9:16 AM - Kubernetes Restarts Pod"
-        POD1C[📦 Frontend Pod<br/>IP: 10.42.0.5<br/>Status: Running ✅]
-        POD2C[📦 API Pod<br/>IP: 10.42.0.15 ⚠️ NEW IP!<br/>Status: Running ✅]
+    subgraph "Time: 9:16 AM - Kubernetes Restarts Pod"
+        POD1C[Frontend Pod - IP: 10.42.0.5 - Status: Running]
+        POD2C[API Pod - IP: 10.42.0.15 NEW IP! - Status: Running]
         
-        POD1C -.->|💥 Still calling old IP| POD2C
+        POD1C -.->|Still calling old IP| POD2C
     end
     
     style POD1 fill:#c8e6c9
@@ -305,19 +305,19 @@ ClusterIP is like having a **private phone line** inside your office building:
 
 ```mermaid
 graph TB
-    subgraph "🏢 Office Building (Kubernetes Cluster)"
-        subgraph "📞 Internal Phone System (ClusterIP)"
-            RECEPTION[📞 Reception<br/>Extension: 100<br/>(ClusterIP Service)]
+    subgraph "Office Building - Kubernetes Cluster"
+        subgraph "Internal Phone System - ClusterIP"
+            RECEPTION[Reception - Extension: 100 - ClusterIP Service]
             
-            RECEPTION --> EMP1[👨‍💼 Employee 1<br/>Desk A (Pod 1)]
-            RECEPTION --> EMP2[👩‍💼 Employee 2<br/>Desk B (Pod 2)]
-            RECEPTION --> EMP3[👨‍💼 Employee 3<br/>Desk C (Pod 3)]
+            RECEPTION --> EMP1[Employee 1 - Desk A - Pod 1]
+            RECEPTION --> EMP2[Employee 2 - Desk B - Pod 2]
+            RECEPTION --> EMP3[Employee 3 - Desk C - Pod 3]
         end
         
-        CALLER[📱 Internal Caller<br/>(Another Pod)] --> RECEPTION
+        CALLER[Internal Caller - Another Pod] --> RECEPTION
     end
     
-    OUTSIDE[🌍 Outside World] -.->|❌ Cannot Call| RECEPTION
+    OUTSIDE[Outside World] -.->|Cannot Call| RECEPTION
     
     style RECEPTION fill:#e8f5e8
     style EMP1 fill:#e1f5fe
@@ -338,22 +338,22 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🧠 Kubernetes Control Plane"
-        API[📡 API Server<br/>Receives service creation]
-        CONTROLLER[🎛️ Service Controller<br/>Manages service lifecycle]
-        ENDPOINTS[📋 Endpoints Controller<br/>Tracks pod IPs]
+    subgraph "Kubernetes Control Plane"
+        API[API Server - Receives service creation]
+        CONTROLLER[Service Controller - Manages service lifecycle]
+        ENDPOINTS[Endpoints Controller - Tracks pod IPs]
     end
     
-    subgraph "🖥️ Worker Nodes"
-        KUBE_PROXY[🌐 kube-proxy<br/>Updates iptables rules]
-        IPTABLES[🔧 iptables<br/>Routes traffic to pods]
+    subgraph "Worker Nodes"
+        KUBE_PROXY[kube-proxy - Updates iptables rules]
+        IPTABLES[iptables - Routes traffic to pods]
         
-        POD1[📦 Pod 1<br/>10.42.0.5:80]
-        POD2[📦 Pod 2<br/>10.42.0.6:80]
-        POD3[📦 Pod 3<br/>10.42.0.7:80]
+        POD1[Pod 1 - 10.42.0.5:80]
+        POD2[Pod 2 - 10.42.0.6:80]
+        POD3[Pod 3 - 10.42.0.7:80]
     end
     
-    CLIENT[📱 Client Pod] --> IPTABLES
+    CLIENT[Client Pod] --> IPTABLES
     IPTABLES --> POD1
     IPTABLES --> POD2
     IPTABLES --> POD3
@@ -441,20 +441,20 @@ NodePort is like having a **public reception desk** that anyone can visit:
 
 ```mermaid
 graph TB
-    subgraph "🏢 Office Building (Kubernetes Cluster)"
-        subgraph "🚪 Public Reception (NodePort)"
-            RECEPTION[🚪 Public Reception<br/>Port 30080<br/>(NodePort Service)]
+    subgraph "Office Building - Kubernetes Cluster"
+        subgraph "Public Reception - NodePort"
+            RECEPTION[Public Reception - Port 30080 - NodePort Service]
             
-            RECEPTION --> INTERNAL[📞 Internal System<br/>(ClusterIP)]
-            INTERNAL --> EMP1[👨‍💼 Employee 1<br/>(Pod 1)]
-            INTERNAL --> EMP2[👩‍💼 Employee 2<br/>(Pod 2)]
-            INTERNAL --> EMP3[👨‍💼 Employee 3<br/>(Pod 3)]
+            RECEPTION --> INTERNAL[Internal System - ClusterIP]
+            INTERNAL --> EMP1[Employee 1 - Pod 1]
+            INTERNAL --> EMP2[Employee 2 - Pod 2]
+            INTERNAL --> EMP3[Employee 3 - Pod 3]
         end
     end
     
-    VISITOR1[🌍 External Visitor 1] --> RECEPTION
-    VISITOR2[🌍 External Visitor 2] --> RECEPTION
-    VISITOR3[🌍 External Visitor 3] --> RECEPTION
+    VISITOR1[External Visitor 1] --> RECEPTION
+    VISITOR2[External Visitor 2] --> RECEPTION
+    VISITOR3[External Visitor 3] --> RECEPTION
     
     style RECEPTION fill:#fff3e0
     style INTERNAL fill:#e8f5e8
@@ -477,31 +477,31 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🌍 External World"
-        USER[👨‍💻 User<br/>Browser/curl]
-        LAPTOP[💻 Your Laptop<br/>192.168.1.100]
+    subgraph "External World"
+        USER[User - Browser/curl]
+        LAPTOP[Your Laptop - 192.168.1.100]
     end
     
-    subgraph "☁️ Kubernetes Cluster"
-        subgraph "🖥️ Node 1"
-            NODE1[🖥️ Node IP<br/>10.0.1.10:30080]
-            KUBE_PROXY1[🌐 kube-proxy<br/>Port forwarding]
+    subgraph "Kubernetes Cluster"
+        subgraph "Node 1"
+            NODE1[Node IP - 10.0.1.10:30080]
+            KUBE_PROXY1[kube-proxy - Port forwarding]
         end
         
-        subgraph "🖥️ Node 2"
-            NODE2[🖥️ Node IP<br/>10.0.1.11:30080]
-            KUBE_PROXY2[🌐 kube-proxy<br/>Port forwarding]
+        subgraph "Node 2"
+            NODE2[Node IP - 10.0.1.11:30080]
+            KUBE_PROXY2[kube-proxy - Port forwarding]
         end
         
-        subgraph "🌐 Service Layer"
-            NODEPORT_SVC[🚪 NodePort Service<br/>Port 80 → 30080]
-            CLUSTERIP[🏠 ClusterIP<br/>10.96.0.100:80]
+        subgraph "Service Layer"
+            NODEPORT_SVC[NodePort Service - Port 80 to 30080]
+            CLUSTERIP[ClusterIP - 10.96.0.100:80]
         end
         
-        subgraph "📦 Pods"
-            POD1[📦 Pod 1<br/>10.42.0.5:80]
-            POD2[📦 Pod 2<br/>10.42.0.6:80]
-            POD3[📦 Pod 3<br/>10.42.1.5:80]
+        subgraph "Pods"
+            POD1[Pod 1 - 10.42.0.5:80]
+            POD2[Pod 2 - 10.42.0.6:80]
+            POD3[Pod 3 - 10.42.1.5:80]
         end
     end
     
@@ -540,17 +540,17 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "🔢 Port Number Ranges"
-        subgraph "❌ Reserved Ports (1-1023)"
-            SYSTEM[🔒 System Ports<br/>22 (SSH), 80 (HTTP)<br/>443 (HTTPS), etc.]
+    subgraph "Port Number Ranges"
+        subgraph "Reserved Ports 1-1023"
+            SYSTEM[System Ports - 22 SSH, 80 HTTP, 443 HTTPS, etc.]
         end
         
-        subgraph "⚠️ User Ports (1024-29999)"
-            USER_PORTS[👤 User Applications<br/>Your apps, databases<br/>web servers, etc.]
+        subgraph "User Ports 1024-29999"
+            USER_PORTS[User Applications - Your apps, databases, web servers, etc.]
         end
         
-        subgraph "✅ NodePort Range (30000-32767)"
-            NODEPORT_RANGE[🚪 NodePort Services<br/>30000, 30001, 30002<br/>...32767]
+        subgraph "NodePort Range 30000-32767"
+            NODEPORT_RANGE[NodePort Services - 30000, 30001, 30002, ...32767]
         end
     end
     
@@ -642,29 +642,29 @@ LoadBalancer is like having a **professional call center** with multiple operato
 
 ```mermaid
 graph TB
-    subgraph "🌍 Internet"
-        USERS[👥 Many Users<br/>From around the world]
+    subgraph "Internet"
+        USERS[Many Users - From around the world]
     end
     
-    subgraph "☁️ AWS Cloud"
-        subgraph "🏢 Professional Call Center (AWS ALB)"
-            ALB[☁️ Application Load Balancer<br/>• SSL Termination<br/>• Health Checks<br/>• Auto Scaling<br/>• DDoS Protection]
+    subgraph "AWS Cloud"
+        subgraph "Professional Call Center - AWS ALB"
+            ALB[Application Load Balancer - SSL Termination, Health Checks, Auto Scaling, DDoS Protection]
             
-            OPERATOR1[📞 Operator 1<br/>Availability Zone A]
-            OPERATOR2[📞 Operator 2<br/>Availability Zone B]
-            OPERATOR3[📞 Operator 3<br/>Availability Zone C]
+            OPERATOR1[Operator 1 - Availability Zone A]
+            OPERATOR2[Operator 2 - Availability Zone B]
+            OPERATOR3[Operator 3 - Availability Zone C]
             
             ALB --> OPERATOR1
             ALB --> OPERATOR2
             ALB --> OPERATOR3
         end
         
-        subgraph "🏢 Your Office (Kubernetes Cluster)"
-            SERVICE[🌐 LoadBalancer Service<br/>Coordinates with ALB]
+        subgraph "Your Office - Kubernetes Cluster"
+            SERVICE[LoadBalancer Service - Coordinates with ALB]
             
-            POD1[📦 Pod 1<br/>Your App Instance]
-            POD2[📦 Pod 2<br/>Your App Instance]
-            POD3[📦 Pod 3<br/>Your App Instance]
+            POD1[Pod 1 - Your App Instance]
+            POD2[Pod 2 - Your App Instance]
+            POD3[Pod 3 - Your App Instance]
             
             SERVICE --> POD1
             SERVICE --> POD2
@@ -910,16 +910,16 @@ k delete pod blue-app
 ### **AWS LoadBalancer vs Other Types:**
 ```mermaid
 graph TB
-    subgraph "🏠 ClusterIP"
-        A[Internal Only<br/>10.96.0.100<br/>Free]
+    subgraph "ClusterIP"
+        A[Internal Only - 10.96.0.100 - Free]
     end
     
-    subgraph "🚪 NodePort"  
-        B[Node IP + Port<br/>192.168.1.10:30080<br/>Free]
+    subgraph "NodePort"  
+        B[Node IP + Port - 192.168.1.10:30080 - Free]
     end
     
-    subgraph "☁️ LoadBalancer"
-        C[External IP + DNS<br/>abc123.us-east-1.elb.amazonaws.com<br/>AWS Charges Apply]
+    subgraph "LoadBalancer"
+        C[External IP + DNS - abc123.us-east-1.elb.amazonaws.com - AWS Charges Apply]
     end
     
     style A fill:#e1f5fe
