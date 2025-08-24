@@ -212,6 +212,162 @@ graph LR
 </details>
 
 <details>
+<summary><strong>🐳 Session 5: Docker - Containerization Fundamentals</strong></summary>
+
+**Duration:** 2 weeks | **Focus:** Container technology and application packaging
+
+### Topics Covered:
+
+#### 1. Container Technology Fundamentals
+- Understanding containers vs virtual machines
+- Docker architecture and components
+- Container lifecycle and management
+- Image creation and optimization
+
+#### 2. Docker Operations & Management
+- Docker installation and configuration
+- Container creation, execution, and monitoring
+- Image building with Dockerfiles
+- Container networking and storage
+
+#### 3. Multi-Container Applications
+- Docker Compose for multi-service applications
+- Service orchestration and dependencies
+- Environment management and configuration
+- Container communication patterns
+
+#### 4. Production Considerations
+- Security best practices for containers
+- Performance optimization and monitoring
+- Container registry management
+- Deployment strategies and patterns
+
+### Learning Outcomes:
+- ✅ Build and manage Docker containers
+- ✅ Create optimized container images
+- ✅ Orchestrate multi-container applications
+- ✅ Implement container security practices
+
+### Practical Labs:
+- Docker Installation and Configuration
+- Container Creation and Management
+- Multi-service Application Deployment
+- Container Security Implementation
+
+### Key Resources:
+- [Session 5 Materials](./Session-5_Docker/)
+- Docker Best Practices Guide
+- Container Security Checklist
+- Multi-container Application Examples
+
+</details>
+
+<details>
+<summary><strong>🐙 Session 6: Docker Swarm - Container Orchestration</strong></summary>
+
+**Duration:** 1 week | **Focus:** Docker native orchestration platform
+
+### Topics Covered:
+
+#### 1. Docker Swarm Fundamentals
+- Swarm mode architecture and concepts
+- Cluster initialization and node management
+- Service creation and scaling
+- Load balancing and service discovery
+
+#### 2. Production Deployment Patterns
+- Multi-node cluster setup
+- Rolling updates and rollback strategies
+- Health checks and service monitoring
+- Secrets and configuration management
+
+### Learning Outcomes:
+- ✅ Deploy and manage Docker Swarm clusters
+- ✅ Orchestrate containerized applications at scale
+- ✅ Implement high availability patterns
+- ✅ Manage cluster security and secrets
+
+### Practical Labs:
+- Swarm Cluster Setup and Management
+- Service Deployment and Scaling
+- Rolling Updates and Health Monitoring
+- Multi-environment Configuration
+
+### Key Resources:
+- [Session 6 Materials](./Session-6_Docker-Swarm/)
+- Swarm Deployment Examples
+- Cluster Management Scripts
+- Production Configuration Templates
+
+</details>
+
+<details>
+<summary><strong>☸️ Session 7: Kubernetes - Container Orchestration at Scale</strong></summary>
+
+**Duration:** 3 weeks | **Focus:** Production-grade container orchestration
+
+### Topics Covered:
+
+#### 1. Kubernetes Fundamentals & Setup
+- Kubernetes architecture and components
+- Cluster setup with K3s (lightweight Kubernetes)
+- kubectl command-line interface
+- Basic troubleshooting and cluster validation
+
+#### 2. Core Kubernetes Concepts
+- Pods, Services, and Deployments explained
+- Container orchestration principles
+- Kubernetes resource management
+- Real-world analogies and practical understanding
+
+#### 3. Application Deployment & Management
+- Pod creation and lifecycle management
+- Multi-container applications
+- Labels, selectors, and organization
+- Debugging and log analysis
+
+#### 4. Scaling & Production Deployments
+- Deployment strategies and scaling
+- Rolling updates and rollback procedures
+- Health checks and self-healing applications
+- Resource limits and performance optimization
+
+#### 5. Service Discovery & Networking
+- Service types and networking patterns
+- Load balancing and traffic distribution
+- Inter-service communication
+- External access and ingress patterns
+
+#### 6. Complete Application Project
+- Full-stack Todo application deployment
+- Multi-tier architecture (Frontend, API, Database)
+- Production-ready configurations
+- Real-world troubleshooting scenarios
+
+### Learning Outcomes:
+- ✅ Deploy and manage Kubernetes clusters
+- ✅ Orchestrate complex multi-service applications
+- ✅ Implement scaling and update strategies
+- ✅ Configure service networking and discovery
+- ✅ Build production-ready containerized applications
+- ✅ Troubleshoot and monitor Kubernetes workloads
+
+### Practical Labs:
+- K3s Cluster Setup and Configuration
+- Pod and Deployment Management
+- Service Discovery and Networking
+- Complete Todo Application Project
+- Production Deployment Patterns
+
+### Key Resources:
+- [Session 7 Materials](./Session-7_Kubernetes/)
+- Kubernetes Configuration Examples
+- Troubleshooting Guides and Best Practices
+- Production Deployment Templates
+
+</details>
+
+<details>
 <summary><strong>🏗️ Terraform Module: Infrastructure as Code</strong></summary>
 
 **Duration:** 2 weeks | **Focus:** Infrastructure automation and management
