@@ -18,8 +18,8 @@
 # Clone the repository (if you haven't already)
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
 
-# Navigate to the basics directory
-cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/02-basics
+# Navigate to the pods directory
+cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/03-pods
 
 # List all the YAML files we'll be using
 ls -la *.yaml
@@ -572,8 +572,8 @@ You're ready to move on when you can:
 - ✅ **Multi-Container Pods** - Advanced pod patterns
 
 ### **Ready for More?**
-- **[→ Services & Networking](../04-services-networking/)** - Learn how to expose and access pods
-- **[→ Next: Deployments](../03-deployments/)** - Scale and manage pods automatically
+- **[→ Next: Deployments and Scaling](../04-deployment-and-scaling/)** - Scale and manage pods automatically
+- **[→ Services & Networking](../05-services-networking/)** - Learn how to expose and access pods
 
 ---
 

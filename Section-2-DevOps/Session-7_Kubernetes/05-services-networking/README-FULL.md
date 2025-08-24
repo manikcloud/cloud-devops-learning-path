@@ -16,7 +16,7 @@
 ### **Navigate to Services & Networking Directory**
 ```bash
 # Navigate to the services and networking directory
-cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/04-services-networking
+cd cloud-devops-learning-path/Section-2-DevOps/Session-7_Kubernetes/05-services-networking
 
 # List the service YAML files
 ls -la *.yaml
@@ -1832,8 +1832,8 @@ You're ready for the next section when you can:
 - ✅ **Troubleshooting** - Diagnosed and fixed networking issues
 
 ### **Ready for More?**
-- **[→ Back to Pods](../02-basics/)** - Review pod concepts
-- **[→ Next: Scaling](../05-scaling/)** - Scale applications and perform rolling updates
+- **[→ Back to Pods](../03-pods/)** - Review pod concepts
+- **[→ Next: Final Project](../06-project/)** - Build a complete application
 
 ---
 

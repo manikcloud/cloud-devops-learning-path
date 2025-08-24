@@ -9,12 +9,12 @@ I've completely rebuilt the Kubernetes session from scratch with a **student-fir
 Session-7_Kubernetes/
 ├── README.md                    # Main overview with Mermaid diagrams
 ├── 01-setup/                    # Quick k3s installation
-├── 02-basics/                   # Pods, Services, Labels
-├── 03-deployments/              # Managing multiple pods
-├── 04-networking/               # Service communication
-├── 05-scaling/                  # Scaling and updates
-├── 06-project/                  # Complete Todo application
-└── yaml-files/                  # Preserved original YAML files
+├── 02-k8s-concepts/            # Kubernetes theory and concepts
+├── 03-pods/                    # Pods, Services, Labels
+├── 04-deployment-and-scaling/  # Managing and scaling multiple pods
+├── 05-services-networking/     # Service communication and networking
+├── 06-project/                 # Complete Todo application
+└── yaml-files/                 # Preserved original YAML files
 ```
 
 ---
@@ -154,14 +154,15 @@ All original YAML files are preserved in the `yaml-files/` directory:
 
 ### **Beginner (Never used Kubernetes)**
 1. Start with **01-setup** - Get cluster running
-2. Follow **02-basics** - Understand core concepts
-3. Try **06-project** - See complete application
-4. Go back and complete all sections
+2. Follow **02-k8s-concepts** - Understand core concepts
+3. Practice with **03-pods** - Learn basic deployments
+4. Try **06-project** - See complete application
+5. Go back and complete all sections
 
 ### **Intermediate (Some Docker experience)**
 1. Quick setup with **01-setup**
-2. Jump to **03-deployments** - Learn scaling
-3. Complete **04-networking** - Service communication
+2. Jump to **04-deployment-and-scaling** - Learn scaling
+3. Complete **05-services-networking** - Service communication
 4. Build **06-project** - Apply all concepts
 
 ### **Advanced (Want to review/teach)**

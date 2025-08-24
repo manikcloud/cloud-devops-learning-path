@@ -186,7 +186,7 @@ You're ready for the next session when:
 - ✅ Tested networking and storage
 
 ### **Ready for More?**
-**[→ Next: Learn Kubernetes Basics](../02-basics/)**
+**[→ Next: Learn Kubernetes Concepts](../02-k8s-concepts/)**
 
 ---
 

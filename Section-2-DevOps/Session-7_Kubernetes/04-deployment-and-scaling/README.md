@@ -700,7 +700,7 @@ You're ready for the next section when you can:
 
 ### **Ready for More?**
 
-**[→ Next: Services and Networking](../04-services-networking/)**
+**[→ Next: Services and Networking](../05-services-networking/)**
 
 Learn how to expose your applications and enable communication between services.
 
