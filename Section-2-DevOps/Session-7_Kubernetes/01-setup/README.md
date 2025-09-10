@@ -201,4 +201,14 @@ You're ready for the next session when:
 
 ---
 
+## 📚 Additional Setup Options
+
+### **☁️ EKS (AWS Managed Kubernetes)**
+For production workloads and AWS LoadBalancer services:
+- **[📖 Complete EKS Setup Guide](./eks-setup.md)** - eksctl installation and cluster creation
+- **Use case:** LoadBalancer services, AWS integrations, production deployments
+- **Cost:** ~$0.10/hour + EC2 instances
+
+---
+
 *Great job! You're now ready to learn Kubernetes fundamentals.* 🚀
