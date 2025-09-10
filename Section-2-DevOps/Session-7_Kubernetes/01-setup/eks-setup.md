@@ -65,28 +65,6 @@ kubectl get nodes
 
 ---
 
-## 🛠️ Install AWS Load Balancer Controller
-
-Required for LoadBalancer services with ALB annotations:
-
-```bash
-# Install AWS Load Balancer Controller
-kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
-
-# Add helm repo
-helm repo add eks https://aws.github.io/eks-charts
-helm repo update
-
-# Install controller
-helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
-  -n kube-system \
-  --set clusterName=my-cluster \
-  --set serviceAccount.create=false \
-  --set serviceAccount.name=aws-load-balancer-controller
-```
-
----
-
 ## ✅ Test EKS Setup
 
 ```bash
@@ -107,34 +85,6 @@ curl http://<EXTERNAL-IP>
 # Clean up
 kubectl delete deployment nginx
 kubectl delete service nginx
-```
-
----
-
-## 💰 Cost Management
-
-```bash
-# Delete cluster when done (to avoid charges)
-eksctl delete cluster --name my-cluster --region us-east-1
-
-# Check for remaining resources
-aws ec2 describe-instances --region us-east-1
-aws elbv2 describe-load-balancers --region us-east-1
-```
-
----
-
-## 🔄 Switch Between Clusters
-
-```bash
-# List contexts
-kubectl config get-contexts
-
-# Switch to EKS
-kubectl config use-context <eks-context-name>
-
-# Switch back to k3s
-kubectl config use-context default
 ```
 
 ---
