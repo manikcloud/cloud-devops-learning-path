@@ -20,35 +20,35 @@
 ### **Step 1: Create Test Pod**
 ```bash
 # Create a pod that matches the service selector
-kubectl apply -f 08-test-pods.yaml
+k apply -f 08-test-pods.yaml
 
 # Verify pod is running
-kubectl get pods
+k get pods
 ```
 
 ### **Step 2: Create ClusterIP Service**
 ```bash
 # Create the internal service
-kubectl apply -f 01-clusterip-service.yaml
+k apply -f 01-clusterip-service.yaml
 
 # Check the service
-kubectl get services
-kubectl describe service web-service
+k get services
+k describe service web-service
 ```
 
 ### **Step 3: Test Internal Access**
 ```bash
 # Test from inside the cluster
-kubectl run test --image=busybox --rm -it -- wget -qO- http://web-service
+k run test --image=busybox --rm -it -- wget -qO- http://web-service
 
 # Check service endpoints
-kubectl get endpoints web-service
+k get endpoints web-service
 ```
 
 ### **Step 4: Clean Up**
 ```bash
-kubectl delete -f 01-clusterip-service.yaml
-kubectl delete pod web-pod
+k delete -f 01-clusterip-service.yaml
+k delete pod web-pod
 ```
 
 ---
@@ -58,16 +58,16 @@ kubectl delete pod web-pod
 ### **Step 1: Create Blue App Pod**
 ```bash
 # Create blue app pod (already created in Exercise 1)
-kubectl get pod blue-app
+k get pod blue-app
 ```
 
 ### **Step 2: Create NodePort Service**
 ```bash
 # Create external access service
-kubectl apply -f 02-nodeport-service.yaml
+k apply -f 02-nodeport-service.yaml
 
 # Check the service and note the port
-kubectl get services
+k get services
 ```
 
 ### **Step 3: Test External Access**
@@ -80,8 +80,8 @@ curl http://localhost:30080
 
 ### **Step 4: Clean Up**
 ```bash
-kubectl delete -f 02-nodeport-service.yaml
-kubectl delete pod blue-app
+k delete -f 02-nodeport-service.yaml
+k delete pod blue-app
 ```
 
 ---
@@ -95,23 +95,23 @@ kubectl delete pod blue-app
 ### **Step 1: Create Blue App Pod**
 ```bash
 # Create pod for LoadBalancer
-kubectl apply -f 08-test-pods.yaml
-kubectl get pod blue-app
+k apply -f 08-test-pods.yaml
+k get pod blue-app
 ```
 
 ### **Step 2: Create LoadBalancer Service**
 ```bash
 # Create AWS ALB
-kubectl apply -f 03-loadbalancer-service.yaml
+k apply -f 03-loadbalancer-service.yaml
 
 # Wait for LoadBalancer to be ready (2-3 minutes)
-kubectl get services -w
+k get services -w
 ```
 
 ### **Step 3: Test External Access**
 ```bash
 # Get external URL
-EXTERNAL_URL=$(kubectl get service web-loadbalancer -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+EXTERNAL_URL=$(k get service web-loadbalancer -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 echo "Application available at: http://$EXTERNAL_URL"
 
 # Test the application
@@ -126,8 +126,8 @@ echo "Check AWS Console → EC2 → Load Balancers to see your ALB"
 ### **Step 5: Clean Up (Important!)**
 ```bash
 # Delete to avoid AWS charges
-kubectl delete -f 03-loadbalancer-service.yaml
-kubectl delete pod blue-app
+k delete -f 03-loadbalancer-service.yaml
+k delete pod blue-app
 ```
 
 ---
@@ -137,16 +137,16 @@ kubectl delete pod blue-app
 ### **Step 1: Create Blue and Green Pods**
 ```bash
 # Create both versions
-kubectl apply -f 08-test-pods.yaml
+k apply -f 08-test-pods.yaml
 
 # Verify both pods are running
-kubectl get pods -l app=web
+k get pods -l app=web
 ```
 
 ### **Step 2: Create Service Pointing to Blue**
 ```bash
 # Create service initially pointing to blue
-kubectl apply -f 06-blue-green-service.yaml
+k apply -f 06-blue-green-service.yaml
 
 # Test blue version
 curl http://localhost:30090
@@ -155,7 +155,7 @@ curl http://localhost:30090
 ### **Step 3: Switch to Green**
 ```bash
 # Update service to point to green version
-kubectl patch service web-switch -p '{"spec":{"selector":{"version":"green"}}}'
+k patch service web-switch -p '{"spec":{"selector":{"version":"green"}}}'
 
 # Test green version
 curl http://localhost:30090
@@ -164,7 +164,7 @@ curl http://localhost:30090
 ### **Step 4: Switch Back to Blue**
 ```bash
 # Switch back to blue
-kubectl patch service web-switch -p '{"spec":{"selector":{"version":"blue"}}}'
+k patch service web-switch -p '{"spec":{"selector":{"version":"blue"}}}'
 
 # Verify switch
 curl http://localhost:30090
@@ -172,8 +172,8 @@ curl http://localhost:30090
 
 ### **Step 5: Clean Up**
 ```bash
-kubectl delete -f 06-blue-green-service.yaml
-kubectl delete pod blue-app green-app
+k delete -f 06-blue-green-service.yaml
+k delete pod blue-app green-app
 ```
 
 ---
@@ -183,19 +183,19 @@ kubectl delete pod blue-app green-app
 ### **Step 1: Deploy Complete Application**
 ```bash
 # Deploy entire application stack
-kubectl apply -f 07-complete-app.yaml
+k apply -f 07-complete-app.yaml
 
 # Check all resources
-kubectl get all
+k get all
 ```
 
 ### **Step 2: Wait for LoadBalancer**
 ```bash
 # Wait for AWS ALB to be ready
-kubectl get services frontend-lb -w
+k get services frontend-lb -w
 
 # Get external URL
-EXTERNAL_URL=$(kubectl get service frontend-lb -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+EXTERNAL_URL=$(k get service frontend-lb -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 echo "Application available at: http://$EXTERNAL_URL"
 ```
 
@@ -205,7 +205,7 @@ echo "Application available at: http://$EXTERNAL_URL"
 curl http://$EXTERNAL_URL
 
 # Test internal service discovery
-kubectl run test --image=busybox --rm -it -- /bin/sh
+k run test --image=busybox --rm -it -- /bin/sh
 # Inside the pod:
 # wget -qO- http://api
 # nslookup database
@@ -215,14 +215,14 @@ kubectl run test --image=busybox --rm -it -- /bin/sh
 ### **Step 4: Check Service Discovery**
 ```bash
 # Test DNS resolution
-kubectl run dns-test --image=busybox --rm -it -- nslookup api
-kubectl run dns-test --image=busybox --rm -it -- nslookup database
+k run dns-test --image=busybox --rm -it -- nslookup api
+k run dns-test --image=busybox --rm -it -- nslookup database
 ```
 
 ### **Step 5: Clean Up**
 ```bash
 # Clean up entire application
-kubectl delete -f 07-complete-app.yaml
+k delete -f 07-complete-app.yaml
 ```
 
 ---
@@ -232,7 +232,7 @@ kubectl delete -f 07-complete-app.yaml
 ### **Step 1: Create Multi-Port Application**
 ```bash
 # Create deployment with multiple ports
-cat <<EOF | kubectl apply -f -
+cat <<EOF | k apply -f -
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -259,10 +259,10 @@ EOF
 ### **Step 2: Create Multi-Port Service**
 ```bash
 # Create service with multiple ports
-kubectl apply -f 04-multi-port-service.yaml
+k apply -f 04-multi-port-service.yaml
 
 # Check the service
-kubectl get services multi-port-service
+k get services multi-port-service
 ```
 
 ### **Step 3: Test Both Ports**
@@ -276,8 +276,8 @@ curl http://localhost:30080
 
 ### **Step 4: Clean Up**
 ```bash
-kubectl delete -f 04-multi-port-service.yaml
-kubectl delete deployment multi-port-app
+k delete -f 04-multi-port-service.yaml
+k delete deployment multi-port-app
 ```
 
 ---
@@ -287,25 +287,25 @@ kubectl delete deployment multi-port-app
 ### **Step 1: Create Deployment**
 ```bash
 # Create deployment with multiple replicas
-kubectl create deployment sticky-app --image=nginx --replicas=3
+k create deployment sticky-app --image=nginx --replicas=3
 
 # Label the deployment
-kubectl label deployment sticky-app app=web-app
+k label deployment sticky-app app=web-app
 ```
 
 ### **Step 2: Create Session Affinity Service**
 ```bash
 # Create service with session affinity
-kubectl apply -f 05-session-affinity-service.yaml
+k apply -f 05-session-affinity-service.yaml
 
 # Check the service
-kubectl describe service sticky-service
+k describe service sticky-service
 ```
 
 ### **Step 3: Test Session Affinity**
 ```bash
 # Port forward to test
-kubectl port-forward service/sticky-service 8080:80 &
+k port-forward service/sticky-service 8080:80 &
 
 # Make multiple requests from same IP
 for i in {1..5}; do
@@ -314,13 +314,13 @@ for i in {1..5}; do
 done
 
 # Stop port forwarding
-pkill -f "kubectl port-forward"
+pkill -f "k port-forward"
 ```
 
 ### **Step 4: Clean Up**
 ```bash
-kubectl delete -f 05-session-affinity-service.yaml
-kubectl delete deployment sticky-app
+k delete -f 05-session-affinity-service.yaml
+k delete deployment sticky-app
 ```
 
 ---
@@ -330,49 +330,49 @@ kubectl delete deployment sticky-app
 ### **Check Service Status**
 ```bash
 # List all services
-kubectl get services
+k get services
 
 # Describe specific service
-kubectl describe service <service-name>
+k describe service <service-name>
 
 # Check service endpoints
-kubectl get endpoints <service-name>
+k get endpoints <service-name>
 ```
 
 ### **Check Pod Status**
 ```bash
 # List pods with labels
-kubectl get pods --show-labels
+k get pods --show-labels
 
 # Check pod logs
-kubectl logs <pod-name>
+k logs <pod-name>
 
 # Execute into pod
-kubectl exec -it <pod-name> -- /bin/bash
+k exec -it <pod-name> -- /bin/bash
 ```
 
 ### **Test Connectivity**
 ```bash
 # Test internal service
-kubectl run test --image=busybox --rm -it -- wget -qO- http://<service-name>
+k run test --image=busybox --rm -it -- wget -qO- http://<service-name>
 
 # Test DNS resolution
-kubectl run test --image=busybox --rm -it -- nslookup <service-name>
+k run test --image=busybox --rm -it -- nslookup <service-name>
 
 # Port forward for local testing
-kubectl port-forward service/<service-name> 8080:80
+k port-forward service/<service-name> 8080:80
 ```
 
 ### **Debug Network Issues**
 ```bash
 # Check CoreDNS
-kubectl get pods -n kube-system -l k8s-app=kube-dns
+k get pods -n kube-system -l k8s-app=kube-dns
 
 # Check events
-kubectl get events --sort-by=.metadata.creationTimestamp
+k get events --sort-by=.metadata.creationTimestamp
 
 # Check service configuration
-kubectl get service <service-name> -o yaml
+k get service <service-name> -o yaml
 ```
 
 ---
