@@ -199,6 +199,10 @@ graph TB
 - **Features:** SSL termination, health checks, CloudWatch integration
 - **File:** `03-loadbalancer-service.yaml`
 
+> **⚠️ EKS Required:** LoadBalancer services with AWS ALB annotations require an EKS cluster. Create one with: `eksctl create cluster --name my-cluster --region us-east-1`
+> 
+> **Reference:** [EKS Getting Started](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) | [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+
 #### **🔗 ExternalName**
 - **Use for:** Integrating with external services
 - **Access:** DNS alias to external service
@@ -272,6 +276,7 @@ kubectl apply -f 02-nodeport-service.yaml
 
 # LoadBalancer (AWS Cloud)
 kubectl apply -f 03-loadbalancer-service.yaml
+# Note: Requires EKS cluster for AWS ALB integration
 ```
 
 ### **3. Advanced Examples**

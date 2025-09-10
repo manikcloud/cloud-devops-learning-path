@@ -88,6 +88,12 @@ k delete pod blue-app
 
 ## ☁️ Exercise 3: LoadBalancer Service (AWS Cloud)
 
+> **⚠️ EKS Required:** This exercise requires an EKS cluster. Create one with:
+> ```bash
+> eksctl create cluster --name my-cluster --region us-east-1
+> ```
+> **References:** [EKS Getting Started](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html) | [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)
+
 ### **Prerequisites**
 - Running on AWS EKS or EC2 with proper IAM roles
 - AWS Load Balancer Controller installed
