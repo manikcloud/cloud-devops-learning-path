@@ -217,13 +217,23 @@ cd cloud-devops-learning-path/Section-2-DevOps/Session-8_terraform_and_infra_aut
 terraform version
 aws sts get-caller-identity
 
-# Check SSH keys (we'll use these in projects)
-ls ~/.ssh/
-# You should see id_rsa and id_rsa.pub (or similar)
+# Test all examples (optional)
+./test-all.sh
 
 # Start with Module 1
 cd 01-introduction-history
 ```
+
+### **🧪 Testing & Cleanup**
+```bash
+# Test all examples without applying
+./test-all.sh
+
+# Clean up all AWS resources (important!)
+./cleanup-all.sh
+```
+
+> **💰 Cost Management**: Always run `./cleanup-all.sh` when done to avoid AWS charges!
 
 ---
 
