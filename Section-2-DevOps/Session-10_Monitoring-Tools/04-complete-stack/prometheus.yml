@@ -10,6 +10,10 @@ scrape_configs:
     static_configs:
       - targets: ['node-exporter:9100']
 
+  - job_name: 'flask-app'
+    static_configs:
+      - targets: ['flask-app:5000']
+
   - job_name: 'webapp'
     static_configs:
       - targets: ['webapp:80']

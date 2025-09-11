@@ -1,5 +1,12 @@
 version: '3.8'
 services:
+  # Sample Flask application with metrics
+  flask-app:
+    build: ../02-datadog
+    container_name: flask-app
+    ports:
+      - "5000:5000"
+
   # Grafana Dashboard
   grafana:
     image: grafana/grafana:latest

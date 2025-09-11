@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  nagios:
+    image: jasonrivers/nagios:latest
+    container_name: nagios
+    ports:
+      - "8080:80"
+    volumes:
+      - nagios_etc:/opt/nagios/etc
+      - nagios_var:/opt/nagios/var
+
+volumes:
+  nagios_etc:
+  nagios_var:

@@ -11,120 +11,180 @@
 
 ---
 
-## 🚀 **Quick Start - Complete Stack**
+## 🚀 **Quick Start - From Scratch**
 
+### **Step 1: Clone Repository**
+```bash
+# Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+
+# Navigate to monitoring tools
+cd cloud-devops-learning-path/Section-2-DevOps/Session-10_Monitoring-Tools
+```
+
+### **Step 2: Start Complete Stack**
 ```bash
 # Start everything at once
 cd 04-complete-stack
 ./start.sh
 
-# Access services:
-# Grafana: http://localhost:3000 (admin/admin123)
-# Prometheus: http://localhost:9090
+# Test all services
+cd ..
+./test-all.sh
 ```
+
+### **Step 3: Access Services**
+- **Grafana**: http://localhost:3000 (admin/admin123)
+- **Prometheus**: http://localhost:9090
+- **Flask App**: http://localhost:5000
+- **Web App**: http://localhost:8080
 
 ---
 
 ## 📁 **Available Projects**
 
 ### **🎯 [Complete Stack](./04-complete-stack/)** ⭐ **START HERE**
-- Grafana + Prometheus + Node Exporter
-- One command setup: `./start.sh`
-- Pre-configured dashboards
-- System metrics monitoring
-
-### **📊 [Grafana Only](./01-grafana/)**
-- Simple Grafana container
-- Basic dashboard creation
-- Data source configuration
-
-### **📈 [App Monitoring](./02-datadog/)**
-- Application metrics with Python
-- Custom metrics collection
-- Datadog alternative (free)
-
-### **🔍 [Nagios](./03-nagios/)**
-- Simple Nagios container
-- Basic host/service monitoring
-- Alert configuration
-
-### **📋 [ELK Stack](./05-elk-project/)**
-- Complete log analysis
-- Elasticsearch + Logstash + Kibana
-- Log processing and visualization
-
----
-
-## 🎯 **Learning Path**
-
-```mermaid
-graph LR
-    A[Complete Stack] --> B[Create Dashboard]
-    B --> C[Add Metrics]
-    C --> D[Set Alerts]
-    D --> E[ELK Logs]
-    
-    style A fill:#e1f5fe
-    style E fill:#c8e6c9
-```
-
-### **Step 1: Start Complete Stack**
 ```bash
 cd 04-complete-stack
 ./start.sh
 ```
+- Grafana + Prometheus + Node Exporter + Flask App
+- One command setup with `./start.sh`
+- Pre-configured dashboards
+- System and application metrics
 
-### **Step 2: Create First Dashboard**
-1. Login to Grafana: http://localhost:3000
-2. Add Prometheus data source: `http://prometheus:9090`
-3. Import dashboard ID: `1860`
-4. View system metrics
+### **📊 [Grafana Only](./01-grafana/)**
+```bash
+cd 01-grafana
+docker-compose up -d
+```
+- Simple Grafana container
+- Access: http://localhost:3000
 
-### **Step 3: Explore Metrics**
-- CPU usage, memory, disk
-- Network traffic
-- Application requests
+### **📈 [App Monitoring](./02-datadog/)**
+```bash
+cd 02-datadog
+docker-compose up -d
+```
+- Flask app with custom metrics
+- Grafana + Prometheus included
+- Application performance monitoring
 
-### **Step 4: Set Up Alerts**
-- High CPU usage
-- Low disk space
-- Service down
+### **🔍 [Nagios](./03-nagios/)**
+```bash
+cd 03-nagios
+docker-compose up -d
+```
+- Simple Nagios container
+- Access: http://localhost:8080/nagios
+
+### **📋 [ELK Stack](./05-elk-project/)**
+```bash
+cd 05-elk-project
+./start-elk.sh
+```
+- Complete log analysis
+- Kibana: http://localhost:5601
+
+---
+
+## 🎯 **Complete Setup Instructions**
+
+### **Prerequisites**
+```bash
+# Install Docker and Docker Compose
+sudo apt update
+sudo apt install docker.io docker-compose -y
+sudo usermod -aG docker $USER
+
+# Logout and login again, then verify
+docker --version
+docker-compose --version
+```
+
+### **Clone and Run**
+```bash
+# 1. Clone repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+
+# 2. Navigate to monitoring tools
+cd cloud-devops-learning-path/Section-2-DevOps/Session-10_Monitoring-Tools
+
+# 3. Start complete stack
+cd 04-complete-stack
+./start.sh
+
+# 4. Test everything works
+cd ..
+./test-all.sh
+```
+
+### **Create Your First Dashboard**
+1. Open Grafana: http://localhost:3000
+2. Login: admin/admin123
+3. Add Prometheus data source: `http://prometheus:9090`
+4. Import dashboard ID: `1860` (Node Exporter)
+5. Create custom dashboard for Flask app metrics
 
 ---
 
 ## 📊 **What You'll Monitor**
 
-### **System Metrics**
-- CPU, Memory, Disk usage
+### **System Metrics (Node Exporter)**
+- CPU usage, memory, disk space
 - Network traffic
-- System load
+- System load and uptime
 
-### **Application Metrics**
-- Request count
-- Response time
-- Error rate
+### **Application Metrics (Flask App)**
+- Request count and rate
+- Response time histogram
+- Custom business metrics
 
-### **Log Analysis**
-- Application logs
-- Error tracking
-- Performance analysis
+### **Infrastructure Metrics**
+- Container health
+- Service availability
+- Resource utilization
+
+---
+
+## 🧪 **Testing Your Setup**
+
+### **Generate Traffic**
+```bash
+# Test Flask app endpoints
+curl http://localhost:5000/
+curl http://localhost:5000/api/users
+curl http://localhost:5000/metrics
+
+# Generate load
+for i in {1..100}; do curl http://localhost:5000/; done
+```
+
+### **View Metrics**
+```bash
+# Check Prometheus targets
+curl http://localhost:9090/api/v1/targets
+
+# View Flask app metrics
+curl http://localhost:5000/metrics
+```
 
 ---
 
 ## 🎯 **Project Assignment**
 
 ### **Build Your Monitoring Dashboard**
-1. ✅ Start the complete monitoring stack
-2. ✅ Create custom Grafana dashboard
-3. ✅ Add at least 5 different metrics
-4. ✅ Set up 2 alerts
-5. ✅ Document your setup
+1. ✅ Clone and start the complete monitoring stack
+2. ✅ Create custom Grafana dashboard with 5+ metrics
+3. ✅ Set up 2 alerts (high CPU, slow response time)
+4. ✅ Generate traffic and analyze patterns
+5. ✅ Document your setup and findings
 
 ### **Bonus Points**
-- Custom application with metrics
-- Log analysis with ELK
-- Alert notifications
-- Performance optimization
+- Custom Flask app with additional metrics
+- Log analysis with ELK stack
+- Alert notifications (email/Slack)
+- Performance optimization insights
 
 ---
 
@@ -136,23 +196,40 @@ cd 04-complete-stack
 docker --version
 docker-compose --version
 
-# Check ports
+# Check ports are free
 netstat -tulpn | grep :3000
 ```
 
-### **Can't Access Grafana**
+### **Can't Access Services**
 ```bash
 # Check container status
 docker ps
 
 # View logs
-docker logs grafana
+docker-compose logs grafana
+docker-compose logs prometheus
 ```
 
 ### **No Metrics Data**
 ```bash
 # Check Prometheus targets
 # Go to: http://localhost:9090/targets
+# All should be "UP"
+
+# Restart services
+docker-compose restart
+```
+
+### **Reset Everything**
+```bash
+# Stop all containers
+docker-compose down -v
+
+# Remove all data
+docker system prune -a
+
+# Start fresh
+./start.sh
 ```
 
 ---
@@ -161,8 +238,9 @@ docker logs grafana
 
 - [Grafana Documentation](https://grafana.com/docs/)
 - [Prometheus Guide](https://prometheus.io/docs/)
+- [Flask Metrics](https://prometheus.io/docs/guides/instrumenting/)
 - [Docker Compose Reference](https://docs.docker.com/compose/)
 
 ---
 
-*Ready to monitor everything? Start with the complete stack!* 📊
+*Ready to monitor everything? Clone and start monitoring!* 📊
