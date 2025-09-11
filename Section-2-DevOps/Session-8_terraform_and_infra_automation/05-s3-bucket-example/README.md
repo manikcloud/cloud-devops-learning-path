@@ -1,4 +1,4 @@
-# 🪣 Module 5: S3 Bucket Example (12 minutes)
+# 🪣 Module 5: S3 Bucket Example ()
 
 <div align="center">
 
@@ -302,6 +302,6 @@ Before moving on, make sure you:
 
 ---
 
-**Module Duration**: 12 minutes  
+**Module Duration**:   
 **Difficulty**: Beginner  
 **Cost**: ~$0.01 (if cleaned up quickly)

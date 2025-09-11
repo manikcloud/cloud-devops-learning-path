@@ -1,4 +1,4 @@
-# ⚡ Module 3: Basic Commands (10 minutes)
+# ⚡ Module 3: Basic Commands ()
 
 <div align="center">
 
@@ -703,6 +703,6 @@ terraform plan
 
 ---
 
-**Module Duration**: 10 minutes  
+**Module Duration**:   
 **Difficulty**: Beginner  
 **Prerequisites**: Modules 1-2 completed

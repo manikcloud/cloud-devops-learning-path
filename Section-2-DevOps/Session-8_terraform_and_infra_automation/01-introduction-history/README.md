@@ -1,4 +1,4 @@
-# 📚 Module 1: Introduction & History (10 minutes)
+# 📚 Module 1: Introduction & History ()
 
 <div align="center">
 
@@ -175,7 +175,7 @@ graph LR
     end
     
     F -.->|"❌ 2-3 hours<br/>Error-prone"| K
-    K -.->|"✅ 5-10 minutes<br/>Reliable"| F
+    K -.->|"✅ 5-<br/>Reliable"| F
 ```
 
 ### **Problem 2: Configuration Drift**
@@ -242,7 +242,7 @@ graph LR
 
 ### **2. Speed & Efficiency**
 - **Manual Setup**: 2-3 hours for basic infrastructure
-- **Terraform**: 5-10 minutes for the same infrastructure
+- **Terraform**: 5- for the same infrastructure
 - **Scaling**: Linear time increase vs exponential manual effort
 
 ### **3. Multi-Cloud Capability**
@@ -397,6 +397,6 @@ Before moving to Module 2, ensure you can answer:
 
 ---
 
-**Module Duration**: 10 minutes  
+**Module Duration**:   
 **Difficulty**: Beginner  
 **Prerequisites**: None

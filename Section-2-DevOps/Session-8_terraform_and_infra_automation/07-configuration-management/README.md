@@ -1,4 +1,4 @@
-# ⚙️ Module 7: Configuration Management (10 minutes)
+# ⚙️ Module 7: Configuration Management ()
 
 <div align="center">
 

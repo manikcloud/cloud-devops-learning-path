@@ -1,4 +1,4 @@
-# 🏗️ Module 2: Architecture Overview (8 minutes)
+# 🏗️ Module 2: Architecture Overview ()
 
 <div align="center">
 
@@ -607,6 +607,6 @@ Before moving to Module 3, ensure you understand:
 
 ---
 
-**Module Duration**: 8 minutes  
+**Module Duration**:   
 **Difficulty**: Beginner  
 **Prerequisites**: Module 1 completed

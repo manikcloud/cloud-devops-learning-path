@@ -1,4 +1,4 @@
-# 📁 Module 4: Local File Example (15 minutes)
+# 📁 Module 4: Local File Example ()
 
 <div align="center">
 
@@ -694,7 +694,7 @@ Before moving to Module 5, ensure you can:
 
 ---
 
-**Module Duration**: 15 minutes  
+**Module Duration**:   
 **Difficulty**: Beginner  
 **Prerequisites**: Modules 1-3 completed  
 **Files Created**: 4 local files + state file

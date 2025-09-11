@@ -1,4 +1,4 @@
-# 🖥️ Module 6: EC2 Instance Example (15 minutes)
+# 🖥️ Module 6: EC2 Instance Example ()
 
 <div align="center">
 
@@ -230,7 +230,7 @@ Destroy complete! Resources: 2 destroyed.
 ## 🚨 **Common Issues**
 
 ### **Issue 1: Website Not Loading**
-- Wait 2-3 minutes after creation
+- Wait 2- after creation
 - Check security group allows port 80
 - Verify public IP in browser
 
@@ -279,6 +279,6 @@ Make sure you:
 
 ---
 
-**Module Duration**: 15 minutes  
+**Module Duration**:   
 **Difficulty**: Beginner  
 **Cost**: ~$0.15 (if cleaned up within an hour)

@@ -62,21 +62,21 @@ gantt
 ```mermaid
 graph TB
     subgraph "Foundation"
-        A[01. Introduction & History<br/>10 minutes]
-        B[02. Architecture Overview<br/>8 minutes]
-        C[03. Basic Commands<br/>10 minutes]
+        A[01. Introduction & History<br/>]
+        B[02. Architecture Overview<br/>]
+        C[03. Basic Commands<br/>]
     end
     
     subgraph "Hands-On Practice"
-        D[04. Local File Example<br/>15 minutes]
-        E[05. S3 Bucket Example<br/>12 minutes]
-        F[06. EC2 Instance Example<br/>15 minutes]
+        D[04. Local File Example<br/>]
+        E[05. S3 Bucket Example<br/>]
+        F[06. EC2 Instance Example<br/>]
     end
     
     subgraph "Advanced & Projects"
-        G[07. Configuration Management<br/>10 minutes]
-        H[08. Final Project 1<br/>5 minutes]
-        I[09. Final Project 2<br/>5 minutes]
+        G[07. Configuration Management<br/>]
+        H[08. Final Project 1<br/>]
+        I[09. Final Project 2<br/>]
     end
     
     A --> B --> C --> D --> E --> F --> G --> H --> I
@@ -96,55 +96,55 @@ graph TB
 
 ## 📖 **Detailed Module Breakdown**
 
-### **Module 1: Introduction & History (10 minutes)**
+### **Module 1: Introduction & History ()**
 - **What is Terraform?** - Infrastructure as Code fundamentals
 - **History & Evolution** - From 2014 to present day
 - **Why Terraform?** - Problems it solves vs manual infrastructure
 - **Key Benefits** - Repeatability, version control, consistency
 
-### **Module 2: Architecture Overview (8 minutes)**
+### **Module 2: Architecture Overview ()**
 - **Core Components** - CLI, providers, state, configuration
 - **Terraform Workflow** - init, plan, apply, destroy
 - **Provider Ecosystem** - AWS, Azure, GCP, and 3000+ providers
 - **State Management** - How Terraform tracks resources
 
-### **Module 3: Basic Commands (10 minutes)**
+### **Module 3: Basic Commands ()**
 - **Essential Commands** - init, plan, apply, destroy, show
 - **Command Options** - Common flags and parameters
 - **Workflow Best Practices** - Safe deployment patterns
 - **Troubleshooting** - Common errors and solutions
 
-### **Module 4: Local File Example (15 minutes)**
+### **Module 4: Local File Example ()**
 - **First Terraform Project** - Simple local file creation
 - **Configuration Syntax** - HCL basics and structure
 - **Step-by-Step Execution** - Complete walkthrough
 - **Understanding Output** - Reading Terraform responses
 
-### **Module 5: S3 Bucket Example (12 minutes)**
+### **Module 5: S3 Bucket Example ()**
 - **AWS Provider Setup** - Authentication and configuration
 - **S3 Resource Creation** - Basic bucket with properties
 - **Resource Dependencies** - Understanding implicit dependencies
 - **State Inspection** - Examining terraform.tfstate
 
-### **Module 6: EC2 Instance Example (15 minutes)**
+### **Module 6: EC2 Instance Example ()**
 - **EC2 Configuration** - Instance, AMI, instance type
 - **Security Groups** - Network access controls
 - **Key Pairs** - SSH access setup
 - **Resource Relationships** - Explicit dependencies
 
-### **Module 7: Configuration Management (10 minutes)**
+### **Module 7: Configuration Management ()**
 - **Variables** - Input variables and default values
 - **Outputs** - Exposing resource information
 - **Data Sources** - Querying existing resources
 - **Local Values** - Computed values and expressions
 
-### **Module 8: Final Project 1 (5 minutes)**
+### **Module 8: Final Project 1 ()**
 - **Web Server Stack** - EC2 + Security Group + Key Pair
 - **User Data Script** - Automated software installation
 - **Static Website** - Simple index.html deployment
 - **Testing & Validation** - Verifying deployment
 
-### **Module 9: Final Project 2 (5 minutes)**
+### **Module 9: Final Project 2 ()**
 - **Full Application Stack** - ALB + S3 + EC2 + Security Groups
 - **Load Balancer Setup** - Application Load Balancer configuration
 - **Multi-Service Integration** - Connecting all components
@@ -155,7 +155,7 @@ graph TB
 ## 🗂️ **Directory Structure**
 
 ```
-terraform-90min-course/
+terraform--course/
 ├── README.md                           # This course overview
 ├── 01-introduction-history/            # Module 1: Foundation
 │   └── README.md
@@ -331,7 +331,7 @@ graph LR
 
 **Begin Here: [Module 1 - Introduction & History](./01-introduction-history/README.md)**
 
-*Transform your infrastructure management in the next 90 minutes!*
+*Transform your infrastructure management in the next !*
 
 </div>
 

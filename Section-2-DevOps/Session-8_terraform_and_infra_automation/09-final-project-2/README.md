@@ -51,7 +51,7 @@ ls -la
 ```bash
 terraform init
 terraform apply
-# Type 'yes' and wait ~3-4 minutes
+# Type 'yes' and wait ~3-
 ```
 
 ### **Step 3: Access Your Application**
