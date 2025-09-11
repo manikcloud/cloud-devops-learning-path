@@ -3,127 +3,166 @@
 <div align="center">
 
 ![Monitoring](https://img.shields.io/badge/Monitoring-Tools-FF6B6B?style=for-the-badge&logo=grafana&logoColor=white)
-![DevOps](https://img.shields.io/badge/DevOps-Observability-4ECDC4?style=for-the-badge&logo=datadog&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Simple-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-**🎯 Master Monitoring & Observability | 📈 Grafana & Datadog | 🔍 Logs & Metrics**
+**🎯 Simple Monitoring Setup | 📈 Grafana & Prometheus | 🔍 Real Metrics**
 
 </div>
 
 ---
 
-## 📋 **Module Overview**
+## 🚀 **Quick Start - Complete Stack**
 
-Master the core fundamentals of continuous deployment monitoring using modern tools. Simplify and accelerate cloud native application monitoring and start your observability journey.
-
-### **🎯 Learning Objectives**
-- ✅ Set up and configure Grafana dashboards
-- ✅ Implement Datadog monitoring
-- ✅ Configure Nagios for infrastructure monitoring
-- ✅ Use Splunk for log analysis
-- ✅ Build comprehensive monitoring solutions
-
----
-
-## 🛠️ **Monitoring Tools Covered**
-
-### **1. Grafana**
-- Dashboard creation and customization
-- Data source integration
-- Alerting and notifications
-- Visualization best practices
-
-### **2. Datadog**
-- Application performance monitoring
-- Infrastructure monitoring
-- Log management
-- Custom metrics and dashboards
-
-### **3. Nagios**
-- Network and system monitoring
-- Service checks and alerts
-- Configuration management
-- Plugin development
-
-### **4. Splunk**
-- Log collection and indexing
-- Search and analysis
-- Dashboard creation
-- Machine learning insights
-
----
-
-## 🎯 **Term Project 10**
-
-**Objective**: Set up an Elasticsearch cluster on AWS and route all logs from CloudWatch to the Kibana dashboard and execute queries to debug.
-
-### **Project Requirements**
-- Deploy Elasticsearch cluster on AWS
-- Configure CloudWatch log streaming
-- Set up Kibana dashboard
-- Create log analysis queries
-- Implement alerting and monitoring
-
-### **Architecture Overview**
-```
-AWS CloudWatch → Kinesis Data Firehose → Elasticsearch → Kibana Dashboard
-```
-
----
-
-## 🚀 **Getting Started**
-
-### **Prerequisites**
-- AWS account with appropriate permissions
-- Basic understanding of logging concepts
-- Familiarity with AWS services
-
-### **Quick Setup**
 ```bash
-# Install monitoring tools
-# Grafana
-sudo apt-get install -y software-properties-common
-sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
-sudo apt-get update && sudo apt-get install grafana
+# Start everything at once
+cd 04-complete-stack
+./start.sh
 
-# Start Grafana
-sudo systemctl start grafana-server
-sudo systemctl enable grafana-server
+# Access services:
+# Grafana: http://localhost:3000 (admin/admin123)
+# Prometheus: http://localhost:9090
 ```
 
 ---
 
-## 📊 **Hands-On Labs**
+## 📁 **Available Projects**
 
-### **Lab 1: Grafana Dashboard Setup**
-- Install and configure Grafana
-- Create custom dashboards
-- Set up data sources
+### **🎯 [Complete Stack](./04-complete-stack/)** ⭐ **START HERE**
+- Grafana + Prometheus + Node Exporter
+- One command setup: `./start.sh`
+- Pre-configured dashboards
+- System metrics monitoring
 
-### **Lab 2: Datadog Integration**
-- Set up Datadog agent
-- Configure application monitoring
-- Create custom metrics
+### **📊 [Grafana Only](./01-grafana/)**
+- Simple Grafana container
+- Basic dashboard creation
+- Data source configuration
 
-### **Lab 3: ELK Stack on AWS**
-- Deploy Elasticsearch cluster
-- Configure log shipping
-- Build Kibana visualizations
+### **📈 [App Monitoring](./02-datadog/)**
+- Application metrics with Python
+- Custom metrics collection
+- Datadog alternative (free)
 
-### **Lab 4: Nagios Monitoring**
-- Install and configure Nagios
-- Set up host and service monitoring
-- Configure alerting
+### **🔍 [Nagios](./03-nagios/)**
+- Simple Nagios container
+- Basic host/service monitoring
+- Alert configuration
+
+### **📋 [ELK Stack](./05-elk-project/)**
+- Complete log analysis
+- Elasticsearch + Logstash + Kibana
+- Log processing and visualization
 
 ---
 
-## 📖 **Resources**
+## 🎯 **Learning Path**
+
+```mermaid
+graph LR
+    A[Complete Stack] --> B[Create Dashboard]
+    B --> C[Add Metrics]
+    C --> D[Set Alerts]
+    D --> E[ELK Logs]
+    
+    style A fill:#e1f5fe
+    style E fill:#c8e6c9
+```
+
+### **Step 1: Start Complete Stack**
+```bash
+cd 04-complete-stack
+./start.sh
+```
+
+### **Step 2: Create First Dashboard**
+1. Login to Grafana: http://localhost:3000
+2. Add Prometheus data source: `http://prometheus:9090`
+3. Import dashboard ID: `1860`
+4. View system metrics
+
+### **Step 3: Explore Metrics**
+- CPU usage, memory, disk
+- Network traffic
+- Application requests
+
+### **Step 4: Set Up Alerts**
+- High CPU usage
+- Low disk space
+- Service down
+
+---
+
+## 📊 **What You'll Monitor**
+
+### **System Metrics**
+- CPU, Memory, Disk usage
+- Network traffic
+- System load
+
+### **Application Metrics**
+- Request count
+- Response time
+- Error rate
+
+### **Log Analysis**
+- Application logs
+- Error tracking
+- Performance analysis
+
+---
+
+## 🎯 **Project Assignment**
+
+### **Build Your Monitoring Dashboard**
+1. ✅ Start the complete monitoring stack
+2. ✅ Create custom Grafana dashboard
+3. ✅ Add at least 5 different metrics
+4. ✅ Set up 2 alerts
+5. ✅ Document your setup
+
+### **Bonus Points**
+- Custom application with metrics
+- Log analysis with ELK
+- Alert notifications
+- Performance optimization
+
+---
+
+## 🛠️ **Troubleshooting**
+
+### **Services Won't Start**
+```bash
+# Check Docker
+docker --version
+docker-compose --version
+
+# Check ports
+netstat -tulpn | grep :3000
+```
+
+### **Can't Access Grafana**
+```bash
+# Check container status
+docker ps
+
+# View logs
+docker logs grafana
+```
+
+### **No Metrics Data**
+```bash
+# Check Prometheus targets
+# Go to: http://localhost:9090/targets
+```
+
+---
+
+## 📚 **Resources**
 
 - [Grafana Documentation](https://grafana.com/docs/)
-- [Datadog Learning Center](https://learn.datadoghq.com/)
-- [Nagios Documentation](https://www.nagios.org/documentation/)
-- [Splunk Documentation](https://docs.splunk.com/)
-- [AWS Elasticsearch Service](https://docs.aws.amazon.com/elasticsearch-service/)
+- [Prometheus Guide](https://prometheus.io/docs/)
+- [Docker Compose Reference](https://docs.docker.com/compose/)
 
 ---
 
-*Ready to monitor everything? Let's build observability!* 📊
+*Ready to monitor everything? Start with the complete stack!* 📊
