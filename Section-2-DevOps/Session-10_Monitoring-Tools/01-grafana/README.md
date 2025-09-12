@@ -1,37 +1,84 @@
-# 📊 Simple Grafana Setup
+# 📊 Grafana Dashboard Project
 
-## Quick Start
+**Simple Grafana setup for learning dashboard creation**
+
+---
+
+## 🚀 Quick Start
+
 ```bash
 # Start Grafana
-docker run -d -p 3000:3000 --name grafana grafana/grafana
+docker-compose up -d
 
-# Access: http://localhost:3000
-# Login: admin/admin
+# Access dashboard
+echo "Grafana: http://localhost:3000 (admin/admin)"
 ```
 
-## Docker Compose
-```yaml
-version: '3'
-services:
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin123
+---
+
+## 🎯 What You'll Learn
+
+- Grafana dashboard basics
+- Creating visualizations
+- Data source configuration
+- Panel customization
+
+---
+
+## 📈 Getting Started
+
+### **Step 1: Start Grafana**
+```bash
+docker-compose up -d
 ```
 
-## First Dashboard
-1. Login to http://localhost:3000
-2. Add data source (Prometheus/InfluxDB)
-3. Create simple dashboard
-4. Add basic metrics panel
+### **Step 2: Login**
+- URL: http://localhost:3000
+- Username: admin
+- Password: admin
 
-## Sample Queries
-```
-# CPU Usage
-100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+### **Step 3: Add Data Source**
+1. Go to Configuration → Data Sources
+2. Add Prometheus data source
+3. URL: http://prometheus:9090 (if using complete stack)
 
-# Memory Usage
-(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+### **Step 4: Create Dashboard**
+1. Click "+" → Dashboard
+2. Add new panel
+3. Write PromQL queries
+4. Customize visualization
+
+---
+
+## 📊 Sample Queries
+
+```promql
+# System metrics (requires Node Exporter)
+node_cpu_seconds_total
+node_memory_MemTotal_bytes
+node_filesystem_size_bytes
+
+# Application metrics (requires app instrumentation)
+http_requests_total
+http_request_duration_seconds
 ```
+
+---
+
+## 🛠️ Configuration
+
+- **docker-compose.yml** - Grafana service definition
+- Default admin credentials: admin/admin
+- Data persisted in Docker volume
+
+---
+
+## 🧹 Cleanup
+
+```bash
+docker-compose down -v
+```
+
+---
+
+*Perfect for learning Grafana dashboard creation!* 📊

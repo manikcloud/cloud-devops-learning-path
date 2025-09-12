@@ -1,46 +1,103 @@
-# 📈 Simple Application Monitoring
+# 🐕 DataDog Integration Project
 
-## Datadog Alternative (Free)
-Since Datadog requires paid account, we'll use Prometheus + Grafana:
+**Learn enterprise monitoring with DataDog integration**
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-# Quick setup
-cd ../04-complete-stack
-./start.sh
+# Build and start
+docker-compose up --build
+
+# View application
+echo "Sample App: http://localhost:5000"
+echo "Metrics: http://localhost:5000/metrics"
 ```
 
-## Monitor Your App
+---
+
+## 🎯 What You'll Learn
+
+- DataDog agent setup
+- Application instrumentation
+- Custom metrics creation
+- Enterprise monitoring patterns
+
+---
+
+## 📊 What's Included
+
+- **Flask application** with DataDog instrumentation
+- **Prometheus metrics** endpoint
+- **DataDog agent** configuration
+- **Custom metrics** examples
+
+---
+
+## 🛠️ Getting Started
+
+### **Step 1: Start Application**
+```bash
+docker-compose up --build
+```
+
+### **Step 2: Generate Traffic**
+```bash
+# Make requests to generate metrics
+curl http://localhost:5000/
+curl http://localhost:5000/slow
+curl http://localhost:5000/error
+```
+
+### **Step 3: View Metrics**
+- Application: http://localhost:5000
+- Prometheus metrics: http://localhost:5000/metrics
+
+---
+
+## 📈 Application Endpoints
+
+| Endpoint | Purpose | Response Time |
+|----------|---------|---------------|
+| `/` | Normal response | ~100ms |
+| `/slow` | Slow response | 1-3 seconds |
+| `/error` | Error response | 500 status |
+| `/metrics` | Prometheus metrics | - |
+
+---
+
+## 🔧 Files
+
+- **app.py** - Flask application with instrumentation
+- **Dockerfile** - Application container
+- **requirements.txt** - Python dependencies
+- **docker-compose.yml** - Service definition
+
+---
+
+## 📊 Metrics Generated
+
 ```python
-# app.py - Simple Flask app with metrics
-from flask import Flask
-from prometheus_client import Counter, generate_latest
+# Request counter
+http_requests_total
 
-app = Flask(__name__)
-request_count = Counter('requests_total', 'Total requests')
+# Response time histogram
+http_request_duration_seconds
 
-@app.route('/')
-def hello():
-    request_count.inc()
-    return 'Hello World!'
-
-@app.route('/metrics')
-def metrics():
-    return generate_latest()
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+# Custom business metrics
+user_registrations_total
+order_value_dollars
 ```
 
-## Docker Setup
-```dockerfile
-FROM python:3.9-slim
-COPY app.py .
-RUN pip install flask prometheus_client
-CMD ["python", "app.py"]
+---
+
+## 🧹 Cleanup
+
+```bash
+docker-compose down
 ```
 
-## Key Metrics
-- Request count
-- Response time
-- Error rate
-- System resources
+---
+
+*Great for learning enterprise monitoring patterns!* 🐕
