@@ -1,14 +1,35 @@
 version: '3.8'
+
 services:
   nagios:
-    image: jasonrivers/nagios:latest
-    container_name: nagios
+    build: ./nagios
+    container_name: nagios-server
     ports:
       - "8080:80"
     volumes:
-      - nagios_etc:/opt/nagios/etc
-      - nagios_var:/opt/nagios/var
+      - ./nagios/config:/opt/nagios/etc/objects
+    depends_on:
+      - nginx-target
+      - apache-target
+    networks:
+      - monitoring
 
-volumes:
-  nagios_etc:
-  nagios_var:
+  nginx-target:
+    image: nginx:alpine
+    container_name: nginx-target
+    ports:
+      - "8081:80"
+    networks:
+      - monitoring
+
+  apache-target:
+    image: httpd:alpine
+    container_name: apache-target
+    ports:
+      - "8082:80"
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
