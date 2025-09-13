@@ -1,40 +1,76 @@
-# 📊 Session 10: Monitoring Tools
+# 📊 Session 10: DevOps CI/CD Monitoring Tools
 
 <div align="center">
 
-![Monitoring](https://img.shields.io/badge/Monitoring-Prometheus%20%7C%20Grafana%20%7C%20ELK-orange?style=for-the-badge&logo=prometheus&logoColor=white)
+![Monitoring](https://img.shields.io/badge/DevOps-CI%2FCD%20Monitoring-orange?style=for-the-badge&logo=prometheus&logoColor=white)
 
-**📈 Monitor Systems | 📊 Visualize Data | 🚨 Get Alerts**
+**📈 Monitor CI/CD Pipelines | 📊 Track Deployments | 🚨 Alert on Issues**
 
 </div>
 
 ---
 
-## 🎯 Learning Objectives
+## 🎯 DevOps CI/CD Monitoring Overview
+
+In modern DevOps practices, monitoring is essential for:
+- **CI/CD Pipeline Health** - Track build success rates, deployment times
+- **Application Performance** - Monitor after deployment
+- **Infrastructure Health** - Ensure systems can handle deployments
+- **Security Compliance** - Log and audit all changes
 
 ```mermaid
 graph LR
-    A[📊 Collect Metrics] --> B[📈 Visualize Data]
-    B --> C[🚨 Set Alerts] --> D[🔍 Analyze Logs]
+    A[Code Commit] --> B[CI Pipeline]
+    B --> C[Build & Test]
+    C --> D[Deploy]
+    D --> E[Monitor]
+    E --> F[Alert & Fix]
+    F --> A
     
-    style A fill:#e1f5fe
-    style B fill:#e8f5e8
-    style C fill:#fff3e0
-    style D fill:#f3e5f5
+    style E fill:#ff9800
+    style F fill:#f44336
 ```
-
-By the end of this session, you'll master:
-- **Metrics Collection** with Prometheus
-- **Data Visualization** with Grafana  
-- **Log Management** with ELK Stack
-- **Alerting Systems** for proactive monitoring
-- **Real-world monitoring** scenarios
 
 ---
 
-## 🚀 Project Flow for Students
+## 🛠️ Available Monitoring Projects
 
-### **📋 Step 1: Start with Complete Stack (Recommended)**
+### **📊 Complete Monitoring Stack (Recommended)**
+```bash
+cd 04-complete-stack
+./setup.sh
+```
+**What you get:**
+- **Prometheus** - Metrics collection
+- **Grafana** - Dashboards and visualization
+- **ELK Stack** - Log management
+- **AlertManager** - Notifications
+
+### **🔍 Traditional Monitoring**
+```bash
+cd 03-nagios
+docker-compose up -d
+```
+**What you get:**
+- **Nagios** - Infrastructure monitoring
+- **SNMP** - Network device monitoring
+- **Email alerts** - Traditional notifications
+
+### **📝 Log Management**
+```bash
+cd 05-elk-project
+./start-elk.sh
+```
+**What you get:**
+- **Elasticsearch** - Log storage and search
+- **Logstash** - Log processing
+- **Kibana** - Log visualization
+
+---
+
+## 🚀 Quick Start for Students
+
+### **Step 1: Start Complete Stack**
 ```bash
 # Navigate to complete monitoring solution
 cd 04-complete-stack
@@ -42,264 +78,242 @@ cd 04-complete-stack
 # One-command setup
 ./setup.sh
 
-# ✅ Result: Full monitoring stack running
-# - Prometheus: http://localhost:9090
-# - Grafana: http://localhost:3000 (admin/admin123)
-# - Kibana: http://localhost:5601
+# Access monitoring tools
+echo "Grafana: http://localhost:3000 (admin/admin123)"
+echo "Prometheus: http://localhost:9090"
+echo "Kibana: http://localhost:5601"
 ```
 
-### **📊 Step 2: Explore Individual Tools**
-```bash
-# Try Grafana dashboards only
-cd 01-grafana
-docker-compose up -d
+### **Step 2: Understand What You're Monitoring**
+- **System Health** - CPU, memory, disk usage
+- **Application Performance** - Response times, error rates
+- **Deployment Success** - Build times, success rates
+- **User Experience** - Page load times, availability
 
-# Test DataDog integration
-cd 02-datadog  
-docker-compose up -d
+### **Step 3: Create Your First Dashboard**
+1. Open Grafana: http://localhost:3000
+2. Login: admin/admin123
+3. Import dashboard ID: 1860 (Node Exporter)
+4. Explore system metrics
 
-# Experience traditional monitoring
-cd 03-nagios
-docker-compose up -d
+---
+
+## 📊 DevOps Monitoring Best Practices
+
+### **What to Monitor in CI/CD**
+
+#### **Build Pipeline Metrics**
+```promql
+# Build success rate
+rate(jenkins_builds_success_total[5m]) / rate(jenkins_builds_total[5m]) * 100
+
+# Average build time
+avg(jenkins_build_duration_seconds)
+
+# Failed deployments
+rate(deployment_failures_total[1h])
 ```
 
-### **📝 Step 3: Deep Dive into Log Management**
-```bash
-# Master ELK Stack
-cd 05-elk-project
-./start-elk.sh
+#### **Application Health After Deployment**
+```promql
+# API response time
+histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
 
-# Generate sample logs
-./generate-logs.sh
+# Error rate
+rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100
 
-# Analyze in Kibana: http://localhost:5601
+# Service availability
+up{job="web-service"}
 ```
 
-### **🧪 Step 4: Test Everything**
-```bash
-# Run comprehensive tests
-./test-all.sh
+### **Alert Strategy for DevOps**
+```yaml
+Critical Alerts (Immediate):
+  - Deployment failed
+  - Service down after deployment
+  - Error rate > 5%
 
-# Verify all services are working
+Warning Alerts (15 minutes):
+  - Build time increased 50%
+  - Response time > 1 second
+  - High resource usage
+
+Info Alerts (Email only):
+  - Deployment completed
+  - New version deployed
+  - Performance improved
 ```
 
 ---
 
-## 🛠️ Monitoring Architecture
+## 🔧 Monitoring Your DevOps Pipeline
 
+### **CI/CD Pipeline Monitoring**
 ```mermaid
 graph TB
-    subgraph "Your Applications"
-        APP[Web App]
-        API[API Service]
-        DB[(Database)]
+    subgraph "Development"
+        CODE[Code Commit]
+        BUILD[Build Process]
+        TEST[Automated Tests]
     end
     
-    subgraph "Monitoring Stack"
-        PROM[Prometheus<br/>📊 Metrics]
-        GRAF[Grafana<br/>📈 Dashboards]
-        ELK[ELK Stack<br/>📝 Logs]
-        ALERT[AlertManager<br/>🚨 Alerts]
+    subgraph "Deployment"
+        STAGE[Staging Deploy]
+        PROD[Production Deploy]
+        ROLLBACK[Rollback if Issues]
     end
     
-    APP --> PROM
-    API --> PROM
-    DB --> PROM
+    subgraph "Monitoring"
+        METRICS[Collect Metrics]
+        ALERTS[Send Alerts]
+        DASHBOARD[Update Dashboards]
+    end
     
-    PROM --> GRAF
-    PROM --> ALERT
+    CODE --> BUILD
+    BUILD --> TEST
+    TEST --> STAGE
+    STAGE --> PROD
+    PROD --> ROLLBACK
     
-    APP --> ELK
-    API --> ELK
+    BUILD --> METRICS
+    STAGE --> METRICS
+    PROD --> METRICS
+    METRICS --> ALERTS
+    METRICS --> DASHBOARD
     
-    style PROM fill:#e6522c
-    style GRAF fill:#f46800
-    style ELK fill:#005571
-    style ALERT fill:#f44336
+    style METRICS fill:#ff9800
+    style ALERTS fill:#f44336
+    style DASHBOARD fill:#4caf50
 ```
 
----
-
-## 📁 Available Projects
-
-| Project | Purpose | Difficulty | Start Command |
-|---------|---------|------------|---------------|
-| **[04-complete-stack](./04-complete-stack/)** ⭐ | Full monitoring solution | Beginner | `./setup.sh` |
-| **[01-grafana](./01-grafana/)** | Dashboard creation | Beginner | `docker-compose up -d` |
-| **[02-datadog](./02-datadog/)** | Enterprise monitoring | Intermediate | `docker-compose up -d` |
-| **[03-nagios](./03-nagios/)** | Traditional monitoring | Intermediate | `docker-compose up -d` |
-| **[05-elk-project](./05-elk-project/)** | Log management | Advanced | `./start-elk.sh` |
+### **Key DevOps Metrics**
+- **Deployment Frequency** - How often you deploy
+- **Lead Time** - Code to production time
+- **Mean Time to Recovery (MTTR)** - How fast you fix issues
+- **Change Failure Rate** - Percentage of deployments causing issues
 
 ---
 
-## 🎯 Hands-On Learning Path
+## 📈 Student Learning Path
 
-### **🔰 Beginner Path (Start Here)**
-1. **Complete Stack** - Get familiar with all tools
-2. **Grafana Project** - Learn dashboard creation
-3. **Basic alerting** - Set up your first alerts
+### **Beginner (Start Here)**
+1. **Complete Stack Setup** - Get familiar with monitoring tools
+2. **Basic Dashboards** - Understand system metrics
+3. **Simple Alerts** - Set up your first notifications
 
-### **🚀 Intermediate Path**
-1. **DataDog Integration** - Enterprise monitoring
-2. **Nagios Setup** - Traditional monitoring approach
-3. **Custom metrics** - Instrument your applications
+### **Intermediate**
+1. **Custom Metrics** - Add application-specific monitoring
+2. **Log Analysis** - Use ELK stack for troubleshooting
+3. **Alert Tuning** - Reduce false positives
 
-### **🎓 Advanced Path**
-1. **ELK Stack** - Master log management
-2. **Custom dashboards** - Build production-ready visualizations
-3. **Monitoring strategy** - Design complete monitoring solutions
-
----
-
-## 📊 Key Concepts
-
-### **The 3 Pillars of Monitoring**
-
-```mermaid
-graph TD
-    A[📊 METRICS<br/>CPU: 85%<br/>Memory: 2.1GB<br/>Response: 250ms]
-    B[📝 LOGS<br/>2024-01-15 ERROR<br/>Database failed<br/>User: john@example.com]
-    C[🚨 ALERTS<br/>High CPU > 90%<br/>Disk space < 10%<br/>Service down]
-    
-    style A fill:#2196f3
-    style B fill:#ff9800
-    style C fill:#f44336
-```
-
-### **Why Monitoring Matters**
-- **Proactive Issue Detection** - Find problems before users do
-- **Performance Optimization** - Identify bottlenecks and improve
-- **Root Cause Analysis** - Quickly troubleshoot when issues occur
-- **Capacity Planning** - Scale resources based on actual usage
-- **Better User Experience** - Ensure applications run smoothly
+### **Advanced**
+1. **CI/CD Integration** - Monitor your deployment pipeline
+2. **Custom Dashboards** - Build team-specific views
+3. **Automation** - Auto-remediation and scaling
 
 ---
 
-## 🎯 Quick Start Commands
+## 🎯 Hands-On Exercises
 
-### **🚀 One-Command Setup**
+### **Exercise 1: Monitor a Simple Application**
 ```bash
-# Start complete monitoring stack
+# Start monitoring stack
 cd 04-complete-stack && ./setup.sh
+
+# Deploy a simple web app
+kubectl apply -f sample-app.yaml
+
+# Create dashboard to monitor the app
+# - Response times
+# - Error rates
+# - Resource usage
 ```
 
-### **🔍 Check Service Status**
+### **Exercise 2: Set Up Alerts**
 ```bash
-# Test all services
-./test-all.sh
+# Configure alerts for:
+# - High CPU usage (>80%)
+# - Application errors (>5%)
+# - Service down
 
-# Check individual services
-curl http://localhost:3000  # Grafana
-curl http://localhost:9090  # Prometheus
-curl http://localhost:5601  # Kibana
+# Test alerts by generating load
+stress --cpu 4 --timeout 60s
 ```
 
-### **🧹 Clean Up**
+### **Exercise 3: Log Analysis**
 ```bash
-# Stop all services (keeps images)
-cd 04-complete-stack && docker-compose down
+# Start ELK stack
+cd 05-elk-project && ./start-elk.sh
 
-# Or use cleanup script
-./cleanup.sh
+# Generate logs
+./generate-logs.sh
+
+# Search for errors in Kibana
+# Create log-based alerts
 ```
-
----
-
-## 📈 Real-World Scenarios
-
-### **Scenario 1: Web Application Monitoring**
-Monitor a typical web application with:
-- **Frontend performance** - Page load times, user interactions
-- **Backend APIs** - Response times, error rates, throughput
-- **Database** - Query performance, connection pools
-- **Infrastructure** - CPU, memory, disk, network
-
-### **Scenario 2: Microservices Monitoring**
-Track distributed systems with:
-- **Service health** - Individual service status
-- **Request tracing** - Follow requests across services
-- **Dependencies** - Monitor service-to-service communication
-- **Business metrics** - Orders, payments, user registrations
-
----
-
-## ✅ Success Checklist
-
-### **Basic Level (Must Complete)**
-- [ ] Started complete monitoring stack
-- [ ] Accessed Grafana dashboard (http://localhost:3000)
-- [ ] Viewed Prometheus metrics (http://localhost:9090)
-- [ ] Set up at least one alert
-- [ ] Explored logs in Kibana (http://localhost:5601)
-
-### **Intermediate Level**
-- [ ] Created custom Grafana dashboard
-- [ ] Configured log parsing with Logstash
-- [ ] Set up Slack/email notifications
-- [ ] Analyzed application performance trends
-- [ ] Tested different monitoring tools
-
-### **Advanced Level**
-- [ ] Built comprehensive monitoring strategy
-- [ ] Implemented custom metrics collection
-- [ ] Created automated alerting workflows
-- [ ] Designed production-ready dashboards
-- [ ] Integrated monitoring with CI/CD pipeline
 
 ---
 
 ## 🆘 Troubleshooting
 
-### **Services Not Starting?**
+### **Common Issues**
 ```bash
-# Check Docker status
+# Services not starting?
 docker ps -a
+docker-compose logs <service>
 
-# Check logs
-docker-compose logs <service-name>
-
-# Restart services
-docker-compose restart
-```
-
-### **Port Conflicts?**
-```bash
-# Check what's using ports
+# Port conflicts?
 netstat -tulpn | grep <port>
 
-# Kill processes if needed
-sudo kill -9 <pid>
-```
-
-### **Memory Issues?**
-```bash
-# Check system resources
+# Out of memory?
 free -h
-df -h
-
-# Clean up Docker (keeps images)
 docker system prune -f
 ```
+
+### **Quick Fixes**
+```bash
+# Restart services
+docker-compose restart
+
+# Clean up and restart
+./cleanup.sh && ./setup.sh
+
+# Check service health
+curl http://localhost:3000/api/health
+```
+
+---
+
+## ✅ Success Checklist
+
+### **Basic Level**
+- [ ] Started complete monitoring stack
+- [ ] Accessed Grafana dashboards
+- [ ] Viewed Prometheus metrics
+- [ ] Set up basic alerts
+- [ ] Explored logs in Kibana
+
+### **DevOps Level**
+- [ ] Monitored application deployment
+- [ ] Created custom dashboards
+- [ ] Set up CI/CD pipeline alerts
+- [ ] Analyzed deployment logs
+- [ ] Implemented automated responses
 
 ---
 
 ## 🚀 Next Steps
 
 ### **Integration with Previous Sessions**
-1. **Monitor Kubernetes clusters** from Session 7
-2. **Monitor Terraform infrastructure** from Session 8
-3. **Add monitoring to OpenShift** from Session 9
+- **Session 4 (Jenkins)** - Monitor CI/CD pipelines
+- **Session 7 (Kubernetes)** - Monitor container deployments
+- **Session 8 (Terraform)** - Monitor infrastructure changes
 
-### **Prepare for Final Project**
-1. Plan monitoring strategy for your final project
-2. Consider which metrics and logs will be important
-3. Design alerting workflows for your application
-
-### **Career Development**
-- **DevOps Engineer** - Implement monitoring for CI/CD pipelines
-- **Site Reliability Engineer** - Ensure system reliability
-- **Cloud Architect** - Design observable architectures
-- **Platform Engineer** - Build monitoring platforms
+### **Real-World Application**
+- Monitor your final project deployment
+- Set up alerts for production systems
+- Create dashboards for your team
+- Implement log-based troubleshooting
 
 ---
 
@@ -309,7 +323,7 @@ docker system prune -f
 - **Grafana**: http://localhost:3000 (admin/admin123)
 - **Prometheus**: http://localhost:9090
 - **Kibana**: http://localhost:5601
-- **AlertManager**: http://localhost:9093
+- **Nagios**: http://localhost:8080/nagios
 
 ### **Essential Commands**
 ```bash
@@ -319,28 +333,25 @@ cd 04-complete-stack && ./setup.sh
 # Test services
 ./test-all.sh
 
-# View logs
-docker-compose logs <service>
-
 # Clean up
 ./cleanup.sh
 ```
 
-### **Key Prometheus Queries**
+### **Key Metrics for DevOps**
 ```promql
-# CPU usage
-100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+# System health
+up
+node_cpu_seconds_total
+node_memory_MemAvailable_bytes
 
-# Memory usage
-(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100
-
-# HTTP request rate
-rate(http_requests_total[5m])
+# Application performance
+http_request_duration_seconds
+http_requests_total
 ```
 
 ---
 
-*Ready to master monitoring? Start with `cd 04-complete-stack && ./setup.sh` and explore each project!* 🚀
+*Monitor your DevOps pipeline. Build reliable, observable systems.* 🚀
 
 ---
 
