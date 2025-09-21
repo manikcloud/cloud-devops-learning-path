@@ -22,6 +22,27 @@ By the end of this lab, you will understand:
 - **Track performance** - Monitor response times and resource usage
 
 ### **Why Monitoring Matters in DevOps:**
+
+```mermaid
+graph TD
+    A[Application Running] --> B{Monitoring System}
+    B --> C[All Good ✅]
+    B --> D[Problem Detected ⚠️]
+    C --> E[Users Happy 😊]
+    D --> F[Alert Sent 📧]
+    F --> G[Team Responds 🚀]
+    G --> H[Problem Fixed 🔧]
+    H --> E
+    
+    style A fill:#e1f5fe
+    style C fill:#c8e6c9
+    style D fill:#ffcdd2
+    style E fill:#c8e6c9
+    style F fill:#fff3e0
+    style G fill:#e1f5fe
+    style H fill:#c8e6c9
+```
+
 - **Prevent outages** - Catch issues early
 - **Improve reliability** - Maintain service availability
 - **Faster incident response** - Know what's broken and where
@@ -31,6 +52,42 @@ By the end of this lab, you will understand:
 ---
 
 ## 🏗️ **Nagios Architecture & Components**
+
+### **System Architecture Overview:**
+
+```mermaid
+graph TB
+    subgraph "Nagios Server"
+        A[Nagios Core Engine]
+        B[Web Interface CGI]
+        C[Configuration Files]
+        D[Status Files]
+        E[Plugins Directory]
+    end
+    
+    subgraph "Target Systems"
+        F[Web Server 1]
+        G[Database Server]
+        H[Web Server 2]
+    end
+    
+    A --> E
+    E --> F
+    E --> G
+    E --> H
+    A --> D
+    D --> B
+    C --> A
+    
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
+    style E fill:#e0f2f1
+    style F fill:#fce4ec
+    style G fill:#fce4ec
+    style H fill:#fce4ec
+```
 
 ### **Core Components:**
 
@@ -60,20 +117,27 @@ By the end of this lab, you will understand:
 - **nagios.log** - Historical events and alerts
 - **retention.dat** - Persistent state information
 
-### **How It All Works Together:**
+### **Monitoring Flow:**
 
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Nagios Core   │───▶│     Plugins      │───▶│  Target Hosts   │
-│   (Scheduler)   │    │  (check_http,    │    │  (Web servers,  │
-│                 │    │   check_ping)    │    │   databases)    │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│  Web Interface  │    │  Status Files    │    │  Log Files      │
-│  (Dashboard)    │    │  (status.dat)    │    │  (nagios.log)   │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
+```mermaid
+sequenceDiagram
+    participant NC as Nagios Core
+    participant P as Plugin
+    participant T as Target Service
+    participant WI as Web Interface
+    participant U as User
+    
+    NC->>P: Execute check_http
+    P->>T: HTTP Request
+    T-->>P: HTTP Response (200 OK)
+    P-->>NC: Status: OK
+    NC->>NC: Update status.dat
+    U->>WI: View Dashboard
+    WI->>NC: Read status.dat
+    WI-->>U: Show Green Status ✅
+    
+    Note over NC,T: Every 5 minutes
+    Note over U,WI: Real-time dashboard
 ```
 
 ---
@@ -81,6 +145,36 @@ By the end of this lab, you will understand:
 ## 🎓 **Key Monitoring Concepts**
 
 ### **Host vs Service Monitoring**
+
+```mermaid
+graph TD
+    subgraph "Host Monitoring"
+        A[Physical/Virtual Server]
+        A --> B[Network Connectivity]
+        A --> C[Power Status]
+        A --> D[Basic Availability]
+    end
+    
+    subgraph "Service Monitoring"
+        E[Applications on Host]
+        E --> F[Web Server HTTP]
+        E --> G[Database Connection]
+        E --> H[SSH Access]
+        E --> I[Disk Space]
+    end
+    
+    A -.-> E
+    
+    style A fill:#e3f2fd
+    style E fill:#e8f5e8
+    style B fill:#fff3e0
+    style C fill:#fff3e0
+    style D fill:#fff3e0
+    style F fill:#f3e5f5
+    style G fill:#f3e5f5
+    style H fill:#f3e5f5
+    style I fill:#f3e5f5
+```
 
 #### **Host Monitoring:**
 - **What:** The physical/virtual machine itself
@@ -94,29 +188,50 @@ By the end of this lab, you will understand:
 - **Status:** OK, WARNING, CRITICAL, UNKNOWN
 - **Check:** Application-specific tests
 
-#### **Real-World Example:**
+### **Status States Flow:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> OK
+    OK --> WARNING: Performance degraded
+    WARNING --> OK: Performance restored
+    WARNING --> CRITICAL: Service failed
+    CRITICAL --> OK: Service restored
+    OK --> CRITICAL: Service failed suddenly
+    CRITICAL --> UNKNOWN: Cannot determine status
+    UNKNOWN --> OK: Status determined - working
+    UNKNOWN --> CRITICAL: Status determined - failed
+    
+    note right of OK: 🟢 Green - Everything working
+    note right of WARNING: 🟡 Yellow - Minor issues
+    note right of CRITICAL: 🔴 Red - Major failure
+    note right of UNKNOWN: ⚪ Gray - Status unclear
 ```
-Host: web-server-01 (Status: UP)
-├── Service: HTTP (Status: OK)
-├── Service: HTTPS (Status: OK)
-├── Service: SSH (Status: OK)
-└── Service: Disk Space (Status: WARNING - 85% full)
-```
-
-### **Status States Explained:**
-
-#### **Host States:**
-- 🟢 **UP** - Host is reachable and responding
-- 🔴 **DOWN** - Host is not reachable (network/power failure)
-- 🟡 **UNREACHABLE** - Host may be up but path to it is blocked
-
-#### **Service States:**
-- 🟢 **OK** - Service is working normally
-- 🟡 **WARNING** - Service has minor issues (slow response, high usage)
-- 🔴 **CRITICAL** - Service has major issues (not responding, failed)
-- ⚪ **UNKNOWN** - Cannot determine service status
 
 ### **Check Types:**
+
+```mermaid
+graph LR
+    subgraph "Active Checks"
+        A[Nagios Core] --> B[Plugin]
+        B --> C[Target Service]
+        C --> D[Result]
+        D --> A
+    end
+    
+    subgraph "Passive Checks"
+        E[External System] --> F[Result]
+        F --> G[Nagios Core]
+    end
+    
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
+    style E fill:#fce4ec
+    style F fill:#f3e5f5
+    style G fill:#e3f2fd
+```
 
 #### **Active Checks:**
 - **How:** Nagios initiates the check
@@ -132,23 +247,50 @@ Host: web-server-01 (Status: UP)
 
 ## 🚀 **Lab Setup & Prerequisites**
 
+### **Lab Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Docker Environment"
+        subgraph "Nagios Container"
+            A[Nagios Server<br/>Port 8080]
+            A1[Web Dashboard]
+            A2[Monitoring Engine]
+            A3[Configuration]
+        end
+        
+        subgraph "Target Containers"
+            B[Nginx Server<br/>Port 8081]
+            C[Apache Server<br/>Port 8082]
+        end
+        
+        subgraph "Monitoring Network"
+            D[Docker Bridge Network]
+        end
+    end
+    
+    A2 --> B
+    A2 --> C
+    A1 --> A2
+    A3 --> A2
+    B --> D
+    C --> D
+    A --> D
+    
+    style A fill:#e3f2fd
+    style A1 fill:#e8f5e8
+    style A2 fill:#fff3e0
+    style A3 fill:#f3e5f5
+    style B fill:#fce4ec
+    style C fill:#fce4ec
+    style D fill:#e0f2f1
+```
+
 ### **What You Need:**
 - Docker installed and running
 - Docker Compose installed
 - Ports 8080, 8081, 8082 available
 - Web browser for accessing dashboard
-
-### **Lab Architecture:**
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│  Nagios Server  │───▶│  Nginx Target   │    │ Apache Target   │
-│  (Port 8080)    │    │  (Port 8081)    │    │  (Port 8082)    │
-│                 │    │                 │    │                 │
-│  - Monitors     │    │  - Web Server   │    │  - Web Server   │
-│  - Alerts       │    │  - HTTP Service │    │  - HTTP Service │
-│  - Dashboard    │    │  - PING Check   │    │  - PING Check   │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
 
 ---
 
@@ -186,39 +328,75 @@ ghi789jkl012   httpd:alpine                 0.0.0.0:8082->80/tcp     apache-targ
 2. **Username:** `admin`
 3. **Password:** `nagios123`
 
-### **Dashboard Overview:**
-- **Left Menu:** Navigation panel
-- **Main Area:** Status displays and information
-- **Top Bar:** Quick status summary
+### **Dashboard Navigation Flow:**
+
+```mermaid
+graph TD
+    A[Login Page] --> B[Main Dashboard]
+    B --> C[Current Status]
+    B --> D[Reports]
+    B --> E[System]
+    
+    C --> F[Hosts]
+    C --> G[Services]
+    C --> H[Problems]
+    
+    F --> I[Host Details]
+    G --> J[Service Details]
+    H --> K[Problem Analysis]
+    
+    style A fill:#ffcdd2
+    style B fill:#e3f2fd
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#f3e5f5
+    style F fill:#c8e6c9
+    style G fill:#c8e6c9
+    style H fill:#ffcdd2
+    style I fill:#e1f5fe
+    style J fill:#e1f5fe
+    style K fill:#ffebee
+```
 
 ---
 
 ## 📊 **Step 3: Navigate the Monitoring Dashboard**
 
-### **Main Menu Sections:**
+### **Status Visualization:**
 
-#### **🏠 Home**
-- **Tactical Overview** - Quick status summary with numbers
-- **Map** - Visual network topology (if configured)
-- **3D Status Map** - Interactive status visualization
-
-#### **📈 Current Status**
-- **Hosts** - All monitored servers/devices
-- **Services** - All monitored applications/checks
-- **Host Groups** - Organized collections of hosts
-- **Service Groups** - Organized collections of services
-- **Problems** - Only items with issues (red status)
-
-#### **📋 Reports**
-- **Trends** - Historical performance data
-- **Availability** - Uptime/downtime statistics
-- **Notifications** - Alert history
-- **Event Log** - Detailed event timeline
-
-#### **⚙️ System**
-- **Process Info** - Nagios engine status
-- **Performance Info** - Monitoring system performance
-- **Scheduling Queue** - Upcoming checks
+```mermaid
+graph TB
+    subgraph "Normal Operations - All Green"
+        A1[nginx-target: UP 🟢]
+        A2[apache-target: UP 🟢]
+        A3[HTTP Services: OK 🟢]
+        A4[PING Services: OK 🟢]
+    end
+    
+    subgraph "Service Failure - Red Alert"
+        B1[nginx-target: DOWN 🔴]
+        B2[apache-target: UP 🟢]
+        B3[nginx HTTP: CRITICAL 🔴]
+        B4[nginx PING: CRITICAL 🔴]
+        B5[apache HTTP: OK 🟢]
+        B6[apache PING: OK 🟢]
+    end
+    
+    A1 -.->|Container Stopped| B1
+    A3 -.->|Service Failed| B3
+    A4 -.->|Host Unreachable| B4
+    
+    style A1 fill:#c8e6c9
+    style A2 fill:#c8e6c9
+    style A3 fill:#c8e6c9
+    style A4 fill:#c8e6c9
+    style B1 fill:#ffcdd2
+    style B2 fill:#c8e6c9
+    style B3 fill:#ffcdd2
+    style B4 fill:#ffcdd2
+    style B5 fill:#c8e6c9
+    style B6 fill:#c8e6c9
+```
 
 ### **Key Pages for Students:**
 
@@ -228,30 +406,34 @@ Navigation: Current Status → Hosts
 URL: http://localhost:8080/nagios/cgi-bin/status.cgi?hostgroup=all&style=hostdetail
 ```
 
-**What You'll See:**
-- **Host Name** - nginx-target, apache-target
-- **Status** - UP (🟢 green) or DOWN (🔴 red)
-- **Last Check** - When last monitored
-- **Duration** - How long in current state
-- **Status Information** - Details about current status
-
 #### **Service Status Page:**
 ```
 Navigation: Current Status → Services
 URL: http://localhost:8080/nagios/cgi-bin/status.cgi?host=all
 ```
 
-**What You'll See:**
-- **Host** - Which server the service runs on
-- **Service** - HTTP, PING, etc.
-- **Status** - OK (🟢), WARNING (🟡), CRITICAL (🔴)
-- **Last Check** - When last tested
-- **Duration** - How long in current state
-- **Status Information** - Detailed check results
-
 ---
 
 ## 🧪 **Step 4: Hands-On Monitoring Exercises**
+
+### **Exercise Flow:**
+
+```mermaid
+graph TD
+    A[Start: All Services Green 🟢] --> B[Stop nginx Container]
+    B --> C[Wait 3-5 Minutes]
+    C --> D[Observe Red Status 🔴]
+    D --> E[Analyze Impact]
+    E --> F[Restart nginx Container]
+    F --> G[Wait 3-5 Minutes]
+    G --> H[Confirm Green Status 🟢]
+    H --> I[Exercise Complete ✅]
+    
+    style A fill:#c8e6c9
+    style D fill:#ffcdd2
+    style H fill:#c8e6c9
+    style I fill:#e3f2fd
+```
 
 ### **Exercise 1: Observe Normal Operations (Green Status)**
 
@@ -259,16 +441,6 @@ URL: http://localhost:8080/nagios/cgi-bin/status.cgi?host=all
 1. Navigate to **Current Status → Hosts**
 2. Observe all hosts show **UP** status with 🟢 green background
 3. Note the **Last Check** times and **Duration**
-
-#### **View Service Status:**
-1. Navigate to **Current Status → Services**
-2. Observe all services show **OK** status with 🟢 green background
-3. Identify different service types: HTTP, PING
-
-**Learning Points:**
-- Green = Everything working normally
-- Regular check intervals (every 5 minutes)
-- Multiple services per host
 
 ### **Exercise 2: Simulate Service Failure (Red Status)**
 
@@ -280,88 +452,113 @@ docker-compose stop nginx-target
 # Wait 3-5 minutes for Nagios to detect the failure
 ```
 
-#### **Observe the Impact:**
-1. **Refresh** the Nagios dashboard (F5)
-2. **Navigate to Hosts page**
-   - nginx-target should show **DOWN** with 🔴 red background
-3. **Navigate to Services page**
-   - nginx-target HTTP: **CRITICAL** (🔴 red)
-   - nginx-target PING: **CRITICAL** (🔴 red)
-4. **Check Problems page**
-   - Only failed items appear here
+#### **Failure Impact Visualization:**
 
-**Learning Points:**
-- Red = Service/host failure
-- Multiple services affected by single host failure
-- Problems page filters to show only issues
-- Status changes take time to detect (check intervals)
-
-### **Exercise 3: Partial Service Recovery**
-
-#### **Restart the Failed Service:**
-```bash
-# Restart the nginx container
-docker-compose start nginx-target
-
-# Wait 3-5 minutes for Nagios to detect recovery
+```mermaid
+graph TD
+    A[nginx Container Stopped] --> B[Network Unreachable]
+    B --> C[PING Check Fails]
+    B --> D[HTTP Check Fails]
+    C --> E[Host Status: DOWN 🔴]
+    D --> F[Service Status: CRITICAL 🔴]
+    E --> G[Alert Generated 📧]
+    F --> G
+    G --> H[Problem Dashboard Updated]
+    
+    style A fill:#ffcdd2
+    style B fill:#ffcdd2
+    style C fill:#ffcdd2
+    style D fill:#ffcdd2
+    style E fill:#ffcdd2
+    style F fill:#ffcdd2
+    style G fill:#fff3e0
+    style H fill:#e3f2fd
 ```
 
-#### **Observe Recovery:**
-1. **Refresh** the dashboard
-2. **Watch status change** from red back to green
-3. **Check Problems page** - should be empty again
+### **Exercise 3: Service Recovery**
 
-**Learning Points:**
-- Green = Service restored
-- Recovery detection also takes time
-- Problems automatically clear when fixed
+#### **Recovery Flow:**
 
-### **Exercise 4: Understand Check Details**
-
-#### **View Detailed Check Information:**
-1. **Click on any service name** in the Services page
-2. **Review the detailed information:**
-   - Check command used
-   - Output from the check
-   - Performance data
-   - Check history
-
-#### **Example HTTP Check Details:**
+```mermaid
+graph TD
+    A[Restart nginx Container] --> B[Container Starts]
+    B --> C[Network Accessible]
+    C --> D[PING Check Succeeds]
+    C --> E[HTTP Check Succeeds]
+    D --> F[Host Status: UP 🟢]
+    E --> G[Service Status: OK 🟢]
+    F --> H[Recovery Alert 📧]
+    G --> H
+    H --> I[Dashboard Shows Green]
+    
+    style A fill:#e8f5e8
+    style B fill:#c8e6c9
+    style C fill:#c8e6c9
+    style D fill:#c8e6c9
+    style E fill:#c8e6c9
+    style F fill:#c8e6c9
+    style G fill:#c8e6c9
+    style H fill:#e3f2fd
+    style I fill:#c8e6c9
 ```
-Check Command: check_http
-Status Information: HTTP OK: HTTP/1.1 200 OK - 1234 bytes in 0.045 second
-Performance Data: time=0.045s;;;0.000000 size=1234B;;;0
-```
-
-**Learning Points:**
-- Each check runs a specific command
-- Output shows detailed results
-- Performance data tracks metrics over time
-- History shows status changes
 
 ---
 
 ## 🔧 **Step 5: Understanding Configuration**
 
+### **Configuration Relationship:**
+
+```mermaid
+graph TB
+    subgraph "Configuration Files"
+        A[hosts.cfg]
+        B[services.cfg]
+        C[commands.cfg]
+        D[contacts.cfg]
+    end
+    
+    subgraph "Runtime Objects"
+        E[Host Objects]
+        F[Service Objects]
+        G[Command Objects]
+        H[Contact Objects]
+    end
+    
+    subgraph "Monitoring Actions"
+        I[Check Execution]
+        J[Status Updates]
+        K[Notifications]
+    end
+    
+    A --> E
+    B --> F
+    C --> G
+    D --> H
+    
+    E --> I
+    F --> I
+    G --> I
+    I --> J
+    J --> K
+    H --> K
+    
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
+    style E fill:#e1f5fe
+    style F fill:#e8f5e8
+    style G fill:#fff3e0
+    style H fill:#f3e5f5
+    style I fill:#fce4ec
+    style J fill:#fce4ec
+    style K fill:#fce4ec
+```
+
 ### **Host Configuration (hosts.cfg):**
 ```bash
 # View host definitions
 cat nagios/config/hosts.cfg
-```
-
-**Example Host Definition:**
-```
-define host {
-    use                     linux-server        # Template to inherit from
-    host_name               nginx-target        # Unique identifier
-    alias                   Nginx Web Server    # Human-readable name
-    address                 nginx-target        # IP address or hostname
-    check_command           check-host-alive    # How to check if host is up
-    max_check_attempts      3                   # Retry 3 times before marking DOWN
-    check_period            24x7                # When to perform checks
-    notification_interval   30                  # How often to send alerts (minutes)
-    notification_period     24x7                # When to send alerts
-}
 ```
 
 ### **Service Configuration (services.cfg):**
@@ -370,47 +567,33 @@ define host {
 cat nagios/config/services.cfg
 ```
 
-**Example Service Definition:**
-```
-define service {
-    use                     generic-service     # Template to inherit from
-    host_name               nginx-target        # Which host this service runs on
-    service_description     HTTP                # Human-readable service name
-    check_command           check_http          # Command to test the service
-    max_check_attempts      3                   # Retry 3 times before marking CRITICAL
-    check_interval          5                   # Check every 5 minutes
-    retry_interval          1                   # Retry every 1 minute if failed
-    check_period            24x7                # When to perform checks
-    notification_interval   30                  # How often to send alerts
-    notification_period     24x7                # When to send alerts
-}
-```
-
-### **Key Configuration Concepts:**
-
-#### **Templates (use directive):**
-- **Purpose:** Inherit common settings
-- **Examples:** linux-server, generic-service
-- **Benefit:** Reduces duplication, easier maintenance
-
-#### **Check Commands:**
-- **check-host-alive:** PING test for host connectivity
-- **check_http:** Test web server response
-- **check_ping:** Network connectivity with thresholds
-
-#### **Time Periods:**
-- **24x7:** Always active
-- **workhours:** Business hours only
-- **Custom:** Define your own schedules
-
-#### **Notification Settings:**
-- **notification_interval:** How often to repeat alerts
-- **notification_period:** When alerts are allowed
-- **contacts:** Who receives alerts
-
 ---
 
 ## 📝 **Step 6: Monitor Logs and Events**
+
+### **Log Event Flow:**
+
+```mermaid
+sequenceDiagram
+    participant S as Service
+    participant N as Nagios Core
+    participant L as Log File
+    participant W as Web Interface
+    participant U as User
+    
+    S->>S: Service Fails
+    N->>S: Check Service
+    S-->>N: No Response
+    N->>L: Write: SERVICE ALERT CRITICAL
+    N->>N: Update Status
+    U->>W: View Dashboard
+    W->>N: Read Status
+    W-->>U: Show Red Status 🔴
+    
+    Note over S,N: Check every 5 minutes
+    Note over N,L: All events logged
+    Note over U,W: Real-time updates
+```
 
 ### **View Real-Time Logs:**
 ```bash
@@ -422,237 +605,208 @@ docker-compose logs nginx-target
 docker-compose logs apache-target
 ```
 
-### **Key Log Messages:**
-
-#### **Service Alerts:**
-```
-SERVICE ALERT: nginx-target;HTTP;CRITICAL;HARD;3;Connection refused
-SERVICE ALERT: nginx-target;HTTP;OK;HARD;1;HTTP OK: HTTP/1.1 200 OK
-```
-
-#### **Host Alerts:**
-```
-HOST ALERT: nginx-target;DOWN;HARD;3;PING CRITICAL - Host Unreachable
-HOST ALERT: nginx-target;UP;HARD;1;PING OK - Packet loss = 0%
-```
-
-#### **Current State Messages:**
-```
-CURRENT SERVICE STATE: nginx-target;HTTP;OK;HARD;1;HTTP OK
-CURRENT HOST STATE: nginx-target;UP;HARD;1;PING OK
-```
-
-### **Understanding Log Entries:**
-
-#### **Alert Types:**
-- **SERVICE ALERT** - Service status change
-- **HOST ALERT** - Host status change
-- **CURRENT STATE** - Status confirmation
-
-#### **State Types:**
-- **SOFT** - Temporary state (still retrying)
-- **HARD** - Confirmed state (max attempts reached)
-
-#### **Attempt Numbers:**
-- **3** - Failed 3 times (max_check_attempts)
-- **1** - Succeeded on first try
-
 ---
 
 ## 🛠️ **Step 7: Troubleshooting Common Issues**
 
-### **Problem: Cannot Access Nagios Web Interface**
+### **Troubleshooting Decision Tree:**
 
-#### **Symptoms:**
-- Browser shows "Connection refused"
-- Page won't load
-
-#### **Diagnosis:**
-```bash
-# Check if Nagios container is running
-docker ps | grep nagios
-
-# Check container logs
-docker-compose logs nagios
-
-# Check port binding
-netstat -tlnp | grep 8080
-```
-
-#### **Solutions:**
-```bash
-# Restart Nagios container
-docker-compose restart nagios
-
-# Rebuild if needed
-docker-compose up -d --build
-
-# Check firewall settings
-sudo ufw status
-```
-
-### **Problem: "Could not read host and service status information"**
-
-#### **Symptoms:**
-- Login works but no status data shown
-- Error message about reading status
-
-#### **Diagnosis:**
-```bash
-# Check Nagios configuration
-docker exec nagios-server nagios -v /opt/nagios/etc/nagios.cfg
-
-# Check file permissions
-docker exec nagios-server ls -la /opt/nagios/var/
-```
-
-#### **Solutions:**
-```bash
-# Restart Nagios to reload config
-docker-compose restart nagios
-
-# Wait for initial checks to complete (5-10 minutes)
-```
-
-### **Problem: Services Show UNKNOWN Status**
-
-#### **Symptoms:**
-- Services show gray/unknown status
-- No clear OK/CRITICAL status
-
-#### **Diagnosis:**
-```bash
-# Check network connectivity between containers
-docker network ls
-docker network inspect 03-nagios_monitoring
-
-# Test manual connectivity
-docker exec nagios-server ping nginx-target
-```
-
-#### **Solutions:**
-```bash
-# Restart all containers
-docker-compose down && docker-compose up -d
-
-# Check DNS resolution
-docker exec nagios-server nslookup nginx-target
+```mermaid
+graph TD
+    A[Problem Detected] --> B{Can Access Web Interface?}
+    B -->|No| C[Check Container Status]
+    B -->|Yes| D{Seeing Status Data?}
+    
+    C --> E[Restart Containers]
+    E --> F[Check Logs]
+    
+    D -->|No| G[Check Configuration]
+    D -->|Yes| H{Services Showing Unknown?}
+    
+    G --> I[Validate Config Files]
+    I --> J[Restart Nagios]
+    
+    H -->|Yes| K[Check Network Connectivity]
+    H -->|No| L[Monitor Working Correctly]
+    
+    K --> M[Restart All Containers]
+    
+    style A fill:#ffcdd2
+    style C fill:#fff3e0
+    style G fill:#fff3e0
+    style K fill:#fff3e0
+    style L fill:#c8e6c9
 ```
 
 ---
 
 ## 📊 **Step 8: Monitoring Best Practices**
 
-### **What to Monitor:**
+### **Monitoring Strategy Pyramid:**
 
-#### **Infrastructure Level:**
-- **Host availability** - Is the server reachable?
-- **Resource usage** - CPU, memory, disk space
-- **Network connectivity** - Ping, bandwidth
-- **Hardware health** - Temperature, disk errors
+```mermaid
+graph TD
+    subgraph "Monitoring Levels"
+        A[Business Metrics<br/>Revenue, Users, Transactions]
+        B[Application Metrics<br/>Response Time, Error Rate, Throughput]
+        C[System Metrics<br/>CPU, Memory, Disk, Network]
+        D[Infrastructure Metrics<br/>Host Availability, Network Connectivity]
+    end
+    
+    A --> B
+    B --> C
+    C --> D
+    
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
+```
 
-#### **Application Level:**
-- **Service availability** - Is the application responding?
-- **Response times** - How fast is the application?
-- **Error rates** - How many requests are failing?
-- **Business metrics** - Users, transactions, revenue
+### **Alert Escalation Flow:**
 
-#### **Security Level:**
-- **Failed login attempts** - Potential attacks
-- **Certificate expiration** - SSL/TLS certificates
-- **Security updates** - Patch status
-- **Access logs** - Unusual activity
-
-### **Monitoring Frequency Guidelines:**
-
-#### **Critical Services:**
-- **Check interval:** 1-2 minutes
-- **Examples:** Payment systems, core APIs
-- **Rationale:** Fast detection of revenue-impacting issues
-
-#### **Standard Services:**
-- **Check interval:** 5 minutes
-- **Examples:** Web servers, databases
-- **Rationale:** Balance between detection speed and system load
-
-#### **Non-Critical Services:**
-- **Check interval:** 15-30 minutes
-- **Examples:** Backup systems, reporting tools
-- **Rationale:** Reduce monitoring overhead for less critical systems
-
-### **Alert Management:**
-
-#### **Alert Fatigue Prevention:**
-- **Tune thresholds** - Avoid false positives
-- **Group related alerts** - Don't spam for related failures
-- **Escalation policies** - Different urgency levels
-- **Maintenance windows** - Suppress alerts during planned work
-
-#### **Notification Channels:**
-- **Email** - Standard alerts
-- **SMS** - Critical alerts
-- **Slack/Teams** - Team notifications
-- **PagerDuty** - On-call escalation
+```mermaid
+graph TD
+    A[Service Check Fails] --> B{First Failure?}
+    B -->|Yes| C[SOFT State - Retry]
+    B -->|No| D[HARD State - Alert]
+    
+    C --> E[Retry Check]
+    E --> F{Check Passes?}
+    F -->|Yes| G[Return to OK]
+    F -->|No| H{Max Retries?}
+    
+    H -->|No| C
+    H -->|Yes| D
+    
+    D --> I[Send Notification]
+    I --> J[Log Alert]
+    J --> K[Update Dashboard]
+    
+    style A fill:#ffcdd2
+    style C fill:#fff3e0
+    style D fill:#ffcdd2
+    style G fill:#c8e6c9
+    style I fill:#e3f2fd
+```
 
 ---
 
 ## 🎯 **Step 9: Real-World Applications**
 
-### **How Companies Use Nagios:**
+### **Enterprise Monitoring Architecture:**
 
-#### **E-commerce Platform:**
+```mermaid
+graph TB
+    subgraph "Production Environment"
+        subgraph "Web Tier"
+            A[Load Balancer]
+            B[Web Server 1]
+            C[Web Server 2]
+            D[Web Server 3]
+        end
+        
+        subgraph "Application Tier"
+            E[App Server 1]
+            F[App Server 2]
+            G[Message Queue]
+        end
+        
+        subgraph "Data Tier"
+            H[Primary DB]
+            I[Replica DB]
+            J[Cache Server]
+        end
+        
+        subgraph "Monitoring Infrastructure"
+            K[Nagios Master]
+            L[Nagios Slave 1]
+            M[Nagios Slave 2]
+        end
+    end
+    
+    A --> B
+    A --> C
+    A --> D
+    B --> E
+    C --> F
+    E --> G
+    F --> G
+    E --> H
+    F --> H
+    H --> I
+    E --> J
+    F --> J
+    
+    K --> L
+    K --> M
+    L -.-> A
+    L -.-> B
+    L -.-> C
+    M -.-> E
+    M -.-> F
+    M -.-> G
+    K -.-> H
+    K -.-> I
+    K -.-> J
+    
+    style K fill:#e3f2fd
+    style L fill:#e8f5e8
+    style M fill:#e8f5e8
 ```
-Hosts: Web servers, database servers, load balancers
-Services: 
-- HTTP/HTTPS response times
-- Database query performance
-- Payment gateway availability
-- Shopping cart functionality
-- Order processing pipeline
+
+### **DevOps Integration:**
+
+```mermaid
+graph LR
+    subgraph "CI/CD Pipeline"
+        A[Code Commit] --> B[Build]
+        B --> C[Test]
+        C --> D[Deploy]
+    end
+    
+    subgraph "Monitoring Integration"
+        E[Deploy Monitoring Config]
+        F[Health Check Validation]
+        G[Performance Baseline]
+        H[Alert Configuration]
+    end
+    
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I[Production Monitoring]
+    
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
+    style E fill:#fce4ec
+    style F fill:#fce4ec
+    style G fill:#fce4ec
+    style H fill:#fce4ec
+    style I fill:#c8e6c9
 ```
-
-#### **Financial Services:**
-```
-Hosts: Trading servers, compliance systems, backup systems
-Services:
-- Transaction processing speed
-- Market data feeds
-- Regulatory reporting systems
-- Security monitoring
-- Disaster recovery readiness
-```
-
-#### **Healthcare System:**
-```
-Hosts: Patient record systems, imaging servers, network equipment
-Services:
-- Electronic health records availability
-- Medical device connectivity
-- Patient portal response times
-- Backup system integrity
-- Compliance monitoring
-```
-
-### **Integration with DevOps Pipeline:**
-
-#### **Continuous Integration:**
-- **Build monitoring** - Track build success rates
-- **Test environment health** - Ensure test systems are available
-- **Deployment monitoring** - Monitor deployment success
-
-#### **Continuous Deployment:**
-- **Production readiness** - Verify systems before deployment
-- **Rollback triggers** - Automatic rollback on failure detection
-- **Performance regression** - Detect performance issues after deployment
-
-#### **Infrastructure as Code:**
-- **Automated monitoring setup** - Deploy monitoring with infrastructure
-- **Configuration management** - Version control monitoring configs
-- **Scaling monitoring** - Add monitoring for new instances automatically
 
 ---
 
 ## 🧹 **Step 10: Cleanup and Next Steps**
+
+### **Cleanup Process:**
+
+```mermaid
+graph TD
+    A[Lab Complete] --> B[Stop Containers]
+    B --> C[Remove Containers]
+    C --> D[Clean Networks]
+    D --> E[Remove Images (Optional)]
+    E --> F[Verify Cleanup]
+    F --> G[Environment Clean ✅]
+    
+    style A fill:#e3f2fd
+    style G fill:#c8e6c9
+```
 
 ### **Stop the Lab Environment:**
 ```bash
@@ -669,71 +823,93 @@ docker-compose down --rmi all
 docker-compose down -v
 ```
 
-### **Verify Cleanup:**
-```bash
-# Check no containers running
-docker ps
-
-# Check port availability
-netstat -tlnp | grep -E "808[0-2]"
-```
-
 ---
 
 ## 📚 **Advanced Topics to Explore**
 
-### **Custom Monitoring Scripts:**
-- Write your own check plugins
-- Monitor custom applications
-- Business-specific metrics
+### **Monitoring Evolution:**
 
-### **SNMP Monitoring:**
-- Monitor network devices
-- Router and switch health
-- Bandwidth utilization
+```mermaid
+graph TD
+    A[Traditional Monitoring<br/>Nagios, Zabbix] --> B[Modern Metrics<br/>Prometheus, Grafana]
+    B --> C[Observability<br/>Traces, Logs, Metrics]
+    C --> D[AI/ML Monitoring<br/>Anomaly Detection]
+    
+    style A fill:#fff3e0
+    style B fill:#e8f5e8
+    style C fill:#e3f2fd
+    style D fill:#f3e5f5
+```
 
-### **Database Monitoring:**
-- MySQL, PostgreSQL, Oracle
-- Query performance
-- Connection pools
-- Replication status
+### **Technology Comparison:**
 
-### **Cloud Monitoring:**
-- AWS CloudWatch integration
-- Azure Monitor integration
-- Google Cloud Monitoring
-
-### **Modern Alternatives:**
-- **Prometheus + Grafana** - Metrics and visualization
-- **ELK Stack** - Log aggregation and analysis
-- **DataDog** - Cloud-based monitoring
-- **New Relic** - Application performance monitoring
+```mermaid
+graph TB
+    subgraph "Monitoring Tools Landscape"
+        A[Nagios<br/>Traditional Infrastructure]
+        B[Prometheus<br/>Metrics & Alerting]
+        C[Grafana<br/>Visualization]
+        D[ELK Stack<br/>Log Analysis]
+        E[DataDog<br/>Cloud SaaS]
+        F[New Relic<br/>APM]
+    end
+    
+    A -.-> B
+    B --> C
+    A -.-> D
+    B -.-> E
+    C -.-> E
+    D -.-> F
+    
+    style A fill:#fff3e0
+    style B fill:#e8f5e8
+    style C fill:#e3f2fd
+    style D fill:#f3e5f5
+    style E fill:#fce4ec
+    style F fill:#e1f5fe
+```
 
 ---
 
 ## 🎓 **Assessment and Learning Outcomes**
 
-### **Knowledge Check:**
+### **Learning Progress:**
 
-#### **Conceptual Understanding:**
-- [ ] Can explain the difference between host and service monitoring
-- [ ] Understands the purpose of different status states (OK, WARNING, CRITICAL)
-- [ ] Can identify when to use different check intervals
-- [ ] Knows how to interpret monitoring dashboards
+```mermaid
+graph TD
+    A[Basic Concepts] --> B[Hands-On Practice]
+    B --> C[Problem Solving]
+    C --> D[Real-World Application]
+    D --> E[Advanced Topics]
+    
+    A1[Host vs Service] --> A
+    A2[Status States] --> A
+    A3[Check Types] --> A
+    
+    B1[Navigate Dashboard] --> B
+    B2[Simulate Failures] --> B
+    B3[Read Logs] --> B
+    
+    C1[Troubleshoot Issues] --> C
+    C2[Analyze Problems] --> C
+    C3[Fix Configuration] --> C
+    
+    D1[Design Strategy] --> D
+    D2[Best Practices] --> D
+    D3[Integration] --> D
+    
+    E1[Custom Scripts] --> E
+    E2[Advanced Tools] --> E
+    E3[Cloud Monitoring] --> E
+    
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
+    style E fill:#fce4ec
+```
 
-#### **Practical Skills:**
-- [ ] Can navigate the Nagios web interface
-- [ ] Can simulate and observe service failures
-- [ ] Can read and interpret log files
-- [ ] Can troubleshoot common monitoring issues
-
-#### **Real-World Application:**
-- [ ] Can design a monitoring strategy for a simple application
-- [ ] Understands how monitoring fits into DevOps practices
-- [ ] Can explain monitoring best practices to others
-- [ ] Knows when to escalate monitoring alerts
-
-### **Hands-On Competencies:**
+### **Competency Checklist:**
 - [ ] Successfully started the monitoring environment
 - [ ] Logged into Nagios web interface
 - [ ] Navigated to host and service status pages
