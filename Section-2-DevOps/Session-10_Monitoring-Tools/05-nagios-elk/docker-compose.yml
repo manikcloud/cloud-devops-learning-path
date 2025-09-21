@@ -50,35 +50,13 @@ services:
     image: docker.elastic.co/logstash/logstash:7.17.0
     container_name: logstash
     volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
       - shared_logs:/var/log:ro
     ports:
       - "5044:5044"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-    command: |
-      bash -c "
-      cat > /usr/share/logstash/pipeline/logstash.conf <<EOF
-      input {
-        file {
-          path => '/var/log/**/*.log'
-          start_position => 'beginning'
-          sincedb_path => '/dev/null'
-        }
-      }
-      filter {
-        grok {
-          match => { 'message' => '%{COMBINEDAPACHELOG}' }
-        }
-      }
-      output {
-        elasticsearch {
-          hosts => ['elasticsearch:9200']
-          index => 'web-logs-%{+YYYY.MM.dd}'
-        }
-      }
-      EOF
-      /usr/local/bin/docker-entrypoint
-      "
     networks:
       - monitoring
     depends_on:
