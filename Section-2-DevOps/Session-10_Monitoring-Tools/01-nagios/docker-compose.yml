@@ -6,10 +6,12 @@ services:
     container_name: nagios
     ports:
       - "8080:80"
+    volumes:
+      - ./nagios/config:/opt/nagios/etc/conf.d
     environment:
       - NAGIOS_FQDN=localhost
-      - NAGIOS_USER=admin
-      - NAGIOS_PASSWORD=nagios123
+      - NAGIOSADMIN_USER=nagiosadmin
+      - NAGIOSADMIN_PASS=nagios
     depends_on:
       - nginx-target
       - apache-target
