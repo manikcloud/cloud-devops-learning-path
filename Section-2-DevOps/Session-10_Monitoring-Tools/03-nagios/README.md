@@ -791,27 +791,20 @@ graph LR
 
 ---
 
-## 🔧 **Step 10: Understanding Nagios Configuration Files**
+## 🔧 **Step 5: Understanding Configuration**
 
-### **How Configuration Files Work:**
+### **Configuration Overview:**
+Nagios uses multiple configuration files to define what to monitor and how. For detailed technical information, see our [Configuration Guide](./config-guide/CONFIGURATION-GUIDE.md).
+
+### **Key Configuration Files:**
 
 ```mermaid
-graph TD
+graph TB
     A[nagios.cfg<br/>Main Config] --> B[Object Files]
     B --> C[hosts.cfg<br/>Define Servers]
     B --> D[services.cfg<br/>Define Checks]
     B --> E[commands.cfg<br/>Define Commands]
     B --> F[contacts.cfg<br/>Define Alerts]
-    
-    C --> G[Host Objects]
-    D --> H[Service Objects]
-    E --> I[Command Objects]
-    F --> J[Contact Objects]
-    
-    G --> K[Monitoring Engine]
-    H --> K
-    I --> K
-    J --> K
     
     style A fill:#e3f2fd
     style B fill:#e8f5e8
@@ -819,197 +812,45 @@ graph TD
     style D fill:#f3e5f5
     style E fill:#fce4ec
     style F fill:#e1f5fe
-    style K fill:#c8e6c9
 ```
 
-### **Configuration File Details:**
+### **Quick Configuration Examples:**
 
-#### **1. hosts.cfg - Define What to Monitor**
+#### **View Host Configuration:**
+```bash
+cat nagios/config/hosts.cfg
+```
+
+#### **View Service Configuration:**
+```bash
+cat nagios/config/services.cfg
+```
+
+#### **Basic Host Definition:**
 ```bash
 define host {
-    use                     linux-server        # Template (inherit settings)
-    host_name               nginx-target        # Unique name for this host
-    alias                   Nginx Web Server    # Human-readable description
-    address                 nginx-target        # IP address or hostname
-    check_command           check-host-alive    # How to test if host is up
-    max_check_attempts      3                   # Try 3 times before marking DOWN
-    check_period            24x7                # When to check (always)
-    notification_interval   30                  # Alert every 30 minutes if still down
-    notification_period     24x7                # When to send alerts (always)
+    use                     linux-server        # Template
+    host_name               nginx-target        # Unique name
+    alias                   Nginx Web Server    # Description
+    address                 nginx-target        # IP/hostname
+    check_command           check-host-alive    # How to check
 }
 ```
 
-**Key Settings Explained:**
-- **use:** Inherits settings from a template (reduces duplication)
-- **host_name:** Must be unique across all hosts
-- **address:** Can be IP (192.168.1.10) or hostname (web-server-01)
-- **check_command:** Usually `check-host-alive` (PING test)
-- **max_check_attempts:** Prevents false alarms from temporary issues
-
-#### **2. services.cfg - Define How to Monitor**
+#### **Basic Service Definition:**
 ```bash
 define service {
-    use                     generic-service     # Template for common settings
-    host_name               nginx-target        # Which host this service runs on
-    service_description     HTTP                # Name of the service check
-    check_command           check_http          # Command to test the service
-    max_check_attempts      3                   # Retry 3 times before CRITICAL
-    check_interval          5                   # Check every 5 minutes
-    retry_interval          1                   # If failed, retry every 1 minute
-    check_period            24x7                # When to perform checks
-    notification_interval   30                  # How often to repeat alerts
-    notification_period     24x7                # When alerts are allowed
+    use                     generic-service     # Template
+    host_name               nginx-target        # Which host
+    service_description     HTTP                # Service name
+    check_command           check_http          # How to test
+    check_interval          5                   # Every 5 minutes
 }
 ```
 
-**Key Settings Explained:**
-- **host_name:** Must match a host defined in hosts.cfg
-- **service_description:** Appears in web interface
-- **check_command:** Actual test to perform (check_http, check_ping, etc.)
-- **check_interval:** Normal checking frequency
-- **retry_interval:** Faster checking when problems detected
+**📚 For complete configuration details, examples, and best practices, see [Configuration Guide](./config-guide/CONFIGURATION-GUIDE.md)**
 
-#### **3. commands.cfg - Define Test Commands**
-```bash
-define command {
-    command_name    check_http                          # Name used in services.cfg
-    command_line    $USER1$/check_http -H $HOSTADDRESS$ # Actual command to run
-}
-
-define command {
-    command_name    check_ping
-    command_line    $USER1$/check_ping -H $HOSTADDRESS$ -w $ARG1$ -c $ARG2$
-}
-```
-
-**Key Concepts:**
-- **$USER1$:** Path to plugins directory (/usr/lib/nagios/plugins/)
-- **$HOSTADDRESS$:** Replaced with actual host IP/hostname
-- **$ARG1$, $ARG2$:** Arguments passed from service definition
-
-#### **4. How It All Works Together:**
-
-```mermaid
-sequenceDiagram
-    participant NC as Nagios Core
-    participant CF as Config Files
-    participant P as Plugin
-    participant T as Target
-    
-    NC->>CF: Read hosts.cfg
-    CF-->>NC: nginx-target host defined
-    NC->>CF: Read services.cfg
-    CF-->>NC: HTTP service for nginx-target
-    NC->>CF: Read commands.cfg
-    CF-->>NC: check_http command definition
-    
-    loop Every 5 minutes
-        NC->>P: Execute /usr/lib/nagios/plugins/check_http -H nginx-target
-        P->>T: HTTP GET request
-        T-->>P: HTTP 200 OK response
-        P-->>NC: Exit code 0 (OK)
-        NC->>NC: Update status: nginx-target HTTP = OK
-    end
-```
-
-### **Configuration Best Practices:**
-
-#### **Templates (Inheritance):**
-```bash
-# Define once, use many times
-define host {
-    name                    linux-server        # Template name
-    check_command           check-host-alive
-    max_check_attempts      3
-    check_period            24x7
-    register                0                   # Don't monitor this template
-}
-
-# Use the template
-define host {
-    use                     linux-server        # Inherit all settings above
-    host_name               web-server-01       # Only specify unique values
-    address                 192.168.1.10
-}
-```
-
-#### **Time Periods:**
-```bash
-define timeperiod {
-    timeperiod_name     24x7
-    alias               24 Hours A Day, 7 Days A Week
-    sunday              00:00-24:00
-    monday              00:00-24:00
-    tuesday             00:00-24:00
-    wednesday           00:00-24:00
-    thursday            00:00-24:00
-    friday              00:00-24:00
-    saturday            00:00-24:00
-}
-
-define timeperiod {
-    timeperiod_name     workhours
-    alias               Standard Work Hours
-    monday              09:00-17:00
-    tuesday             09:00-17:00
-    wednesday           09:00-17:00
-    thursday            09:00-17:00
-    friday              09:00-17:00
-}
-```
-
-### **Common Configuration Patterns:**
-
-#### **Web Server Monitoring:**
-```bash
-# Host definition
-define host {
-    use                     linux-server
-    host_name               web-server-01
-    address                 192.168.1.10
-}
-
-# Multiple services for same host
-define service {
-    use                     generic-service
-    host_name               web-server-01
-    service_description     HTTP
-    check_command           check_http
-}
-
-define service {
-    use                     generic-service
-    host_name               web-server-01
-    service_description     HTTPS
-    check_command           check_http!-S      # -S flag for SSL
-}
-
-define service {
-    use                     generic-service
-    host_name               web-server-01
-    service_description     Disk Space
-    check_command           check_disk!20%!10%!/
-}
-```
-
-#### **Database Server Monitoring:**
-```bash
-define service {
-    use                     generic-service
-    host_name               db-server-01
-    service_description     MySQL
-    check_command           check_mysql!username!password
-}
-
-define service {
-    use                     generic-service
-    host_name               db-server-01
-    service_description     MySQL Connections
-    check_command           check_mysql_query!username!password!"SHOW STATUS LIKE 'Threads_connected'"
-}
-```
-
-## 🧹 **Step 11: Cleanup and Next Steps**
+## 🧹 **Step 10: Cleanup and Next Steps**
 
 ### **Cleanup Process:**
 
