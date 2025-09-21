@@ -3,11 +3,9 @@ version: '3.8'
 services:
   nagios:
     image: jasonrivers/nagios:latest
-    container_name: nagios-server
+    container_name: nagios
     ports:
       - "8080:80"
-    volumes:
-      - ./nagios/config:/opt/nagios/etc/conf.d
     environment:
       - NAGIOS_FQDN=localhost
       - NAGIOS_USER=admin
@@ -17,7 +15,6 @@ services:
       - apache-target
     networks:
       - monitoring
-    restart: unless-stopped
 
   nginx-target:
     image: nginx:alpine
@@ -26,7 +23,6 @@ services:
       - "8081:80"
     networks:
       - monitoring
-    restart: unless-stopped
 
   apache-target:
     image: httpd:alpine
@@ -35,7 +31,6 @@ services:
       - "8082:80"
     networks:
       - monitoring
-    restart: unless-stopped
 
 networks:
   monitoring:
