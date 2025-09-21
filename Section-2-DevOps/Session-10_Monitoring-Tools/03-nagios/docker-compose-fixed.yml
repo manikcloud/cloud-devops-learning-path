@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  nagios:
+    image: jasonrivers/nagios:latest
+    container_name: nagios-server
+    ports:
+      - "8080:80"
+    environment:
+      - NAGIOSADMIN_USER=admin
+      - NAGIOSADMIN_PASS=nagios123
+      - NAGIOS_TIMEZONE=UTC
+    volumes:
+      - ./nagios-config:/opt/nagios/etc/conf.d
+    depends_on:
+      - nginx-target
+      - apache-target
+    networks:
+      - monitoring
+    restart: unless-stopped
+
+  nginx-target:
+    image: nginx:alpine
+    container_name: nginx-target
+    ports:
+      - "8081:80"
+    networks:
+      - monitoring
+    restart: unless-stopped
+
+  apache-target:
+    image: httpd:alpine
+    container_name: apache-target
+    ports:
+      - "8082:80"
+    networks:
+      - monitoring
+    restart: unless-stopped
+
+networks:
+  monitoring:
+    driver: bridge
