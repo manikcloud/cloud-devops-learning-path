@@ -1,314 +1,251 @@
-# 🎓 **OpenShift Basic Tutorial - Hands-On Learning**
+# 🚀 **OpenShift Simple Projects - Step-by-Step Runbooks**
 
 <div align="center">
 
-![Tutorial](https://img.shields.io/badge/Tutorial-Basic-green?style=for-the-badge&logo=openshift&logoColor=white)
-![Hands-On](https://img.shields.io/badge/Hands--On-Learning-blue?style=for-the-badge&logo=graduation-cap&logoColor=white)
+![OpenShift](https://img.shields.io/badge/OpenShift-Sandbox-red?style=for-the-badge&logo=redhat&logoColor=white)
+![Projects](https://img.shields.io/badge/3%20Simple-Projects-green?style=for-the-badge&logo=rocket&logoColor=white)
 
-**🎯 Learn by Doing | 🚀 Deploy Real Apps | 📊 See Results**
+**🎯 Copy-Paste Commands | 📋 Step-by-Step | ✅ Guaranteed Results**
 
 </div>
 
 ---
 
-## 🎯 **Tutorial Overview**
+## 🌐 **Using OpenShift Sandbox**
 
-This tutorial teaches OpenShift basics through **hands-on exercises**. You'll deploy real applications and see how OpenShift works.
+**Cluster URL:** https://console-openshift-console.apps.rm3.7wse.p1.openshiftapps.com
 
-### **What You'll Learn:**
-- ✅ **Deploy applications** from container images
-- ✅ **Expose services** to the internet
-- ✅ **Scale applications** up and down
-- ✅ **Build from source code** using S2I
-- ✅ **Manage with web console** and CLI
-
-### **Prerequisites:**
-- Access to OpenShift cluster (Sandbox, Local, or Cloud)
-- Basic understanding of containers
-- Web browser for console access
+### **Quick Access:**
+1. **Login** to OpenShift Sandbox
+2. **Copy-paste** commands below
+3. **See results** immediately
 
 ---
 
-## 🚀 **Exercise 1: Deploy Your First App**
+## 📋 **Project 1: Simple Web Server**
 
-### **Goal:** Deploy a simple web application
+### **Goal:** Deploy nginx web server in 2 minutes
 
+#### **Step 1: Login via CLI**
 ```bash
-# Login to your OpenShift cluster
-oc login [your-cluster-url]
-
-# Create a new project
-oc new-project my-first-app
-
-# Deploy application from container image
-oc new-app --name hello-world \
-  --docker-image=quay.io/openshift/hello-openshift
-
-# Check deployment status
-oc get pods
-oc get deployments
+# Get login command from web console (top-right menu → Copy login command)
+oc login --token=sha256~[your-token] --server=https://api.rm3.7wse.p1.openshiftapps.com:6443
 ```
 
-### **Expected Output:**
+#### **Step 2: Create Project**
+```bash
+oc new-project simple-web-$(date +%s)
 ```
-NAME                          READY   STATUS    RESTARTS   AGE
-hello-world-xxxxxxxxx-xxxxx   1/1     Running   0          30s
+
+#### **Step 3: Deploy Nginx**
+```bash
+oc new-app --name=my-nginx --docker-image=nginx:alpine
 ```
+
+#### **Step 4: Expose to Internet**
+```bash
+oc expose service my-nginx
+```
+
+#### **Step 5: Get URL and Test**
+```bash
+oc get route my-nginx
+# Copy the URL and open in browser
+```
+
+### **✅ Expected Result:**
+- Nginx welcome page loads in browser
+- URL format: `http://my-nginx-[project-name].apps.rm3.7wse.p1.openshiftapps.com`
 
 ---
 
-## 🌐 **Exercise 2: Expose Your App to Internet**
+## 📋 **Project 2: Node.js App from GitHub**
 
-### **Goal:** Make your app accessible via URL
+### **Goal:** Deploy real application from source code
 
+#### **Step 1: Create New Project**
 ```bash
-# Expose the service
-oc expose service hello-world
-
-# Get the route URL
-oc get route hello-world
-
-# Test your application
-curl http://[your-app-url]
+oc new-project nodejs-app-$(date +%s)
 ```
 
-### **Web Console Alternative:**
-1. Go to **Topology** view
-2. Click on your app
-3. Click **Create Route**
-4. Click the route URL to test
+#### **Step 2: Deploy from GitHub**
+```bash
+oc new-app https://github.com/openshift/nodejs-ex --name=nodejs-demo
+```
+
+#### **Step 3: Watch Build Process**
+```bash
+oc logs -f bc/nodejs-demo
+# Wait for "Push successful" message
+```
+
+#### **Step 4: Expose Service**
+```bash
+oc expose service nodejs-demo
+```
+
+#### **Step 5: Get URL and Test**
+```bash
+oc get route nodejs-demo
+# Open URL in browser
+```
+
+### **✅ Expected Result:**
+- Node.js welcome page with OpenShift logo
+- Build logs show successful image creation
+- URL format: `http://nodejs-demo-[project-name].apps.rm3.7wse.p1.openshiftapps.com`
 
 ---
 
-## 📈 **Exercise 3: Scale Your Application**
+## 📋 **Project 3: Python Web App with Database**
 
-### **Goal:** Handle more traffic by scaling
+### **Goal:** Full-stack application with PostgreSQL
 
+#### **Step 1: Create Project**
 ```bash
-# Scale to 3 replicas
-oc scale deployment hello-world --replicas=3
-
-# Watch pods being created
-oc get pods -w
-
-# Check load balancing
-for i in {1..10}; do curl http://[your-app-url]; done
+oc new-project python-db-$(date +%s)
 ```
 
-### **Web Console Alternative:**
-1. Go to **Topology** view
-2. Click on your app
-3. Use **+** button to scale up
-4. Use **-** button to scale down
-
----
-
-## 🔨 **Exercise 4: Build from Source Code**
-
-### **Goal:** Deploy app directly from GitHub
-
+#### **Step 2: Deploy PostgreSQL Database**
 ```bash
-# Create app from source code
-oc new-app https://github.com/openshift/nodejs-ex \
-  --name=nodejs-app
-
-# Watch the build process
-oc logs -f bc/nodejs-app
-
-# Expose the service
-oc expose service nodejs-app
-
-# Get the URL
-oc get route nodejs-app
+oc new-app postgresql-ephemeral \
+  --param=DATABASE_SERVICE_NAME=postgresql \
+  --param=POSTGRESQL_DATABASE=sampledb \
+  --param=POSTGRESQL_USER=dbuser \
+  --param=POSTGRESQL_PASSWORD=dbpass123
 ```
 
-### **What Happens:**
-1. **Source-to-Image (S2I)** detects Node.js
-2. **Builds** container image automatically
-3. **Deploys** the application
-4. **Creates** service and route
-
----
-
-## 📊 **Exercise 5: Monitor Your Applications**
-
-### **Goal:** Check application health and logs
-
+#### **Step 3: Deploy Python App**
 ```bash
-# View application logs
-oc logs deployment/hello-world
-
-# Check resource usage
-oc top pods
-
-# View events
-oc get events --sort-by='.lastTimestamp'
-
-# Describe deployment
-oc describe deployment hello-world
-```
-
-### **Web Console Monitoring:**
-1. Go to **Monitoring** → **Dashboards**
-2. Select your project
-3. View CPU, Memory, Network metrics
-4. Check **Events** tab for issues
-
----
-
-## 🔄 **Exercise 6: Update Your Application**
-
-### **Goal:** Deploy new version without downtime
-
-```bash
-# Update image to new version
-oc set image deployment/hello-world \
-  hello-world=quay.io/openshift/hello-openshift:latest
-
-# Watch rolling update
-oc rollout status deployment/hello-world
-
-# Check rollout history
-oc rollout history deployment/hello-world
-
-# Rollback if needed
-oc rollout undo deployment/hello-world
-```
-
----
-
-## 🗂️ **Exercise 7: Organize with Projects**
-
-### **Goal:** Manage multiple applications
-
-```bash
-# Create development project
-oc new-project my-dev-env
-
-# Create production project  
-oc new-project my-prod-env
-
-# Switch between projects
-oc project my-dev-env
-oc project my-prod-env
-
-# List all projects
-oc get projects
-```
-
-### **Project Benefits:**
-- **Isolation** - Apps don't interfere
-- **Resource limits** - Control usage
-- **Access control** - Team permissions
-- **Organization** - Logical grouping
-
----
-
-## 🎯 **Exercise 8: Complete Web App Deployment**
-
-### **Goal:** Deploy a full web application with database
-
-```bash
-# Create new project
-oc new-project complete-app
-
-# Deploy PostgreSQL database
-oc new-app postgresql-persistent \
-  --param DATABASE_SERVICE_NAME=postgresql \
-  --param POSTGRESQL_DATABASE=sampledb \
-  --param POSTGRESQL_USER=user \
-  --param POSTGRESQL_PASSWORD=password
-
-# Deploy web application
 oc new-app https://github.com/openshift/django-ex \
-  --name=django-app \
-  --env DATABASE_SERVICE_NAME=postgresql \
-  --env DATABASE_NAME=sampledb \
-  --env DATABASE_USER=user \
-  --env DATABASE_PASSWORD=password
+  --name=python-app \
+  --env=DATABASE_SERVICE_NAME=postgresql \
+  --env=DATABASE_NAME=sampledb \
+  --env=DATABASE_USER=dbuser \
+  --env=DATABASE_PASSWORD=dbpass123
+```
 
-# Expose the web app
-oc expose service django-app
+#### **Step 4: Wait for Build**
+```bash
+oc logs -f bc/python-app
+# Wait for build completion
+```
 
-# Check everything is running
+#### **Step 5: Expose Python App**
+```bash
+oc expose service python-app
+```
+
+#### **Step 6: Get URL and Test**
+```bash
+oc get route python-app
+# Open URL in browser
+```
+
+### **✅ Expected Result:**
+- Django welcome page loads
+- Database connection working
+- URL format: `http://python-app-[project-name].apps.rm3.7wse.p1.openshiftapps.com`
+
+---
+
+## 🔍 **Quick Troubleshooting**
+
+### **If Build Fails:**
+```bash
 oc get pods
+oc logs [build-pod-name]
+```
+
+### **If App Won't Start:**
+```bash
+oc get pods
+oc describe pod [pod-name]
+oc logs [pod-name]
+```
+
+### **If Route Not Working:**
+```bash
 oc get routes
+oc get services
 ```
 
 ---
 
-## 🛠️ **Common Commands Reference**
+## 🎯 **Web Console Alternative**
 
-### **Project Management:**
+### **For Visual Learners:**
+
+#### **Deploy via Web Console:**
+1. **Go to:** Developer perspective
+2. **Click:** +Add
+3. **Choose:** Container Image or Git Repository
+4. **Fill:** Image name or Git URL
+5. **Click:** Create
+6. **Wait:** For deployment
+7. **Click:** Route URL to test
+
+#### **Monitor via Web Console:**
+1. **Go to:** Topology view
+2. **Click:** Your application
+3. **View:** Logs, Events, Details
+4. **Scale:** Using +/- buttons
+
+---
+
+## 📊 **Useful Commands**
+
+### **Check Everything:**
 ```bash
-oc new-project [name]          # Create project
-oc project [name]              # Switch project
-oc delete project [name]       # Delete project
+oc get all                    # All resources
+oc get pods                   # Running containers
+oc get routes                 # External URLs
+oc get builds                 # Build status
 ```
 
-### **Application Deployment:**
+### **Clean Up:**
 ```bash
-oc new-app [image/source]      # Deploy app
-oc expose service [name]       # Create route
-oc scale deployment [name] --replicas=N  # Scale
+oc delete project [project-name]    # Delete entire project
+oc delete all --selector app=[name] # Delete specific app
 ```
 
-### **Monitoring:**
+### **Scale Applications:**
 ```bash
-oc get pods                    # List pods
-oc get services               # List services
-oc get routes                 # List routes
-oc logs [pod-name]            # View logs
-oc describe [resource] [name] # Detailed info
-```
-
-### **Updates:**
-```bash
-oc set image deployment/[name] [container]=[image]  # Update image
-oc rollout status deployment/[name]                 # Check update
-oc rollout undo deployment/[name]                   # Rollback
+oc scale deployment [name] --replicas=3  # Scale to 3 pods
+oc scale deployment [name] --replicas=1  # Scale back to 1
 ```
 
 ---
 
-## 🎓 **Learning Outcomes**
+## 🎉 **Success Checklist**
 
-After completing this tutorial, you can:
+After completing all 3 projects:
 
-- ✅ **Deploy applications** using images and source code
-- ✅ **Expose services** with routes for external access
-- ✅ **Scale applications** to handle varying loads
-- ✅ **Monitor applications** using logs and metrics
-- ✅ **Update applications** with zero downtime
-- ✅ **Organize projects** for better management
-- ✅ **Use both CLI and web console** effectively
+- ✅ **Project 1:** Nginx web server accessible via browser
+- ✅ **Project 2:** Node.js app built from GitHub source
+- ✅ **Project 3:** Python app connected to PostgreSQL database
+
+### **You Now Know:**
+- ✅ How to deploy container images
+- ✅ How to build from source code
+- ✅ How to connect apps to databases
+- ✅ How to expose apps to internet
+- ✅ How to use both CLI and web console
 
 ---
 
 ## 🚀 **Next Steps**
 
-### **Advanced Topics to Explore:**
-1. **ConfigMaps & Secrets** - Manage configuration
-2. **Persistent Storage** - Handle data persistence
-3. **CI/CD Pipelines** - Automate deployments
-4. **Custom Resources** - Extend OpenShift
-5. **Operators** - Manage complex applications
+### **Try These Variations:**
+- **Different images:** `httpd`, `redis`, `mysql`
+- **Different languages:** PHP, Java, Go applications
+- **Scale applications:** Increase replicas for load handling
+- **Add monitoring:** Check resource usage and logs
 
-### **Real Projects to Try:**
-- **Blog Application** - WordPress with MySQL
-- **E-commerce Site** - Multi-tier application
-- **API Gateway** - Microservices architecture
-- **Monitoring Stack** - Prometheus + Grafana
+### **Real-World Practice:**
+- Deploy your own GitHub repository
+- Connect multiple services together
+- Set up environment variables
+- Configure health checks
 
----
-
-## 🎉 **Congratulations!**
-
-You've completed the OpenShift basic tutorial! You now understand:
-
-- **Core OpenShift concepts** through hands-on practice
-- **Application deployment** patterns and best practices
-- **Scaling and monitoring** applications effectively
-- **Project organization** for real-world scenarios
-
-**Ready to build production applications on OpenShift!** 🚀
+**You're now ready to deploy real applications on OpenShift!** 🎓
