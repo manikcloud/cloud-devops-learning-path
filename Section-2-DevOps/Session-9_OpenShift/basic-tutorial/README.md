@@ -28,13 +28,18 @@
 
 #### **Step 1: Login via CLI**
 ```bash
-# Get login command from web console (top-right menu → Copy login command)
-oc login --token=sha256~[your-token] --server=https://api.rm3.7wse.p1.openshiftapps.com:6443
+# You're already logged in via Web Terminal!
+# Check your current project
+oc project
 ```
 
-#### **Step 2: Create Project**
+#### **Step 2: Use Existing Project**
 ```bash
-oc new-project simple-web-$(date +%s)
+# List available projects
+oc get projects
+
+# Switch to your dev project (usually ends with -dev)
+oc project [your-username]-dev
 ```
 
 #### **Step 3: Deploy Nginx**
@@ -63,9 +68,9 @@ oc get route my-nginx
 
 ### **Goal:** Deploy real application from source code
 
-#### **Step 1: Create New Project**
+#### **Step 1: Clean Previous App (Optional)**
 ```bash
-oc new-project nodejs-app-$(date +%s)
+oc delete all --selector app=my-nginx
 ```
 
 #### **Step 2: Deploy from GitHub**
@@ -101,9 +106,9 @@ oc get route nodejs-demo
 
 ### **Goal:** Full-stack application with PostgreSQL
 
-#### **Step 1: Create Project**
+#### **Step 1: Clean Previous Apps (Optional)**
 ```bash
-oc new-project python-db-$(date +%s)
+oc delete all --selector app=nodejs-demo
 ```
 
 #### **Step 2: Deploy PostgreSQL Database**
@@ -150,6 +155,21 @@ oc get route python-app
 ---
 
 ## 🔍 **Quick Troubleshooting**
+
+### **❌ "Forbidden: You may not request a new project"**
+```bash
+# This is normal in OpenShift Sandbox
+# Use your existing project instead:
+oc get projects
+oc project [your-username]-dev
+```
+
+### **❌ "No projects available"**
+```bash
+# Check if you're in the right context
+oc whoami
+oc get projects --all-namespaces
+```
 
 ### **If Build Fails:**
 ```bash
