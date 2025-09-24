@@ -65,9 +65,47 @@ graph TB
 - **🖱️ OS:** Windows 10/11, macOS 10.14+, Linux
 
 ### **Supported Operating Systems:**
-- ✅ **Windows 10/11** - With Hyper-V or VirtualBox
+- ✅ **Windows 10/11** - With Hyper-V (native Windows, not WSL2)
 - ✅ **macOS 10.14+** - With HyperKit
-- ✅ **Linux** - RHEL 8+, Fedora 32+, Ubuntu 18.04+
+- ✅ **Linux** - RHEL 8+, Fedora 32+, Ubuntu 18.04+ (native Linux)
+
+### **⚠️ Important Limitations:**
+- ❌ **WSL2 is NOT supported** - CRC requires native OS with virtualization
+- ❌ **Docker Desktop in WSL2** - Cannot run CRC inside WSL2 environment
+- ✅ **Alternative for WSL2 users** - Use OpenShift Sandbox (cloud-based) or native Windows/Linux
+
+---
+
+## 🌐 **Alternative for WSL2 Users**
+
+Since **OpenShift Local doesn't work in WSL2**, here are alternatives:
+
+### **Option 1: OpenShift Sandbox (Recommended)**
+```bash
+# Free cloud-based OpenShift cluster
+# Visit: https://developers.redhat.com/developer-sandbox
+# No installation needed - runs in the cloud
+```
+
+### **Option 2: Kind with OpenShift-like Experience**
+```bash
+# Install Kind (Kubernetes in Docker)
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+
+# Create cluster
+kind create cluster --name openshift-like
+
+# Install OpenShift CLI
+curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz | tar xz
+sudo mv oc kubectl /usr/local/bin/
+```
+
+### **Option 3: Native Windows Installation**
+- Install OpenShift Local directly on Windows (outside WSL2)
+- Use Hyper-V or VirtualBox
+- Full OpenShift Local experience
 
 ---
 
