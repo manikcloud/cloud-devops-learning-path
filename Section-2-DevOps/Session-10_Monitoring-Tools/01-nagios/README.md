@@ -1,3 +1,13 @@
+# 🔍 **Nagios Monitoring - Infrastructure Monitoring Foundation**
+
+## 🎯 **Why Monitor Infrastructure?**
+
+### **The Monitoring Lifecycle:**
+
+```mermaid
+graph TD
+    A[Services Running 🟢] --> B{Health Check}
+    B --> C[All Good ✅]
     B --> D[Problem Detected ⚠️]
     C --> E[Users Happy 😊]
     D --> F[Alert Sent 📧]
