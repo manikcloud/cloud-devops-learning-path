@@ -10,17 +10,17 @@ docker-compose up -d
 docker-compose ps
 ```
 
-## 📊 **Access Information**
+## 📊 **Access Nagios Dashboard**
 
-• **URL:** http://localhost:8080/nagios/
-• **Username:** nagiosadmin
-• **Password:** nagios
+**URL:** http://localhost:8080/nagios  
+**Username:** admin  
+**Password:** nagios123  
 
 ## 🌐 **Test Services**
 
 | Service | URL | Purpose |
 |---------|-----|---------|
-| **Nagios** | http://localhost:8080/nagios/ | Monitoring dashboard |
+| **Nagios** | http://localhost:8080/nagios | Monitoring dashboard |
 | **Nginx** | http://localhost:8081 | Test web server |
 | **Apache** | http://localhost:8082 | Test web server |
 
@@ -37,10 +37,9 @@ curl http://localhost:8082
 ```
 
 ### 2. Access Nagios Dashboard
-1. Open: http://localhost:8080/nagios/
-2. Login: nagiosadmin / nagios
-3. Click **Hosts** to see nginx-target and apache-target
-4. Click **Services** to see HTTP monitoring status
+1. Open: http://localhost:8080/nagios
+2. Login: admin / nagios123
+3. Click **Services** to see monitoring status
 
 ### 3. Simulate Service Failure
 ```bash
@@ -79,7 +78,7 @@ docker-compose down
 
 After mastering basic Nagios monitoring:
 - **Advanced configuration** - Custom checks and alerts
-- **ELK Stack integration** - Move to `../02-nagios-elk/`
+- **ELK Stack integration** - Move to `../02-elk-stack/`
 - **Production deployment** - Scale monitoring infrastructure
 
 *🔍 Master infrastructure monitoring fundamentals with Nagios!*
