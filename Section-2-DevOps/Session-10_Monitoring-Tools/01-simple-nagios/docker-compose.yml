@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  nagios:
+    image: jasonrivers/nagios:latest
+    container_name: nagios
+    ports:
+      - "8080:80"
+    environment:
+      - NAGIOS_FQDN=localhost
+      - NAGIOS_USER=admin
+      - NAGIOS_PASSWORD=nagios123
+    depends_on:
+      - nginx-target
+      - apache-target
+    networks:
+      - monitoring
+
+  nginx-target:
+    image: nginx:alpine
+    container_name: nginx-target
+    ports:
+      - "8081:80"
+    networks:
+      - monitoring
+
+  apache-target:
+    image: httpd:alpine
+    container_name: apache-target
+    ports:
+      - "8082:80"
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge

@@ -219,28 +219,28 @@ Resolution: Additional instances launched
 - **Capacity planning** - Track resource utilization
 - **Compliance** - Meet SLA requirements
 
-### **📁 02-elk-stack** - Log Analysis & Observability
+### **📁 02-nagios-elk** - Advanced Monitoring with ELK Integration
 ```
-02-elk-stack/
-├── 🎯 Focus: Centralized logging and analysis
-├── 🔧 Technology: Elasticsearch, Logstash, Kibana
-├── 📊 Processes: Real-time log analysis
-├── 🚨 Insights: Pattern detection, anomalies
-├── 💡 Learn: Log-driven troubleshooting
-└── 🎓 Skills: Advanced observability
+02-nagios-elk/
+├── 🎯 Focus: Nagios with ELK stack integration
+├── 🔧 Technology: Nagios + Elasticsearch, Logstash, Kibana
+├── 📊 Processes: Integrated monitoring and logging
+├── 🚨 Insights: Infrastructure + log correlation
+├── 💡 Learn: Complete observability solution
+└── 🎓 Skills: Advanced monitoring and analysis
 ```
 
 **What You'll Build:**
-- Complete ELK stack deployment
-- Multi-service log aggregation
-- Real-time dashboards
-- Log correlation and analysis
+- Integrated Nagios + ELK deployment
+- Multi-service monitoring and logging
+- Unified dashboards
+- Correlated alerts and analysis
 
 **Business Value:**
-- **Faster troubleshooting** - Centralized log search
-- **Proactive insights** - Trend analysis and predictions
-- **Security monitoring** - Threat detection in logs
-- **Performance optimization** - Identify bottlenecks
+- **Complete visibility** - Infrastructure and application monitoring
+- **Faster troubleshooting** - Correlated data sources
+- **Proactive insights** - Combined metrics and logs
+- **Performance optimization** - End-to-end analysis
 
 ---
 
@@ -621,9 +621,10 @@ spec:
 - [ ] Practice incident response
 
 ### **Intermediate Level (Weeks 3-4)**
-- [ ] Complete **02-elk-stack** lab
-- [ ] Build custom dashboards
+- [ ] Complete **02-nagios-elk** lab
+- [ ] Build integrated dashboards
 - [ ] Implement log analysis
+- [ ] Set up advanced alerting
 - [ ] Create monitoring runbooks
 
 ### **Advanced Level (Weeks 5-6)**
@@ -677,7 +678,7 @@ After completing this session, you should be able to:
 ### **Quick Start Path:**
 1. **📖 Read this overview** - Understand monitoring concepts
 2. **🔧 Start with 01-nagios** - Learn infrastructure monitoring
-3. **📊 Progress to 02-elk-stack** - Master log analysis
+3. **📊 Progress to 02-nagios-elk** - Master integrated monitoring
 4. **🎯 Apply to your projects** - Implement in real scenarios
 
 ### **Time Investment:**

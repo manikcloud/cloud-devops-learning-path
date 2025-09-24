@@ -280,7 +280,7 @@ graph TB
 ### **Clone Repository:**
 ```bash
 git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-cd cloud-devops-learning-path/Section-2-DevOps/Session-10_Monitoring-Tools/03-nagios
+cd cloud-devops-learning-path/Section-2-DevOps/Session-10_Monitoring-Tools/01-nagios
 ```
 
 ### **Start All Services:**
