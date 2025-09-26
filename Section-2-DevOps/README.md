@@ -46,18 +46,21 @@ graph LR
     A[DevOps Fundamentals] --> B[Linux & Git Mastery]
     B --> C[Jenkins CI/CD]
     C --> D[Docker Containerization]
-    D --> E[Kubernetes Orchestration]
-    E --> F[Terraform IaC]
-    F --> G[Monitoring & Observability]
+    D --> E[Docker Swarm]
+    E --> F[Kubernetes Orchestration]
+    F --> G[Terraform IaC]
+    G --> H[OpenShift Platform]
+    H --> I[Monitoring & Observability]
 ```
 
 ### Progression Timeline:
 - **Weeks 1-2:** DevOps Culture & Linux Fundamentals
 - **Weeks 3-4:** Version Control & CI/CD with Jenkins
-- **Weeks 5-6:** Containerization with Docker
-- **Weeks 7-8:** Container Orchestration with Kubernetes
-- **Weeks 9-10:** Infrastructure as Code with Terraform
-- **Weeks 11-12:** Monitoring, Security & Advanced Topics
+- **Weeks 5-6:** Containerization with Docker & Docker Swarm
+- **Weeks 7-9:** Container Orchestration with Kubernetes
+- **Weeks 10-11:** Infrastructure as Code with Terraform
+- **Week 12:** OpenShift Enterprise Platform
+- **Week 13:** Monitoring & Observability
 
 ## 📚 Session Structure
 
@@ -368,9 +371,9 @@ graph LR
 </details>
 
 <details>
-<summary><strong>🏗️ Terraform Module: Infrastructure as Code</strong></summary>
+<summary><strong>🏗️ Session 8: Terraform & Infrastructure Automation</strong></summary>
 
-**Duration:** 2 weeks | **Focus:** Infrastructure automation and management
+**Duration:** 2 weeks | **Focus:** Infrastructure as Code and automation
 
 ### Topics Covered:
 
@@ -411,10 +414,121 @@ graph LR
 - State Management and Collaboration
 
 ### Key Resources:
-- [Terraform Materials](./Terraform/)
+- [Session 8 Materials](./Session-8_terraform_and_infra_automation/)
 - Terraform Configuration Examples
 - Module Library and Templates
 - Multi-cloud Deployment Guides
+
+</details>
+
+<details>
+<summary><strong>🔴 Session 9: OpenShift - Enterprise Kubernetes Platform</strong></summary>
+
+**Duration:** 2 weeks | **Focus:** Enterprise container platform and advanced Kubernetes
+
+### Topics Covered:
+
+#### 1. OpenShift Fundamentals
+- OpenShift vs Kubernetes comparison
+- OpenShift architecture and components
+- Developer and administrator perspectives
+- Enterprise features and capabilities
+
+#### 2. Getting Started with OpenShift
+- OpenShift Sandbox setup and access
+- CLI (oc) installation and configuration
+- Web console navigation and usage
+- Basic project and application management
+
+#### 3. Application Deployment Patterns
+- Source-to-Image (S2I) builds
+- Container image deployments
+- Multi-service applications
+- Database integration and persistence
+
+#### 4. Advanced OpenShift Features
+- Auto-scaling and resource management
+- Blue-Green deployment strategies
+- CI/CD integration with OpenShift Pipelines
+- Service mesh and microservices architecture
+
+#### 5. Hands-On Projects
+- **Project 0:** Getting Started - CLI login and basic deployment
+- **Projects 1-3:** Basic applications (Nginx, Node.js, Python+Database)
+- **Projects 4-6:** Advanced patterns (Multi-service, Auto-scaling, Blue-Green)
+
+### Learning Outcomes:
+- ✅ Deploy applications on OpenShift platform
+- ✅ Understand enterprise Kubernetes features
+- ✅ Implement advanced deployment strategies
+- ✅ Configure auto-scaling and resource management
+- ✅ Build CI/CD pipelines with OpenShift tools
+
+### Practical Labs:
+- OpenShift Sandbox setup and configuration
+- Source-to-Image application builds
+- Multi-tier application deployment
+- Auto-scaling and blue-green deployments
+- OpenShift Pipelines and GitOps workflows
+
+### Key Resources:
+- [Session 9 Materials](./Session-9_OpenShift/)
+- OpenShift project templates and examples
+- Deployment strategy guides
+- Enterprise best practices documentation
+
+</details>
+
+<details>
+<summary><strong>📊 Session 10: Monitoring Tools & Observability</strong></summary>
+
+**Duration:** 1 week | **Focus:** Application and infrastructure monitoring
+
+### Topics Covered:
+
+#### 1. Monitoring Fundamentals
+- Observability principles (Metrics, Logs, Traces)
+- Monitoring strategy and best practices
+- SLA, SLI, and SLO concepts
+- Alert management and incident response
+
+#### 2. Nagios Monitoring
+- Nagios Core installation and configuration
+- Host and service monitoring setup
+- Custom plugin development
+- Alert notifications and escalations
+
+#### 3. ELK Stack Integration
+- Elasticsearch, Logstash, and Kibana setup
+- Log aggregation and analysis
+- Dashboard creation and visualization
+- Integration with Nagios for comprehensive monitoring
+
+#### 4. Production Monitoring Patterns
+- Infrastructure monitoring best practices
+- Application performance monitoring (APM)
+- Distributed tracing and debugging
+- Capacity planning and trend analysis
+
+### Learning Outcomes:
+- ✅ Implement comprehensive monitoring solutions
+- ✅ Configure alerting and notification systems
+- ✅ Create monitoring dashboards and visualizations
+- ✅ Integrate monitoring with CI/CD pipelines
+- ✅ Apply observability best practices
+
+### Practical Labs:
+- Nagios installation and configuration
+- ELK stack deployment and setup
+- Custom monitoring dashboard creation
+- Alert configuration and testing
+- Integration with existing infrastructure
+
+### Key Resources:
+- [Session 10 Materials](./Session-10_Monitoring-Tools/)
+- Nagios configuration examples
+- ELK stack deployment guides
+- Monitoring best practices documentation
 
 </details>
 
