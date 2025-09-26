@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-web
+  labels:
+    app: blue-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blue-web
+  template:
+    metadata:
+      labels:
+        app: blue-web
+    spec:
+      containers:
+      - name: blue-web
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blue-web
+  labels:
+    app: blue-web
+spec:
+  selector:
+    app: blue-web
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: blue-web
+  labels:
+    app: blue-web
+spec:
+  to:
+    kind: Service
+    name: blue-web
+  port:
+    targetPort: 80
