@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# OpenShift Project 0: Deploy nginx web server
+# OpenShift Project 0: Deploy varunmanik/httpd:blue
 # Usage: ./deploy.sh
 
-echo "🚀 Deploying nginx web server to OpenShift..."
+echo "🚀 Deploying varunmanik/httpd:blue to OpenShift..."
 
 # Check if logged in
 if ! oc whoami &> /dev/null; then
@@ -16,7 +16,7 @@ echo "✅ Logged in as: $(oc whoami)"
 
 # Deploy the application
 echo "📦 Deploying blue-web application..."
-oc new-app --name=blue-web nginx:alpine
+oc new-app --name=blue-web varunmanik/httpd:blue
 
 # Expose the service
 echo "🌐 Creating public route..."

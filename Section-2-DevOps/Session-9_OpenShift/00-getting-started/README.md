@@ -2,7 +2,7 @@
 
 ## **What You'll Learn**
 - Login to OpenShift from CLI
-- Deploy Docker image
+- Deploy custom Docker image
 - Expose application with public URL
 - Basic OpenShift commands
 
@@ -15,8 +15,8 @@
 # 1. Login to OpenShift
 oc login --token=<your-token> --server=<your-server>
 
-# 2. Deploy nginx image
-oc new-app --name=blue-web nginx:alpine
+# 2. Deploy the blue httpd image
+oc new-app --name=blue-web varunmanik/httpd:blue
 
 # 3. Expose to get public URL
 oc expose svc/blue-web

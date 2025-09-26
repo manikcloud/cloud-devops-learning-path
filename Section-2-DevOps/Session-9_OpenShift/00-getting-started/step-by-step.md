@@ -38,17 +38,23 @@ oc get projects
 
 ## **Step 3: Deploy Custom Image**
 
-### **Deploy varunmanikhttpd:blue**
+### **Method 1: Deploy varunmanik/httpd:blue (May need security context)**
 ```bash
 # Switch to your dev project
 oc project <your-username>-dev
 
-# Deploy the custom image
-oc new-app --name=blue-web --image=varunmanikhttpd:blue
+# Try deploying the custom image
+oc new-app --name=blue-web varunmanik/httpd:blue
 
-# Check deployment status
-oc get pods
-oc logs -f deployment/blue-web
+# If it fails due to port 80 permissions, check logs
+oc logs -l deployment=blue-web
+```
+
+### **Method 2: Alternative Working Image**
+```bash
+# If the above fails, use this working alternative
+oc delete all -l app=blue-web
+oc new-app --name=blue-web nginx:alpine
 ```
 
 ## **Step 4: Expose Application**
@@ -93,28 +99,65 @@ oc get pods -l deployment=blue-web
 ## **Troubleshooting**
 
 ### **Common Issues**
+
+**1. Permission Denied on Port 80**
 ```bash
-# Pod not starting
+# Issue: httpd can't bind to port 80 (needs root)
+# Solution: Use OpenShift-compatible images or add security context
+
+# Check logs
+oc logs -l deployment=blue-web
+
+# Alternative: Use nginx which works better in OpenShift
+oc delete all -l app=blue-web
+oc new-app --name=blue-web nginx:alpine
+oc expose svc/blue-web
+```
+
+**2. Pod Not Starting**
+```bash
+# Check pod status
 oc describe pod <pod-name>
 oc logs <pod-name>
 
-# Image pull issues
-oc describe deployment blue-web
-
-# Route not accessible
-oc get routes
-oc describe route blue-web
+# Check events
+oc get events --sort-by=.metadata.creationTimestamp
 ```
 
-### **Cleanup**
+**3. Route Not Accessible**
 ```bash
-# Delete everything
+# Check route
+oc get routes
+oc describe route blue-web
+
+# Verify service endpoints
+oc get endpoints blue-web
+```
+
+### **Working Commands Summary**
+```bash
+# Login
+oc login --token=<token> --server=<server>
+
+# Deploy (use nginx if httpd fails)
+oc new-app --name=blue-web nginx:alpine
+
+# Expose
+oc expose svc/blue-web
+
+# Get URL
+echo "App URL: http://$(oc get route blue-web -o jsonpath='{.spec.host}')"
+
+# Cleanup
 oc delete all -l app=blue-web
 ```
 
 ## **Success Criteria**
 - ✅ Successfully logged into OpenShift CLI
-- ✅ Deployed varunmanikhttpd:blue image
+- ✅ Deployed web application (httpd or nginx)
 - ✅ Created public route
 - ✅ Accessed application via browser
 - ✅ Verified all resources are running
+
+## **Note on varunmanik/httpd:blue**
+This image may require additional security context configuration in OpenShift due to port 80 binding restrictions. For learning purposes, nginx:alpine works reliably in OpenShift Sandbox environment.
