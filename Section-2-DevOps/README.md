@@ -558,142 +558,238 @@ graph LR
 ## 🚀 Hands-On Projects
 
 <details>
-<summary><strong>🔧 Project 1: Basic DevOps Pipeline</strong></summary>
+<summary><strong>📖 Session 1: DevOps Culture & Philosophy</strong></summary>
 
-### Objective:
-Create a simple CI/CD pipeline with Jenkins
+### Project Focus:
+DevOps transformation assessment and culture implementation
 
 ### Project Scope:
-- Set up Git repository with sample Java application
-- Configure Jenkins for automated builds and testing
-- Implement basic deployment to AWS EC2 and GCP Compute Engine
-- Monitor application performance and logs
+- Analyze traditional vs DevOps approaches
+- Create DevOps transformation roadmap
+- Implement team collaboration frameworks
+- Assess organizational readiness for DevOps
 
 ### Skills Developed:
-- Jenkins configuration and management
-- Git integration and webhooks
-- AWS & GCP deployment strategies
-- Basic monitoring and logging
-
-### Deliverables:
-- Functional CI/CD pipeline
-- Deployment documentation
-- Monitoring dashboard
-- Project presentation
+- DevOps culture and principles
+- Change management strategies
+- Team collaboration techniques
+- Business value assessment
 
 ### Timeline: 1 week
 
 </details>
 
 <details>
-<summary><strong>☕ Project 2: Java Application CI/CD</strong></summary>
+<summary><strong>🐧 Session 2: Linux System Administration</strong></summary>
 
-### Objective:
-Setup comprehensive Java application CI/CD pipeline
+### Project Focus:
+Complete Linux system administration and automation
 
 ### Project Scope:
-- Implement multi-stage pipeline with testing phases
-- Deploy application on AWS and GCP cloud platforms
-- Configure automated rollback mechanisms
-- Integrate code quality and security scanning
+- **Project 1:** Linux fundamentals and system administration
+- Set up automated server provisioning
+- Implement system monitoring and maintenance
+- Create shell scripts for common tasks
+- Configure security and user management
 
 ### Skills Developed:
-- Advanced Jenkins pipelines
-- AWS & GCP services integration
-- Quality gates and security scanning
-- Automated testing strategies
+- Linux command line mastery
+- Shell scripting and automation
+- System administration
+- Security configuration
 
-### Deliverables:
-- Production-ready CI/CD pipeline
-- Multi-cloud deployment strategy
-- Security and quality reports
-- Performance benchmarks
+### Timeline: 1 week
+
+</details>
+
+<details>
+<summary><strong>🔀 Session 3: Git Version Control Mastery</strong></summary>
+
+### Project Focus:
+Advanced Git workflows and collaboration
+
+### Project Scope:
+- **Project 1:** Git Fundamentals - Complete workflow implementation
+- **Project 2:** GitLab CI/CD - Automated pipeline setup
+- Implement branching strategies
+- Set up collaborative development workflows
+- Configure Git hooks and automation
+
+### Skills Developed:
+- Advanced Git operations
+- Branching and merging strategies
+- Collaborative development
+- CI/CD integration with Git
 
 ### Timeline: 1.5 weeks
 
 </details>
 
 <details>
-<summary><strong>🌐 Project 3: Web Application CI/CD Multi-Cloud</strong></summary>
+<summary><strong>⚙️ Session 4: Jenkins CI/CD Automation</strong></summary>
 
-### Objective:
-Setup Web application CI/CD pipeline with Jenkins
+### Project Focus:
+Enterprise CI/CD pipeline implementation
 
 ### Project Scope:
-- Deploy application on both AWS and Google Cloud Platform (GCP)
-- Implement blue-green deployment strategy
-- Configure monitoring and alerting across clouds
-- Optimize for performance and cost
+- **Infrastructure Setup:** EC2 with Terraform
+- **Basic Jobs:** Freestyle and Maven projects
+- **Pipeline Fundamentals:** Hello World pipeline
+- **Master-Slave Architecture:** Distributed builds
+- **Final Project:** Complete CI/CD with Git integration
+- Multi-stage deployment pipelines
+- Automated testing and quality gates
 
 ### Skills Developed:
-- Multi-cloud services management
-- Advanced deployment strategies
-- Cross-cloud monitoring
-- Cost optimization techniques
-
-### Deliverables:
-- Multi-cloud deployment pipeline
-- Blue-green deployment implementation
-- Comprehensive monitoring setup
-- Cost analysis report
+- Jenkins installation and configuration
+- Pipeline as Code implementation
+- Distributed build systems
+- CI/CD best practices
 
 ### Timeline: 2 weeks
 
 </details>
 
 <details>
-<summary><strong>🏗️ Project 4: Infrastructure as Code with Terraform</strong></summary>
+<summary><strong>🐳 Session 5: Docker Containerization</strong></summary>
 
-### Objective:
-Automate infrastructure provisioning
+### Project Focus:
+Container-based application deployment
 
 ### Project Scope:
-- Deploy cloud resources using Terraform
-- Implement multi-cloud deployment (AWS, GCP & Azure)
-- Create reusable modules and environments
-- Integrate with CI/CD pipelines
+- **Docker Basics:** Container fundamentals
+- **Docker Project:** Multi-service application containerization
+- **Docker Registry:** Private registry setup
+- Container optimization and security
+- Multi-container application orchestration
 
 ### Skills Developed:
-- Terraform mastery and best practices
-- Multi-cloud infrastructure management
-- Module development and reusability
-- IaC integration with CI/CD
+- Docker container management
+- Dockerfile optimization
+- Container networking and storage
+- Registry management
 
-### Deliverables:
-- Terraform modules library
-- Multi-cloud infrastructure templates
-- Automated provisioning pipeline
-- Documentation and best practices guide
-
-### Timeline: 2 weeks
+### Timeline: 1.5 weeks
 
 </details>
 
 <details>
-<summary><strong>🎯 Capstone Project: Production-Ready Microservices</strong></summary>
+<summary><strong>🐙 Session 6: Docker Swarm Orchestration</strong></summary>
 
-### Objective:
-Deploy enterprise-grade microservice application
+### Project Focus:
+Container orchestration with Docker Swarm
 
 ### Project Scope:
-- Implement complete DevOps workflow
-- Deploy on Kubernetes clusters (AWS EKS, GCP GKE, Azure AKS)
-- Apply security best practices (DevSecOps)
-- Real client project implementation
+- **Swarm Basics:** Cluster setup and management
+- **Stack Project:** Multi-service stack deployment
+- Service scaling and load balancing
+- Rolling updates and health monitoring
+- Production deployment patterns
 
 ### Skills Developed:
-- End-to-end DevOps implementation
-- Enterprise-grade practices
-- Kubernetes orchestration
-- DevSecOps integration
+- Docker Swarm cluster management
+- Service orchestration
+- Load balancing and scaling
+- Production deployment strategies
 
-### Deliverables:
-- Production microservices deployment
-- Complete DevOps workflow
-- Security implementation
-- Client presentation and handover
+### Timeline: 1 week
+
+</details>
+
+<details>
+<summary><strong>☸️ Session 7: Kubernetes Container Orchestration</strong></summary>
+
+### Project Focus:
+Production-grade Kubernetes deployment
+
+### Project Scope:
+- **Setup:** K3s cluster installation and configuration
+- **Concepts:** Core Kubernetes resources and architecture
+- **Pods:** Container lifecycle and management
+- **Deployments & Scaling:** Application deployment strategies
+- **Services & Networking:** Service discovery and load balancing
+- **Final Project:** Complete Todo application (3-tier architecture)
+
+### Skills Developed:
+- Kubernetes cluster management
+- Application deployment and scaling
+- Service networking and discovery
+- Production troubleshooting
 
 ### Timeline: 3 weeks
+
+</details>
+
+<details>
+<summary><strong>🏗️ Session 8: Terraform Infrastructure as Code</strong></summary>
+
+### Project Focus:
+Multi-cloud infrastructure automation
+
+### Project Scope:
+- **Introduction & History:** IaC fundamentals
+- **Architecture Overview:** Terraform components and workflow
+- **Basic Commands:** Core Terraform operations
+- **Local File Example:** Basic resource management
+- **S3 Bucket Example:** AWS resource provisioning
+- **EC2 Instance Example:** Compute resource automation
+- **Configuration Management:** Advanced Terraform features
+- **Final Projects:** Complete infrastructure deployments (2 projects)
+
+### Skills Developed:
+- Infrastructure as Code principles
+- Multi-cloud resource management
+- Terraform module development
+- State management and collaboration
+
+### Timeline: 2 weeks
+
+</details>
+
+<details>
+<summary><strong>🔴 Session 9: OpenShift Enterprise Platform</strong></summary>
+
+### Project Focus:
+Enterprise Kubernetes with OpenShift
+
+### Project Scope:
+- **Getting Started:** CLI setup and basic deployment
+- **Basic Projects (1-3):** Nginx, Node.js, Python+Database
+- **Advanced Projects (4-6):** Multi-service, Auto-scaling, Blue-Green
+- Source-to-Image (S2I) builds
+- Enterprise deployment patterns
+- OpenShift Pipelines and GitOps
+
+### Skills Developed:
+- OpenShift platform management
+- Enterprise Kubernetes features
+- Advanced deployment strategies
+- CI/CD with OpenShift Pipelines
+
+### Timeline: 2 weeks
+
+</details>
+
+<details>
+<summary><strong>📊 Session 10: Monitoring & Observability</strong></summary>
+
+### Project Focus:
+Comprehensive monitoring and alerting
+
+### Project Scope:
+- **Nagios Setup:** Infrastructure monitoring implementation
+- **ELK Integration:** Log aggregation and analysis
+- Custom monitoring dashboards
+- Alert configuration and incident response
+- Performance monitoring and optimization
+
+### Skills Developed:
+- Infrastructure monitoring setup
+- Log aggregation and analysis
+- Dashboard creation and visualization
+- Alert management and incident response
+
+### Timeline: 1 week
 
 </details>
 
