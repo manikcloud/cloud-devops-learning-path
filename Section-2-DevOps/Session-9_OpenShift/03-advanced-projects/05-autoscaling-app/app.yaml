@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: html
+        configMap:
+          name: webapp-html
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapp-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Auto-Scaling Demo</title>
+        <style>
+            body { font-family: Arial; text-align: center; margin: 50px; }
+            button { padding: 15px 30px; font-size: 16px; margin: 10px; }
+            .status { margin: 20px; padding: 20px; background: #f0f0f0; }
+        </style>
+    </head>
+    <body>
+        <h1>📈 Auto-Scaling Demo</h1>
+        <div class="status">
+            <p>Pod: <span id="hostname">Loading...</span></p>
+            <p>Time: <span id="time"></span></p>
+        </div>
+        <button onclick="generateLoad()">Generate CPU Load</button>
+        <button onclick="location.reload()">Refresh</button>
+        
+        <script>
+            document.getElementById('hostname') = window.location.hostname;
+            document.getElementById('time').textContent = new Date().toLocaleTimeString();
+            
+            function generateLoad() {
+                // Simple CPU intensive task
+                for(let i = 0; i < 1000000; i++) {
+                    Math.random() * Math.random();
+                }
+                alert('Load generated! Check scaling in another tab.');
+            }
+            
+            setInterval(() => {
+                document.getElementById('time').textContent = new Date().toLocaleTimeString();
+            }, 1000);
+        </script>
+    </body>
+    </html>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  selector:
+    app: webapp
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: webapp
+spec:
+  to:
+    kind: Service
+    name: webapp
+  port:
+    targetPort: 80

@@ -34,4 +34,7 @@ oc get projects
 oc project [your-username]-dev
 ```
 
+## **Next Steps:**
+After completing these 3 projects, advance to [**Advanced Projects (4-6)**](../03-advanced-projects/) for more complex scenarios.
+
 **Start with Project 1, then progress through 2 and 3!** 🎯
