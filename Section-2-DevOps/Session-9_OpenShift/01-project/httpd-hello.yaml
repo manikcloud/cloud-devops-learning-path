@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: httpd-content
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>HTTPD Hello World</title>
+        <style>
+            body { 
+                font-family: Arial; 
+                text-align: center; 
+                margin: 50px;
+                background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+                color: white;
+                min-height: 80vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .container { 
+                background: rgba(255,255,255,0.1); 
+                padding: 40px; 
+                border-radius: 10px; 
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🌐 HTTPD Hello World on OpenShift!</h1>
+            <p>This Apache HTTP server is running on OpenShift</p>
+            <p>Serving static content with HTTPS</p>
+            <p>Time: <span id="time"></span></p>
+        </div>
+        <script>
+            setInterval(() => {
+                document.getElementById('time').textContent = new Date().toLocaleTimeString();
+            }, 1000);
+        </script>
+    </body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-hello
+  labels:
+    app: httpd-hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpd-hello
+  template:
+    metadata:
+      labels:
+        app: httpd-hello
+    spec:
+      containers:
+      - name: httpd-hello
+        image: registry.redhat.io/ubi8/httpd-24
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: html-content
+          mountPath: /var/www/html
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+      volumes:
+      - name: html-content
+        configMap:
+          name: httpd-content
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd-hello
+spec:
+  selector:
+    app: httpd-hello
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: httpd-hello
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: httpd-hello
