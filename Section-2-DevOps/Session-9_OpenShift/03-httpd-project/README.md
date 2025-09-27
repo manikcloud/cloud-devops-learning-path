@@ -1,406 +1,307 @@
-# 🌐 **Project 3: HTTPD Static Website with Custom Content**
+# 🌐 **Project 3: Hello World Static Website**
 
 ## **Overview**
-Deploy an Apache HTTPD server with custom static content using ConfigMaps, demonstrating both Web Console and CLI approaches for static website hosting.
+Deploy a simple "Hello World" static website using Apache HTTPD and ConfigMaps on OpenShift. This project demonstrates the basics of static content hosting with HTTPS routes.
 
 ## **Learning Objectives**
-- Deploy static websites using HTTPD
-- Use ConfigMaps for content management
-- Implement custom HTML/CSS/JavaScript
-- Configure HTTPS routes with custom domains
+- Deploy static websites using HTTPD on OpenShift
+- Use ConfigMaps to manage HTML content
+- Create HTTPS routes for secure access
+- Understand volume mounting in OpenShift
+- Practice basic troubleshooting
+
+## **Prerequisites**
+- OpenShift Sandbox account
+- `oc` CLI installed and logged in
+- Basic understanding of HTML and YAML
 
 ---
 
-## **🖥️ Method 1: Web Console Steps**
+## **📋 Complete Runbook**
 
-### **Step 1: Create ConfigMap for Content**
-1. Open [OpenShift Console](https://console-openshift-console.apps.rm3.7wse.p1.openshiftapps.com)
-2. Login and select your project
-3. Go to **Workloads → ConfigMaps**
-4. Click **"Create ConfigMap"**
-5. Configure:
-   - **Name**: `website-content`
-   - **Key**: `index.html`
-   - **Value**: (Copy the HTML content below)
+### **Step 1: Login and Verify Environment**
+```bash
+# Login to OpenShift (get token from web console)
+oc login --token=<your-token> --server=<your-server>
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My OpenShift Website</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            text-align: center;
-            background: rgba(255,255,255,0.1);
-            padding: 50px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        h1 { font-size: 3em; margin-bottom: 20px; }
-        p { font-size: 1.2em; margin-bottom: 30px; }
-        .info { background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 20px 0; }
-        .time { font-weight: bold; color: #ffeb3b; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🌐 Welcome to My OpenShift Website!</h1>
-        <p>This static website is hosted on OpenShift using HTTPD</p>
-        <div class="info">
-            <p>🚀 Deployed with: Apache HTTPD + ConfigMap</p>
-            <p>🔒 Secured with: HTTPS Route</p>
-            <p>⏰ Current Time: <span class="time" id="time"></span></p>
-        </div>
-        <p>Powered by Red Hat OpenShift Container Platform</p>
-    </div>
-    <script>
-        function updateTime() {
-            document.getElementById('time').textContent = new Date().toLocaleString();
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
-    </script>
-</body>
-</html>
+# Verify current project
+oc project
+oc whoami
+
+# Check resource quotas (optional)
+oc describe quota
 ```
 
-### **Step 2: Deploy HTTPD Application**
+### **Step 2: Deploy the Application**
+```bash
+# Deploy the hello world application
+oc apply -f hello-world.yaml
+
+# Verify resources were created
+oc get all -l app=hello-world
+```
+
+### **Step 3: Monitor Deployment**
+```bash
+# Watch pod status
+oc get pods -l app=hello-world -w
+
+# Check deployment status
+oc rollout status deployment/hello-world
+
+# View deployment logs
+oc logs -f deployment/hello-world
+```
+
+### **Step 4: Access the Application**
+```bash
+# Get the route URL
+oc get route hello-world
+
+# Display the full URL
+echo "Your Hello World app: https://$(oc get route hello-world -o jsonpath='{.spec.host}')"
+
+# Test the application
+curl -k https://$(oc get route hello-world -o jsonpath='{.spec.host}')
+```
+
+### **Step 5: Verify Everything is Working**
+```bash
+# Check all resources
+oc get pods,svc,route,configmap -l app=hello-world
+
+# Verify ConfigMap content
+oc describe configmap hello-html
+
+# Check route configuration
+oc describe route hello-world
+```
+
+---
+
+## **🖥️ Web Console Method**
+
+### **Step 1: Create ConfigMap**
+1. Login to [OpenShift Console](https://console-openshift-console.apps.rm3.7wse.p1.openshiftapps.com)
+2. Go to **Workloads → ConfigMaps**
+3. Click **"Create ConfigMap"**
+4. Name: `hello-html`
+5. Key: `index.html`
+6. Value: Copy the HTML content from `hello-world.yaml`
+7. Click **"Create"**
+
+### **Step 2: Deploy Application**
 1. Go to **"+Add"** → **"Container Image"**
-2. Configure:
-   - **Image Name**: `registry.redhat.io/ubi8/httpd-24`
-   - **Application Name**: `static-website`
-   - **Name**: `httpd-server`
-3. Click **"Create"**
+2. Image Name: `registry.redhat.io/ubi8/httpd-24`
+3. Application Name: `hello-world`
+4. Name: `hello-world`
+5. Click **"Create"**
 
 ### **Step 3: Mount ConfigMap**
 1. Go to **Workloads → Deployments**
-2. Click on `httpd-server` deployment
+2. Click `hello-world` deployment
 3. Go to **Environment** tab
-4. Scroll to **"Volumes"** section
-5. Click **"Add Volume"**
-6. Select **"ConfigMap"**
-7. Configure:
-   - **Source**: `website-content`
-   - **Mount Path**: `/var/www/html`
+4. Scroll to **Volumes** section
+5. Click **"Add Volume"** → **"ConfigMap"**
+6. Source: `hello-html`
+7. Mount Path: `/var/www/html`
 8. Save changes
 
 ### **Step 4: Create Route**
 1. Go to **Networking → Services**
-2. Click on `httpd-server` service
+2. Click `hello-world` service
 3. Click **"Create Route"**
-4. Configure:
-   - **Name**: `website-route`
-   - **Secure Route**: ✓ (Enable TLS)
-   - **TLS Termination**: `Edge`
-5. Click **"Create"**
-
-### **Step 5: Access Website**
-1. Go to **Networking → Routes**
-2. Click the route URL to access your website
-3. Verify HTTPS is working (🔒 icon in browser)
+4. Enable **"Secure Route"**
+5. TLS Termination: **"Edge"**
+6. Click **"Create"**
 
 ---
 
-## **⌨️ Method 2: CLI Steps**
+## **🔧 Troubleshooting Guide**
 
-### **Step 1: Create ConfigMap with Content**
+### **Common Issues and Solutions**
+
+#### **1. Pod Not Starting**
 ```bash
-# Login to OpenShift
-oc login --token=<your-token> --server=<your-server>
-
-# Create HTML content file
-cat > index.html << 'EOF'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My OpenShift Website</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0; padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .container {
-            text-align: center; background: rgba(255,255,255,0.1);
-            padding: 50px; border-radius: 15px;
-            backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        h1 { font-size: 3em; margin-bottom: 20px; }
-        p { font-size: 1.2em; margin-bottom: 30px; }
-        .info { background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin: 20px 0; }
-        .time { font-weight: bold; color: #ffeb3b; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🌐 CLI Deployed OpenShift Website!</h1>
-        <p>This static website is hosted on OpenShift using HTTPD</p>
-        <div class="info">
-            <p>🚀 Deployed with: CLI + ConfigMap</p>
-            <p>🔒 Secured with: HTTPS Route</p>
-            <p>⏰ Current Time: <span class="time" id="time"></span></p>
-        </div>
-        <p>Powered by Red Hat OpenShift Container Platform</p>
-    </div>
-    <script>
-        function updateTime() {
-            document.getElementById('time').textContent = new Date().toLocaleString();
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
-    </script>
-</body>
-</html>
-EOF
-
-# Create ConfigMap from file
-oc create configmap website-content --from-file=index.html
-```
-
-### **Step 2: Deploy HTTPD with ConfigMap**
-```bash
-# Create deployment YAML
-cat > httpd-deployment.yaml << 'EOF'
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: httpd-server
-  labels:
-    app: static-website
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: static-website
-  template:
-    metadata:
-      labels:
-        app: static-website
-    spec:
-      containers:
-      - name: httpd
-        image: registry.redhat.io/ubi8/httpd-24
-        ports:
-        - containerPort: 8080
-        volumeMounts:
-        - name: website-content
-          mountPath: /var/www/html
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1001
-      volumes:
-      - name: website-content
-        configMap:
-          name: website-content
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: httpd-server
-  labels:
-    app: static-website
-spec:
-  selector:
-    app: static-website
-  ports:
-  - port: 8080
-    targetPort: 8080
----
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: website-route
-  labels:
-    app: static-website
-spec:
-  tls:
-    termination: edge
-  to:
-    kind: Service
-    name: httpd-server
-EOF
-
-# Apply the deployment
-oc apply -f httpd-deployment.yaml
-```
-
-### **Step 3: Monitor and Access**
-```bash
-# Check deployment status
-oc rollout status deployment/httpd-server
-
-# Get route URL
-oc get route website-route
-echo "Website URL: https://$(oc get route website-route -o jsonpath='{.spec.host}')"
-
-# Test the website
-curl -k https://$(oc get route website-route -o jsonpath='{.spec.host}')
-```
-
----
-
-## **🔧 Advanced Customization**
-
-### **Add CSS and JavaScript Files**
-
-#### **Console Method**
-1. Edit the `website-content` ConfigMap
-2. Add additional keys for CSS and JS files
-3. Update the HTML to reference these files
-
-#### **CLI Method**
-```bash
-# Create additional content files
-cat > style.css << 'EOF'
-/* Additional CSS styles */
-.footer { margin-top: 50px; font-size: 0.9em; opacity: 0.8; }
-.animated { animation: fadeIn 2s ease-in; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-EOF
-
-cat > script.js << 'EOF'
-// Additional JavaScript functionality
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('OpenShift website loaded successfully!');
-    document.querySelector('.container').classList.add('animated');
-});
-EOF
-
-# Update ConfigMap with multiple files
-oc create configmap website-content \
-  --from-file=index.html \
-  --from-file=style.css \
-  --from-file=script.js \
-  --dry-run=client -o yaml | oc apply -f -
-
-# Restart deployment to pick up changes
-oc rollout restart deployment/httpd-server
-```
-
-### **Custom Domain Configuration**
-```bash
-# Create route with custom hostname (if available)
-oc create route edge website-custom \
-  --service=httpd-server \
-  --hostname=mysite.example.com
-```
-
----
-
-## **🔧 Troubleshooting**
-
-### **Content Not Loading**
-```bash
-# Check ConfigMap content
-oc describe configmap website-content
-
-# Check volume mounts
-oc describe deployment httpd-server
+# Check pod events
+oc describe pod -l app=hello-world
 
 # Check pod logs
-oc logs -f deployment/httpd-server
+oc logs -l app=hello-world
 
-# Exec into pod to verify files
-oc exec -it deployment/httpd-server -- ls -la /var/www/html
+# Common causes:
+# - Image pull errors
+# - Security context issues
+# - Resource constraints
 ```
 
-### **Route Issues**
+#### **2. Application Not Accessible**
 ```bash
-# Check route configuration
-oc describe route website-route
+# Verify route exists
+oc get routes
 
-# Test internal service
-oc port-forward deployment/httpd-server 8080:8080
+# Check service endpoints
+oc get endpoints hello-world
+
+# Test internal connectivity
+oc port-forward deployment/hello-world 8080:8080
 # Then test: curl http://localhost:8080
 ```
 
-### **Permission Issues**
+#### **3. Content Not Loading**
 ```bash
-# Check security context
-oc describe pod -l app=static-website
+# Verify ConfigMap exists
+oc get configmap hello-html
 
-# Verify HTTPD configuration
-oc exec -it deployment/httpd-server -- cat /etc/httpd/conf/httpd.conf
+# Check ConfigMap content
+oc describe configmap hello-html
+
+# Verify volume mount
+oc describe deployment hello-world | grep -A 10 "Mounts"
+
+# Check files in pod
+oc exec -it deployment/hello-world -- ls -la /var/www/html
+```
+
+#### **4. HTTPS Issues**
+```bash
+# Check route TLS configuration
+oc describe route hello-world
+
+# Verify certificate
+curl -I -k https://$(oc get route hello-world -o jsonpath='{.spec.host}')
 ```
 
 ---
 
-## **📋 Verification Steps**
+## **📊 Verification Checklist**
 
-### **Console Verification**
-1. **Topology**: Green status for httpd-server
-2. **Routes**: HTTPS route accessible
-3. **ConfigMaps**: Content properly configured
-4. **Pods**: Running without errors
+### **✅ Deployment Verification**
+- [ ] ConfigMap `hello-html` created successfully
+- [ ] Deployment `hello-world` is running (1/1 Ready)
+- [ ] Service `hello-world` has endpoints
+- [ ] Route `hello-world` is created with HTTPS
+- [ ] Pod logs show no errors
 
-### **CLI Verification**
+### **✅ Application Verification**
+- [ ] URL is accessible in browser
+- [ ] Page shows "Hello World from OpenShift!"
+- [ ] HTTPS lock icon appears in browser
+- [ ] Page loads without errors
+- [ ] Styling is applied correctly
+
+### **✅ OpenShift Features Verification**
 ```bash
-# Check all resources
-oc get all -l app=static-website
+# Verify all components
+oc get all -l app=hello-world
 
-# Verify website content
-curl -k https://$(oc get route website-route -o jsonpath='{.spec.host}') | grep "OpenShift Website"
+# Expected output:
+# - 1 pod running
+# - 1 service with endpoints
+# - 1 deployment ready
+# - 1 route with host
+```
 
-# Check HTTPS certificate
-curl -I -k https://$(oc get route website-route -o jsonpath='{.spec.host}')
+---
+
+## **🎯 Learning Exercises**
+
+### **Exercise 1: Modify Content**
+```bash
+# Update the HTML content
+oc patch configmap hello-html --patch='{"data":{"index.html":"<html><body><h1>Updated Hello World!</h1></body></html>"}}'
+
+# Restart deployment to pick up changes
+oc rollout restart deployment/hello-world
+
+# Verify changes
+curl https://$(oc get route hello-world -o jsonpath='{.spec.host}')
+```
+
+### **Exercise 2: Scale the Application**
+```bash
+# Scale to 2 replicas
+oc scale deployment hello-world --replicas=2
+
+# Verify scaling
+oc get pods -l app=hello-world
+
+# Scale back to 1
+oc scale deployment hello-world --replicas=1
+```
+
+### **Exercise 3: Add More Files**
+```bash
+# Create ConfigMap with multiple files
+oc create configmap multi-html \
+  --from-literal=index.html='<html><body><h1>Home Page</h1><a href="about.html">About</a></body></html>' \
+  --from-literal=about.html='<html><body><h1>About Page</h1><a href="index.html">Home</a></body></html>'
+
+# Update deployment to use new ConfigMap
+oc patch deployment hello-world --patch='{"spec":{"template":{"spec":{"volumes":[{"name":"html-content","configMap":{"name":"multi-html"}}]}}}}'
 ```
 
 ---
 
 ## **🧹 Cleanup**
 
-### **Console Cleanup**
-1. Delete the deployment from Topology view
-2. Delete the ConfigMap from Workloads → ConfigMaps
-3. Delete the route from Networking → Routes
-
-### **CLI Cleanup**
+### **Complete Cleanup**
 ```bash
-# Delete all resources
-oc delete -f httpd-deployment.yaml
-oc delete configmap website-content
+# Delete all application resources
+oc delete -f hello-world.yaml
 
-# Or delete by label
-oc delete all,configmap -l app=static-website
+# Verify cleanup
+oc get all -l app=hello-world
+```
+
+### **Individual Resource Cleanup**
+```bash
+# Delete specific resources
+oc delete deployment hello-world
+oc delete service hello-world
+oc delete route hello-world
+oc delete configmap hello-html
 ```
 
 ---
 
-## **🎯 Learning Outcomes**
-- ✅ Deploy static websites using HTTPD on OpenShift
-- ✅ Use ConfigMaps for content management
-- ✅ Configure HTTPS routes for secure access
-- ✅ Mount volumes and manage file content
-- ✅ Customize web content with HTML/CSS/JavaScript
-- ✅ Troubleshoot web server deployments
+## **📚 What You Learned**
 
-## **📚 Next Steps**
-- Add multiple pages and navigation
-- Implement custom error pages
-- Set up content delivery optimization
-- Add monitoring and analytics
-- Explore OpenShift image streams for automated updates
+### **OpenShift Concepts**
+- ✅ **ConfigMaps** - Storing and managing configuration data
+- ✅ **Deployments** - Managing application lifecycle
+- ✅ **Services** - Internal networking and load balancing
+- ✅ **Routes** - External access with HTTPS termination
+- ✅ **Volume Mounts** - Injecting content into containers
+
+### **Practical Skills**
+- ✅ Deploy static websites on OpenShift
+- ✅ Use ConfigMaps for content management
+- ✅ Configure HTTPS routes
+- ✅ Troubleshoot common deployment issues
+- ✅ Scale applications up and down
+- ✅ Update application content without rebuilding
+
+### **Best Practices**
+- ✅ Use Red Hat certified images
+- ✅ Apply proper security contexts
+- ✅ Enable HTTPS by default
+- ✅ Use labels for resource organization
+- ✅ Implement proper resource cleanup
 
 ---
 
-**Duration:** 25 minutes  
-**Difficulty:** Beginner to Intermediate  
-**Focus:** Static website hosting and content management
+## **🚀 Next Steps**
+- Add custom CSS and JavaScript files
+- Implement health checks and readiness probes
+- Explore persistent storage for larger websites
+- Learn about OpenShift image streams
+- Practice with different web servers (Nginx, Node.js)
+
+---
+
+**Duration:** 15 minutes  
+**Difficulty:** Beginner  
+**Focus:** Static website deployment and basic OpenShift concepts
+
+**🎯 Success Criteria:** Students can deploy, access, modify, and cleanup a static website on OpenShift using ConfigMaps and HTTPS routes.

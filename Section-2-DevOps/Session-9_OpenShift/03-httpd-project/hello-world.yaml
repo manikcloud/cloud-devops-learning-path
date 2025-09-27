@@ -1,0 +1,102 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Hello World - OpenShift</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin: 50px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                min-height: 80vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .container {
+                background: rgba(255,255,255,0.1);
+                padding: 40px;
+                border-radius: 15px;
+                backdrop-filter: blur(10px);
+            }
+            h1 { font-size: 3em; margin-bottom: 20px; }
+            p { font-size: 1.2em; margin: 10px 0; }
+            .status { color: #4CAF50; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🌍 Hello World from OpenShift!</h1>
+            <p>This is a simple static website running on OpenShift</p>
+            <p class="status">✅ Pod is running</p>
+            <p class="status">✅ Route is working</p>
+            <p class="status">✅ HTTPS is enabled</p>
+            <p>Deployed using HTTPD + ConfigMap</p>
+        </div>
+    </body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  labels:
+    app: hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: httpd
+        image: registry.redhat.io/ubi8/httpd-24
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: html-content
+          mountPath: /var/www/html
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+      volumes:
+      - name: html-content
+        configMap:
+          name: hello-html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world
+  labels:
+    app: hello-world
+spec:
+  selector:
+    app: hello-world
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: hello-world
+  labels:
+    app: hello-world
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: hello-world
