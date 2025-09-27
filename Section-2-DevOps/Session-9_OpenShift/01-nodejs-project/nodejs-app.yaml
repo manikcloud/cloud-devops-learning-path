@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nodejs-app
+data:
+  package.json: |
+    {
+      "name": "nodejs-hello",
+      "version": "1.0.0",
+      "main": "server.js",
+      "scripts": {
+        "start": "node server.js"
+      },
+      "dependencies": {
+        "express": "^4.18.0"
+      }
+    }
+  server.js: |
+    const express = require('express');
+    const app = express();
+    const port = 8080;
+
+    app.get('/', (req, res) => {
+      res.send(`
+        <html>
+        <head>
+          <title>Node.js Hello World</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              text-align: center;
+              margin: 50px;
+              background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+              color: white;
+              min-height: 80vh;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            }
+            .container {
+              background: rgba(255,255,255,0.1);
+              padding: 40px;
+              border-radius: 15px;
+              backdrop-filter: blur(10px);
+            }
+            h1 { font-size: 3em; margin-bottom: 20px; }
+            p { font-size: 1.2em; margin: 10px 0; }
+            .status { color: #90EE90; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>🟢 Node.js Hello World!</h1>
+            <p>This Express.js app is running on OpenShift</p>
+            <p class="status">✅ Node.js server running</p>
+            <p class="status">✅ Express.js framework loaded</p>
+            <p class="status">✅ Route accessible via HTTPS</p>
+            <p>Pod: ${process.env.HOSTNAME || 'unknown'}</p>
+          </div>
+        </body>
+        </html>
+      `);
+    });
+
+    app.listen(port, '0.0.0.0', () => {
+      console.log(\`Node.js app listening on port \${port}\`);
+    });
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+  labels:
+    app: nodejs-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+      - name: nodejs
+        image: registry.redhat.io/ubi8/nodejs-18
+        ports:
+        - containerPort: 8080
+        command: ["/bin/bash"]
+        args: ["-c", "cd /app && npm install && npm start"]
+        volumeMounts:
+        - name: app-code
+          mountPath: /app
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+      volumes:
+      - name: app-code
+        configMap:
+          name: nodejs-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-app
+  labels:
+    app: nodejs-app
+spec:
+  selector:
+    app: nodejs-app
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nodejs-app
+  labels:
+    app: nodejs-app
+spec:
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: nodejs-app
