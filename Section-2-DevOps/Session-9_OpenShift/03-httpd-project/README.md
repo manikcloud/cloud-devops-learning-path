@@ -1,4 +1,4 @@
-# 🌐 **Project 4: HTTPD Static Website with Custom Content**
+# 🌐 **Project 3: HTTPD Static Website with Custom Content**
 
 ## **Overview**
 Deploy an Apache HTTPD server with custom static content using ConfigMaps, demonstrating both Web Console and CLI approaches for static website hosting.

@@ -1,4 +1,4 @@
-# 🟢 **Project 2: Node.js Application Deployment**
+# 🟢 **Project 1: Node.js Application Deployment**
 
 ## **Overview**
 Deploy a Node.js application using OpenShift's Source-to-Image (S2I) build process with both Web Console and CLI methods.

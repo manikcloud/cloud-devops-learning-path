@@ -1,4 +1,4 @@
-# 🐍 **Project 3: Python Django Application**
+# 🐍 **Project 2: Python Django Application**
 
 ## **Overview**
 Deploy a Python Django application with database using OpenShift templates and S2I builds through both Web Console and CLI.
