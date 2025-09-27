@@ -750,21 +750,21 @@ Multi-cloud infrastructure automation
 <summary><strong>🔴 Session 9: OpenShift Enterprise Platform</strong></summary>
 
 ### Project Focus:
-Enterprise Kubernetes with OpenShift
+OpenShift fundamentals and enterprise Kubernetes features
 
 ### Project Scope:
-- **Getting Started:** CLI setup and basic deployment
-- **Basic Projects (1-3):** Nginx, Node.js, Python+Database
-- **Advanced Projects (4-6):** Multi-service, Auto-scaling, Blue-Green
-- Source-to-Image (S2I) builds
-- Enterprise deployment patterns
-- OpenShift Pipelines and GitOps
+- **Theory:** Kubernetes to OpenShift transition guide
+- **Project 0:** Getting Started - CLI login and basic deployment
+- OpenShift CLI (oc) usage and workflows
+- Routes and networking configuration
+- Source-to-Image (S2I) build concepts
+- Enterprise security and RBAC features
 
 ### Skills Developed:
 - OpenShift platform management
 - Enterprise Kubernetes features
-- Advanced deployment strategies
-- CI/CD with OpenShift Pipelines
+- CLI-based deployment workflows
+- Route creation and HTTPS configuration
 
 ### Timeline: 2 weeks
 
