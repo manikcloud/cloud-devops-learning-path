@@ -49,6 +49,25 @@ echo "🐍 Python URL: https://$(oc get route python -o jsonpath='{.spec.host}')
 
 ---
 
+## **📁 Alternative: Use YAML File**
+
+```bash
+# Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-9_OpenShift/02-python-project
+
+# Deploy using the working hello-world pattern
+oc apply -f ../03-httpd-project/hello-world.yaml
+
+# Customize the content for Python theme
+oc patch configmap hello-html --patch='{"data":{"index.html":"<!DOCTYPE html><html><head><title>Python Hello World</title><style>body{font-family:Arial;text-align:center;margin:50px;background:linear-gradient(135deg,#3776ab,#ffd43b);color:white;min-height:80vh;display:flex;flex-direction:column;justify-content:center}.container{background:rgba(255,255,255,0.1);padding:40px;border-radius:15px;backdrop-filter:blur(10px)}h1{font-size:3em;margin-bottom:20px}p{font-size:1.2em;margin:10px 0}.status{color:#FFD700;font-weight:bold}</style></head><body><div class=\"container\"><h1>🐍 Python Hello World!</h1><p>This Python-themed page runs on OpenShift</p><p class=\"status\">✅ HTTPD server running</p><p class=\"status\">✅ Python styling applied</p><p class=\"status\">✅ HTTPS route working</p></div></body></html>"}}'
+
+# Restart to apply changes
+oc rollout restart deployment/hello-world
+```
+
+---
+
 ## **🌐 Expected Result**
 - Blue/yellow Python-themed page
 - "Python Hello World!" heading
@@ -60,9 +79,11 @@ echo "🐍 Python URL: https://$(oc get route python -o jsonpath='{.spec.host}')
 ## **🧹 Cleanup**
 ```bash
 oc delete pod,svc,route,configmap python python-html
+# Or if using YAML: oc delete -f ../03-httpd-project/hello-world.yaml
 ```
 
 ---
 
 **Duration:** 3 minutes  
-**Result:** Working Python-themed hello world
+**Result:** Working Python-themed hello world  
+**Repository:** https://github.com/manikcloud/cloud-devops-learning-path/tree/main/Section-2-DevOps/Session-9_OpenShift/02-python-project

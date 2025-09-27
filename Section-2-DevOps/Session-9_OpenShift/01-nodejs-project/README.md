@@ -49,6 +49,25 @@ echo "🟢 Node.js URL: https://$(oc get route nodejs -o jsonpath='{.spec.host}'
 
 ---
 
+## **📁 Alternative: Use YAML File**
+
+```bash
+# Clone the repository
+git clone https://github.com/manikcloud/cloud-devops-learning-path.git
+cd cloud-devops-learning-path/Section-2-DevOps/Session-9_OpenShift/01-nodejs-project
+
+# Deploy using the working hello-world pattern
+oc apply -f ../03-httpd-project/hello-world.yaml
+
+# Customize the content for Node.js theme
+oc patch configmap hello-html --patch='{"data":{"index.html":"<!DOCTYPE html><html><head><title>Node.js Hello World</title><style>body{font-family:Arial;text-align:center;margin:50px;background:linear-gradient(135deg,#68a063,#4f7942);color:white;min-height:80vh;display:flex;flex-direction:column;justify-content:center}.container{background:rgba(255,255,255,0.1);padding:40px;border-radius:15px;backdrop-filter:blur(10px)}h1{font-size:3em;margin-bottom:20px}p{font-size:1.2em;margin:10px 0}.status{color:#90EE90;font-weight:bold}</style></head><body><div class=\"container\"><h1>🟢 Node.js Hello World!</h1><p>This Node.js-themed page runs on OpenShift</p><p class=\"status\">✅ HTTPD server running</p><p class=\"status\">✅ Node.js styling applied</p><p class=\"status\">✅ HTTPS route working</p></div></body></html>"}}'
+
+# Restart to apply changes
+oc rollout restart deployment/hello-world
+```
+
+---
+
 ## **🌐 Expected Result**
 - Green Node.js-themed page
 - "Node.js Hello World!" heading
@@ -60,9 +79,11 @@ echo "🟢 Node.js URL: https://$(oc get route nodejs -o jsonpath='{.spec.host}'
 ## **🧹 Cleanup**
 ```bash
 oc delete pod,svc,route,configmap nodejs nodejs-html
+# Or if using YAML: oc delete -f ../03-httpd-project/hello-world.yaml
 ```
 
 ---
 
 **Duration:** 3 minutes  
-**Result:** Working Node.js-themed hello world
+**Result:** Working Node.js-themed hello world  
+**Repository:** https://github.com/manikcloud/cloud-devops-learning-path/tree/main/Section-2-DevOps/Session-9_OpenShift/01-nodejs-project
