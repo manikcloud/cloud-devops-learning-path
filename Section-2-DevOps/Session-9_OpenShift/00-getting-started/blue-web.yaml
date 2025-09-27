@@ -16,9 +16,77 @@ spec:
     spec:
       containers:
       - name: blue-web
-        image: varunmanik/httpd:blue
+        image: nginx:alpine
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+        - name: config
+          mountPath: /etc/nginx/conf.d
+      volumes:
+      - name: html
+        configMap:
+          name: blue-html
+      - name: config
+        configMap:
+          name: nginx-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blue-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Blue Web - OpenShift</title>
+        <style>
+            body { 
+                font-family: Arial; 
+                text-align: center; 
+                margin: 50px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                min-height: 80vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .container { background: rgba(255,255,255,0.1); padding: 40px; border-radius: 10px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🔵 Blue Web Application</h1>
+            <p>Successfully deployed on OpenShift!</p>
+            <p>Time: <span id="time"></span></p>
+        </div>
+        <script>
+            setInterval(() => {
+                document.getElementById('time').textContent = new Date().toLocaleTimeString();
+            }, 1000);
+        </script>
+    </body>
+    </html>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  default.conf: |
+    server {
+        listen 8080;
+        location / {
+            root /usr/share/nginx/html;
+            index index.html;
+        }
+    }
 ---
 apiVersion: v1
 kind: Service
@@ -30,8 +98,8 @@ spec:
   selector:
     app: blue-web
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 8080
+    targetPort: 8080
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -40,8 +108,11 @@ metadata:
   labels:
     app: blue-web
 spec:
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
   to:
     kind: Service
     name: blue-web
   port:
-    targetPort: 80
+    targetPort: 8080
