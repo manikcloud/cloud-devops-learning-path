@@ -49,8 +49,7 @@ graph LR
     D --> E[Docker Swarm]
     E --> F[Kubernetes Orchestration]
     F --> G[Terraform IaC]
-    G --> H[OpenShift Platform]
-    H --> I[Monitoring & Observability]
+    G --> H[Monitoring & Observability]
 ```
 
 ### Progression Timeline:
@@ -59,8 +58,7 @@ graph LR
 - **Weeks 5-6:** Containerization with Docker & Docker Swarm
 - **Weeks 7-9:** Container Orchestration with Kubernetes
 - **Weeks 10-11:** Infrastructure as Code with Terraform
-- **Week 12:** OpenShift Enterprise Platform
-- **Week 13:** Monitoring & Observability
+- **Week 12:** Monitoring & Observability
 
 ## 📚 Session Structure
 
