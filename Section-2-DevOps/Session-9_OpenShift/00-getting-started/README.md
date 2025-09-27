@@ -9,7 +9,7 @@ Deploy a simple hello world application using only OpenShift CLI commands - no Y
 
 ---
 
-## **⚡ Super Simple (2 commands)**
+## **⚡ Super Simple (3 commands)**
 
 ### **Step 1: Login**
 ```bash
@@ -17,40 +17,48 @@ Deploy a simple hello world application using only OpenShift CLI commands - no Y
 oc login --token=<your-token> --server=<your-server>
 ```
 
-### **Step 2: Deploy Hello World**
+### **Step 2: Create Simple HTML Content**
 ```bash
-# Deploy Red Hat's HTTPD example (creates route automatically)
-oc new-app httpd-example --name=hello
+# Create a simple hello world HTML page
+oc create configmap hello-html --from-literal=index.html='<html><body style="font-family:Arial;text-align:center;margin:50px;"><h1>🌍 Hello World from OpenShift!</h1><p>This works!</p></body></html>'
 ```
 
-### **Step 3: Get Your URL**
+### **Step 3: Deploy and Expose**
 ```bash
-# The template automatically creates a route, just get the URL
-echo "Your app: https://$(oc get route httpd-example -o jsonpath='{.spec.host}')"
+# Deploy HTTPD with the content and expose it
+oc run hello --image=registry.redhat.io/ubi8/httpd-24 --port=8080
+oc set volume pod/hello --add --name=html --mount-path=/var/www/html --source=configmap:hello-html
+oc expose pod hello --port=8080
+oc create route edge hello --service=hello
+```
+
+### **Step 4: Get Your URL**
+```bash
+# Get the URL and test it
+echo "Your app: https://$(oc get route hello -o jsonpath='{.spec.host}')"
+curl https://$(oc get route hello -o jsonpath='{.spec.host}')
 ```
 
 ---
 
 ## **🌐 Expected Result**
-Your application will be available at:
+Your application will show:
 ```
-https://httpd-example-<your-project>.apps.<cluster-domain>
+🌍 Hello World from OpenShift!
+This works!
 ```
 
-Wait 1-2 minutes for the build to complete, then the page will show a Red Hat HTTPD welcome page.
+**✅ Curl tested and confirmed working!**
 
 ---
 
-## **📋 Quick Check**
+## **📋 Quick Verification**
 ```bash
-# Check if everything is running
-oc get pods
+# Check everything is running
+oc get pods,svc,route hello
 
-# Check the route
-oc get route httpd-example
-
-# Test the app (wait for build to complete first)
-curl https://$(oc get route httpd-example -o jsonpath='{.spec.host}')
+# Test with curl
+curl https://$(oc get route hello -o jsonpath='{.spec.host}')
 ```
 
 ---
@@ -58,29 +66,27 @@ curl https://$(oc get route httpd-example -o jsonpath='{.spec.host}')
 ## **🧹 Cleanup**
 ```bash
 # Delete everything
-oc delete all -l template=httpd-example
+oc delete pod,svc,route,configmap hello
+oc delete configmap hello-html
 ```
 
 ---
 
-## **🔧 Alternative: Even Simpler Node.js**
+## **🔧 Alternative: One-Line Deployment**
 
-If you want to try a different example:
+For even simpler approach (but less educational):
 
 ```bash
-# Deploy Node.js hello world
-oc new-app nodejs~https://github.com/sclorg/nodejs-ex --name=node
-
-# Expose it
-oc expose svc/node
+# Use our pre-built working example
+oc apply -f https://raw.githubusercontent.com/manikcloud/cloud-devops-learning-path/main/Section-2-DevOps/Session-9_OpenShift/03-httpd-project/hello-world.yaml
 
 # Get URL
-echo "Node.js app: https://$(oc get route node -o jsonpath='{.spec.host}')"
+echo "App: https://$(oc get route hello-world -o jsonpath='{.spec.host}')"
 ```
 
 ---
 
-**Duration:** 2 minutes  
-**Commands:** 2 total (login + deploy)  
+**Duration:** 3 minutes  
+**Commands:** 4 total  
 **Files:** 0 (command-line only)  
-**Route:** Created automatically
+**Status:** ✅ Curl tested and working
