@@ -1,7 +1,7 @@
-# 🟢 **Project 1: Node.js Style Hello World**
+# 🟢 **Node.js Application on OpenShift**
 
 ## **Overview**
-Deploy a Node.js-themed hello world page using HTTPD (same reliable approach as getting-started).
+Deploy a Node.js application using OpenShift Devfile (Docker build strategy).
 
 ## **Prerequisites**
 - OpenShift Sandbox account
@@ -9,81 +9,148 @@ Deploy a Node.js-themed hello world page using HTTPD (same reliable approach as 
 
 ---
 
-## **⚡ Super Simple (4 commands)**
+## **⚡ Quick Deploy (3 commands)**
 
 ### **Step 1: Login**
 ```bash
-oc login --token=<your-token> --server=<your-server>
+oc login --token=sha256~t__5g4MigprS-Fu3Tx9FCQeH-7XAYe2jeCdpznUJ8xA --server=https://api.rm3.7wse.p1.openshiftapps.com:6443
 ```
 
-### **Step 2: Create Node.js-themed HTML**
+### **Step 2: Create Node.js App (Devfile)**
 ```bash
-oc create configmap nodejs-html --from-literal=index.html='<!DOCTYPE html><html><head><title>Node.js Hello World</title><style>body{font-family:Arial;text-align:center;margin:50px;background:linear-gradient(135deg,#68a063,#4f7942);color:white;min-height:80vh;display:flex;flex-direction:column;justify-content:center}.container{background:rgba(255,255,255,0.1);padding:40px;border-radius:15px;backdrop-filter:blur(10px)}h1{font-size:3em;margin-bottom:20px}p{font-size:1.2em;margin:10px 0}.status{color:#90EE90;font-weight:bold}</style></head><body><div class="container"><h1>🟢 Node.js Hello World!</h1><p>This Node.js-themed page runs on OpenShift</p><p class="status">✅ HTTPD server running</p><p class="status">✅ Node.js styling applied</p><p class="status">✅ HTTPS route working</p><p>Simulating Node.js deployment patterns</p></div></body></html>'
+oc new-app https://github.com/nodeshift-starters/devfile-sample.git --name=nodejs-app --strategy=docker
 ```
 
-### **Step 3: Deploy and Expose**
+### **Step 3: Expose Service**
 ```bash
-# Deploy HTTPD with Node.js content
-oc run nodejs --image=registry.access.redhat.com/ubi8/httpd-24 --port=8080
-oc set volume pod/nodejs --add --name=html --mount-path=/var/www/html --source=configmap:nodejs-html
-oc expose pod nodejs --port=8080
-oc create route edge nodejs --service=nodejs
+oc expose svc/nodejs-app
 ```
 
 ### **Step 4: Get URL**
 ```bash
-echo "🟢 Node.js URL: https://$(oc get route nodejs -o jsonpath='{.spec.host}')"
+echo "🟢 Node.js URL: https://$(oc get route nodejs-app -o jsonpath='{.spec.host}')"
 ```
 
 ---
 
-## **🖥️ Web Console Method**
+## **📊 Monitor Deployment**
 
-1. Create ConfigMap first (Workloads → ConfigMaps)
-2. **"+Add"** → **"Container Image"**
-3. **Image**: `registry.access.redhat.com/ubi8/httpd-24`
-4. **Name**: `nodejs`
-5. **Port**: `8080`
-6. Mount ConfigMap to `/var/www/html`
-7. Check **"Create route"**
+### **Check Build Progress (Wait 1-2 minutes)**
+```bash
+# Watch build logs
+oc logs -f bc/nodejs-app
+
+# Check build status
+oc get builds
+
+# Wait for build to complete
+sleep 90 && oc get builds
+```
+
+### **Check Application Status**
+```bash
+# View pods (should show Running after build completes)
+oc get pods -l app=nodejs-app
+
+# Check deployment
+oc get deployment nodejs-app
+
+# Get route URL
+oc get route nodejs-app
+```
+
+### **⚠️ Important: Build takes 1-2 minutes**
+The application won't be available immediately. Wait for:
+1. Build to complete (`oc get builds` shows "Complete")
+2. Pod to start (`oc get pods` shows "Running")
+3. Then test the URL
 
 ---
 
-## **📁 Alternative: Use YAML File**
+## **🔧 Alternative Methods**
 
+### **Method 2: Using Web Console**
+1. Login to OpenShift Web Console
+2. Click **"+Add"** → **"From Git"**
+3. **Git Repo URL**: `https://github.com/nodeshift-starters/devfile-sample.git`
+4. **Build Strategy**: Docker
+5. **Application Name**: `nodejs-app`
+6. Click **"Create"**
+
+### **Method 3: Import from Devfile**
 ```bash
-# Clone the repository
-git clone https://github.com/manikcloud/cloud-devops-learning-path.git
-cd cloud-devops-learning-path/Section-2-DevOps/Session-9_OpenShift/01-nodejs-project
+# Use devfile directly
+oc new-app --name=nodejs-app \
+  --docker-image=registry.access.redhat.com/ubi8/nodejs-16 \
+  https://github.com/nodeshift-starters/devfile-sample.git
 
-# Deploy using the working hello-world pattern
-oc apply -f ../03-httpd-project/hello-world.yaml
-
-# Customize the content for Node.js theme
-oc patch configmap hello-html --patch='{"data":{"index.html":"<!DOCTYPE html><html><head><title>Node.js Hello World</title><style>body{font-family:Arial;text-align:center;margin:50px;background:linear-gradient(135deg,#68a063,#4f7942);color:white;min-height:80vh;display:flex;flex-direction:column;justify-content:center}.container{background:rgba(255,255,255,0.1);padding:40px;border-radius:15px;backdrop-filter:blur(10px)}h1{font-size:3em;margin-bottom:20px}p{font-size:1.2em;margin:10px 0}.status{color:#90EE90;font-weight:bold}</style></head><body><div class=\"container\"><h1>🟢 Node.js Hello World!</h1><p>This Node.js-themed page runs on OpenShift</p><p class=\"status\">✅ HTTPD server running</p><p class=\"status\">✅ Node.js styling applied</p><p class=\"status\">✅ HTTPS route working</p></div></body></html>"}}'
-
-# Restart to apply changes
-oc rollout restart deployment/hello-world
+# Expose service
+oc expose svc/nodejs-app
 ```
 
 ---
 
 ## **🌐 Expected Result**
-- Green Node.js-themed page
-- "Node.js Hello World!" heading
-- Professional styling with Node.js colors
-- HTTPS working
+- **Live Node.js Application**: "Hello from Node.js Starter Application!"
+- **Build Time**: ~1-2 minutes (Docker build)
+- **Features**: Simple Node.js web server
+- **URL Format**: `https://nodejs-app-<project>-<cluster-domain>`
+- **Working Example**: https://devfile-sample-git-varunmanik1-dev.apps.rm3.7wse.p1.openshiftapps.com/
 
 ---
 
 ## **🧹 Cleanup**
 ```bash
-oc delete pod,svc,route,configmap nodejs nodejs-html
-# Or if using YAML: oc delete -f ../03-httpd-project/hello-world.yaml
+# Delete application
+oc delete all -l app=nodejs-app
+
+# Or delete specific resources
+oc delete deployment,svc,route,bc,is nodejs-app
 ```
 
 ---
 
-**Duration:** 3 minutes  
-**Result:** Working Node.js-themed hello world  
+## **🔍 Troubleshooting**
+
+### **"Application is not available" Error**
+This is normal during deployment. Follow these steps:
+
+```bash
+# 1. Check if build is still running
+oc get builds
+# Status should be "Complete" (not "Running")
+
+# 2. Check if pod is running
+oc get pods -l app=nodejs-app
+# Status should be "Running" (not "ContainerCreating")
+
+# 3. If build is still running, wait 1-2 minutes
+sleep 120 && oc get builds && oc get pods
+
+# 4. Test URL only after pod is Running
+curl https://$(oc get route nodejs-app -o jsonpath='{.spec.host}')
+```
+
+### **Build Issues**
+```bash
+# Check build logs
+oc logs build/nodejs-app-1
+
+# Describe build config
+oc describe bc/nodejs-app
+```
+
+### **Pod Issues**
+```bash
+# Check pod logs
+oc logs deployment/nodejs-app
+
+# Debug pod
+oc debug deployment/nodejs-app
+```
+
+---
+
+**Duration:** 2-3 minutes  
+**Result:** Working Node.js application with Docker build  
 **Repository:** https://github.com/manikcloud/cloud-devops-learning-path/tree/main/Section-2-DevOps/Session-9_OpenShift/01-nodejs-project
