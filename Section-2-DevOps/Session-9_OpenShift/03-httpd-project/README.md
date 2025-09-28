@@ -14,6 +14,11 @@ Deploy a simple "Hello World" static website using Apache HTTPD and ConfigMaps o
 - OpenShift Sandbox account
 - `oc` CLI installed and logged in
 - Basic understanding of HTML and YAML
+---
+
+## Output 
+
+<img width="1778" height="851" alt="image" src="https://github.com/user-attachments/assets/5a90e507-e80a-4f1f-b8a7-224760dbfc29" />
 
 ---
 
