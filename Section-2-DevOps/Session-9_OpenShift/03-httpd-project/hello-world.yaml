@@ -69,7 +69,6 @@ spec:
           mountPath: /var/www/html
         securityContext:
           runAsNonRoot: true
-          runAsUser: 1001
       volumes:
       - name: html-content
         configMap:
