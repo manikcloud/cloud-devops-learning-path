@@ -24,8 +24,86 @@ By completing this project, you will:
 
 ## 🛠️ Project Architecture
 
+### **One-Tier Architecture Overview**
+
+```mermaid
+graph TB
+    subgraph "Internet"
+        USER[👤 User Browser]
+    end
+    
+    subgraph "AWS Cloud"
+        subgraph "VPC (Default)"
+            subgraph "Public Subnet"
+                subgraph "EC2 Instance"
+                    NGINX[🌐 Nginx Web Server<br/>Port 80/443]
+                    FILES[📄 Static HTML Files<br/>/var/www/html/]
+                    NGINX --> FILES
+                end
+                
+                SG[🛡️ Security Group<br/>HTTP: 80<br/>HTTPS: 443<br/>SSH: 22]
+            end
+        end
+        
+        IGW[🌐 Internet Gateway]
+    end
+    
+    USER -->|HTTP/HTTPS Request| IGW
+    IGW --> SG
+    SG -->|Allow HTTP/HTTPS| NGINX
+    NGINX -->|Serve Static Content| USER
+    
+    style USER fill:#e1f5fe
+    style NGINX fill:#c8e6c9
+    style FILES fill:#fff3e0
+    style SG fill:#ffebee
+    style IGW fill:#f3e5f5
 ```
-Internet → Security Group → EC2 Instance (Nginx) → Website Files
+
+### **Architecture Components:**
+
+| Component | Purpose | Configuration |
+|-----------|---------|---------------|
+| 🌐 **Internet Gateway** | Provides internet access to VPC | Attached to default VPC |
+| 🛡️ **Security Group** | Virtual firewall for EC2 instance | HTTP (80), HTTPS (443), SSH (22) |
+| 💻 **EC2 Instance** | Virtual server hosting the website | t2.micro (Free Tier eligible) |
+| 🌐 **Nginx Web Server** | Serves static HTML content | Installed via User Data script |
+| 📄 **Static Files** | HTML, CSS, JS files | Stored in /var/www/html/ |
+
+### **Deployment Process Flow**
+
+```mermaid
+flowchart TD
+    START([🚀 Start Deployment]) --> CONSOLE[📱 AWS Console Login]
+    CONSOLE --> EC2[🖥️ Launch EC2 Instance]
+    EC2 --> CONFIG[⚙️ Configure Instance]
+    
+    subgraph "Instance Configuration"
+        AMI[📀 Amazon Linux 2 AMI]
+        TYPE[💻 t2.micro Instance Type]
+        USERDATA[📝 User Data Script]
+        SG_CONFIG[🛡️ Security Group Rules]
+    end
+    
+    CONFIG --> AMI
+    CONFIG --> TYPE
+    CONFIG --> USERDATA
+    CONFIG --> SG_CONFIG
+    
+    USERDATA --> INSTALL[📦 Install Nginx]
+    INSTALL --> DEPLOY[📄 Deploy Website Files]
+    DEPLOY --> START_SERVICE[▶️ Start Nginx Service]
+    START_SERVICE --> TEST[🧪 Test Website Access]
+    
+    TEST --> SUCCESS{✅ Success?}
+    SUCCESS -->|Yes| LIVE[🌐 Website Live!]
+    SUCCESS -->|No| DEBUG[🔧 Debug Issues]
+    DEBUG --> TEST
+    
+    style START fill:#e8f5e8
+    style LIVE fill:#c8e6c9
+    style DEBUG fill:#ffebee
+    style SUCCESS fill:#fff3e0
 ```
 
 ## 📝 Step-by-Step Implementation
