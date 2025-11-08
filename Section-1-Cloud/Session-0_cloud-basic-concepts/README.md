@@ -73,20 +73,28 @@ Virtualization creates virtual versions of physical computing resources, allowin
 graph TB
     subgraph "Physical Server"
         subgraph "Hypervisor Layer"
-            HYP["🔧 Hypervisor\nVMware, Hyper-V, KVM"]
+            HYP["🔧 Hypervisor
+            VMware, Hyper-V, KVM"]
         end
         
         subgraph "Virtual Machines"
-            VM1["💻 VM 1\nWindows Server"]
-            VM2["🐧 VM 2\nLinux Ubuntu"]
-            VM3["🖥️ VM 3\nCentOS"]
+            VM1["💻 VM 1
+            Windows Server"]
+            VM2["🐧 VM 2
+            Linux Ubuntu"]
+            VM3["🖥️ VM 3
+            CentOS"]
         end
         
         subgraph "Physical Resources"
-            CPU["⚡ CPU Cores\nIntel/AMD Processors"]
-            RAM["🧠 Memory RAM\nDDR4/DDR5"]
-            DISK["💾 Storage\nSSD/HDD"]
-            NET["🌐 Network I/O\nEthernet/Fiber"]
+            CPU["⚡ CPU Cores
+            Intel/AMD Processors"]
+            RAM["🧠 Memory RAM
+            DDR4/DDR5"]
+            DISK["💾 Storage
+            SSD/HDD"]
+            NET["🌐 Network I/O
+            Ethernet/Fiber"]
         end
     end
     
@@ -138,19 +146,23 @@ graph TB
 graph TB
     subgraph "Cloud Service Models"
         subgraph "SaaS Layer"
-            SAAS["📧 Software as a Service\nGmail, Office 365, Salesforce"]
+            SAAS["📧 Software as a Service
+            Gmail, Office 365, Salesforce"]
         end
         
         subgraph "PaaS Layer"
-            PAAS["🛠️ Platform as a Service\nGoogle App Engine, Heroku"]
+            PAAS["🛠️ Platform as a Service
+            Google App Engine, Heroku"]
         end
         
         subgraph "IaaS Layer"
-            IAAS["🖥️ Infrastructure as a Service\nAWS EC2, Azure VMs"]
+            IAAS["🖥️ Infrastructure as a Service
+            AWS EC2, Azure VMs"]
         end
         
         subgraph "Physical Infrastructure"
-            PHYSICAL["🏢 Data Centers\nServers, Storage, Networking"]
+            PHYSICAL["🏢 Data Centers
+            Servers, Storage, Networking"]
         end
     end
     
@@ -200,19 +212,31 @@ graph TB
 ```mermaid
 graph LR
     subgraph "Public Cloud"
-        PUB["☁️ Public Cloud\nAWS, Azure, GCP\nShared infrastructure\nPay-as-you-use"]
+        PUB["☁️ Public Cloud
+        AWS, Azure, GCP
+        Shared infrastructure
+        Pay-as-you-use"]
     end
     
     subgraph "Private Cloud"
-        PRIV["🏢 Private Cloud\nOn-premises\nDedicated infrastructure\nFull control"]
+        PRIV["🏢 Private Cloud
+        On-premises
+        Dedicated infrastructure
+        Full control"]
     end
     
     subgraph "Hybrid Cloud"
-        HYB["🔄 Hybrid Cloud\nPublic + Private\nData integration\nFlexible workloads"]
+        HYB["🔄 Hybrid Cloud
+        Public + Private
+        Data integration
+        Flexible workloads"]
     end
     
     subgraph "Community Cloud"
-        COMM["👥 Community Cloud\nShared by organizations\nCommon requirements\nCost sharing"]
+        COMM["👥 Community Cloud
+        Shared by organizations
+        Common requirements
+        Cost sharing"]
     end
     
     PUB -.->|Integration| HYB
@@ -243,17 +267,29 @@ graph LR
 graph TB
     subgraph "Traditional IT"
         subgraph "On-Premises"
-            TRAD_COST["💰 High Capital Costs\nHardware purchase\nData center setup"]
-            TRAD_SCALE["📏 Limited Scalability\nFixed capacity\nOver/under provisioning"]
-            TRAD_MAINT["🔧 High Maintenance\nIT staff required\nHardware management"]
+            TRAD_COST["💰 High Capital Costs
+            Hardware purchase
+            Data center setup"]
+            TRAD_SCALE["📏 Limited Scalability
+            Fixed capacity
+            Over/under provisioning"]
+            TRAD_MAINT["🔧 High Maintenance
+            IT staff required
+            Hardware management"]
         end
     end
     
     subgraph "Cloud Computing"
         subgraph "Cloud Benefits"
-            CLOUD_COST["💳 Pay-as-you-use\nNo upfront costs\nOperational expenses"]
-            CLOUD_SCALE["📈 Elastic Scalability\nAuto-scaling\nOn-demand resources"]
-            CLOUD_MAINT["⚡ Managed Services\nProvider maintenance\nFocus on business"]
+            CLOUD_COST["💳 Pay-as-you-use
+            No upfront costs
+            Operational expenses"]
+            CLOUD_SCALE["📈 Elastic Scalability
+            Auto-scaling
+            On-demand resources"]
+            CLOUD_MAINT["⚡ Managed Services
+            Provider maintenance
+            Focus on business"]
         end
     end
     
@@ -328,16 +364,23 @@ mindmap
 
 ```mermaid
 flowchart TD
-    START([🤔 Need Cloud Services?]) --> CONTROL{Want full control\nof infrastructure?}
+    START([🤔 Need Cloud Services?]) --> CONTROL{Want full control
+    of infrastructure?}
     
-    CONTROL -->|Yes| IAAS["🖥️ Choose IaaS\nAWS EC2, Azure VMs"]
-    CONTROL -->|No| DEV{Need development\nplatform?}
+    CONTROL -->|Yes| IAAS["🖥️ Choose IaaS
+    AWS EC2, Azure VMs"]
+    CONTROL -->|No| DEV{Need development
+    platform?}
     
-    DEV -->|Yes| PAAS["🛠️ Choose PaaS\nHeroku, App Engine"]
-    DEV -->|No| READY{Need ready-to-use\napplications?}
+    DEV -->|Yes| PAAS["🛠️ Choose PaaS
+    Heroku, App Engine"]
+    DEV -->|No| READY{Need ready-to-use
+    applications?}
     
-    READY -->|Yes| SAAS["📧 Choose SaaS\nOffice 365, Gmail"]
-    READY -->|No| CUSTOM["🔧 Consider XaaS\nSpecialized services"]
+    READY -->|Yes| SAAS["📧 Choose SaaS
+    Office 365, Gmail"]
+    READY -->|No| CUSTOM["🔧 Consider XaaS
+    Specialized services"]
     
     style START fill:#e1f5fe
     style IAAS fill:#fff3e0
