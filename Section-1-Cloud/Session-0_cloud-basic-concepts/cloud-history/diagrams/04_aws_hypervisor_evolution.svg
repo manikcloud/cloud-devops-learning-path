@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="xenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="nitroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="awsGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff9500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb84d;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="4" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1e293b">
+    AWS Hypervisor Evolution: Xen to Nitro System
+  </text>
+  <text x="600" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#64748b">
+    From Open Source Virtualization to Custom Silicon (2006-Present)
+  </text>
+  
+  <!-- Timeline -->
+  <line x1="100" y1="120" x2="1100" y2="120" stroke="url(#awsGradient)" stroke-width="8" filter="url(#shadow)"/>
+  
+  <!-- Era Divider -->
+  <line x1="600" y1="100" x2="600" y2="140" stroke="#374151" stroke-width="3"/>
+  <text x="600" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Transition Point</text>
+  
+  <!-- Xen Era (2006-2017) -->
+  <g transform="translate(120, 160)">
+    <rect x="0" y="0" width="450" height="200" rx="15" fill="url(#xenGradient)" filter="url(#shadow)"/>
+    <text x="225" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white">
+      Xen Era (2006-2017)
+    </text>
+    
+    <!-- PV Instances -->
+    <rect x="20" y="50" width="130" height="80" rx="8" fill="#1e40af"/>
+    <text x="85" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      Paravirtual (PV)
+    </text>
+    <text x="85" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      2006-2017
+    </text>
+    <text x="85" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      Performance: 97-99%
+    </text>
+    <text x="85" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      Linux optimized
+    </text>
+    
+    <!-- HVM Instances -->
+    <rect x="160" y="50" width="130" height="80" rx="8" fill="#2563eb"/>
+    <text x="225" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      Hardware VM (HVM)
+    </text>
+    <text x="225" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      2008-2017
+    </text>
+    <text x="225" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      Performance: 90-95%
+    </text>
+    <text x="225" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      Windows support
+    </text>
+    
+    <!-- Enhanced Networking -->
+    <rect x="300" y="50" width="130" height="80" rx="8" fill="#3b82f6"/>
+    <text x="365" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      Enhanced Networking
+    </text>
+    <text x="365" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      2013-2017
+    </text>
+    <text x="365" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      SR-IOV support
+    </text>
+    <text x="365" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dbeafe">
+      10 Gbps networking
+    </text>
+    
+    <!-- Xen Characteristics -->
+    <text x="225" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e0e7ff">
+      Key Features: Open Source • Strong Isolation • Paravirtualization • Multi-tenant Security
+    </text>
+    <text x="225" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e0e7ff">
+      Instance Types: m1, c1, m2, c3, m3, c4, r3, i2 (Legacy)
+    </text>
+  </g>
+  
+  <!-- Nitro Era (2017-Present) -->
+  <g transform="translate(630, 160)">
+    <rect x="0" y="0" width="450" height="200" rx="15" fill="url(#nitroGradient)" filter="url(#shadow)"/>
+    <text x="225" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white">
+      Nitro Era (2017-Present)
+    </text>
+    
+    <!-- Nitro Cards -->
+    <rect x="20" y="50" width="130" height="80" rx="8" fill="#047857"/>
+    <text x="85" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      Nitro Cards
+    </text>
+    <text x="85" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      Custom Silicon
+    </text>
+    <text x="85" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      I/O Acceleration
+    </text>
+    <text x="85" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      Security Chip
+    </text>
+    
+    <!-- KVM Hypervisor -->
+    <rect x="160" y="50" width="130" height="80" rx="8" fill="#059669"/>
+    <text x="225" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      KVM Hypervisor
+    </text>
+    <text x="225" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      Lightweight
+    </text>
+    <text x="225" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      Performance: 99%+
+    </text>
+    <text x="225" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      Minimal overhead
+    </text>
+    
+    <!-- Enhanced Performance -->
+    <rect x="300" y="50" width="130" height="80" rx="8" fill="#10b981"/>
+    <text x="365" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      Enhanced Performance
+    </text>
+    <text x="365" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      100 Gbps networking
+    </text>
+    <text x="365" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      64,000 IOPS
+    </text>
+    <text x="365" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d1fae5">
+      Graviton processors
+    </text>
+    
+    <!-- Nitro Characteristics -->
+    <text x="225" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#dcfce7">
+      Key Features: Custom Silicon • Hardware Security • Near Bare-Metal Performance
+    </text>
+    <text x="225" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#dcfce7">
+      Instance Types: C5, M5, R5, T3, A1, and all current generation instances
+    </text>
+  </g>
+  
+  <!-- Nitro System Architecture -->
+  <text x="600" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#1e293b">
+    Nitro System Architecture
+  </text>
+  
+  <!-- Architecture Diagram -->
+  <g transform="translate(200, 450)">
+    <!-- Customer Workloads -->
+    <rect x="0" y="0" width="800" height="50" rx="8" fill="#3b82f6" filter="url(#shadow)"/>
+    <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+      Customer Workloads (EC2 Instances, Containers, Lambda Functions)
+    </text>
+    
+    <!-- Nitro Hypervisor -->
+    <rect x="0" y="60" width="800" height="40" rx="8" fill="#059669" filter="url(#shadow)"/>
+    <text x="400" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Nitro Hypervisor (Lightweight KVM) - Minimal Overhead
+    </text>
+    
+    <!-- Nitro Cards Layer -->
+    <rect x="0" y="110" width="250" height="60" rx="8" fill="#dc2626" filter="url(#shadow)"/>
+    <text x="125" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      Nitro Security Chip
+    </text>
+    <text x="125" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fecaca">
+      • Root of Trust
+    </text>
+    <text x="125" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fecaca">
+      • Cryptographic Attestation
+    </text>
+    
+    <rect x="275" y="110" width="250" height="60" rx="8" fill="#7c3aed" filter="url(#shadow)"/>
+    <text x="400" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      Nitro Networking Card
+    </text>
+    <text x="400" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e9d5ff">
+      • 100 Gbps Enhanced Networking
+    </text>
+    <text x="400" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e9d5ff">
+      • SR-IOV Support
+    </text>
+    
+    <rect x="550" y="110" width="250" height="60" rx="8" fill="#ea580c" filter="url(#shadow)"/>
+    <text x="675" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">
+      Nitro Storage Card
+    </text>
+    <text x="675" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fed7aa">
+      • NVMe SSD Acceleration
+    </text>
+    <text x="675" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#fed7aa">
+      • EBS Optimization
+    </text>
+    
+    <!-- Physical Hardware -->
+    <rect x="0" y="180" width="800" height="40" rx="8" fill="#374151" filter="url(#shadow)"/>
+    <text x="400" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Physical Hardware (Intel/AMD x86, AWS Graviton ARM processors)
+    </text>
+  </g>
+  
+  <!-- Performance Comparison -->
+  <text x="600" y="720" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">
+    Performance Evolution Comparison
+  </text>
+  
+  <g transform="translate(200, 740)">
+    <!-- Xen Performance -->
+    <text x="0" y="15" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1e40af">Xen Era (2006-2017):</text>
+    <rect x="0" y="20" width="180" height="15" fill="#3b82f6"/>
+    <text x="185" y="32" font-family="Arial, sans-serif" font-size="12" fill="#374151">PV: 97-99% • HVM: 90-95%</text>
+    
+    <!-- Nitro Performance -->
+    <text x="400" y="15" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#059669">Nitro Era (2017-Present):</text>
+    <rect x="400" y="20" width="198" height="15" fill="#10b981"/>
+    <text x="603" y="32" font-family="Arial, sans-serif" font-size="12" fill="#374151">Nitro: 99%+ bare metal performance</text>
+  </g>
+  
+  <!-- Timeline markers -->
+  <g font-family="Arial, sans-serif" font-size="12" fill="#64748b">
+    <circle cx="200" cy="120" r="6" fill="#1e40af"/>
+    <text x="200" y="145" text-anchor="middle">2006</text>
+    <text x="200" y="155" text-anchor="middle" font-size="10">EC2 Launch</text>
+    
+    <circle cx="300" cy="120" r="6" fill="#2563eb"/>
+    <text x="300" y="145" text-anchor="middle">2008</text>
+    <text x="300" y="155" text-anchor="middle" font-size="10">HVM Support</text>
+    
+    <circle cx="400" cy="120" r="6" fill="#3b82f6"/>
+    <text x="400" y="145" text-anchor="middle">2013</text>
+    <text x="400" y="155" text-anchor="middle" font-size="10">Enhanced Net</text>
+    
+    <circle cx="700" cy="120" r="6" fill="#047857"/>
+    <text x="700" y="145" text-anchor="middle">2017</text>
+    <text x="700" y="155" text-anchor="middle" font-size="10">Nitro Launch</text>
+    
+    <circle cx="850" cy="120" r="6" fill="#059669"/>
+    <text x="850" y="145" text-anchor="middle">2019</text>
+    <text x="850" y="155" text-anchor="middle" font-size="10">Graviton</text>
+    
+    <circle cx="1000" cy="120" r="6" fill="#10b981"/>
+    <text x="1000" y="145" text-anchor="middle">2021</text>
+    <text x="1000" y="155" text-anchor="middle" font-size="10">Graviton2</text>
+  </g>
+</svg>
