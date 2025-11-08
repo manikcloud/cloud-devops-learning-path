@@ -1,16 +1,19 @@
-# Pragra AWS Associate Certification Course
+# 🚀 Pragra AWS Associate Certification Course
 ## AWS Job Ready Program - Complete Course Overview
 
+<div align="center">
+
 [![AWS](https://img.shields.io/badge/AWS-Certified-orange?style=for-the-badge&logo=amazon-aws)](https://aws.amazon.com/)
-[![Course Duration](https://img.shields.io/badge/Duration-66%20Hours-blue?style=for-the-badge)](/)
 [![Projects](https://img.shields.io/badge/Projects-15-green?style=for-the-badge)](/)
+[![Certification](https://img.shields.io/badge/Certification-Solutions%20Architect-blue?style=for-the-badge)](/)
+
+</div>
 
 ---
 
 ## 📋 Course Information
 
 - **Program Name:** AWS Job Ready Program
-- **Total Duration:** 66 Hours
 - **Target Certification:** AWS Solutions Architect Associate
 - **Course Type:** Comprehensive hands-on training with 15 practical projects
 - **Learning Format:** Theory + Hands-on Labs + Demos + Real-world Projects
@@ -19,7 +22,15 @@
 
 ## 🎯 What You Will Learn
 
-This comprehensive AWS certification course covers everything from cloud computing fundamentals to advanced AWS services and architecture design. You'll gain practical experience through 15 hands-on projects and learn industry best practices for cloud solution architecture.
+<div align="center">
+
+🌟 **Master AWS from fundamentals to advanced architecture design**  
+💼 **Gain practical experience through 15 hands-on projects**  
+🏆 **Learn industry best practices for cloud solution architecture**
+
+</div>
+
+This comprehensive AWS certification course covers everything from cloud computing fundamentals to advanced AWS services and architecture design.
 
 ---
 
@@ -436,7 +447,11 @@ Create a server less architecture and do event logging application using elastic
 
 ## 🎓 Certification Preparation
 
-### AWS Certified Solutions Architect - Associate (SAA-C03)
+<div align="center">
+
+### 🏅 AWS Certified Solutions Architect - Associate (SAA-C03)
+
+</div>
 
 **Exam Details:**
 - **Duration:** 130 minutes
@@ -446,23 +461,34 @@ Create a server less architecture and do event logging application using elastic
 - **Cost:** $150 USD
 - **Validity:** 3 years
 
-### Exam Domains:
-1. **Design Secure Architectures** (30%)
-2. **Design Resilient Architectures** (26%)
-3. **Design High-Performing Architectures** (24%)
-4. **Design Cost-Optimized Architectures** (20%)
+### 📊 Exam Domains:
+| Domain | Weight | Focus Area |
+|--------|--------|------------|
+| 🔒 **Design Secure Architectures** | 30% | Security best practices, IAM, encryption |
+| 🛡️ **Design Resilient Architectures** | 26% | High availability, fault tolerance |
+| ⚡ **Design High-Performing Architectures** | 24% | Performance optimization, scalability |
+| 💰 **Design Cost-Optimized Architectures** | 20% | Cost management, resource optimization |
 
 ---
 
 ## 💼 Career Outcomes
 
+<div align="center">
+
+### 🚀 Launch Your Cloud Career
+
+</div>
+
 After completing this course, you will be prepared for roles such as:
-- ☁️ AWS Solutions Architect
-- ☁️ Cloud Engineer
-- ☁️ DevOps Engineer
-- ☁️ Cloud Consultant
-- ☁️ Systems Administrator
-- ☁️ Cloud Developer
+
+| Role | Description | Avg Salary Range |
+|------|-------------|------------------|
+| ☁️ **AWS Solutions Architect** | Design and implement AWS solutions | $90K - $150K |
+| ☁️ **Cloud Engineer** | Build and maintain cloud infrastructure | $80K - $130K |
+| ☁️ **DevOps Engineer** | Automate deployment and operations | $85K - $140K |
+| ☁️ **Cloud Consultant** | Advise on cloud migration strategies | $95K - $160K |
+| ☁️ **Systems Administrator** | Manage cloud-based systems | $70K - $110K |
+| ☁️ **Cloud Developer** | Develop cloud-native applications | $85K - $135K |
 
 ---
 
@@ -567,5 +593,21 @@ This course material is provided by Pragra for educational purposes.
 
 ---
 
-**Ready to start your AWS journey? Let's begin! 🚀**:wq
+---
+
+## 👨‍💻 Course Creator
+
+**Created and Maintained by:** Varun Kumar  
+**Role:** Cloud Solutions Architect & DevOps Engineer  
+**Contact:** [GitHub Profile](https://github.com/manikcloud)
+
+---
+
+<div align="center">
+
+**🌟 Ready to start your AWS journey? Let's begin! 🚀**
+
+*Transform your career with hands-on AWS expertise*
+
+</div>
 
