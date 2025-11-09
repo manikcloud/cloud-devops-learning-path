@@ -1,8 +1,27 @@
-sudo -i
-systemctl start httpd
-systemctl status httpd
-cd /var/www/html/
-pwd
-vim index.html
-: wq
-
+    1  pwd
+    2  cd /
+    3  ls
+    4  ls -l
+    5  ll
+    6  yum update 
+    7  yum install httpd
+    8  systemctl status httpd
+    9  systemctl start httpd
+   10  systemctl status httpd
+   11  systemctl enable httpd
+   12  cd /var/
+   13  ls -l
+   14  cd www/
+   15  ls -l 
+   16  cd html/
+   17  ll
+   18  ls -l 
+   19  ll
+   20  touch index.html
+   21  ll
+   22  pwd
+   23  history 
+   24  cd /var/www/html/
+   25  nano index.html 
+   26  cat index.html 
+   27  history 
