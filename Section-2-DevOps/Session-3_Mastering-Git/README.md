@@ -56,7 +56,35 @@
 
 ### 🌟 **Master Git for DevOps Excellence**
 
-![Git Workflow Overview](./images/git-workflow-overview.svg)
+```mermaid
+graph TB
+    subgraph "Git Mastery Journey"
+        A[👨‍💻 Developer] --> B[📚 Learn Git Basics]
+        B --> C[🌿 Master Branching]
+        C --> D[🤝 Team Collaboration]
+        D --> E[🚀 DevOps Integration]
+        E --> F[⭐ Git Expert]
+    end
+    
+    subgraph "Key Benefits"
+        G[🔄 Version Control]
+        H[👥 Team Collaboration]
+        I[🚀 CI/CD Integration]
+        J[📊 Project Management]
+    end
+    
+    F --> G
+    F --> H
+    F --> I
+    F --> J
+    
+    style A fill:#e1f5fe
+    style F fill:#c8e6c9
+    style G fill:#fff3e0
+    style H fill:#fff3e0
+    style I fill:#fff3e0
+    style J fill:#fff3e0
+```
 
 </div>
 
@@ -248,7 +276,41 @@ Edit files → `git add` → `git commit` → `git push`
 
 ### 🌳 **Branching Strategies & Workflows**
 
-![Git Branching](./images/git-branching-strategies.svg)
+```mermaid
+gitgraph
+    commit id: "Initial"
+    branch develop
+    checkout develop
+    commit id: "Setup"
+    
+    branch feature/login
+    checkout feature/login
+    commit id: "Add form"
+    commit id: "Add validation"
+    
+    checkout develop
+    merge feature/login
+    commit id: "Integration"
+    
+    branch release/v1.0
+    checkout release/v1.0
+    commit id: "Bug fixes"
+    
+    checkout main
+    merge release/v1.0
+    commit id: "Release v1.0"
+    
+    checkout develop
+    merge main
+    
+    branch hotfix/security
+    checkout hotfix/security
+    commit id: "Security patch"
+    
+    checkout main
+    merge hotfix/security
+    commit id: "Hotfix v1.0.1"
+```
 
 </div>
 
@@ -319,7 +381,37 @@ release/v1.2.0
 
 ### 🤝 **Merge Strategies & Conflict Resolution**
 
-![Git Merging](./images/git-merge-strategies.svg)
+```mermaid
+graph TB
+    subgraph "Merge Strategies"
+        A[🌿 Feature Branch] --> B{Merge Type?}
+        B -->|Fast Forward| C[⚡ Linear History]
+        B -->|Three-way| D[🔀 Merge Commit]
+        B -->|Squash| E[📦 Single Commit]
+        B -->|Rebase| F[📏 Clean History]
+    end
+    
+    subgraph "Conflict Resolution"
+        G[⚔️ Conflict Detected] --> H[🔍 Identify Files]
+        H --> I[✏️ Edit Conflicts]
+        I --> J[✅ Mark Resolved]
+        J --> K[💾 Commit Merge]
+    end
+    
+    subgraph "Prevention"
+        L[🔄 Frequent Pulls]
+        M[📝 Small Commits]
+        N[💬 Team Communication]
+        O[🧪 Regular Testing]
+    end
+    
+    style G fill:#ffebee
+    style K fill:#e8f5e8
+    style L fill:#e1f5fe
+    style M fill:#e1f5fe
+    style N fill:#e1f5fe
+    style O fill:#e1f5fe
+```
 
 </div>
 
@@ -542,7 +634,46 @@ git branch -u origin/main
 
 ### 👥 **Team Collaboration Strategies**
 
-![Collaboration Workflows](./images/git-collaboration-workflows.svg)
+```mermaid
+graph TB
+    subgraph "GitHub Flow"
+        A[📝 Create Branch] --> B[💻 Add Commits]
+        B --> C[📤 Push Branch]
+        C --> D[🔄 Open Pull Request]
+        D --> E[👀 Code Review]
+        E --> F{Approved?}
+        F -->|Yes| G[✅ Merge to Main]
+        F -->|No| H[🔧 Address Feedback]
+        H --> B
+        G --> I[🚀 Deploy]
+    end
+    
+    subgraph "Team Roles"
+        J[👨‍💻 Developer]
+        K[👀 Reviewer]
+        L[🚀 DevOps Engineer]
+        M[📊 Project Manager]
+    end
+    
+    subgraph "Best Practices"
+        N[📝 Clear Commit Messages]
+        O[🔍 Thorough Code Reviews]
+        P[🧪 Automated Testing]
+        Q[📋 Documentation]
+    end
+    
+    J --> A
+    K --> E
+    L --> I
+    M --> D
+    
+    style G fill:#c8e6c9
+    style I fill:#e8f5e8
+    style N fill:#fff3e0
+    style O fill:#fff3e0
+    style P fill:#fff3e0
+    style Q fill:#fff3e0
+```
 
 </div>
 
@@ -680,7 +811,42 @@ jobs:
 
 ### 🔄 **Continuous Integration & Deployment**
 
-![CI/CD Pipeline](./images/git-cicd-pipeline.svg)
+```mermaid
+graph LR
+    subgraph "Developer Workflow"
+        A[👨‍💻 Code Changes] --> B[📤 Git Push]
+    end
+    
+    subgraph "CI/CD Pipeline"
+        B --> C[🔄 Trigger Pipeline]
+        C --> D[🏗️ Build Code]
+        D --> E[🧪 Run Tests]
+        E --> F{Tests Pass?}
+        F -->|✅ Yes| G[📦 Create Artifact]
+        F -->|❌ No| H[📧 Notify Developer]
+        G --> I[🚀 Deploy to Staging]
+        I --> J[🔍 Integration Tests]
+        J --> K{Ready for Prod?}
+        K -->|✅ Yes| L[🌟 Deploy to Production]
+        K -->|❌ No| M[🔧 Fix Issues]
+    end
+    
+    subgraph "Monitoring"
+        L --> N[📊 Monitor Performance]
+        N --> O[🚨 Alert on Issues]
+        O --> P[🔄 Feedback Loop]
+    end
+    
+    H --> A
+    M --> A
+    P --> A
+    
+    style F fill:#fff3e0
+    style K fill:#fff3e0
+    style L fill:#c8e6c9
+    style H fill:#ffebee
+    style M fill:#ffebee
+```
 
 </div>
 
