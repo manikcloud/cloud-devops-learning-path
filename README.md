@@ -1,4 +1,4 @@
-# ☁️ Cloud & DevOps Learning Path (avrun Manik)
+# ☁️ Cloud & DevOps Learning Path (Varun Manik)
 ## *Complete Professional Training Program for Modern IT Excellence*
 
 <div align="center">
